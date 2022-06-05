@@ -38,7 +38,7 @@
                   </g>
                 </g>
               </svg></span>
-            <h2 class="brand-text mb-0">{{env('APP_NAME')}}</h2>
+            <h2 class="brand-text mb-0">Vuexy</h2>
           </a>
         </li>
       </ul>
@@ -359,11 +359,15 @@
           href="{{ Route::has('profile.show') ? route('profile.show') : 'javascript:void(0)' }}">
           <i class="me-50" data-feather="user"></i> Profile
         </a>
+         {{--
+
+
         @if (Auth::check() && Laravel\Jetstream\Jetstream::hasApiFeatures())
           <a class="dropdown-item" href="{{ route('api-tokens.index') }}">
             <i class="me-50" data-feather="key"></i> API Tokens
           </a>
         @endif
+
         <a class="dropdown-item" href="#">
           <i class="me-50" data-feather="settings"></i> Settings
         </a>
@@ -392,9 +396,10 @@
               {{-- Below commented code read by artisan command while installing jetstream. !! Do not remove if you want to use jetstream. --}}
 
               {{-- <x-jet-switchable-team :team="$team" /> --}}
-            @endforeach
-          @endif
-        @endif
+          {{-- @endforeach
+         @endif
+       @endif
+         --}}
         @if (Auth::check())
           <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
