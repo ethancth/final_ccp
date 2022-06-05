@@ -72,7 +72,7 @@
           </g>
         </g>
       </svg>
-      <h2 class="brand-text text-primary ms-1">Vuexy</h2>
+      <h2 class="brand-text text-primary ms-1">{{env('APP_NAME')}}</h2>
     </a>
     <!-- /Brand logo-->
 

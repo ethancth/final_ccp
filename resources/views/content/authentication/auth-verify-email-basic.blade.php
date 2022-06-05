@@ -67,7 +67,7 @@
               </g>
             </g>
           </svg>
-          <h2 class="brand-text text-primary ms-1">Vuexy</h2>
+          <h2 class="brand-text text-primary ms-1">{{env('APP_NAME')}}</h2>
         </a>
 
         <h2 class="card-title fw-bolder mb-1">Verify your email ✉️</h2>
