@@ -36,14 +36,79 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('ecommerce', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce');
     });
 
+
+
 // Main Page Route
 
 
 /* Route Dashboards */
-Route::group(['prefix' => 'dashboard'], function () {
-    Route::get('analytics', [DashboardController::class, 'dashboardAnalytics'])->name('dashboard-analytics');
-    Route::get('ecommerce', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce');
-});
+
+Auth::routes(['verify' => true]);
+Route::group(['middleware' => ['auth', 'verified']],
+    function () {
+// Route Dashboards
+
+        // Route::get('/', 'UserPagesController@user_list')->name('user.list');
+        Route::get('/', 'DashboardController@dashboardEcommerce')->middleware('verified');;
+
+        Route::get('/dashboard-analytics', 'DashboardController@dashboardAnalytics')->name('dashboard.analytics');
+        Route::get('/dashboard-ecommerce', 'DashboardController@dashboardEcommerce')->name('dashboard.ecommerce');
+
+        //User Management
+        Route::resource('users', 'UserPagesController', ['only' => ['show', 'update', 'edit']]);
+        Route::get('/user-list', 'UserPagesController@user_list')->name('user.list');
+
+        //department
+        Route::resource('department', 'DepartmentController', ['only' => ['show', 'update', 'edit']]);
+        Route::get('/department', 'DepartmentController@list')->name('department.list');
+
+        //operating-expense
+        Route::resource('operating-expense', 'OperatingExpenseController', ['only' => ['create', 'update', 'edit', 'store']]);
+        Route::get('/operating-expense', 'OperatingExpenseController@list')->name('operating-expense');
+
+        //Cost Profile
+        Route::resource('cost-profile', 'CostProfileController', ['only' => ['create', 'update', 'edit', 'store']]);
+        Route::get('/cost-profile', 'CostProfileController@index')->name('cost-profile');
+
+        //Department Cost Profile
+        Route::resource('department-cost-profile', 'ClusterCostProfileController', ['only' => ['update', 'edit', 'store']]);
+        Route::get('/department-cost-profile', 'ClusterCostProfileController@index')->name('department-cost-profile');
+
+        //TODO VM TABLE
+        Route::get('/vm-table', 'VMController@table')->name('vm-table');
+        Route::get('/vm-all', 'VMController@display_vm_all_history')->name('vm-all');
+
+        //TODO datastore
+        Route::get('/datastore', 'DatastoreController@table')->name('datastore');
+        Route::resource('datastore', 'DatastoreController', ['only' => ['update', 'edit', 'store']]);
+
+        Route::resource('datastore-cost-profile', 'DatastoreCostProfileController', ['only' => ['create', 'update', 'edit', 'store']]);
+        Route::get('/datastore-cost-profile', 'DatastoreCostProfileController@index')->name('datastore-cost-profile');
+
+        //Project
+        Route::resource('project', 'ProjectController', ['only' => ['store']]);
+        Route::get('/project', 'ProjectController@list')->name('project');
+        Route::get('/project/{project}/info', 'ProjectController@info')->name('project.info');
+        Route::resource('projectvm', 'ProjectVmController', ['only' => ['store']]);
+
+        //Company
+
+        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);
+        Route::get('/company-staff', 'CompanyController@allstaff')->name('company.staff');
+        Route::get('/company-info', 'CompanyController@show')->name('company.info');
+
+
+        //Environment & Tier TODO store & update & edit
+        Route::resource('environment', 'EnvironmentController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
+
+        Route::resource('tier', 'TierController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
+
+        //operating-system
+        Route::resource('operating-system', 'OperatingSystemController', ['only' => ['create', 'update', 'edit', 'store']]);
+        Route::get('/operating-system', 'OperatingSystemController@list')->name('operating-system');
+
+
+    });
 /* Route Dashboards */
 
 /* Route Apps */
