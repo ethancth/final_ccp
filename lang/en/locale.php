@@ -1,6 +1,23 @@
 <?php
 
 return [
+    "Infrastructure" => "Infrastructure",
+    "Virtual Machine" => "Virtual Machine",
+    "User Management" => "User Management",
+    "All VM history" => "All VM history",
+    "Management" => "Management",
+    "User Management" => "User Management",
+    "Department Management" => "Department Management",
+    "Operating Expense Management" => "Operating Expense Management",
+    "Cost Profile" => "Cost Profile",
+    "Cost Profile Management" => "Cost Profile Management",
+    "Datastore" => "Datastore",
+    "Datastore Cost Profile" => "Datastore Cost Profile",
+    "Project" => "Project",
+    "Environment" => "Environment",
+    "Tier" => "Tier",
+    "Operating System" => "Operating System",
+    "Infrastructure" => "Infrastructure",
     "Apps & Pages" => "Apps & Pages",
     "User Interface" => "User Interface",
     "Dashboards" => "Dashboards",

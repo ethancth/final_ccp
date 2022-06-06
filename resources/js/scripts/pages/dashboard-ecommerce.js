@@ -59,9 +59,8 @@ $(window).on('load', function () {
 
   // On load Toast
   setTimeout(function () {
-    toastr['success'](
-      'You have successfully logged in to Vuexy. Now you can start to explore!',
-      '👋 Welcome John Doe!',
+    toastr['info'](
+      'Loading Inventory!',
       {
         closeButton: true,
         tapToDismiss: false,
@@ -242,7 +241,7 @@ $(window).on('load', function () {
     series: [53, 16, 31],
     legend: { show: false },
     comparedResult: [2, -3, 8],
-    labels: ['App', 'Service', 'Product'],
+    labels: ['App', 'Service', 'Hardware'],
     stroke: { width: 0 },
     colors: [$earningsStrokeColor2, $earningsStrokeColor3, window.colors.solid.success],
     grid: {
@@ -337,11 +336,11 @@ $(window).on('load', function () {
     series: [
       {
         name: 'Earning',
-        data: [95, 177, 284, 256, 105, 63, 168, 218, 72]
+        data: [95, 177, 284, 256, 105]
       },
       {
         name: 'Expense',
-        data: [-145, -80, -60, -180, -100, -60, -85, -75, -100]
+        data: [-145, -80, -60, -180, -100]
       }
     ],
     dataLabels: {
@@ -360,7 +359,7 @@ $(window).on('load', function () {
       }
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
       labels: {
         style: {
           colors: $textMutedColor,
@@ -404,10 +403,10 @@ $(window).on('load', function () {
     colors: [window.colors.solid.primary, $budgetStrokeColor2],
     series: [
       {
-        data: [61, 48, 69, 52, 60, 40, 79, 60, 59, 43, 62]
+        data: [61, 48, 69, 52, 60, 40, 79, 60, 59, 43]
       },
       {
-        data: [20, 10, 30, 15, 23, 0, 25, 15, 20, 5, 27]
+        data: [20, 10, 30, 15, 23, 0, 25, 15, 20, 5]
       }
     ],
     tooltip: {

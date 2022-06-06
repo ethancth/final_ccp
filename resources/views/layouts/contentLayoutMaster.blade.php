@@ -39,6 +39,3 @@ $configData = Helper::applClasses();
   @extends((( $configData["mainLayoutType"] === 'horizontal') ? 'layouts.horizontalLayoutMaster' :
   'layouts.verticalLayoutMaster' ))
 @endisset
-@if (config('app.debug'))
-    @include('sudosu::user-selector')
-@endif
