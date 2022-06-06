@@ -17,9 +17,10 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         \App\Models\OperationCost::factory(1)->create(0);
        // \App\Models\CostCategory::factory(10)->create(0);
-
+        //$this->factory(\App\Models\Project::class, 10000)->create();
         //$this->call(UsersTableSeeder::class);
         //D $this->call(DepartmentsSeeder::class);
+        \App\Models\Project::factory(100)->create();
         //$this->call(OperationCostTablesSeeder::Class);
         //$this->call(CostPaymentProfilesSeeder::Class);
         //$this->call(CostTypeProfilesSeeder::Class);
