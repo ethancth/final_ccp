@@ -60,25 +60,50 @@ $configData = Helper::applClasses();
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
         <h2 class="card-title fw-bold mb-1">Adventure starts here 🚀</h2>
         <p class="card-text mb-2">Make your app management easy and fun!</p>
-        <form class="auth-register-form mt-2" action="/" method="GET">
-          <div class="mb-1">
-            <label class="form-label" for="register-username">Username</label>
-            <input class="form-control" id="register-username" type="text" name="register-username" placeholder="johndoe" aria-describedby="register-username" autofocus="" tabindex="1" />
+        <form class="auth-register-form mt-2" action="{{ route('register') }}" method="GET">
+            @csrf
+            <div class="mb-1">
+            <label class="form-label" for="-username">Name</label>
+            <input class="form-control @error('name') is-invalid @enderror" type="text" value="{{ old('name') }}" id="name" name="name" placeholder="name" aria-describedby="register-username" required autocomplete="name"  autofocus="" tabindex="1" />
+              @error('name')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
           </div>
           <div class="mb-1">
-            <label class="form-label" for="register-email">Email</label>
-            <input class="form-control" id="register-email" type="text" name="register-email" placeholder="john@example.com" aria-describedby="register-email" tabindex="2" />
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control @error('email') is-invalid @enderror" id="email" type="text" name="email" placeholder="username@example.com" required autocomplete="email" aria-describedby="register-email" tabindex="2" />
+              @error('email')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
           </div>
           <div class="mb-1">
-            <label class="form-label" for="register-password">Password</label>
+            <label class="form-label" for="password">Password</label>
             <div class="input-group input-group-merge form-password-toggle">
-              <input class="form-control form-control-merge" id="register-password" type="password" name="register-password" placeholder="············" aria-describedby="register-password" tabindex="3" />
+              <input class="form-control form-control-merge @error('password') is-invalid @enderror" id="password" type="password" name="password" placeholder="············" required aria-describedby="register-password" tabindex="3" />
               <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                @error('password')
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                @enderror
             </div>
           </div>
+
+            <div class="mb-1">
+                <label class="form-label" for="password-confirm">Confirm Password</label>
+                <div class="input-group input-group-merge form-password-toggle">
+                    <input class="form-control form-control-merge" id="password-confirm" type="password" name="password_confirmation" placeholder="············" required aria-describedby="register-password" tabindex="4" />
+                    <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                </div>
+            </div>
+
           <div class="mb-1">
             <div class="form-check">
-              <input class="form-check-input" id="register-privacy-policy" type="checkbox" tabindex="4" />
+              <input class="form-check-input" id="register-privacy-policy" type="checkbox" tabindex="5" />
               <label class="form-check-label" for="register-privacy-policy">I agree to<a href="#">&nbsp;privacy policy & terms</a></label>
             </div>
           </div>

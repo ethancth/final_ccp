@@ -17,8 +17,6 @@ W
 routes/api.php,b/3/b337d07ab0e7d54bf5547a0321a43ecafbd73ec1
 M
 resources/js/core/app-menu.js,0/0/001b9a8ef448319de198bb0fd11bef1f172fb7b5
-T
-$resources/views/auth/login.blade.php,f/b/fb3cbd7f4b7fd6fa26794a37d7b2f8f783688ff9
 ^
 .resources/views/auth/passwords/reset.blade.php,3/9/393ec4c42846877e96602d009593e575b6e75202
 q

@@ -39,14 +39,14 @@ $(function () {
         $(element).valid();
       }, */
       rules: {
-        'register-username': {
+        'name': {
           required: true
         },
-        'register-email': {
+        'email': {
           required: true,
           email: true
         },
-        'register-password': {
+        'password': {
           required: true
         }
       }
