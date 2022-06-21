@@ -90,7 +90,7 @@
                     </form>
                     <p class="text-center mt-2">
                         <span>New on our platform?</span>
-                        <a href="{{url('auth/register-cover')}}"><span>&nbsp;Create an account</span></a>
+                        <a href="{{ route('register' )}}"><span>&nbsp;Create an account</span></a>
                     </p>
                     <div class="divider my-2">
                         <div class="divider-text">or</div>
