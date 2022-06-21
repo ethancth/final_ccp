@@ -15,7 +15,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
-
+use App\Http\Controllers\ProjectController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,6 +34,9 @@ Route::group(['middleware' => ['auth', 'verified']],
 
         Route::get('analytics', [DashboardController::class, 'dashboardAnalytics'])->name('dashboard-analytics');
         Route::get('ecommerce', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce');
+        //TODO VM TABLE
+        Route::get('vm-table', [VMController::class,'table'])->name('vm-table');
+        Route::get('vm-all', 'VMController@display_vm_all_history')->name('vm-all');
     });
 
 
@@ -49,10 +52,6 @@ Route::group(['middleware' => ['auth', 'verified']],
 // Route Dashboards
 
         // Route::get('/', 'UserPagesController@user_list')->name('user.list');
-        Route::get('/', 'DashboardController@dashboardEcommerce')->middleware('verified');;
-
-        Route::get('/dashboard-analytics', 'DashboardController@dashboardAnalytics')->name('dashboard.analytics');
-        Route::get('/dashboard-ecommerce', 'DashboardController@dashboardEcommerce')->name('dashboard.ecommerce');
 
         //User Management
         Route::resource('users', 'UserPagesController', ['only' => ['show', 'update', 'edit']]);
@@ -74,9 +73,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::resource('department-cost-profile', 'ClusterCostProfileController', ['only' => ['update', 'edit', 'store']]);
         Route::get('/department-cost-profile', 'ClusterCostProfileController@index')->name('department-cost-profile');
 
-        //TODO VM TABLE
-        Route::get('/vm-table', 'VMController@table')->name('vm-table');
-        Route::get('/vm-all', 'VMController@display_vm_all_history')->name('vm-all');
+
 
         //TODO datastore
         Route::get('/datastore', 'DatastoreController@table')->name('datastore');
@@ -86,10 +83,12 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/datastore-cost-profile', 'DatastoreCostProfileController@index')->name('datastore-cost-profile');
 
         //Project
-        Route::resource('project', 'ProjectController', ['only' => ['store']]);
-        Route::get('/project', 'ProjectController@list')->name('project');
-        Route::get('/project/{project}/info', 'ProjectController@info')->name('project.info');
-        Route::resource('projectvm', 'ProjectVmController', ['only' => ['store']]);
+
+        Route::get('/project', [ProjectController::class, 'list'])->name('project');
+        //Route::resource('project', 'ProjectController', ['only' => ['store']]);
+        //Route::get('/project', 'ProjectController@list')->name('project');
+        //Route::get('/project/{project}/info', 'ProjectController@info')->name('project.info');
+       // Route::resource('projectvm', 'ProjectVmController', ['only' => ['store']]);
 
         //Company
 

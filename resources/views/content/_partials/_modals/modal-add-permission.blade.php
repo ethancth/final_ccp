@@ -12,7 +12,7 @@
         </div>
         <form id="addPermissionForm" class="row" onsubmit="return false">
           <div class="col-12">
-            <label class="form-label" for="modalPermissionName">Permission Name</label>
+            <label class="form-label" for="modalPermissionName">Permission Name HEY</label>
             <input
               type="text"
               id="modalPermissionName"

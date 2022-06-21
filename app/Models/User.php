@@ -46,4 +46,32 @@ class User extends Authenticatable
     {
         return \Avatar::create($this->name)->toBase64();
     }
+    public function department()
+    {
+        //return $this->hasOne('App\Models\Department','department_id');
+        return $this->hasone('App\Models\Department', 'id', 'department_id');
+
+    }
+    public function project()
+    {
+        return $this->hasMany('App\Models\Project','owner','id')->where('is_delete', '=', '0');
+    }
+
+    public function is_department_hod()
+    {
+        return $this->hasone('App\Models\Department', 'id', 'department_id')->where('hod_id','=',$this->id);
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }
+    public function vm()
+    {
+        return $this->belongsToMany(Vmtable::Class, 'user_vms', 'user_id', 'vm_uuid');
+    }
+    public function company()
+    {
+        return $this->hasone('App\Models\Company', 'id', 'company_id');
+    }
 }

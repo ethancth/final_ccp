@@ -79,6 +79,7 @@ mix
     .sass('resources/scss/base/custom-rtl.scss', 'public/css-rtl', { sassOptions })
     .sass('resources/assets/scss/style-rtl.scss', 'public/css-rtl', { sassOptions })
     .sass('resources/assets/scss/style.scss', 'public/css', { sassOptions })
+    .version()
 
 mix.then(() => {
     if (process.env.MIX_CONTENT_DIRECTION === 'rtl') {
