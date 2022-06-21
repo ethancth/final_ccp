@@ -11,6 +11,10 @@ class Project extends Model
     protected $fillable = [
         'title', 'owner','created_at', 'updated_at'
     ];
+
+    protected $casts = [
+        'created_at' => 'date:d-m-Y',
+    ];
     public function vm()
     {
      //   return $this->hasMany(ProjectVm::class,'project_id','id');

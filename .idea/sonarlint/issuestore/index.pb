@@ -45,8 +45,6 @@ a
 +resources/views/panels/breadcrumb.blade.php,c/c/ccbdf9efa2b4a88aba34d45edbaf5415d24d4146
 J
 resources/data/kanban.json,6/d/6da9283b18cf4ad579063257c7b836480eb2a168
-M
-resources/data/user-list.json,e/e/eed8ebdd62f756eaeefacaf5bebb9d80a5b29505
 J
 resources/data/search.json,3/c/3ccccb1a706d43261c12b0c1c18129e27c3ee995
 U
@@ -149,13 +147,9 @@ C
 app/Models/User.php,a/9/a90f2e50cb06863b54effced365aa5f1fe7d9c88
 }
 Mresources/views/content/table/table-datatable/table-datatable-basic.blade.php,8/7/87388283e8341a171352202aade75a0a831c6ee1
-U
-%app/Http/Controllers/VMController.php,3/5/357e5241ffb88cc456255e1f3028d2f561012bd7
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
-X
-(app/Http/Controllers/TableController.php,c/7/c75921c17f8fa5aba23dae17e2c266970f8d27f5
 F
 app/Models/VmTable.php,e/4/e46988368a51cd0ce9ad64a7fd9f5607c64752f3
 E
@@ -184,7 +178,5 @@ e
 config/app.php,7/3/734f7be25e8008acc7129e73cd116d5de913e6fd
 I
 resources/js/bootstrap.js,2/a/2a602b14e912f494b7df1e17ce8d98958460f936
-W
-'app/Http/Controllers/AppsController.php,b/7/b71d9f5035e83670ad5aa2c278925ce1dc1dc356
 x
 Hresources/views/content/_partials/_modals/modal-add-permission.blade.php,4/5/45c35ccb478a938906244dd50809fa6f0aab908d
