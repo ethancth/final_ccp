@@ -51,12 +51,8 @@ M
 resources/data/user-list.json,e/e/eed8ebdd62f756eaeefacaf5bebb9d80a5b29505
 J
 resources/data/search.json,3/c/3ccccb1a706d43261c12b0c1c18129e27c3ee995
-\
-,resources/data/menu-data/horizontalMenu.json,1/a/1a9c4f390dd1ccedb10ba0e87038fe8aeb442891
 U
 %app/Providers/MenuServiceProvider.php,2/a/2aad50f973032198d5335f9c49b6c7abafc6865f
-Z
-*resources/data/menu-data/verticalMenu.json,d/4/d48f38ab8df80d77e0df39ed4252c436f360f285
 <
 lang/en.json,e/4/e481363e06e379f1f31d21296d4c1ffd06d962c8
 @

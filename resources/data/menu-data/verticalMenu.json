@@ -8,7 +8,7 @@
       "slug": "",
       "submenu": [
         {
-          "url": "dashboard/analytics",
+          "url": "analytics",
           "name": "Analytics",
           "icon": "circle",
           "slug": "dashboard-analytics"
@@ -21,6 +21,14 @@
         }
       ]
     },
+
+
+      {"url":"","navheader":"Project","icon":""},
+      {"url":"project","name":"Project", "icon":"grid","slug":"project"},
+      {"url":"environment.index","name":"Environment " ,"icon":"grid","slug":"Environment"},
+      {"url":"tier.index","name":"Tier", "icon":"grid","slug":"Tier"},
+      {"url":"operating-system","name":"Operating System" ,"icon":"grid","slug":"Operating System"},
+
       {"url":"","navheader":"Infrastructure","icon":""},
       {"url":"vm-table","name":"Virtual Machine", "icon":"grid","slug":"table-datatable"},
       {"url":"vm-all","name":"All VM history", "icon":"grid","slug":"table-datatable"},
@@ -32,12 +40,6 @@
       {"url":"department-cost-profile","name":"Cost Profile Management", "icon":"grid","slug":"Cost-Profile-Management"},
       {"url":"datastore","name":"Datastore", "icon":"grid","slug":"Datastore-Cost-Profile"},
       {"url":"datastore-cost-profile","name":"Datastore Cost Profile", "icon":"grid","slug":"Datastore-Cost-Profile"},
-
-      {"url":"","navheader":"Project","icon":""},
-      {"url":"project","name":"Project", "icon":"grid","slug":"Project"},
-      {"url":"environment.index","name":"Environment " ,"icon":"grid","slug":"Environment"},
-      {"url":"tier.index","name":"Tier", "icon":"grid","slug":"Tier"},
-      {"url":"operating-system","name":"Operating System" ,"icon":"grid","slug":"Operating System"},
 
 
       {
