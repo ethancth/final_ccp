@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('project_vms', function (Blueprint $table) {
+        Schema::create('project_servers', function (Blueprint $table) {
             $table->id();
             $table->integer('project_id');
             $table->integer('owner');
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_vms');
+        Schema::dropIfExists('project_servers');
     }
 };

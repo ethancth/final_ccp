@@ -36,8 +36,7 @@
     </div>
     <!--/ Permission Table -->
 
-    @include('content/_partials/_modals/modal-add-permission')
-    @include('content/_partials/_modals/modal-edit-permission')
+    @include('content/_partials/_modals/modal-create-project')
 @endsection
 
 @section('vendor-script')
@@ -52,7 +51,7 @@
 @endsection
 @section('page-script')
     <!-- Page js files -->
-    <script src="{{ asset(mix('js/scripts/pages/modal-add-permission.js')) }}"></script>
+    <script src="{{ asset(mix('js/scripts/pages/modal-create-project.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/pages/modal-edit-permission.js')) }}"></script>
     <script>
         $(function () {
@@ -107,7 +106,6 @@
                         {
                             // remove ordering from Name
                             targets: 2,
-                            orderable: false
                         },
                         {
                             // User Role
@@ -143,7 +141,7 @@
                             }
                         }
                     ],
-                    order: [[1, 'asc']],
+                    order: [[1, 'desc']],
                     dom:
                         '<"d-flex justify-content-between align-items-center header-actions text-nowrap mx-1 row mt-75"' +
                         '<"col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start" l>' +
@@ -155,17 +153,17 @@
                         '>',
                     language: {
                         sLengthMenu: 'Show _MENU_',
-                        search: 'Search1',
+                        search: 'Search',
                         searchPlaceholder: 'Search..'
                     },
                     // Buttons with Dropdown
                     buttons: [
                         {
-                            text: 'Add Permission',
+                            text: 'Create New Project',
                             className: 'add-new btn btn-primary mt-50',
                             attr: {
                                 'data-bs-toggle': 'modal',
-                                'data-bs-target': '#addPermissionModal'
+                                'data-bs-target': '#createProjectModal'
                             },
                             init: function (api, node, config) {
                                 $(node).removeClass('btn-secondary');

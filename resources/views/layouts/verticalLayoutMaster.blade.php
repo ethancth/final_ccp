@@ -14,6 +14,7 @@ data-asset-path="{{ asset('/')}}">
   @endif
   <!-- END: Main Menu-->
 
+
   <!-- BEGIN: Content-->
   <div class="app-content content {{ $configData['pageClass'] }}">
     <!-- BEGIN: Header-->
@@ -31,6 +32,15 @@ data-asset-path="{{ asset('/')}}">
       <div class="{{ $configData['contentsidebarClass'] }}">
         <div class="content-wrapper">
           <div class="content-body">
+              @foreach (['danger', 'warning', 'success', 'info', 'message'] as $msg)
+                  @if(session()->has($msg))
+                      <div class="flash-message">
+                          <p class="alert alert-{{ $msg }}">
+                              {{ session()->get($msg) }}
+                          </p>
+                      </div>
+                  @endif
+              @endforeach
             {{-- Include Page Content --}}
             @yield('content')
           </div>

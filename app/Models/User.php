@@ -66,9 +66,9 @@ class User extends Authenticatable
     {
         $this->attributes['name'] = strtolower($value);
     }
-    public function vm()
+    public function server()
     {
-        return $this->belongsToMany(Vmtable::Class, 'user_vms', 'user_id', 'vm_uuid');
+        return $this->hasMany(ProjectServer::Class,'owner', 'id');
     }
     public function company()
     {

@@ -15,9 +15,9 @@ class Project extends Model
     protected $casts = [
         'created_at' => 'date:d-m-Y',
     ];
-    public function vm()
+    public function server()
     {
-     //   return $this->hasMany(ProjectVm::class,'project_id','id');
+        return $this->hasMany(ProjectServer::class,'project_id','id');
     }
 
     public function journey()
@@ -27,6 +27,6 @@ class Project extends Model
 
     public function owner()
     {
-        return $this->hasone(User::class,'id','owner');
+        return $this->hasone(User::class,'owner','id');
     }
 }

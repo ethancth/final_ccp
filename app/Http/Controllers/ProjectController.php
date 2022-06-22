@@ -32,4 +32,15 @@ class ProjectController extends Controller
 
         return view('/content/project/project-home', ['pageConfigs' => $pageConfigs,'project' => $project]);
     }
+
+    public function store(Project $project, Request $request)
+    {
+        $project->fill($request->all());
+        $project->owner = Auth::id();
+        $project->title = $request->modalProjectName;
+        $project->save();
+        return redirect()->route('project')->with('success', 'Success！');
+
+
+    }
 }

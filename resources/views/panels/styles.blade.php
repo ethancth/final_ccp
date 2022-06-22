@@ -14,6 +14,14 @@
 <link rel="stylesheet" href="{{ asset(mix('css/base/themes/bordered-layout.css')) }}" />
 <link rel="stylesheet" href="{{ asset(mix('css/base/themes/semi-dark-layout.css')) }}" />
 
+
+<!-- Customize  Vendor CSS -->
+<link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-toastr.css')) }}">
+
+<!-- Customize page-style CSS -->
+<link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-toastr.css')) }}">
+
+
 @php $configData = Helper::applClasses(); @endphp
 
 <!-- BEGIN: Page CSS-->

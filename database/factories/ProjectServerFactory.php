@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserVm>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProjectServer>
  */
-class UserVmFactory extends Factory
+class ProjectServerFactory extends Factory
 {
     /**
      * Define the model's default state.
