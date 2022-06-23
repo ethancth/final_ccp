@@ -59,7 +59,7 @@
 
             var dataTableProjectIndex = $('.datatables-project-index'),
                 assetPath = '../../../app-assets/',
-                dt_permission,
+                dt_project_index,
                 userList = 'app-user-list.html',
                 statusObj = {
                     1: { title: 'Draft', class: 'badge-light-secondary' },
@@ -77,9 +77,8 @@
             }
             // Users List datatable
             if (dataTableProjectIndex.length) {
-                dt_permission = dataTableProjectIndex.DataTable({
+                dt_project_index = dataTableProjectIndex.DataTable({
 
-                    //ajax: assetPath + 'data/permissions-list.json', // JSON file to add data
                     ajax: "{{ route('project') }}", // JSON file to add data
                     columns: [
                         // columns according to JSON
@@ -107,7 +106,7 @@
                         },
 
                         {
-                            // Invoice ID
+                            // Project Name + link
                             targets: 2,
                             width: '46px',
                             render: function (data, type, full, meta) {
@@ -119,7 +118,7 @@
                             }
                         },
                         {
-                            // User Role
+                            // Project Status
                             targets: 3,
                             orderable: false,
                             render: function (data, type, full, meta) {
@@ -141,8 +140,10 @@
                             title: 'Actions',
                             orderable: false,
                             render: function (data, type, full, meta) {
+
                                 var $project_id = full['id'];
                                 return (
+
                                     '<a class="btn btn-sm btn-icon" href="'+projectHome+ $project_id+'">' +
                                     feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
                                     '</i></a>' +
@@ -164,10 +165,14 @@
                         '<"col-sm-12 col-md-6"p>' +
                         '>',
                     // language: {
-                    //     sLengthMenu: 'Show _MENU_',
-                    //     search: 'Search',
-                    //     searchPlaceholder: 'Search..'
-                    // },
+                        sLengthMenu: 'Show _MENU_',
+                        search: 'Search',
+                        searchPlaceholder: 'Search..',
+                        paginate: {
+                            // remove previous & next text from pagination
+                            previous: '&nbsp;',
+                            next: '&nbsp;'
+                        },
                     // Buttons with Dropdown
                     buttons: [
                         {
@@ -215,13 +220,6 @@
                             }
                         }
                     },
-                    language: {
-                        paginate: {
-                            // remove previous & next text from pagination
-                            previous: '&nbsp;',
-                            next: '&nbsp;'
-                        }
-                    },
                     initComplete: function () {
                         // Adding role filter once table initialized
                         this.api()
@@ -249,7 +247,7 @@
 
             // Delete Record
             $('.datatables-project-index tbody').on('click', '.delete-record', function () {
-                dt_permission.row($(this).parents('tr')).remove().draw();
+                dt_project_index.row($(this).parents('tr')).remove().draw();
             });
 
             // Filter form control to default size
