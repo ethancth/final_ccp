@@ -20,7 +20,7 @@
     <!-- Permission Table -->
     <div class="card">
         <div class="card-datatable table-responsive">
-            <table class="datatables-permissions table">
+            <table class="datatables-project-index table">
                 <thead class="table-light">
                 <tr>
                     <th></th>
@@ -57,7 +57,7 @@
         $(function () {
             'use strict';
 
-            var dataTablePermissions = $('.datatables-permissions'),
+            var dataTableProjectIndex = $('.datatables-project-index'),
                 assetPath = '../../../app-assets/',
                 dt_permission,
                 userList = 'app-user-list.html',
@@ -76,8 +76,8 @@
 
             }
             // Users List datatable
-            if (dataTablePermissions.length) {
-                dt_permission = dataTablePermissions.DataTable({
+            if (dataTableProjectIndex.length) {
+                dt_permission = dataTableProjectIndex.DataTable({
 
                     //ajax: assetPath + 'data/permissions-list.json', // JSON file to add data
                     ajax: "{{ route('project') }}", // JSON file to add data
@@ -141,10 +141,11 @@
                             title: 'Actions',
                             orderable: false,
                             render: function (data, type, full, meta) {
+                                var $project_id = full['id'];
                                 return (
-                                    '<button class="btn btn-sm btn-icon" data-bs-toggle="modal" data-bs-target="#editPermissionModal">' +
+                                    '<a class="btn btn-sm btn-icon" href="'+projectHome+ $project_id+'">' +
                                     feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</i></button>' +
+                                    '</i></a>' +
                                     '<button class="btn btn-sm btn-icon delete-record">' +
                                     feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
                                     '</button>'
@@ -247,7 +248,7 @@
             }
 
             // Delete Record
-            $('.datatables-permissions tbody').on('click', '.delete-record', function () {
+            $('.datatables-project-index tbody').on('click', '.delete-record', function () {
                 dt_permission.row($(this).parents('tr')).remove().draw();
             });
 

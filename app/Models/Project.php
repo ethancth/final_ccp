@@ -29,4 +29,9 @@ class Project extends Model
     {
         return $this->hasone(User::class,'owner','id');
     }
+
+    public function link($params = [])
+    {
+        return route('project.index', array_merge([$this->id], $params));
+    }
 }
