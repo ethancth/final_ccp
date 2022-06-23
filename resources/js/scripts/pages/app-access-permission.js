@@ -114,7 +114,12 @@ $(function () {
       language: {
         sLengthMenu: 'Show _MENU_',
         search: 'Search',
-        searchPlaceholder: 'Search..'
+        searchPlaceholder: 'Search..',
+          paginate: {
+              // remove previous & next text from pagination
+              previous: '&nbsp;',
+              next: '&nbsp;'
+          }
       },
       // Buttons with Dropdown
       buttons: [
@@ -161,13 +166,6 @@ $(function () {
 
             return data ? $('<table class="table"/><tbody />').append(data) : false;
           }
-        }
-      },
-      language: {
-        paginate: {
-          // remove previous & next text from pagination
-          previous: '&nbsp;',
-          next: '&nbsp;'
         }
       },
       initComplete: function () {

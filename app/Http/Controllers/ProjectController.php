@@ -12,7 +12,7 @@ class ProjectController extends Controller
 {
     //
 
-    public function list(Request $request)
+    public function index(Request $request)
     {
 
         $pageConfigs = ['pageHeader' => false,];
@@ -20,7 +20,6 @@ class ProjectController extends Controller
 
         if ($request->ajax()) {
             $data = User::find(Auth::id())->project;
-
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
@@ -43,4 +42,19 @@ class ProjectController extends Controller
 
 
     }
+
+    public function show(Request $request,Project $project)
+    {
+       $pageConfigs = ['pageHeader' => true,];
+        $breadcrumbs = [
+            ['link' => "/", 'name' => "Home"], ['link' => "javascript:void(0)", 'name' => "Project"], ['name' => $project->title]
+        ];
+        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs], compact('project'));
+    }
+
+    public function getEthanFunnyAttribute()
+    {
+        return "EHE";
+    }
+
 }

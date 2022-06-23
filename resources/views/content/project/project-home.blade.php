@@ -67,11 +67,13 @@
                     3: { title: 'Approve', class: 'badge-light-primary' },
                     4: { title: 'In-Provisioning', class: 'badge-light-info' },
                     5: { title: 'Complete', class: 'badge-light-success' },
-                };;
+                },
+                projectHome='project/';
 
             if ($('body').attr('data-framework') === 'laravel') {
                 assetPath = $('body').attr('data-asset-path');
                 userList = assetPath + 'app/user/list';
+
             }
             // Users List datatable
             if (dataTablePermissions.length) {
@@ -103,9 +105,18 @@
                             targets: 1,
                             visible: true
                         },
+
                         {
-                            // remove ordering from Name
+                            // Invoice ID
                             targets: 2,
+                            width: '46px',
+                            render: function (data, type, full, meta) {
+                                var $status = full['id'];
+                                var $status_title = full['title'];
+                                // Creates full output for row
+                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status+ '"> ' + $status_title + '</a>';
+                                return $rowOutput;
+                            }
                         },
                         {
                             // User Role
@@ -151,11 +162,11 @@
                         '<"col-sm-12 col-md-6"i>' +
                         '<"col-sm-12 col-md-6"p>' +
                         '>',
-                    language: {
-                        sLengthMenu: 'Show _MENU_',
-                        search: 'Search',
-                        searchPlaceholder: 'Search..'
-                    },
+                    // language: {
+                    //     sLengthMenu: 'Show _MENU_',
+                    //     search: 'Search',
+                    //     searchPlaceholder: 'Search..'
+                    // },
                     // Buttons with Dropdown
                     buttons: [
                         {
