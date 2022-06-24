@@ -33,39 +33,28 @@
                 </span>
               </button>
             </div>
-            <div class="step" data-target="#create-app-database" role="tab" id="create-app-database-trigger">
+            <div class="step" data-target="#create-app-operating-system" role="tab" id="create-app-operating-system-trigger">
               <button type="button" class="step-trigger py-75">
                 <span class="bs-stepper-box">
-                  <i data-feather="command" class="font-medium-3"></i>
+                  <i data-feather="server" class="font-medium-3"></i>
                 </span>
                 <span class="bs-stepper-label">
-                  <span class="bs-stepper-title">OS & Compute</span>
+                  <span class="bs-stepper-title">Operating System</span>
                   <span class="bs-stepper-subtitle">OS details</span>
                 </span>
               </button>
             </div>
-              <div class="step" data-target="#create-app-database-ex" role="tab" id="create-app-database-ex-trigger">
+              <div class="step" data-target="#create-app-ex-database-ex" role="tab" id="create-app-ex-database-ex-trigger">
                   <button type="button" class="step-trigger py-75">
                 <span class="bs-stepper-box">
-                  <i data-feather="command" class="font-medium-3"></i>
+                  <i data-feather="settings" class="font-medium-3"></i>
                 </span>
                       <span class="bs-stepper-label">
-                  <span class="bs-stepper-title">Database-ex</span>
-                  <span class="bs-stepper-subtitle">Payment details</span>
+                  <span class="bs-stepper-title">Compute Resource</span>
+                  <span class="bs-stepper-subtitle">Server config </span>
                 </span>
                   </button>
               </div>
-            <div class="step" data-target="#create-app-billing" role="tab" id="create-app-billing-trigger">
-              <button type="button" class="step-trigger py-75">
-                <span class="bs-stepper-box">
-                  <i data-feather="credit-card" class="font-medium-3"></i>
-                </span>
-                <span class="bs-stepper-label">
-                  <span class="bs-stepper-title">Billing</span>
-                  <span class="bs-stepper-subtitle">Payment details</span>
-                </span>
-              </button>
-            </div>
             <div class="step" data-target="#create-app-submit" role="tab" id="create-app-submit-trigger">
               <button type="button" class="step-trigger py-75">
                 <span class="bs-stepper-box">
@@ -89,63 +78,64 @@
               <h5 class="mt-2 pt-1">Environment</h5>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item border-0 px-0">
-                  <label for="createAppCrm" class="d-flex cursor-pointer">
+                  <label for="createAppProduction" class="d-flex cursor-pointer">
                     <span class="avatar avatar-tag bg-light-info me-1">
                       <i data-feather="briefcase" class="font-medium-5"></i>
                     </span>
                     <span class="d-flex align-items-center justify-content-between flex-grow-1">
                       <span class="me-1">
-                        <span class="h5 d-block fw-bolder">CRM Application</span>
+                        <span class="h5 d-block fw-bolder">Production</span>
                         <span>Scales with Any Business</span>
                       </span>
                       <span>
                         <input
                             class="form-check-input"
-                            id="createAppCrm"
+                            id="createAppProduction"
                             type="radio"
-                            name="categoryRadio" />
-                      </span>
-                    </span>
-                  </label>
-                </li>
-                <li class="list-group-item border-0 px-0">
-                  <label for="createAppEcommerce" class="d-flex cursor-pointer">
-                    <span class="avatar avatar-tag bg-light-success me-1">
-                      <i data-feather="shopping-cart" class="font-medium-5"></i>
-                    </span>
-                    <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                      <span class="me-1">
-                        <span class="h5 d-block fw-bolder">Ecommerce Platforms</span>
-                        <span>Grow Your Business With App</span>
-                      </span>
-                      <span>
-                        <input
-                          class="form-check-input"
-                          id="createAppEcommerce"
-                          type="radio"
-                          name="categoryRadio"
-                          checked
+                            name="categoryEnvironment"
+                            checked
                         />
                       </span>
                     </span>
                   </label>
                 </li>
                 <li class="list-group-item border-0 px-0">
-                  <label for="createAppOnlineLearning" class="d-flex cursor-pointer">
-                    <span class="avatar avatar-tag bg-light-danger me-1">
-                      <i data-feather="award" class="font-medium-5"></i>
+                  <label for="createAppStaging" class="d-flex cursor-pointer">
+                    <span class="avatar avatar-tag bg-light-success me-1">
+                      <i data-feather="layers" class="font-medium-5"></i>
                     </span>
                     <span class="d-flex align-items-center justify-content-between flex-grow-1">
                       <span class="me-1">
-                        <span class="h5 d-block fw-bolder">Online Learning platform</span>
-                        <span>Start learning today</span>
+                        <span class="h5 d-block fw-bolder">Staging</span>
+                        <span>One more step to Production</span>
                       </span>
                       <span>
                         <input
                           class="form-check-input"
-                          id="createAppOnlineLearning"
+                          id="createAppStaging"
                           type="radio"
-                          name="categoryRadio"
+                          name="categoryEnvironment"
+                        />
+                      </span>
+                    </span>
+                  </label>
+                </li>
+                <li class="list-group-item border-0 px-0">
+                  <label for="createAppDevelopment" class="d-flex cursor-pointer">
+                    <span class="avatar avatar-tag bg-light-danger me-1">
+                      <i data-feather="sliders" class="font-medium-5"></i>
+                    </span>
+                    <span class="d-flex align-items-center justify-content-between flex-grow-1">
+                      <span class="me-1">
+                        <span class="h5 d-block fw-bolder">Development</span>
+                        <span>Start develop today</span>
+                      </span>
+                      <span>
+                        <input
+                          class="form-check-input"
+                          id="createAppDevelopment"
+                          type="radio"
+                          name="categoryEnvironment"
                         />
                       </span>
                     </span>
@@ -219,7 +209,7 @@
                     <span class="d-flex align-items-center justify-content-between flex-grow-1">
                       <span class="me-1">
                         <span class="h5 d-block fw-bolder">Database</span>
-                        <span>Progressive framework.</span>
+                        <span>A way to store data.</span>
                       </span>
                       <span>
                         <input class="form-check-input" id="createTierDatabase" type="radio" name="tierRadio" />
@@ -240,45 +230,45 @@
               </div>
             </div>
 
-            <div id="create-app-database" class="content" role="tabpanel" aria-labelledby="create-app-database-trigger">
-              <h5>Database Name</h5>
+            <div id="create-app-operating-system" class="content" role="tabpanel" aria-labelledby="create-app-operating-system-trigger">
+              <h5>Operating System Name</h5>
 
-              <input class="form-control" type="text" name="database" placeholder="app_database" />
+              <input class="form-control" type="text" name="operatingsystem" placeholder="Prefer OS Name" />
 
-              <h5 class="mt-2 pt-1">Select Database Engine</h5>
+              <h5 class="mt-2 pt-1">Select Operating System Platform</h5>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item border-0 px-0">
-                  <label for="createAppFirebase" class="d-flex cursor-pointer">
+                  <label for="createAppWindows" class="d-flex cursor-pointer">
                     <span class="avatar avatar-tag bg-light-danger me-1">
-                      <img src="{{asset('images/icons/google.png')}}" height="25" alt="google" />
+                      <img src="{{asset('images/icons/iconsccp/microsoft-windows.png')}}" height="30" alt="Windows" />
                     </span>
                     <span class="d-flex align-items-center justify-content-between flex-grow-1">
                       <span class="me-1">
-                        <span class="h5 d-block fw-bolder">Firebase</span>
-                        <span>Cloud Firestore</span>
+                        <span class="h5 d-block fw-bolder">Microsoft Windows</span>
+                        <span>Microsoft Windows</span>
                       </span>
                       <span>
-                        <input class="form-check-input" id="createAppFirebase" type="radio" name="databaseRadio" />
+                        <input class="form-check-input" id="createAppWindows" type="radio" name="osRadio" />
                       </span>
                     </span>
                   </label>
                 </li>
                 <li class="list-group-item border-0 px-0">
-                  <label for="createAppDynamoDB" class="d-flex cursor-pointer">
+                  <label for="createAppRHEL" class="d-flex cursor-pointer">
                     <span class="avatar avatar-tag bg-light-secondary me-1">
-                      <img src="{{asset('images/icons/amazon.png')}}" height="25" alt="amazon" />
+                      <img src="{{asset('images/icons/iconsccp/rhel-48.png')}}" height="45" alt="RHEL" />
                     </span>
                     <span class="d-flex align-items-center justify-content-between flex-grow-1">
                       <span class="me-1">
-                        <span class="h5 d-block fw-bolder">DynamoDB</span>
-                        <span>Amazon Fast NoSQL Database</span>
+                        <span class="h5 d-block fw-bolder">Red Hat Enterprise Linux</span>
+                        <span>Red Hat Enterprise Linux</span>
                       </span>
                       <span>
                         <input
                           class="form-check-input"
-                          id="createAppDynamoDB"
+                          id="createAppRHEL"
                           type="radio"
-                          name="databaseRadio"
+                          name="osRadio"
                           checked
                         />
                       </span>
@@ -286,17 +276,17 @@
                   </label>
                 </li>
                 <li class="list-group-item border-0 px-0">
-                  <label for="createAppMysql" class="d-flex cursor-pointer">
+                  <label for="createAppCentos" class="d-flex cursor-pointer">
                     <span class="avatar avatar-tag bg-light-info me-1">
-                      <img src="{{asset('images/icons/database.png')}}" height="25" alt="database" />
+                      <img src="{{asset('images/icons/iconsccp/centos-48.png')}}" height="35" alt="Centos" />
                     </span>
                     <span class="d-flex align-items-center justify-content-between flex-grow-1">
                       <span class="me-1">
-                        <span class="h5 d-block fw-bolder">MySQL</span>
-                        <span>Basic MySQL database</span>
+                        <span class="h5 d-block fw-bolder">Centos</span>
+                        <span>Centos</span>
                       </span>
                       <span>
-                        <input class="form-check-input" id="createAppMysql" type="radio" name="databaseRadio" />
+                        <input class="form-check-input" id="createAppCentos" type="radio" name="osRadio" />
                       </span>
                     </span>
                   </label>
@@ -314,68 +304,18 @@
               </div>
             </div>
 
-              <div id="create-app-database-ex" class="content" role="tabpanel" aria-labelledby="create-app-database-ex-trigger">
-                  <h5>Database Name</h5>
+              <div id="create-app-ex-database-ex" class="content" role="tabpanel" aria-labelledby="create-app-ex-database-ex-trigger">
 
-                  <input class="form-control" type="text" name="database" placeholder="app_database" />
+                  <h5>vCPU</h5>
+                  <input class="form-control" type="text" name="vcpu" placeholder="number of vCPU run on server" />
 
-                  <h5 class="mt-2 pt-1">Select Database Engine1 </h5>
-                  <ul class="list-group list-group-flush">
-                      <li class="list-group-item border-0 px-0">
-                          <label for="createAppFirebase" class="d-flex cursor-pointer">
-                    <span class="avatar avatar-tag bg-light-danger me-1">
-                      <img src="{{asset('images/icons/google.png')}}" height="25" alt="google" />
-                    </span>
-                              <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                      <span class="me-1">
-                        <span class="h5 d-block fw-bolder">Firebase</span>
-                        <span>Cloud Firestore</span>
-                      </span>
-                      <span>
-                        <input class="form-check-input" id="createAppFirebase" type="radio" name="databaseRadio" />
-                      </span>
-                    </span>
-                          </label>
-                      </li>
-                      <li class="list-group-item border-0 px-0">
-                          <label for="createAppDynamoDB" class="d-flex cursor-pointer">
-                    <span class="avatar avatar-tag bg-light-secondary me-1">
-                      <img src="{{asset('images/icons/amazon.png')}}" height="25" alt="amazon" />
-                    </span>
-                              <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                      <span class="me-1">
-                        <span class="h5 d-block fw-bolder">DynamoDB</span>
-                        <span>Amazon Fast NoSQL Database</span>
-                      </span>
-                      <span>
-                        <input
-                            class="form-check-input"
-                            id="createAppDynamoDB"
-                            type="radio"
-                            name="databaseRadio"
-                            checked
-                        />
-                      </span>
-                    </span>
-                          </label>
-                      </li>
-                      <li class="list-group-item border-0 px-0">
-                          <label for="createAppMysql" class="d-flex cursor-pointer">
-                    <span class="avatar avatar-tag bg-light-info me-1">
-                      <img src="{{asset('images/icons/database.png')}}" height="25" alt="database" />
-                    </span>
-                              <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                      <span class="me-1">
-                        <span class="h5 d-block fw-bolder">MySQL</span>
-                        <span>Basic MySQL database</span>
-                      </span>
-                      <span>
-                        <input class="form-check-input" id="createAppMysql" type="radio" name="databaseRadio" />
-                      </span>
-                    </span>
-                          </label>
-                      </li>
-                  </ul>
+                  <h5 class="mt-2 pt-1">vMemory</h5>
+                  <input class="form-control" type="text" name="vmemory" placeholder="number of vMemory run on server" />
+
+                  <h5 class="mt-2 pt-1">Storage </h5>
+                  <input class="form-control" type="text" name="vdisk" placeholder="Server Storage" />
+
+
                   <div class="d-flex justify-content-between mt-2">
                       <button class="btn btn-primary btn-prev">
                           <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
