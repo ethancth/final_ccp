@@ -6,11 +6,17 @@
 <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')}}">
 <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/extensions/dataTables.checkboxes.css')}}">
 <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css')}}">
-<link rel="stylesheet" href="{{ asset(mix('css/base/pages/modal-create-app.css')) }}">
+<link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
+<link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
+
+
 @endsection
 
 @section('page-style')
 <link rel="stylesheet" href="{{asset('css/base/pages/app-invoice-list.css')}}">
+<link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-wizard.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/base/pages/modal-create-app.css')) }}">
 @endsection
 
 @section('content')
@@ -35,6 +41,7 @@
     </div>
   </div>
 </section>
+
 @include('content/_partials/_modals/modal-create-app')
 @endsection
 
@@ -46,6 +53,14 @@
 <script src="{{asset('vendors/js/tables/datatable/datatables.checkboxes.min.js')}}"></script>
 <script src="{{asset('vendors/js/tables/datatable/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('vendors/js/tables/datatable/responsive.bootstrap5.js')}}"></script>
+
+
+
+<script src="{{ asset(mix('vendors/js/forms/wizard/bs-stepper.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/forms/cleave/cleave.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/forms/cleave/addons/cleave-phone.us.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
 
 <script src="{{ asset(mix('js/scripts/pages/modal-create-app.js')) }}"></script>
 @endsection
@@ -294,10 +309,18 @@
                 // Buttons with Dropdown
                 buttons: [
                     {
-                        text: 'Add Record2',
-                        className: 'btn btn-primary btn-add-record ms-2',
-                        action: function (e, dt, button, config) {
-                            window.location = invoiceAdd;
+                        text: 'Add Record',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-primary waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+
+
+
+                        attr: {
+                            'data-bs-toggle': 'modal',
+                            'data-bs-target': '#createAppModal'
                         }
                     }
                 ],

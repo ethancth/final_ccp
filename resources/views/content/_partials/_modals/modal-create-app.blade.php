@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body pb-3 px-sm-3">
-        <h1 class="text-center mb-1" id="createAppTitle">Create App</h1>
+        <h1 class="text-center mb-1" id="createAppTitle">Create Server</h1>
         <p class="text-center mb-2">Provide application data with this form</p>
 
         <div class="bs-stepper vertical wizard-modern create-app-wizard">
@@ -18,17 +18,17 @@
                 </span>
                 <span class="bs-stepper-label">
                   <span class="bs-stepper-title">Details</span>
-                  <span class="bs-stepper-subtitle">Enter username</span>
+                  <span class="bs-stepper-subtitle">Enter Server Name</span>
                 </span>
               </button>
             </div>
-            <div class="step" data-target="#create-app-frameworks" role="tab" id="create-app-frameworks-trigger">
+            <div class="step" data-target="#create-app-tier" role="tab" id="create-app-tier-trigger">
               <button type="button" class="step-trigger py-75">
                 <span class="bs-stepper-box">
                   <i data-feather="package" class="font-medium-3"></i>
                 </span>
                 <span class="bs-stepper-label">
-                  <span class="bs-stepper-title">Frameworks</span>
+                  <span class="bs-stepper-title">Tier</span>
                   <span class="bs-stepper-subtitle">Enter Information</span>
                 </span>
               </button>
@@ -39,11 +39,22 @@
                   <i data-feather="command" class="font-medium-3"></i>
                 </span>
                 <span class="bs-stepper-label">
-                  <span class="bs-stepper-title">Database</span>
-                  <span class="bs-stepper-subtitle">Payment details</span>
+                  <span class="bs-stepper-title">OS & Compute</span>
+                  <span class="bs-stepper-subtitle">OS details</span>
                 </span>
               </button>
             </div>
+              <div class="step" data-target="#create-app-database-ex" role="tab" id="create-app-database-ex-trigger">
+                  <button type="button" class="step-trigger py-75">
+                <span class="bs-stepper-box">
+                  <i data-feather="command" class="font-medium-3"></i>
+                </span>
+                      <span class="bs-stepper-label">
+                  <span class="bs-stepper-title">Database-ex</span>
+                  <span class="bs-stepper-subtitle">Payment details</span>
+                </span>
+                  </button>
+              </div>
             <div class="step" data-target="#create-app-billing" role="tab" id="create-app-billing-trigger">
               <button type="button" class="step-trigger py-75">
                 <span class="bs-stepper-box">
@@ -70,11 +81,12 @@
 
           <!-- content -->
           <div class="bs-stepper-content shadow-none">
-            <div id="create-app-details" class="content" role="tabpanel" aria-labelledby="create-app-details-trigger">
-              <h5>Application Name</h5>
-              <input class="form-control" type="text" placeholder="Vuexy Admin" />
 
-              <h5 class="mt-2 pt-1">Category</h5>
+            <div id="create-app-details" class="content" role="tabpanel" aria-labelledby="create-app-details-trigger">
+              <h5>Server Name</h5>
+              <input class="form-control" type="text" placeholder="Server Name" />
+
+              <h5 class="mt-2 pt-1">Environment</h5>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item border-0 px-0">
                   <label for="createAppCrm" class="d-flex cursor-pointer">
@@ -87,7 +99,11 @@
                         <span>Scales with Any Business</span>
                       </span>
                       <span>
-                        <input class="form-check-input" id="createAppCrm" type="radio" name="categoryRadio" />
+                        <input
+                            class="form-check-input"
+                            id="createAppCrm"
+                            type="radio"
+                            name="categoryRadio" />
                       </span>
                     </span>
                   </label>
@@ -147,26 +163,28 @@
                 </button>
               </div>
             </div>
+
+
             <div
-              id="create-app-frameworks"
+              id="create-app-tier"
               class="content"
               role="tabpanel"
-              aria-labelledby="create-app-frameworks-trigger"
+              aria-labelledby="create-app-tier-trigger"
             >
-              <h5>Select Framework</h5>
+              <h5>Select Tier</h5>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item border-0 px-0">
                   <label for="createAppReactNative" class="d-flex cursor-pointer">
                     <span class="avatar avatar-tag bg-light-info me-1">
-                      <img src="{{asset('images/icons/technology/react.png')}}" height="25" alt="react" />
+                      <img src="{{asset('images/icons/iconsccp/web-48.png')}}" height="25" alt="web" />
                     </span>
                     <span class="d-flex align-items-center justify-content-between flex-grow-1">
                       <span class="me-1">
-                        <span class="h5 d-block fw-bolder">React Native</span>
+                        <span class="h5 d-block fw-bolder">Web</span>
                         <span>Create truly native apps</span>
                       </span>
                       <span>
-                        <input class="form-check-input" id="createAppReactNative" type="radio" name="frameworkRadio" />
+                        <input class="form-check-input" id="createTierWeb" type="radio" name="tierRadio" />
                       </span>
                     </span>
                   </label>
@@ -174,19 +192,19 @@
                 <li class="list-group-item border-0 px-0">
                   <label for="createAppAngular" class="d-flex cursor-pointer">
                     <span class="avatar avatar-tag bg-light-danger me-1">
-                      <img src="{{asset('images/icons/technology/angular.png')}}" height="25" alt="angular" />
+                      <img src="{{asset('images/icons/iconsccp/apps-48.png')}}" height="25" alt="apps" />
                     </span>
                     <span class="d-flex align-items-center justify-content-between flex-grow-1">
                       <span class="me-1">
-                        <span class="h5 d-block fw-bolder">Angular</span>
+                        <span class="h5 d-block fw-bolder">Apps</span>
                         <span>Most suited to your application</span>
                       </span>
                       <span>
                         <input
                           class="form-check-input"
-                          id="createAppAngular"
+                          id="createTierApp"
                           type="radio"
-                          name="frameworkRadio"
+                          name="tierRadio"
                           checked
                         />
                       </span>
@@ -196,31 +214,15 @@
                 <li class="list-group-item border-0 px-0">
                   <label for="createAppVue" class="d-flex cursor-pointer">
                     <span class="avatar avatar-tag bg-light-success me-1">
-                      <img src="{{asset('images/icons/technology/vue.png')}}" height="25" alt="vue" />
+                      <img src="{{asset('images/icons/iconsccp/database-40.png')}}" height="25" alt="database" />
                     </span>
                     <span class="d-flex align-items-center justify-content-between flex-grow-1">
                       <span class="me-1">
-                        <span class="h5 d-block fw-bolder">Vue</span>
+                        <span class="h5 d-block fw-bolder">Database</span>
                         <span>Progressive framework.</span>
                       </span>
                       <span>
-                        <input class="form-check-input" id="createAppVue" type="radio" name="frameworkRadio" />
-                      </span>
-                    </span>
-                  </label>
-                </li>
-                <li class="list-group-item border-0 px-0">
-                  <label for="createAppLaravel" class="d-flex cursor-pointer">
-                    <span class="avatar avatar-tag bg-light-warning me-1">
-                      <img src="{{asset('images/icons/technology/laravel.png')}}" height="25" alt="laravel" />
-                    </span>
-                    <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                      <span class="me-1">
-                        <span class="h5 d-block fw-bolder">Laravel</span>
-                        <span>PHP web framework</span>
-                      </span>
-                      <span>
-                        <input class="form-check-input" id="createAppLaravel" type="radio" name="frameworkRadio" />
+                        <input class="form-check-input" id="createTierDatabase" type="radio" name="tierRadio" />
                       </span>
                     </span>
                   </label>
@@ -237,6 +239,7 @@
                 </button>
               </div>
             </div>
+
             <div id="create-app-database" class="content" role="tabpanel" aria-labelledby="create-app-database-trigger">
               <h5>Database Name</h5>
 
@@ -310,6 +313,81 @@
                 </button>
               </div>
             </div>
+
+              <div id="create-app-database-ex" class="content" role="tabpanel" aria-labelledby="create-app-database-ex-trigger">
+                  <h5>Database Name</h5>
+
+                  <input class="form-control" type="text" name="database" placeholder="app_database" />
+
+                  <h5 class="mt-2 pt-1">Select Database Engine1 </h5>
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item border-0 px-0">
+                          <label for="createAppFirebase" class="d-flex cursor-pointer">
+                    <span class="avatar avatar-tag bg-light-danger me-1">
+                      <img src="{{asset('images/icons/google.png')}}" height="25" alt="google" />
+                    </span>
+                              <span class="d-flex align-items-center justify-content-between flex-grow-1">
+                      <span class="me-1">
+                        <span class="h5 d-block fw-bolder">Firebase</span>
+                        <span>Cloud Firestore</span>
+                      </span>
+                      <span>
+                        <input class="form-check-input" id="createAppFirebase" type="radio" name="databaseRadio" />
+                      </span>
+                    </span>
+                          </label>
+                      </li>
+                      <li class="list-group-item border-0 px-0">
+                          <label for="createAppDynamoDB" class="d-flex cursor-pointer">
+                    <span class="avatar avatar-tag bg-light-secondary me-1">
+                      <img src="{{asset('images/icons/amazon.png')}}" height="25" alt="amazon" />
+                    </span>
+                              <span class="d-flex align-items-center justify-content-between flex-grow-1">
+                      <span class="me-1">
+                        <span class="h5 d-block fw-bolder">DynamoDB</span>
+                        <span>Amazon Fast NoSQL Database</span>
+                      </span>
+                      <span>
+                        <input
+                            class="form-check-input"
+                            id="createAppDynamoDB"
+                            type="radio"
+                            name="databaseRadio"
+                            checked
+                        />
+                      </span>
+                    </span>
+                          </label>
+                      </li>
+                      <li class="list-group-item border-0 px-0">
+                          <label for="createAppMysql" class="d-flex cursor-pointer">
+                    <span class="avatar avatar-tag bg-light-info me-1">
+                      <img src="{{asset('images/icons/database.png')}}" height="25" alt="database" />
+                    </span>
+                              <span class="d-flex align-items-center justify-content-between flex-grow-1">
+                      <span class="me-1">
+                        <span class="h5 d-block fw-bolder">MySQL</span>
+                        <span>Basic MySQL database</span>
+                      </span>
+                      <span>
+                        <input class="form-check-input" id="createAppMysql" type="radio" name="databaseRadio" />
+                      </span>
+                    </span>
+                          </label>
+                      </li>
+                  </ul>
+                  <div class="d-flex justify-content-between mt-2">
+                      <button class="btn btn-primary btn-prev">
+                          <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
+                          <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                      </button>
+                      <button class="btn btn-primary btn-next">
+                          <span class="align-middle d-sm-inline-block d-none">Next</span>
+                          <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
+                      </button>
+                  </div>
+              </div>
+
             <div id="create-app-billing" class="content" role="tabpanel" aria-labelledby="create-app-billing-trigger">
               <h5 class="mb-1">Category</h5>
 

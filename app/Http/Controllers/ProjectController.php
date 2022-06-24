@@ -38,7 +38,7 @@ class ProjectController extends Controller
         $project->owner = Auth::id();
         $project->title = $request->modalProjectName;
         $project->save();
-        return redirect()->route('project')->with('success', 'Success！');
+        return redirect()->route('project.show', $project->id)->with('success', 'Success！');
 
 
     }
@@ -47,7 +47,7 @@ class ProjectController extends Controller
     {
        $pageConfigs = ['pageHeader' => true,];
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "javascript:void(0)", 'name' => "Project"], ['name' => $project->title]
+            ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title]
         ];
         return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs], compact('project'));
     }

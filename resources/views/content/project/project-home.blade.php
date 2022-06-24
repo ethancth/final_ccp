@@ -51,8 +51,6 @@
 @endsection
 @section('page-script')
     <!-- Page js files -->
-    <script src="{{ asset(mix('js/scripts/pages/modal-create-project.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/pages/modal-edit-permission.js')) }}"></script>
     <script>
         $(function () {
             'use strict';
@@ -60,7 +58,6 @@
             var dataTableProjectIndex = $('.datatables-project-index'),
                 assetPath = '../../../app-assets/',
                 dt_project_index,
-                userList = 'app-user-list.html',
                 statusObj = {
                     1: { title: 'Draft', class: 'badge-light-secondary' },
                     2: { title: 'Review', class: 'badge-light-warning' },
@@ -72,7 +69,6 @@
 
             if ($('body').attr('data-framework') === 'laravel') {
                 assetPath = $('body').attr('data-asset-path');
-                userList = assetPath + 'app/user/list';
 
             }
             // Users List datatable
