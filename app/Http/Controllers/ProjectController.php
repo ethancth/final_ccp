@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProjectServer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -52,9 +53,16 @@ class ProjectController extends Controller
         return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs], compact('project'));
     }
 
-    public function getEthanFunnyAttribute()
+    public function storeserver(ProjectServer $projectserver, Request $request)
     {
-        return "EHE";
+
+        $projectserver->fill($request->all());
+        $projectserver->owner = Auth::id();
+        $projectserver->save();
+        return redirect()->route('project.show', $projectserver->project_id)->with('success', 'Success！');
+
+
     }
+
 
 }

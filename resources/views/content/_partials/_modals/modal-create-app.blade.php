@@ -87,7 +87,7 @@
                             <form>
                                 <h5>Server Name</h5>
                                 <input class="form-control" type="text" placeholder="Server Name" value=""
-                                       id="username" name="username" />
+                                       id="servername" name="servername" />
 
                                 <h5 class="mt-2 pt-1">Environment</h5>
                                 <ul class="list-group list-group-flush">
@@ -102,8 +102,8 @@
                                                     <span>Scales with Any Business</span>
                                                 </span>
                                                 <span>
-                                                    <input class="form-check-input" id="createAppProduction"
-                                                           type="radio" name="categoryEnvironment" checked />
+                                                    <input class="form-check-input radioEnv" id="createAppProduction"
+                                                           type="radio" name="categoryEnvironment" value="production" checked/>
                                                 </span>
                                             </span>
                                         </label>
@@ -119,7 +119,7 @@
                                                     <span>One more step to Production</span>
                                                 </span>
                                                 <span>
-                                                    <input class="form-check-input" id="createAppStaging" type="radio"
+                                                    <input class="form-check-input radioEnv" id="createAppStaging" type="radio" value="staging"
                                                            name="categoryEnvironment" />
                                                 </span>
                                             </span>
@@ -136,8 +136,8 @@
                                                     <span>Start develop today</span>
                                                 </span>
                                                 <span>
-                                                    <input class="form-check-input" id="createAppDevelopment"
-                                                           type="radio" name="categoryEnvironment" />
+                                                    <input class="form-check-input radioEnv" id="createAppDevelopment"
+                                                           type="radio" value="development" name="categoryEnvironment" />
                                                 </span>
                                             </span>
                                         </label>
@@ -163,7 +163,7 @@
                                 <h5>Select Tier</h5>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item border-0 px-0">
-                                        <label for="createAppReactNative" class="d-flex cursor-pointer">
+                                        <label for="createTierWeb" class="d-flex cursor-pointer">
                                             <span class="avatar avatar-tag bg-light-info me-1">
                                                 <img src="{{asset('images/icons/iconsccp/web-48.png')}}" height="25"
                                                      alt="web" />
@@ -174,14 +174,14 @@
                                                     <span>Create truly native apps</span>
                                                 </span>
                                                 <span>
-                                                    <input class="form-check-input" id="createTierWeb" type="radio"
+                                                    <input class="form-check-input radioTier" value="web" id="createTierWeb" type="radio"
                                                            name="tierRadio" />
                                                 </span>
                                             </span>
                                         </label>
                                     </li>
                                     <li class="list-group-item border-0 px-0">
-                                        <label for="createAppAngular" class="d-flex cursor-pointer">
+                                        <label for="createTierApp" class="d-flex cursor-pointer">
                                             <span class="avatar avatar-tag bg-light-danger me-1">
                                                 <img src="{{asset('images/icons/iconsccp/apps-48.png')}}" height="25"
                                                      alt="apps" />
@@ -192,7 +192,7 @@
                                                     <span>Most suited to your application</span>
                                                 </span>
                                                 <span>
-                                                    <input class="form-check-input" id="createTierApp" type="radio"
+                                                    <input class="form-check-input radioTier" value="app" id="createTierApp" type="radio"
                                                            name="tierRadio" checked />
                                                 </span>
                                             </span>
@@ -210,7 +210,7 @@
                                                     <span>A way to store data.</span>
                                                 </span>
                                                 <span>
-                                                    <input class="form-check-input" id="createTierDatabase" type="radio"
+                                                    <input class="form-check-input radioTier" value="db" id="createTierDatabase" type="radio"
                                                            name="tierRadio" />
                                                 </span>
                                             </span>
@@ -236,7 +236,7 @@
                             <form>
                             <h5>Operating System Name</h5>
 
-                            <input class="form-control" type="text" name="operatingsystem"
+                            <input class="form-control" type="text" name="operatingsystem" id="operatingsystem"
                                    placeholder="Prefer OS version" />
 
                             <h5 class="mt-2 pt-1">Select Operating System Platform</h5>
@@ -350,7 +350,7 @@
                                     <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
                                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                 </button>
-                                <button class="btn btn-primary btn-next">
+                                <button class="btn btn-primary btn-next btn-review">
                                     <span class="align-middle d-sm-inline-block d-none">Next</span>
                                     <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                 </button>
@@ -360,40 +360,57 @@
                         <div id="create-app-review" class="content" role="tabpanel"
                              aria-labelledby="create-app-review-trigger">
                             <div class="col-sm-12 col-md-12">
-                                <form>
                                 <div class="card-header" style="
+                                    padding-top: 0px;
                                     padding-left: 0px;">
 
-                                    <h5 class="card-title" style="margin-bottom: 1px;" name="review_server">
-                                        ServerHostname <small class="text-muted"> Server</small>
-                                    </h5>
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="disabledInput">Server Name</label>
+                                            <p class="form-control-static" id="input_hostname">Production</p>
+                                        </div>
                                     <hr>
-                                    <h5 class="card-title" style="margin-bottom: 1px; ">
-                                        Production <small class="text-muted"> Environment</small>
-                                    </h5>
-                                    <hr>
-                                    <h5 class="card-title" style="margin-bottom: 1px; ">
-                                        Web <small class="text-muted"> Tier</small>
-                                    </h5>
-                                    <hr>
-                                    <h5 class="card-title" style="margin-bottom: 1px; ">
-                                        Microsoft Windows<small class="text-muted"> Operating System </small>
-                                    </h5>
-                                    <hr>
-                                    <h5 class="card-title" style="margin-bottom: 1px; ">
-                                        25 <small class="text-muted"> vCPU</small>
-                                    </h5>
-                                    <hr>
-                                    <h5 class="card-title" style="margin-bottom: 1px; ">
-                                        48 <small class="text-muted"> GB vMemory</small>
-                                    </h5>
-                                    <hr>
-                                    <h5 class="card-title" style="margin-bottom: 1px; ">
-                                        600 <small class="text-muted"> GB vStorage</small>
-                                    </h5>
-
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="disabledInput">Environment</label>
+                                            <p class="form-control-static" id="input_environment">Production</p>
+                                        </div>
+                                        <hr style="margin-top: 5px;margin-bottom: 5px;">
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="disabledInput">Tier</label>
+                                            <p class="form-control-static" id="input_tier">WEB</p>
+                                        </div>
+                                        <hr style="margin-top: 5px;margin-bottom: 5px;">
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="disabledInput">Operating System</label>
+                                            <p class="form-control-static" id="input_prefer_os">WEB</p>
+                                        </div>
+                                        <hr style="margin-top: 5px;margin-bottom: 5px;">
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="disabledInput">vCPU</label>
+                                            <p class="form-control-static" id="input_vcpu">WEB</p>
+                                        </div>
+                                        <hr style="margin-top: 5px;margin-bottom: 5px;">
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="disabledInput">vMemory (GB)</label>
+                                            <p class="form-control-static" id="input_vmemory">WEB</p>
+                                        </div>
+                                    <hr style="margin-top: 5px;margin-bottom: 5px;">
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="disabledInput">vStorage (GB)</label>
+                                            <p class="form-control-static" id="input_vstorage">WEB</p>
+                                        </div>
+                                    <form id="projectstoreserver" action="{{route("project.storeserver")}}" method="POST" accept-charset="UTF-8">
+                                        <input class="hidden"  name="_token" value="{{ csrf_token() }}">
+                                        <input class="hidden" name="project_id" value="{{ $project->id }}">
+                                        <input class="hidden"  id="hostname" name="hostname" value="">
+                                        <input class="hidden" id="environement" name="environment" value="">
+                                        <input class="hidden" id="tier" name="tier" value="">
+                                        <input class="hidden" id="operating_system" name="operating_system" value="">
+                                        <input class="hidden" id="v_cpu" name="v_cpu" value="">
+                                        <input class="hidden" id="v_memory" name="v_memory" value="">
+                                        <input class="hidden" id="total_storage" name="total_storage" value="">
+                                    </form>
                                 </div>
-                                </form>
+                                <form></form>
 
 
 
@@ -403,7 +420,7 @@
                                         <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                     </button>
                                     <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Submit</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
                                 </div>

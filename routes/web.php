@@ -87,6 +87,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/project', [ProjectController::class, 'index'])->name('project');
         Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
         Route::get('/project/{project}', [ProjectController::class, 'show'])->name('project.show');
+        Route::post('/projectserver', [ProjectController::class, 'storeserver'])->name('project.storeserver');
         //Route::resource('project', 'ProjectController', ['only' => ['store']]);
         //Route::get('/project', 'ProjectController@list')->name('project');
         //Route::get('/project/{project}/info', 'ProjectController@info')->name('project.info');

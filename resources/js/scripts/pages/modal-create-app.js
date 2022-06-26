@@ -27,8 +27,9 @@ $(function () {
           var $this = $(this);
           $this.validate({
               rules: {
-                  username: {
+                  servername: {
                       required: true
+
                   },
                   operatingsystem: {
                       required: true
@@ -59,8 +60,38 @@ $(function () {
       });
 
     $(modernVerticalWizard)
+      .find('.btn-review')
+      .on('click', function () {
+         // var vmos=document.getElementsByName('');
+
+          var get_radio_environment = $("input[type='radio'].radioEnv:checked").val();
+          var get_radio_tier = $("input[type='radio'].radioTier:checked").val();
+          var get_radio_os = $("input[type='radio'].radioEnv:checked").val();
+
+          var v_storage=pipsRangevstorage.noUiSlider.get();
+          document.getElementById("hostname").value = $("input[name=servername]").val();
+          document.getElementById("environement").value = get_radio_environment;
+          document.getElementById("tier").value = get_radio_tier;
+          document.getElementById("operating_system").value = $("input[name=operatingsystem]").val();
+          document.getElementById("v_cpu").value = pipsRangevCPU.noUiSlider.get();
+          document.getElementById("v_memory").value = pipsRangevMemory.noUiSlider.get();
+          document.getElementById("total_storage").value = pipsRangevstorage.noUiSlider.get();
+
+          input_environment.innerText = get_radio_environment;
+          input_tier.innerText = get_radio_tier;
+          input_hostname.innerText = $("input[name=servername]").val();
+          input_prefer_os.innerText = $("input[name=operatingsystem]").val();
+          input_vcpu.innerText = pipsRangevCPU.noUiSlider.get();
+          input_vmemory.innerText = pipsRangevMemory.noUiSlider.get();
+          input_vstorage.innerText = pipsRangevstorage.noUiSlider.get();
+      });
+
+    $(modernVerticalWizard)
       .find('.btn-submit')
       .on('click', function () {
+         // var vmos=document.getElementsByName('');
+
+          document.forms["projectstoreserver"].submit();
         alert('Submitted..!!');
       });
 
