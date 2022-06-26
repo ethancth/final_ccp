@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css')}}">
 <link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
 <link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/nouislider.min.css')) }}">
+
 
 
 @endsection
@@ -17,6 +19,7 @@
 <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-wizard.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('css/base/pages/modal-create-app.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-sliders.css')) }}">
 @endsection
 
 @section('content')
@@ -61,6 +64,7 @@
 <script src="{{ asset(mix('vendors/js/forms/cleave/cleave.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/forms/cleave/addons/cleave-phone.us.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/extensions/nouislider.min.js')) }}"></script>
 
 <script src="{{ asset(mix('js/scripts/pages/modal-create-app.js')) }}"></script>
 @endsection
@@ -82,6 +86,7 @@
             invoiceAdd = assetPath + 'app/invoice/add';
             invoiceEdit = assetPath + 'app/invoice/edit';
         }
+
 
         // datatable
         if (dtInvoiceTable.length) {
