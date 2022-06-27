@@ -13,8 +13,9 @@ class ProjectController extends Controller
 {
     //
 
-    public function index(Request $request)
+    public function index(Request $request,Project $project)
     {
+
 
         $pageConfigs = ['pageHeader' => false,];
         $project= User::find(Auth::id())->project;
@@ -40,13 +41,17 @@ class ProjectController extends Controller
         $project->title = $request->modalProjectName;
         $project->status = 1;
         $project->save();
-        return redirect()->route('project.show', $project->id)->with('success', 'Success！');
+        //return redirect()->route('project.show', $project->id)->with('success', 'Success！');
+        return redirect()->to($project->link())->with('success', 'Success！');
 
 
     }
 
     public function show(Request $request,Project $project)
     {
+        if ( !empty($project->slug) && $project->slug != $request->slug) {
+            return redirect($project->link(), 301);
+        }
        $pageConfigs = ['pageHeader' => true,];
         if ($request->ajax()) {
             $data =$project->server;

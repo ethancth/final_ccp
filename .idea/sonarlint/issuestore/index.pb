@@ -1,8 +1,6 @@
 
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-<
-.env.example,d/4/d4dae00d11854b35292c2b8a30515a9a0aa2d871
 {
 Kresources/views/content/authentication/auth-forgot-password-basic.blade.php,9/8/98c8895202906975ea9d7b659d1cdceb4e99bd5d
 d

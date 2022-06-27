@@ -109,7 +109,7 @@
                                 var $status = full['id'];
                                 var $status_title = full['title'];
                                 // Creates full output for row
-                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status+ '"> ' + $status_title + '</a>';
+                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>';
                                 return $rowOutput;
                             }
                         },

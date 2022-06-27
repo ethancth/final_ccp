@@ -9,7 +9,7 @@ class Project extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title', 'owner','created_at', 'updated_at'
+        'title', 'owner','created_at', 'updated_at', 'slug'
     ];
 
     protected $casts = [
@@ -32,6 +32,6 @@ class Project extends Model
 
     public function link($params = [])
     {
-        return route('project.index', array_merge([$this->id], $params));
+        return route('project.show', array_merge([$this->id,$this->slug], $params));
     }
 }
