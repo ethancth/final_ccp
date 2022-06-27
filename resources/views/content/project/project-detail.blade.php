@@ -91,7 +91,8 @@
         // datatable
         if (dtInvoiceTable.length) {
             var dtInvoice = dtInvoiceTable.DataTable({
-                ajax: assetPath + 'data/invoice-list.json', // JSON file to add data
+                //ajax: assetPath + 'data/invoice-list.json', // JSON file to add data
+                ajax: assetPath + '{{ route('project.show',$project->id) }}',
                 autoWidth: false,
                 columns: [
                     // columns according to JSON
@@ -173,14 +174,14 @@
                                 $name = full['client_name'],
                                 $initials = $name.match(/\b\w/g) || [];
                             $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-                            if ($image) {
+                           // if ($image) {
                                 // For Avatar image
-                                var $output =
-                                    '<img  src="' + assetPath + 'images/avatars/' + $image + '" alt="Avatar" width="32" height="32">';
-                            } else {
+                               // var $output =
+                              //      '<img  src="' + assetPath + 'images/avatars/' + $image + '" alt="Avatar" width="32" height="32">';
+                            //} else {
                                 // For Avatar badge
-                                $output = '<div class="avatar-content">' + $initials + '</div>';
-                            }
+                                var  $output = '<div class="avatar-content">' + $initials + '</div>';
+                           // }
                             // Creates full output for row
                             var colorClass = $image === '' ? ' bg-light-' + $state + ' ' : ' ';
 

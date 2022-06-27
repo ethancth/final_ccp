@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title', 100);
             $table->integer('owner');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->integer('department_id')->unsigned()->default(0);
             $table->integer('is_delete')->default('0');
             $table->timestamps();

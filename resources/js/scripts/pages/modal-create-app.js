@@ -66,13 +66,15 @@ $(function () {
 
           var get_radio_environment = $("input[type='radio'].radioEnv:checked").val();
           var get_radio_tier = $("input[type='radio'].radioTier:checked").val();
-          var get_radio_os = $("input[type='radio'].radioEnv:checked").val();
+          var get_radio_os = $("input[type='radio'].osradio:checked").val();
 
+          alert(get_radio_os);
           var v_storage=pipsRangevstorage.noUiSlider.get();
           document.getElementById("hostname").value = $("input[name=servername]").val();
           document.getElementById("environement").value = get_radio_environment;
           document.getElementById("tier").value = get_radio_tier;
           document.getElementById("operating_system").value = $("input[name=operatingsystem]").val();
+          document.getElementById("operating_system_option").value = get_radio_os;
           document.getElementById("v_cpu").value = pipsRangevCPU.noUiSlider.get();
           document.getElementById("v_memory").value = pipsRangevMemory.noUiSlider.get();
           document.getElementById("total_storage").value = pipsRangevstorage.noUiSlider.get();

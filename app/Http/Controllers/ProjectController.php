@@ -47,6 +47,16 @@ class ProjectController extends Controller
     public function show(Request $request,Project $project)
     {
        $pageConfigs = ['pageHeader' => true,];
+        if ($request->ajax()) {
+            $data =$project->server;
+            return Datatables::of($data)
+//                ->addColumn('action', function($row){
+//                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+//                    return $btn;
+//                })
+//                ->rawColumns(['action'])
+                ->make(true);
+        }
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title]
         ];

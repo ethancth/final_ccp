@@ -18,9 +18,10 @@ return new class extends Migration
             $table->integer('project_id');
             $table->integer('owner');
             $table->string('hostname');
-            $table->integer('operating_system');
-            $table->integer('tier');
-            $table->integer('environment');
+            $table->string('operating_system');
+            $table->string('operating_system_option');
+            $table->string('tier');
+            $table->string('environment');
             $table->integer('v_cpu');
             $table->decimal('cpu_price',10,2)->nullable();
             $table->integer('v_memory');

@@ -253,7 +253,7 @@
                                                 <span>Microsoft Windows</span>
                                             </span>
                                             <span>
-                                                <input class="form-check-input" id="createAppWindows" type="radio"
+                                                <input class="form-check-input osradio" value="microsoftwindows" id="createAppWindows" type="radio"
                                                        name="osRadio" />
                                             </span>
                                         </span>
@@ -271,7 +271,7 @@
                                                 <span>Red Hat Enterprise Linux</span>
                                             </span>
                                             <span>
-                                                <input class="form-check-input" id="createAppRHEL" type="radio"
+                                                <input class="form-check-input osradio" value="rhel" id="createAppRHEL" type="radio"
                                                        name="osRadio" checked />
                                             </span>
                                         </span>
@@ -289,7 +289,7 @@
                                                 <span>Centos</span>
                                             </span>
                                             <span>
-                                                <input class="form-check-input" id="createAppCentos" type="radio"
+                                                <input class="form-check-input osradio" value="centos" id="createAppCentos" type="radio"
                                                        name="osRadio" />
                                             </span>
                                         </span>
@@ -405,6 +405,7 @@
                                         <input class="hidden" id="environement" name="environment" value="">
                                         <input class="hidden" id="tier" name="tier" value="">
                                         <input class="hidden" id="operating_system" name="operating_system" value="">
+                                        <input class="hidden" id="operating_system_option" name="operating_system_option" value="">
                                         <input class="hidden" id="v_cpu" name="v_cpu" value="">
                                         <input class="hidden" id="v_memory" name="v_memory" value="">
                                         <input class="hidden" id="total_storage" name="total_storage" value="">
