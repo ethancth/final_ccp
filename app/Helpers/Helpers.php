@@ -144,7 +144,7 @@ class Helpers
 
     function model_link($title, $model, $prefix = '')
     {
-        // 获取数据模型的复数蛇形命名
+
         $model_name = model_plural_name($model);
 
         // 初始化前缀

@@ -27,8 +27,6 @@ b
 2resources/views/layouts/fullLayoutMaster.blade.php,f/1/f100334653d289aaf4ce9a31db2598b982ab0a09
 =
 composer.json,3/9/3957b91a0d8450cea0115cfd5af69eac90d75897
-W
-'resources/views/panels/navbar.blade.php,b/6/b69f062d1d9a9b6cdcd8844af2776ec97ed6d2cb
 o
 ?resources/views/content/dashboard/dashboard-ecommerce.blade.php,3/e/3e4c24cdf045a091a171bbbacf2493779a7e4836
 a
