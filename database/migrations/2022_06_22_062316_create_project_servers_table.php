@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('owner');
             $table->string('hostname');
             $table->string('operating_system');
-            $table->string('operating_system_option');
+            $table->string('operating_system_option')->nullable();
             $table->string('tier');
             $table->string('environment');
             $table->integer('v_cpu');
