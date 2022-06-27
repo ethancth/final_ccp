@@ -92,19 +92,29 @@
         if (dtInvoiceTable.length) {
             var dtInvoice = dtInvoiceTable.DataTable({
                 //ajax: assetPath + 'data/invoice-list.json', // JSON file to add data
-                ajax: assetPath + '{{ route('project.show',$project->id) }}',
+                ajax:'{{ route('project.show',$project->id) }}',
                 autoWidth: false,
                 columns: [
                     // columns according to JSON
-                    { data: 'responsive_id' },
-                    { data: 'invoice_id' },
-                    { data: 'invoice_status' },
-                    { data: 'issued_date' },
-                    { data: 'client_name' },
-                    { data: 'total' },
-                    { data: 'balance' },
-                    { data: 'invoice_status' },
+                    { data: 'id' },
+                    { data: 'project_id' },
+                    { data: 'environment' },
+                    { data: 'created_at' },
+                    { data: 'hostname' },
+                    { data: 'total_storage' },
+                    { data: 'environment' },
+                    { data: 'environment' },
                     { data: '' }
+
+                    // { data: 'responsive_id' },
+                    // { data: 'invoice_id' },
+                    // { data: 'invoice_status' },
+                    // { data: 'issued_date' },
+                    // { data: 'client_name' },
+                    // { data: 'total' },
+                    // { data: 'balance' },
+                    // { data: 'invoice_status' },
+                    // { data: '' }
                 ],
                 columnDefs: [
                     {
@@ -114,39 +124,38 @@
                         targets: 0
                     },
                     {
-                        // Invoice ID
+                        // Project ID
                         targets: 1,
                         width: '46px',
                         render: function (data, type, full, meta) {
-                            var $invoiceId = full['invoice_id'];
+                            var $invoiceId = full['id'];
                             // Creates full output for row
                             var $rowOutput = '<a class="fw-bold" href="' + invoicePreview + '"> #' + $invoiceId + '</a>';
                             return $rowOutput;
                         }
                     },
                     {
-                        // Invoice status
+                        // environment
                         targets: 2,
                         width: '42px',
                         render: function (data, type, full, meta) {
-                            var $invoiceStatus = full['invoice_status'],
-                                $dueDate = full['due_date'],
-                                $balance = full['balance'],
+                            var $invoiceStatus = full['environment'],
+                             $field_environment = full['environment'],
+                                $field_tier = full['tier'],
+                                $dueDate = full['created_at'],
+                                $balance = full['price'],
                                 roleObj = {
-                                    Sent: { class: 'bg-light-secondary', icon: 'send' },
-                                    Paid: { class: 'bg-light-success', icon: 'check-circle' },
-                                    Draft: { class: 'bg-light-primary', icon: 'save' },
+                                    production: { class: 'bg-light-info', icon: 'briefcase' },
+                                    development: { class: 'bg-light-danger', icon: 'sliders' },
+                                    staging: { class: 'bg-light-success', icon: 'layers' },
                                     Downloaded: { class: 'bg-light-info', icon: 'arrow-down-circle' },
                                     'Past Due': { class: 'bg-light-danger', icon: 'info' },
                                     'Partial Payment': { class: 'bg-light-warning', icon: 'pie-chart' }
                                 };
                             return (
-                                "<span data-bs-toggle='tooltip' data-bs-html='true' title='<span>" +
-                                $invoiceStatus +
-                                '<br> <span class="fw-bold">Balance:</span> ' +
-                                $balance +
-                                '<br> <span class="fw-bold">Due Date:</span> ' +
-                                $dueDate +
+                                "<span data-bs-toggle='tooltip' data-bs-html='true' title='<span>Detail: " +
+                                '<br> <span class="fw-bold">Environment:</span> ' +$field_environment+
+                                '<br> <span class="fw-bold">Tier:</span> ' +$field_tier+
                                 "</span>'>" +
                                 '<div class="avatar avatar-status ' +
                                 roleObj[$invoiceStatus].class +
@@ -163,24 +172,24 @@
                         // Client name and Service
                         targets: 3,
                         responsivePriority: 4,
-                        width: '270px',
+                        width: '130px',
                         render: function (data, type, full, meta) {
-                            var $name = full['client_name'],
-                                $email = full['email'],
-                                $image = full['avatar'],
+                            var $name = full['hostname'],
+                                $email = full['operating_system'],
+                                $image = full['operating_system_option']+'.png',
                                 stateNum = Math.floor(Math.random() * 6),
                                 states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'],
                                 $state = states[stateNum],
-                                $name = full['client_name'],
+                                $name = full['hostname'],
                                 $initials = $name.match(/\b\w/g) || [];
                             $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
                            // if ($image) {
                                 // For Avatar image
-                               // var $output =
-                              //      '<img  src="' + assetPath + 'images/avatars/' + $image + '" alt="Avatar" width="32" height="32">';
+                                var $output =
+                                    '<img  src="' + assetPath + 'images/avatars/' + $image + '" alt="Avatar" width="32" height="32">';
                             //} else {
                                 // For Avatar badge
-                                var  $output = '<div class="avatar-content">' + $initials + '</div>';
+                                //var  $output = '<div class="avatar-content">' + $initials + '</div>';
                            // }
                             // Creates full output for row
                             var colorClass = $image === '' ? ' bg-light-' + $state + ' ' : ' ';
@@ -209,10 +218,15 @@
                     {
                         // Total Invoice Amount
                         targets: 4,
-                        width: '73px',
+                        width: '120px',
                         render: function (data, type, full, meta) {
-                            var $total = full['total'];
-                            return '<span class="d-none">' + $total + '</span>$' + $total;
+                            var $v_cpu = full['v_cpu'];
+                            var $v_memory = full['v_memory'];
+                            var $total_storage = full['total_storage'];
+                            var $total = full['price'];
+                            return '<span class="d-none">' + $total + '</span>' + $v_cpu + ' vCPU '+' <p style=" margin-bottom: 0px; ">'+$v_memory + ' GB vMemory '+'</p><p style=" margin-bottom: 0px; ">' +
+                                $total_storage + ' GB Storage'+
+                            '</p>' ;
                         }
                     },
                     {
@@ -220,7 +234,7 @@
                         targets: 5,
                         width: '130px',
                         render: function (data, type, full, meta) {
-                            var $dueDate = new Date(full['due_date']);
+                            var $dueDate = new Date(full['created_at']);
                             // Creates full output for row
                             var $rowOutput =
                                 '<span class="d-none">' +
@@ -230,21 +244,30 @@
                             $dueDate;
                             return $rowOutput;
                         }
-                    },
-                    {
-                        // Client Balance/Status
+                    },{
+                        // Total Invoice Amount
                         targets: 6,
-                        width: '98px',
+                        width: '73px',
                         render: function (data, type, full, meta) {
-                            var $balance = full['balance'];
-                            if ($balance === 0) {
-                                var $badge_class = 'badge-light-success';
-                                return '<span class="badge rounded-pill ' + $badge_class + '" text-capitalized> Paid </span>';
-                            } else {
-                                return '<span class="d-none">' + $balance + '</span>' + $balance;
-                            }
+                            var $total = full['price'];
+                            return '<span class="d-none">' + $total + '</span>$' + $total;
                         }
                     },
+                    // {
+                    //     // Client Balance/Status
+                    //     targets: 6,
+                    //     width: '98px',
+                    //     render: function (data, type, full, meta) {
+                    //         var $balance = full['price'];
+                    //         if ($balance === 0) {
+                    //             var $badge_class = 'badge-light-success';
+                    //             return '<span class="badge rounded-pill ' + $badge_class + '" text-capitalized> Paid </span>';
+                    //         } else {
+                    //             return '<span class="d-none">' + $balance + '</span>' + $balance;
+                    //         }
+                    //     }
+                    // },
+
                     {
                         targets: 7,
                         visible: false
@@ -322,8 +345,6 @@
                         //     window.location = invoiceAdd;
                         // }
 
-
-
                         attr: {
                             'data-bs-toggle': 'modal',
                             'data-bs-target': '#createAppModal'
@@ -345,7 +366,7 @@
                         display: $.fn.dataTable.Responsive.display.modal({
                             header: function (row) {
                                 var data = row.data();
-                                return 'Details of ' + data['client_name'];
+                                return 'Details of ' + data['hostname'];
                             }
                         }),
                         type: 'column',

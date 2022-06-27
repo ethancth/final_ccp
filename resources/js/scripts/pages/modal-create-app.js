@@ -67,8 +67,6 @@ $(function () {
           var get_radio_environment = $("input[type='radio'].radioEnv:checked").val();
           var get_radio_tier = $("input[type='radio'].radioTier:checked").val();
           var get_radio_os = $("input[type='radio'].osradio:checked").val();
-
-          alert(get_radio_os);
           var v_storage=pipsRangevstorage.noUiSlider.get();
           document.getElementById("hostname").value = $("input[name=servername]").val();
           document.getElementById("environement").value = get_radio_environment;
@@ -94,7 +92,7 @@ $(function () {
          // var vmos=document.getElementsByName('');
 
           document.forms["projectstoreserver"].submit();
-        alert('Submitted..!!');
+       // alert('Submitted..!!');
       });
 
 
