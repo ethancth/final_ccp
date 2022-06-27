@@ -38,6 +38,7 @@ class ProjectController extends Controller
         $project->fill($request->all());
         $project->owner = Auth::id();
         $project->title = $request->modalProjectName;
+        $project->status = 1;
         $project->save();
         return redirect()->route('project.show', $project->id)->with('success', 'Success！');
 
