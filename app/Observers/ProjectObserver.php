@@ -4,6 +4,7 @@ namespace App\Observers;
 use App\Handlers\SlugHandler;
 use App\Jobs\TranslateSlug;
 use App\Models\Project;
+use App\Models\ProjectJourney;
 
 
 // creating, created, updating, updated, saving,

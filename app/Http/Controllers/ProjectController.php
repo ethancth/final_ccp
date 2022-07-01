@@ -63,10 +63,11 @@ class ProjectController extends Controller
 //                ->rawColumns(['action'])
                 ->make(true);
         }
+        $isprojectdropdown=true;
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title]
         ];
-        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs], compact('project'));
+        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'isprojectdropdown' =>$isprojectdropdown], compact('project'));
     }
 
     public function storeserver(ProjectServer $projectserver, Request $request)

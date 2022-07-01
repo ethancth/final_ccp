@@ -31,8 +31,6 @@ o
 ?resources/views/content/dashboard/dashboard-ecommerce.blade.php,3/e/3e4c24cdf045a091a171bbbacf2493779a7e4836
 a
 1resources/js/scripts/pages/dashboard-ecommerce.js,a/2/a2eefc2e4628db2462bc5aae18528382a48cbb97
-[
-+resources/views/panels/breadcrumb.blade.php,c/c/ccbdf9efa2b4a88aba34d45edbaf5415d24d4146
 J
 resources/data/kanban.json,6/d/6da9283b18cf4ad579063257c7b836480eb2a168
 J
@@ -136,3 +134,25 @@ $app/Providers/AppServiceProvider.php,4/8/48b8d8112e9bdd32ee7e25b1224d6739eece1
 config/app.php,7/3/734f7be25e8008acc7129e73cd116d5de913e6fd
 I
 resources/js/bootstrap.js,2/a/2a602b14e912f494b7df1e17ce8d98958460f936
+x
+Hresources/views/content/_partials/_modals/modal-create-project.blade.php,9/7/976f731ec074576ccf22c20f7b958e15f2218b1e
+Z
+*resources/data/menu-data/verticalMenu.json,d/4/d48f38ab8df80d77e0df39ed4252c436f360f285
+v
+Fdatabase/migrations/2022_06_06_095159_create_operation_costs_table.php,2/d/2dc04b8217083ca81e92be102a7d54f0fd0a1ebe
+P
+ resources/data/invoice-list.json,d/a/da74bad4c12c29a3e3e014fbb7d3740c67ab3c6e
+^
+.resources/js/scripts/pages/modal-create-app.js,a/d/ade85ed6e1ea3b257f436fd341e6f9098f78a68e
+h
+8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
+o
+?database/migrations/2022_06_06_134321_create_projects_table.php,a/d/ad9a0f5a30d0f3338af1bfc4ad22ab972965464d
+>
+routes/web.php,6/b/6b9a783d9b43fee50fd28f56dbd1856d2608f305
+f
+6resources/views/content/project/project-home.blade.php,f/7/f703b193954b357df0171bfb3e2e6f40300e3394
+J
+app/Jobs/TranslateSlug.php,6/3/63e8452f73da1bbe2c378ef292c72e1c5e2edf81
+t
+Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6

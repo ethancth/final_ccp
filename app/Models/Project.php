@@ -22,7 +22,7 @@ class Project extends Model
 
     public function journey()
     {
-       // return $this->hasone(ProjectJourney::class,'project_id','id');
+        return $this->hasMany(ProjectJourney::class,'project_id','id');
     }
 
     public function owner()

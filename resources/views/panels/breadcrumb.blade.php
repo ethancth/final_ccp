@@ -24,6 +24,7 @@
       </div>
     </div>
   </div>
+    @if(@isset($isprojectdropdown))
   <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
     <div class="mb-1 breadcrumb-right">
       <div class="dropdown">
@@ -32,16 +33,16 @@
         </button>
         <div class="dropdown-menu dropdown-menu-end">
           <a class="dropdown-item" href="{{url('app/todo')}}">
-            <i class="me-1" data-feather="check-square"></i>
-            <span class="align-middle">Todo</span>
+            <i class="me-1" data-feather="compass"></i>
+            <span class="align-middle">Project Journey</span>
           </a>
           <a class="dropdown-item" href="{{url('app/chat')}}">
             <i class="me-1" data-feather="message-square"></i>
-            <span class="align-middle">Chat</span>
+            <span class="align-middle">Project Discussion</span>
           </a>
           <a class="dropdown-item" href="{{url('app/email')}}">
-            <i class="me-1" data-feather="mail"></i>
-            <span class="align-middle">Email</span>
+            <i class="me-1" data-feather="folder-plus"></i>
+            <span class="align-middle">Project Uploaded Document</span>
           </a>
           <a class="dropdown-item" href="{{url('app/calendar')}}">
             <i class="me-1" data-feather="calendar"></i>
@@ -51,4 +52,5 @@
       </div>
     </div>
   </div>
+    @endif
 </div>
