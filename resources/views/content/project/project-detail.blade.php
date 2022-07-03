@@ -281,8 +281,8 @@
                         render: function (data, type, full, meta) {
                             return (
                                 '<div class="d-flex align-items-center col-actions">' +
-                                '<a class="me-1" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Send Mail">' +
-                                feather.icons['send'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                '<a class="me-1" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Server">' +
+                                feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
                                 '</a>' +
                                 '<a class="me-25" href="' +
                                 invoicePreview +
@@ -319,7 +319,7 @@
                 dom:
                     '<"row d-flex justify-content-between align-items-center m-1"' +
                     '<"col-lg-6 d-flex align-items-center"l<"dt-action-buttons_new text-xl-end text-lg-start text-lg-end text-start "B>>' +
-                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f<"invoice_status ms-sm-2">>' +
+                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f<"invoice_status ms-sm-2"><"user_role mt-50 width-200 me-1">>' +
                     '>t' +
                     '<"d-flex justify-content-between mx-2 row"' +
                     '<"col-sm-12 col-md-6"i>' +

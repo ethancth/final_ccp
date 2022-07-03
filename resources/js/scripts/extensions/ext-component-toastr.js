@@ -6,7 +6,6 @@
 	Author: Pixinvent
 	Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-
 $(function () {
   'use strict';
 
@@ -33,14 +32,19 @@ $(function () {
     fadeToast = $('#fade-toast'),
     clearToastObj;
 
-  // Success Type
-  typeSuccess.on('click', function () {
-    toastr['success']('👋 Jelly-o macaroon brownie tart ice cream croissant jelly-o apple pie.', 'Success!', {
-      closeButton: true,
-      tapToDismiss: false,
-      rtl: isRtl
-    });
-  });
+
+        // Success Type
+        typeSuccess.on('click', function () {
+            toastr['success']('👋 Jelly-o macaroon brownie tart ice cream croissant jelly-o apple pie.', 'Success!', {
+                closeButton: true,
+                tapToDismiss: false,
+                rtl: isRtl
+            });
+        });
+
+
+
+
 
   // Info Type
   typeInfo.on('click', function () {

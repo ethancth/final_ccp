@@ -126,12 +126,8 @@ m
 =resources/js/scripts/virtualmachine/table-datatables-basic.js,1/0/10c2cc119181a8373c2f1e47613cc6411062baba
 >
 webpack.mix.js,7/3/73a5f9e927f70e0292701d67f61dbff4fb17febc
-A
-config/sudosu.php,8/b/8bf3307e3c48bbeebc4984012f07be9f4dbf6001
 T
 $app/Providers/AppServiceProvider.php,4/8/48b8d8112e9bdd32ee7e25b1224d6739eece1e72
->
-config/app.php,7/3/734f7be25e8008acc7129e73cd116d5de913e6fd
 I
 resources/js/bootstrap.js,2/a/2a602b14e912f494b7df1e17ce8d98958460f936
 x
@@ -144,14 +140,8 @@ P
  resources/data/invoice-list.json,d/a/da74bad4c12c29a3e3e014fbb7d3740c67ab3c6e
 ^
 .resources/js/scripts/pages/modal-create-app.js,a/d/ade85ed6e1ea3b257f436fd341e6f9098f78a68e
-h
-8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
 o
 ?database/migrations/2022_06_06_134321_create_projects_table.php,a/d/ad9a0f5a30d0f3338af1bfc4ad22ab972965464d
->
-routes/web.php,6/b/6b9a783d9b43fee50fd28f56dbd1856d2608f305
-f
-6resources/views/content/project/project-home.blade.php,f/7/f703b193954b357df0171bfb3e2e6f40300e3394
 J
 app/Jobs/TranslateSlug.php,6/3/63e8452f73da1bbe2c378ef292c72e1c5e2edf81
 t

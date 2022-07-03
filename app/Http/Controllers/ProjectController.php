@@ -42,7 +42,8 @@ class ProjectController extends Controller
         $project->status = 1;
         $project->save();
         //return redirect()->route('project.show', $project->id)->with('success', 'Success！');
-        return redirect()->to($project->link())->with('success', 'Success！');
+        //dd($project->link())->with('success', 'Success！');
+        return redirect()->to($project->link())->with('success', 'Project Created！');
 
 
     }
