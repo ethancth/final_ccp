@@ -56,6 +56,7 @@ class ProjectController extends Controller
        $pageConfigs = ['pageHeader' => true,];
         if ($request->ajax()) {
             $data =$project->server;
+            //dd($data);
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
@@ -79,6 +80,15 @@ class ProjectController extends Controller
         $projectserver->save();
         return redirect()->route('project.show', $projectserver->project_id)->with('success', 'Success！');
 
+
+    }
+
+    public function edit(Request $request)
+    {
+        $where = array('id' => $request->id);
+        $server  = ProjectServer::where($where)->first();
+
+        return response()->json($server);
 
     }
 

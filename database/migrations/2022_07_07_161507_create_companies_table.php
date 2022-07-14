@@ -13,17 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('department_name', 100);
-            $table->integer('hod_id')->nullable();
+            $table->string('name');
+            $table->string('status')->default('1');
+            $table->string('phone')->nullable();
             $table->timestamps();
-        });
-        Schema::table('users', function(Blueprint $table) {
-            $table->integer('department_id')->nullable();
-            $table->integer('company_id')->nullable();
-            $table->boolean('disabled')->default(0);
-
         });
     }
 
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('companies');
     }
 };

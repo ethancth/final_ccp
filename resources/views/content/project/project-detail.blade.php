@@ -86,6 +86,30 @@
             invoiceAdd = assetPath + 'app/invoice/add';
             invoiceEdit = assetPath + 'app/invoice/edit';
         }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('body').on('click', '.edit', function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type:"POST",
+                url: "{{ route('project.editserver') }}",
+                data: { id: id },
+                dataType: 'json',
+                success: function(res){
+                    // $('#ajaxBookModel').html("Edit Book");
+                    $('#createAppModal').modal('show');
+                     $('#servername').val(res.hostname);
+                    // $('#title').val(res.title);
+                    // $('#code').val(res.code);
+                    // $('#author').val(res.author);
+                }
+            });
+
+        });
 
 
         // datatable
@@ -105,16 +129,6 @@
                     { data: 'environment' },
                     { data: 'environment' },
                     { data: '' }
-
-                    // { data: 'responsive_id' },
-                    // { data: 'invoice_id' },
-                    // { data: 'invoice_status' },
-                    // { data: 'issued_date' },
-                    // { data: 'client_name' },
-                    // { data: 'total' },
-                    // { data: 'balance' },
-                    // { data: 'invoice_status' },
-                    // { data: '' }
                 ],
                 columnDefs: [
                     {
@@ -279,9 +293,10 @@
                         width: '80px',
                         orderable: false,
                         render: function (data, type, full, meta) {
+                            var $id = full['id'];
                             return (
                                 '<div class="d-flex align-items-center col-actions">' +
-                                '<a class="me-1" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Server">' +
+                                '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
                                 feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
                                 '</a>' +
                                 '<a class="me-25" href="' +

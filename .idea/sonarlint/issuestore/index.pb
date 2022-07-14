@@ -51,8 +51,6 @@ F
 lang/en/validation.php,6/5/6528f85d541ea158fdf58c0a72e79398ba595225
 E
 config/permission.php,2/9/29f0acc6d9348a48c9acf34985464b316aaff2ba
-l
-<database/migrations/2014_10_12_000000_create_users_table.php,d/e/de963aaada5c6577b654cfbdcf083dc355b1fa2b
 }
 Mdatabase/migrations/2022_06_06_094110_seed_default_data_to_category_table.php,3/d/3d5f8fbb6bc3e405dd587272992e989d6ec9a44c
 L
@@ -69,12 +67,8 @@ x
 Hdatabase/migrations/2022_06_06_125155_create_server_management_table.php,7/8/78e023f59e1c3babe81692bf9abaae12b7761674
 p
 @database/migrations/2022_06_06_045340_create_vm_tables_table.php,1/f/1f86f728388503efc503c7fbd88faf2029e71052
-I
-app/Models/Department.php,f/f/ffb2f6753f91fe4e31376b28a602878c1af8c38d
 X
 (database/factories/DepartmentFactory.php,4/3/4377ce7cb5ca9c853f1fe6844ab9cd59338dbcab
-r
-Bdatabase/migrations/2022_06_06_125913_create_departments_table.php,0/7/07843b6830825c51e2f4fd19e4ff64e4cabde786
 |
 Ldatabase/migrations/2022_06_06_130714_create_cost_payment_profiles_table.php,e/d/edf3dd53b7bb1091826fe758433fc0537bccbe85
 Q
@@ -138,8 +132,6 @@ v
 Fdatabase/migrations/2022_06_06_095159_create_operation_costs_table.php,2/d/2dc04b8217083ca81e92be102a7d54f0fd0a1ebe
 P
  resources/data/invoice-list.json,d/a/da74bad4c12c29a3e3e014fbb7d3740c67ab3c6e
-^
-.resources/js/scripts/pages/modal-create-app.js,a/d/ade85ed6e1ea3b257f436fd341e6f9098f78a68e
 o
 ?database/migrations/2022_06_06_134321_create_projects_table.php,a/d/ad9a0f5a30d0f3338af1bfc4ad22ab972965464d
 J

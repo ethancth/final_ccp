@@ -72,6 +72,7 @@ class User extends Authenticatable
     }
     public function company()
     {
-        return $this->hasone('App\Models\Company', 'id', 'company_id');
+        return $this->belongsTo(Company::class, 'company_id', 'id');
     }
+
 }
