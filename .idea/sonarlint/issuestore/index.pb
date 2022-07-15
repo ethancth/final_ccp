@@ -136,5 +136,3 @@ o
 ?database/migrations/2022_06_06_134321_create_projects_table.php,a/d/ad9a0f5a30d0f3338af1bfc4ad22ab972965464d
 J
 app/Jobs/TranslateSlug.php,6/3/63e8452f73da1bbe2c378ef292c72e1c5e2edf81
-t
-Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6

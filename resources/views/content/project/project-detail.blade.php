@@ -73,7 +73,7 @@
 <script>
     $(function () {
         'use strict';
-
+        const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
         var dtInvoiceTable = $('.invoice-list-table'),
             assetPath = '../../../app-assets/',
             invoicePreview = 'app-invoice-preview.html',
@@ -94,6 +94,9 @@
 
         $('body').on('click', '.edit', function () {
             var id = $(this).data('id');
+           var pipsRangevCPU = document.getElementById('pips-range-vcpu');
+              var  pipsRangevMemory = document.getElementById('pips-range-vmemory');
+                var pipsRangevstorage = document.getElementById('pips-range-vstorage');
             $.ajax({
                 type:"POST",
                 url: "{{ route('project.editserver') }}",
@@ -103,6 +106,15 @@
                     // $('#ajaxBookModel').html("Edit Book");
                     $('#createAppModal').modal('show');
                      $('#servername').val(res.hostname);
+                     $('#server_id').val(res.id);
+                     $('#operatingsystem').val(res.operating_system);
+                    $("#createApp"+uppercaseWords(res.environment)).prop("checked", true);
+                    $("#createTier"+uppercaseWords(res.tier)).prop("checked", true);
+                    $("#createApp"+uppercaseWords(res.operating_system_option)).prop("checked", true);
+                    pipsRangevCPU.noUiSlider.set(res.v_cpu);
+                    pipsRangevMemory.noUiSlider.set(res.v_memory);
+                    pipsRangevstorage.noUiSlider.set(res.total_storage);
+
                     // $('#title').val(res.title);
                     // $('#code').val(res.code);
                     // $('#author').val(res.author);
@@ -363,7 +375,14 @@
                         attr: {
                             'data-bs-toggle': 'modal',
                             'data-bs-target': '#createAppModal'
+                        },
+                        action: function (){
+                            $('#create-app-page1').trigger("reset");
+                            $('#create-app-page2').trigger("reset");
+                            $('#create-app-page3').trigger("reset");
+                            $('#create-app-page4').trigger("reset");
                         }
+                        //$('#addEditBookForm').trigger("reset");
                     }
                 ],
                 buttons_new: [

@@ -76,7 +76,6 @@ $(function () {
           document.getElementById("v_cpu").value = pipsRangevCPU.noUiSlider.get();
           document.getElementById("v_memory").value = pipsRangevMemory.noUiSlider.get();
           document.getElementById("total_storage").value = pipsRangevstorage.noUiSlider.get();
-
           input_environment.innerText = get_radio_environment;
           input_tier.innerText = get_radio_tier;
           input_hostname.innerText = $("input[name=servername]").val();

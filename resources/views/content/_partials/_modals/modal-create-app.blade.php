@@ -84,7 +84,7 @@
 
                         <div id="create-app-details" class="content" role="tabpanel"
                              aria-labelledby="create-app-details-trigger">
-                            <form>
+                            <form id="create-app-page1">
                                 <h5>Server Name</h5>
                                 <input class="form-control" type="text" placeholder="Server Name" value=""
                                        id="servername" name="servername" />
@@ -103,7 +103,9 @@
                                                 </span>
                                                 <span>
                                                     <input class="form-check-input radioEnv" id="createAppProduction"
-                                                           type="radio" name="categoryEnvironment" value="production" checked/>
+                                                           type="radio" name="categoryEnvironment" value="production"
+{{--                                                     {{ $product_attribute->meterial == 'production' ? 'checked' : '' }} --}}
+                                                    />
                                                 </span>
                                             </span>
                                         </label>
@@ -137,7 +139,7 @@
                                                 </span>
                                                 <span>
                                                     <input class="form-check-input radioEnv" id="createAppDevelopment"
-                                                           type="radio" value="development" name="categoryEnvironment" />
+                                                           type="radio" value="development" name="categoryEnvironment" checked />
                                                 </span>
                                             </span>
                                         </label>
@@ -159,7 +161,7 @@
 
                         <div id="create-app-tier" class="content" role="tabpanel"
                              aria-labelledby="create-app-tier-trigger">
-                            <form>
+                            <form id="create-app-page2">
                                 <h5>Select Tier</h5>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item border-0 px-0">
@@ -199,7 +201,7 @@
                                         </label>
                                     </li>
                                     <li class="list-group-item border-0 px-0">
-                                        <label for="createTierDatabase" class="d-flex cursor-pointer">
+                                        <label for="createTierDb" class="d-flex cursor-pointer">
                                             <span class="avatar avatar-tag bg-light-success me-1">
                                                 <img src="{{asset('images/icons/iconsccp/database-40.png')}}" height="25"
                                                      alt="database" />
@@ -210,7 +212,7 @@
                                                     <span>A way to store data.</span>
                                                 </span>
                                                 <span>
-                                                    <input class="form-check-input radioTier" value="db" id="createTierDatabase" type="radio"
+                                                    <input class="form-check-input radioTier" value="db" id="createTierDb" type="radio"
                                                            name="tierRadio" />
                                                 </span>
                                             </span>
@@ -233,7 +235,7 @@
 
                         <div id="create-app-operating-system" class="content" role="tabpanel"
                              aria-labelledby="create-app-operating-system-trigger">
-                            <form>
+                            <form id="create-app-page3">
                             <h5>Operating System Name</h5>
 
                             <input class="form-control" type="text" name="operatingsystem" id="operatingsystem"
@@ -253,7 +255,7 @@
                                                 <span>Microsoft Windows</span>
                                             </span>
                                             <span>
-                                                <input class="form-check-input osradio" value="microsoftwindows" id="createAppWindows" type="radio"
+                                                <input class="form-check-input osradio" value="windows" id="createAppWindows" type="radio"
                                                        name="osRadio" />
                                             </span>
                                         </span>
@@ -271,7 +273,7 @@
                                                 <span>Red Hat Enterprise Linux</span>
                                             </span>
                                             <span>
-                                                <input class="form-check-input osradio" value="rhel" id="createAppRHEL" type="radio"
+                                                <input class="form-check-input osradio" value="hel" id="createAppRhel" type="radio"
                                                        name="osRadio" checked />
                                             </span>
                                         </span>
@@ -311,7 +313,7 @@
 
                         <div id="create-app-compute" class="content" role="tabpanel"
                              aria-labelledby="create-app-compute-trigger">
-                            <form>
+                            <form id="create-app-page4">
                                         <div class="col-sm-12">
                                                 <div class="card-header" style="
     padding-left: 0px;
@@ -400,6 +402,7 @@
                                         </div>
                                     <form id="projectstoreserver" action="{{route("project.storeserver")}}" method="POST" accept-charset="UTF-8">
                                         <input class="hidden"  name="_token" value="{{ csrf_token() }}">
+                                        <input class="hidden" id="server_id" name="server_id" value="">
                                         <input class="hidden" name="project_id" value="{{ $project->id }}">
                                         <input class="hidden"  id="hostname" name="hostname" value="">
                                         <input class="hidden" id="environement" name="environment" value="">

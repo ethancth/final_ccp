@@ -75,10 +75,27 @@ class ProjectController extends Controller
     public function storeserver(ProjectServer $projectserver, Request $request)
     {
 
-        $projectserver->fill($request->all());
-        $projectserver->owner = Auth::id();
-        $projectserver->save();
-        return redirect()->route('project.show', $projectserver->project_id)->with('success', 'Success！');
+//        $projectserver->fill($request->all());
+//        $projectserver->owner = Auth::id();
+//        $projectserver->save();
+        //dd($request);
+        ProjectServer::updateOrCreate(
+            [
+                'id' => $request->server_id
+            ],
+            [
+                'project_id' => $request->project_id,
+                'hostname' => $request->hostname,
+                'environment' => $request->environment,
+                'tier' => $request->tier,
+                'operating_system' => $request->operating_system,
+                'operating_system_option' => $request->operating_system_option,
+                'v_cpu' => $request->v_cpu,
+                'v_memory' => $request -> v_memory,
+                'total_storage' => $request->total_storage,
+                'owner' => Auth::id(),
+            ]);
+        return redirect()->route('project.show', $request->project_id)->with('success', 'Success！');
 
 
     }
