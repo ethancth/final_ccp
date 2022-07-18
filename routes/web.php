@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/project/{project}/{slug?}', [ProjectController::class, 'show'])->name('project.show');
         Route::post('/projectserver', [ProjectController::class, 'storeserver'])->name('project.storeserver');
         Route::post('/editprojectserver', [ProjectController::class, 'edit'])->name('project.editserver');
+        Route::post('/deleteprojectserver', [ProjectController::class, 'destroy'])->name('project.delete');
 //        //Route::resource('project', 'ProjectController', ['only' => ['store']]);
 //        //Route::get('/project', 'ProjectController@list')->name('project');
 //        //Route::get('/project/{project}/info', 'ProjectController@info')->name('project.info');

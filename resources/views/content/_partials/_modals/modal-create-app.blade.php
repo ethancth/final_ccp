@@ -262,7 +262,7 @@
                                     </label>
                                 </li>
                                 <li class="list-group-item border-0 px-0">
-                                    <label for="createAppRHEL" class="d-flex cursor-pointer">
+                                    <label for="createAppRhel" class="d-flex cursor-pointer">
                                         <span class="avatar avatar-tag bg-light-secondary me-1">
                                             <img src="{{asset('images/icons/iconsccp/rhel-48.png')}}" height="45"
                                                  alt="RHEL" />
@@ -273,7 +273,7 @@
                                                 <span>Red Hat Enterprise Linux</span>
                                             </span>
                                             <span>
-                                                <input class="form-check-input osradio" value="hel" id="createAppRhel" type="radio"
+                                                <input class="form-check-input osradio" value="rhel" id="createAppRhel" type="radio"
                                                        name="osRadio" checked />
                                             </span>
                                         </span>

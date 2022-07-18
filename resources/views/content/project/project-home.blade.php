@@ -161,6 +161,7 @@
                         '<"col-sm-12 col-md-6"i>' +
                         '<"col-sm-12 col-md-6"p>' +
                         '>',
+
                     // language: {
                         sLengthMenu: 'Show _MENU_',
                         search: 'Search',
@@ -182,7 +183,8 @@
                             init: function (api, node, config) {
                                 $(node).removeClass('btn-secondary');
                             }
-                        }
+                        },
+
                     ],
                     // For responsive popup
                     responsive: {

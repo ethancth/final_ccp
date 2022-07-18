@@ -123,6 +123,26 @@
 
         });
 
+        $('body').on('click', '.delete', function () {
+
+            if (confirm("Delete Record?") == true) {
+                var id = $(this).data('id');
+
+                // ajax
+                $.ajax({
+                    type:"POST",
+                    url: "{{ route('project.delete') }}",
+                    data: { id: id },
+                    dataType: 'json',
+                    success: function(res){
+
+                        window.location.reload();
+                    }
+                });
+            }
+
+        });
+
 
         // datatable
         if (dtInvoiceTable.length) {
@@ -311,10 +331,8 @@
                                 '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
                                 feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
                                 '</a>' +
-                                '<a class="me-25" href="' +
-                                invoicePreview +
-                                '" data-bs-toggle="tooltip" data-bs-placement="top" title="Preview Invoice">' +
-                                feather.icons['eye'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                '<a class="me-25 delete" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Delete">' +
+                                feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
                                 '</a>' +
                                 '<div class="dropdown">' +
                                 '<a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
@@ -324,9 +342,7 @@
                                 '<a href="#" class="dropdown-item">' +
                                 feather.icons['download'].toSvg({ class: 'font-small-4 me-50' }) +
                                 'Download</a>' +
-                                '<a href="' +
-                                invoiceEdit +
-                                '" class="dropdown-item">' +
+                                '<a href="#" class="dropdown-item edit" data-id="'+$id+'">' +
                                 feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
                                 'Edit</a>' +
                                 '<a href="#" class="dropdown-item">' +
@@ -345,10 +361,11 @@
                 order: [[1, 'desc']],
                 dom:
                     '<"row d-flex justify-content-between align-items-center m-1"' +
-                    '<"col-lg-6 d-flex align-items-center"l<"dt-action-buttons_new text-xl-end text-lg-start text-lg-end text-start "B>>' +
-                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f<"invoice_status ms-sm-2"><"user_role mt-50 width-200 me-1">>' +
+                    '<"col-lg-6 d-flex align-items-center"l<"dt-action-buttons_new text-xl-end text-lg-start text-lg-end text-start " B>>' +
+                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f<"environment_status ms-sm-2 width-200 "><"submit_button mt-50 width-200 me-1">>' +
                     '>t' +
                     '<"d-flex justify-content-between mx-2 row"' +
+                    '<"col-sm-12 col-md-6"i>' +
                     '<"col-sm-12 col-md-6"i>' +
                     '<"col-sm-12 col-md-6"p>' +
                     '>',
@@ -371,10 +388,14 @@
                         // action: function (e, dt, button, config) {
                         //     window.location = invoiceAdd;
                         // }
+                        style: {
+
+                        },
 
                         attr: {
                             'data-bs-toggle': 'modal',
-                            'data-bs-target': '#createAppModal'
+                            'data-bs-target': '#createAppModal',
+                            'style':'margin-top:10px'
                         },
                         action: function (){
                             $('#create-app-page1').trigger("reset");
@@ -383,15 +404,30 @@
                             $('#create-app-page4').trigger("reset");
                         }
                         //$('#addEditBookForm').trigger("reset");
-                    }
-                ],
-                buttons_new: [
+                    },
                     {
-                        text: 'Add Record1',
-                        className: 'btn btn-primary btn-add-record ms-2',
-                        action: function (e, dt, button, config) {
-                            window.location = invoiceAdd;
+                        text: '{{$project->status}}',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-primary waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        style: {
+
+                        },
+
+                        attr: {
+                            'data-bs-toggle': 'modal',
+                            'data-bs-target': '#createAppModal',
+                            'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            $('#create-app-page1').trigger("reset");
+                            $('#create-app-page2').trigger("reset");
+                            $('#create-app-page3').trigger("reset");
+                            $('#create-app-page4').trigger("reset");
                         }
+                        //$('#addEditBookForm').trigger("reset");
                     }
                 ],
                 // For responsive popup
@@ -434,9 +470,9 @@
                         .every(function () {
                             var column = this;
                             var select = $(
-                                '<select id="UserRole" class="form-select ms-50 text-capitalize"><option value=""> Select Status </option></select>'
+                                '<select id="EnvironmentStatus" class="form-select ms-50 text-capitalize"><option value=""> Select Status </option></select>'
                             )
-                                .appendTo('.invoice_status')
+                                .appendTo('.environment_status')
                                 .on('change', function () {
                                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
                                     column.search(val ? '^' + val + '$' : '', true, false).draw();
@@ -449,7 +485,8 @@
                                 .each(function (d, j) {
                                     select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
                                 });
-                        });
+                        })
+                        ;
                 },
                 drawCallback: function () {
                     $(document).find('[data-bs-toggle="tooltip"]').tooltip();
@@ -460,4 +497,3 @@
 
 </script>
 @endsection
-

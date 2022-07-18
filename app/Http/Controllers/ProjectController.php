@@ -53,6 +53,7 @@ class ProjectController extends Controller
         if ( !empty($project->slug) && $project->slug != $request->slug) {
             return redirect($project->link(), 301);
         }
+
        $pageConfigs = ['pageHeader' => true,];
         if ($request->ajax()) {
             $data =$project->server;
@@ -70,6 +71,13 @@ class ProjectController extends Controller
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title]
         ];
         return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'isprojectdropdown' =>$isprojectdropdown], compact('project'));
+    }
+
+    public function destroy(Request $request)
+    {
+        $ProjectServer = ProjectServer::where('id',$request->id)->delete();
+
+        return response()->json(['success' => true]);
     }
 
     public function storeserver(ProjectServer $projectserver, Request $request)

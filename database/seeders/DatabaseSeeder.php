@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         //$this->factory(\App\Models\Project::class, 10000)->create();
         //$this->call(UsersTableSeeder::class);
         //D $this->call(DepartmentsSeeder::class);
-        \App\Models\Project::factory(100)->create();
+        \App\Models\Project::factory(10000)->create();
         //$this->call(OperationCostTablesSeeder::Class);
         //$this->call(CostPaymentProfilesSeeder::Class);
         //$this->call(CostTypeProfilesSeeder::Class);
