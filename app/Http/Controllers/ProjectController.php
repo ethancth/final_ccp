@@ -55,6 +55,8 @@ class ProjectController extends Controller
         }
 
        $pageConfigs = ['pageHeader' => true,];
+        $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
+       // $projectservers=$project->server;
         if ($request->ajax()) {
             $data =$project->server;
             //dd($data);
@@ -68,9 +70,9 @@ class ProjectController extends Controller
         }
         $isprojectdropdown=true;
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title]
+            ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
         ];
-        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'isprojectdropdown' =>$isprojectdropdown], compact('project'));
+        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'isprojectdropdown' =>$isprojectdropdown], compact('projectservers','project'));
     }
 
     public function destroy(Request $request)

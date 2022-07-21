@@ -336,6 +336,7 @@
         <div class="user-nav d-sm-flex d-none">
           <span class="user-name fw-bolder">
             @if (Auth::check())
+
               {{ Auth::user()->name }}
             @else
               John Doe

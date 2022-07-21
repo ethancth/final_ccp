@@ -32,21 +32,17 @@
           <i data-feather="grid"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-end">
-          <a class="dropdown-item" href="{{url('app/todo')}}">
+          <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ProjectActivityModal">
             <i class="me-1" data-feather="compass"></i>
             <span class="align-middle">Project Journey</span>
           </a>
-          <a class="dropdown-item" href="{{url('app/chat')}}">
+          <a class="dropdown-item" href="#">
             <i class="me-1" data-feather="message-square"></i>
             <span class="align-middle">Project Discussion</span>
           </a>
-          <a class="dropdown-item" href="{{url('app/email')}}">
+          <a class="dropdown-item" href="#">
             <i class="me-1" data-feather="folder-plus"></i>
             <span class="align-middle">Project Uploaded Document</span>
-          </a>
-          <a class="dropdown-item" href="{{url('app/calendar')}}">
-            <i class="me-1" data-feather="calendar"></i>
-            <span class="align-middle">Calendar</span>
           </a>
         </div>
       </div>

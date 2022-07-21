@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'company_id',
+        'introduction',
+        'department_id',
+        'is_teamlead',
+
     ];
 
     /**
@@ -74,5 +79,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Company::class, 'company_id', 'id');
     }
+
+    public function teamlead()
+    {
+        return $this->belongsToMany(Company::class, 'teamleads', 'user_id', 'company_id');
+    }
+    public function isteamlead()
+    {
+        return $this->teamlead()->where('status', '1')->exists();
+    }
+
+
 
 }

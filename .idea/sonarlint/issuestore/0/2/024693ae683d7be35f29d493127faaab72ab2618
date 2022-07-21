@@ -1,0 +1,4 @@
+
+n	php:S3776"TRefactor this function to reduce its Cognitive Complexity from 35 to the 15 allowed.(Û·ìÛÿÿÿÿÿ
+w	php:S1488´"\Immediately return this expression instead of assigning it to the temporary variable "$quy".(û¨›ùÿÿÿÿ
+J	php:S1066‰"/Merge this if statement with the enclosing one.(é¯§úÿÿÿÿ

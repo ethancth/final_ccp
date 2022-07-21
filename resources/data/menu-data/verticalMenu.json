@@ -33,7 +33,7 @@
       {"url":"vm-table","name":"Virtual Machine", "icon":"grid","slug":"table-datatable"},
       {"url":"vm-all","name":"All VM history", "icon":"grid","slug":"table-datatable"},
       {"url":"","navheader":"Management","icon":""},
-      {"url":"user.list","name":"User Management","icon":"grid","slug":"user-management"},
+      {"url":"user-management","name":"User Management","icon":"grid","slug":"user-management"},
       {"url":"department.list","name":"Department Management", "icon":"grid","slug":"department-management"},
       {"url":"operating-expense","name":"Operating Expense Management" ,"icon":"grid","slug":"Operating-Expense-Management"},
       {"url":"cost-profile","name":"Cost Profile","icon":"grid","slug":"Cost-Profile-Management"},

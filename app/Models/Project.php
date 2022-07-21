@@ -34,4 +34,23 @@ class Project extends Model
     {
         return route('project.show', array_merge([$this->id,$this->slug], $params));
     }
+    public function getProjectStatusAttribute()
+    {
+        if($this->status==1){
+            return 'Draft';
+        }
+        if($this->status==2){
+            return 'Review';
+        }
+        if($this->status==3){
+            return 'Approve';
+        }
+        if($this->status==4){
+            return 'In-Provisioning';
+        }
+        if($this->status==5){
+            return 'Complete';
+        }
+
+    }
 }

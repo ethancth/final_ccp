@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DashboardController;
@@ -95,7 +96,10 @@ Route::group(['middleware' => ['auth', 'verified']],
 //        //Route::get('/project/{project}/info', 'ProjectController@info')->name('project.info');
 //       // Route::resource('projectvm', 'ProjectVmController', ['only' => ['store']]);
 //
-//        //Company
+//        //Company & user
+        Route::get('/user-management', [UserPageController::class, 'index'])->name('user');
+        Route::post('/user-management', [UserPageController::class, 'store'])->name('user.store');
+
 //
 //        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);
 //        Route::get('/company-staff', 'CompanyController@allstaff')->name('company.staff');

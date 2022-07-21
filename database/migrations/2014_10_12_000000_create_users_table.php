@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('introduction')->nullable();
             $table->string('contact')->nullable();
+            $table->boolean('is_teamlead')->default('0');
             $table->timestamps();
         });
         //

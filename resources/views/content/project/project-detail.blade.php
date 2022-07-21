@@ -46,6 +46,7 @@
 </section>
 
 @include('content/_partials/_modals/modal-create-app')
+@include('content/_partials/_modals/modal-project-activity')
 @endsection
 
 @section('vendor-script')
@@ -76,15 +77,15 @@
         const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
         var dtInvoiceTable = $('.invoice-list-table'),
             assetPath = '../../../app-assets/',
-            invoicePreview = 'app-invoice-preview.html',
-            invoiceAdd = 'app-invoice-add.html',
-            invoiceEdit = 'app-invoice-edit.html';
+            invoicePreview = '/project',
+            invoiceAdd = '/project',
+            invoiceEdit = '/project';
 
         if ($('body').attr('data-framework') === 'laravel') {
             assetPath = $('body').attr('data-asset-path');
-            invoicePreview = assetPath + 'app/invoice/preview';
-            invoiceAdd = assetPath + 'app/invoice/add';
-            invoiceEdit = assetPath + 'app/invoice/edit';
+            invoicePreview = assetPath + 'project';
+            invoiceAdd = assetPath + '#';
+            invoiceEdit = assetPath + '#';
         }
         $.ajaxSetup({
             headers: {
@@ -381,16 +382,14 @@
                 },
                 // Buttons with Dropdown
                 buttons: [
-                    {
+                        @if($project->status==1)
+                        {
                         text: 'Add Record',
                         //className: 'btn btn-primary btn-add-record ms-2',
                         className: 'btn btn-primary waves-effect waves-float waves-light',
                         // action: function (e, dt, button, config) {
                         //     window.location = invoiceAdd;
                         // }
-                        style: {
-
-                        },
 
                         attr: {
                             'data-bs-toggle': 'modal',
@@ -405,8 +404,10 @@
                         }
                         //$('#addEditBookForm').trigger("reset");
                     },
+                    @endif
+
                     {
-                        text: '{{$project->status}}',
+                        text: '{{$project->project_status}}',
                         //className: 'btn btn-primary btn-add-record ms-2',
                         className: 'btn btn-primary waves-effect waves-float waves-light',
                         // action: function (e, dt, button, config) {
@@ -422,13 +423,10 @@
                             'style':'margin-top:10px'
                         },
                         action: function (){
-                            $('#create-app-page1').trigger("reset");
-                            $('#create-app-page2').trigger("reset");
-                            $('#create-app-page3').trigger("reset");
-                            $('#create-app-page4').trigger("reset");
                         }
                         //$('#addEditBookForm').trigger("reset");
                     }
+
                 ],
                 // For responsive popup
                 responsive: {
