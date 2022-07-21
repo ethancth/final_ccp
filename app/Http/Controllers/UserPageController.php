@@ -43,7 +43,9 @@ class UserPageController extends Controller
     {
        // dd($request);
         //TODO add relationship in table;
-        if($request->user_role=='teamlead'){
+        $_temp='0';
+        if($request->user_role=='teamlead'||$request->user_role=='Teamlead'){
+            $_temp='1';
 
         }
 
@@ -57,6 +59,7 @@ class UserPageController extends Controller
                 'password' => Hash::make('password'),
                 'introduction' => $request->user_role,
                 'company_id' => User::find(Auth::id())->company_id,
+                'is_teamlead' => $_temp,
             ]);
         return redirect()->route('user')->with('success', 'Success！');
     }

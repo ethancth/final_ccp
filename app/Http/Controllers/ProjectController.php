@@ -47,6 +47,41 @@ class ProjectController extends Controller
 
 
     }
+    public function submitproject(Request $request)
+    {
+        $project=Project::find($request->id);
+        if($project->status=='1'){
+            $project->status = 2;
+            $project->save();
+        }
+        return redirect()->to($project->link())->with('success', 'Project Submited！');
+
+
+    }
+
+    public function rejectproject(Request $request)
+    {
+        $project=Project::find($request->id);
+        if($project->status=='2'||$project->status=='3'){
+            $project->status = 1;
+            $project->save();
+        }
+        return redirect()->to($project->link())->with('success', 'Project Submited！');
+
+
+    }
+
+    public function approveproject(Request $request)
+    {
+        $project=Project::find($request->id);
+        if($project->status=='2'){
+            $project->status = 3;
+            $project->save();
+        }
+        return redirect()->to($project->link())->with('success', 'Project Approved！');
+
+
+    }
 
     public function show(Request $request,Project $project)
     {

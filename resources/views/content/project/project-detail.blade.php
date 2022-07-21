@@ -9,7 +9,16 @@
 <link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
 <link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/nouislider.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/editors/quill/katex.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/editors/quill/monokai-sublime.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/editors/quill/quill.snow.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/dragula.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}">
 
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/animate/animate.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
 
 
 @endsection
@@ -20,6 +29,14 @@
 <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('css/base/pages/modal-create-app.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-sliders.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-quill-editor.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/pickers/form-flat-pickr.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-toastr.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('css/base/pages/app-todo.css')) }}">
+
+    {{--sweetalert--}}
+<link rel="stylesheet" href="{{asset(mix('css/base/plugins/extensions/ext-component-sweet-alerts.css'))}}">
 @endsection
 
 @section('content')
@@ -47,6 +64,7 @@
 
 @include('content/_partials/_modals/modal-create-app')
 @include('content/_partials/_modals/modal-project-activity')
+@include('content/_partials/_modals/modal-project-submit-form')
 @endsection
 
 @section('vendor-script')
@@ -67,7 +85,19 @@
 <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/nouislider.min.js')) }}"></script>
 
+<script src="{{ asset(mix('vendors/js/editors/quill/katex.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/editors/quill/highlight.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/editors/quill/quill.min.js')) }}"></script>
+
+<script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
 <script src="{{ asset(mix('js/scripts/pages/modal-create-app.js')) }}"></script>
+<script src="{{ asset(mix('js/scripts/pages/app-todo.js')) }}"></script>
+
+{{--sweetalert--}}
+<script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/extensions/polyfill.min.js')) }}"></script>
 @endsection
 
 @section('page-script')
@@ -390,7 +420,6 @@
                         // action: function (e, dt, button, config) {
                         //     window.location = invoiceAdd;
                         // }
-
                         attr: {
                             'data-bs-toggle': 'modal',
                             'data-bs-target': '#createAppModal',
@@ -403,13 +432,10 @@
                             $('#create-app-page4').trigger("reset");
                         }
                         //$('#addEditBookForm').trigger("reset");
-                    },
-                    @endif
-
-                    {
-                        text: '{{$project->project_status}}',
+                    },{
+                        text: 'Submit Project',
                         //className: 'btn btn-primary btn-add-record ms-2',
-                        className: 'btn btn-primary waves-effect waves-float waves-light',
+                        className: 'btn btn-success waves-effect waves-float waves-light',
                         // action: function (e, dt, button, config) {
                         //     window.location = invoiceAdd;
                         // }
@@ -418,14 +444,186 @@
                         },
 
                         attr: {
+                            'id':'confirm-text',
+                            // 'data-bs-toggle': 'modal',
+                            // 'data-bs-target': '#project-submit-modal',
+                             'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "Submit this project and get review!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Submit it!',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary',
+                                    cancelButton: 'btn btn-outline-danger ms-1'
+                                },
+                                buttonsStyling: false
+                            }).then(function (result) {
+                                if (result.value) {
+                                    var $projectid={{$project->id}};
+                                    $.ajax({
+                                        type:"POST",
+                                        url: "{{ route('project.submit') }}",
+                                        data: { id: $projectid },
+                                        dataType: 'json',
+                                        success: function(res){
+                                            Swal.fire({
+
+                                                icon: 'success',
+                                                title: 'Submitted!',
+                                                text: 'Your Project has been Submitted.',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },
+                    @endif
+
+                        @if($project->status==2&&Auth::user()->is_teamlead==1)
+                    {
+
+                        text: 'Add Record',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-primary waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        attr: {
                             'data-bs-toggle': 'modal',
                             'data-bs-target': '#createAppModal',
                             'style':'margin-top:10px'
                         },
                         action: function (){
+                            $('#create-app-page1').trigger("reset");
+                            $('#create-app-page2').trigger("reset");
+                            $('#create-app-page3').trigger("reset");
+                            $('#create-app-page4').trigger("reset");
                         }
                         //$('#addEditBookForm').trigger("reset");
-                    }
+                    },{
+                        text: 'Approve Project',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-success waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        style: {
+
+                        },
+
+                        attr: {
+                            'id':'confirm-text',
+                            // 'data-bs-toggle': 'modal',
+                            // 'data-bs-target': '#project-submit-modal',
+                            'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "Approve this project!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Approve it!',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary',
+                                    cancelButton: 'btn btn-outline-danger ms-1'
+                                },
+                                buttonsStyling: false
+                            }).then(function (result) {
+                                if (result.value) {
+                                    var $projectid={{$project->id}};
+                                    $.ajax({
+                                        type:"POST",
+                                        url: "{{ route('project.approve') }}",
+                                        data: { id: $projectid },
+                                        dataType: 'json',
+                                        success: function(res){
+                                            Swal.fire({
+
+                                                icon: 'success',
+                                                title: 'Approved!',
+                                                text: 'This Project has been Approved!.',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },{
+                        text: 'Reject Project',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-warning waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        style: {
+
+                        },
+
+                        attr: {
+                            'id':'confirm-text',
+                            // 'data-bs-toggle': 'modal',
+                            // 'data-bs-target': '#project-submit-modal',
+                            'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "Reject this project!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Reject it!',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary',
+                                    cancelButton: 'btn btn-outline-danger ms-1'
+                                },
+                                buttonsStyling: false
+                            }).then(function (result) {
+                                if (result.value) {
+                                    var $projectid={{$project->id}};
+                                    $.ajax({
+                                        type:"POST",
+                                        url: "{{ route('project.reject') }}",
+                                        data: { id: $projectid },
+                                        dataType: 'json',
+                                        success: function(res){
+                                            Swal.fire({
+
+                                                icon: 'success',
+                                                title: 'Reject!',
+                                                text: 'This Project has been Reject!.',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },
+                        @endif
+                    
 
                 ],
                 // For responsive popup

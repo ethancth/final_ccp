@@ -285,6 +285,7 @@
                                var roleBadgeObj = {
                                    User: feather.icons['user'].toSvg({ class: 'font-medium-3 text-primary me-50' }),
                                    teamlead: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
+                                   Teamlead: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
                                    Admin: feather.icons['slack'].toSvg({ class: 'font-medium-3 text-danger me-50' })
                                };
                                return "<span class='text-truncate align-middle'>" + roleBadgeObj[$role] + $role + '</span>';

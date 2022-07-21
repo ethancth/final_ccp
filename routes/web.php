@@ -87,6 +87,9 @@ Route::group(['middleware' => ['auth', 'verified']],
 //
         Route::get('/project', [ProjectController::class, 'index'])->name('project');
         Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
+        Route::post('/submitproject', [ProjectController::class, 'submitproject'])->name('project.submit');
+        Route::post('/approveproject', [ProjectController::class, 'approveproject'])->name('project.approve');
+        Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
         Route::get('/project/{project}/{slug?}', [ProjectController::class, 'show'])->name('project.show');
         Route::post('/projectserver', [ProjectController::class, 'storeserver'])->name('project.storeserver');
         Route::post('/editprojectserver', [ProjectController::class, 'edit'])->name('project.editserver');
