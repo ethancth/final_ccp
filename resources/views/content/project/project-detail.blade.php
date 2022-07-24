@@ -623,7 +623,7 @@
                         //$('#addEditBookForm').trigger("reset");
                     },
                         @endif
-                    
+
 
                 ],
                 // For responsive popup

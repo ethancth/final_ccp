@@ -16,8 +16,13 @@ class CompanyFactory extends Factory
      */
     public function definition()
     {
+        $domain=$this->faker->domainName();
         return [
-            //
+            'name' => $this->faker->company(),
+            'domain'=>$domain,
+            'master_id'=>$this->faker->numberBetween('1','3'),
+            'slug'=>$domain
+
         ];
     }
 }

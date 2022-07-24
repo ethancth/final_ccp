@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('status')->default('1');
+            $table->string('domain')->unique();
+            $table->string('slug');
+            $table->integer('master_id');
             $table->string('phone')->nullable();
             $table->timestamps();
         });

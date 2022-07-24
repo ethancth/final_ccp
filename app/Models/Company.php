@@ -12,6 +12,9 @@ class Company extends Model
         'name',
         'status',
         'phone',
+        'slug',
+        'domain',
+        'master_id'
     ];
 
     public function user()
