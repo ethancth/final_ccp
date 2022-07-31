@@ -11,8 +11,9 @@ class Helpers
     public static function applClasses()
     {
 
-        $data = config('custom.custom');
-
+        //$data = config('custom.custom');
+        //dd($data);
+        $data = (new \App\Http\Controllers\UserPageController)->demo();
         // default data array
         $DefaultData = [
             'mainLayoutType' => 'vertical',

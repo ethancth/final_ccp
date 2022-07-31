@@ -151,7 +151,6 @@ class ProjectController extends Controller
         $server  = ProjectServer::where($where)->first();
 
         return response()->json($server);
-
     }
 
 

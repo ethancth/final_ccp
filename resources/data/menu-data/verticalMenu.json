@@ -29,6 +29,7 @@
 
       {"url":"","navheader":"Management","icon":""},
       {"url":"user-management","name":"User Management","icon":"grid","slug":"user-management"},
+      {"url":"management-environment","name":"Form Management -ENV","icon":"grid","slug":"management-environment"},
       {"url":"department.list","name":"Department Management", "icon":"grid","slug":"department-management"},
       {"url":"operating-expense","name":"Operating Expense Management" ,"icon":"grid","slug":"Operating-Expense-Management"},
       {"url":"cost-profile","name":"Cost Profile","icon":"grid","slug":"Cost-Profile-Management"},

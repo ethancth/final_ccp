@@ -47,5 +47,20 @@ class Company extends Model
         $this->teamlead()->detach($user_ids);
     }
 
+    public function envform()
+    {
+        return $this->hasMany(Environment::class,'company_id','id');
+    }
+
+    public function tierform()
+    {
+        return $this->hasMany(Tier::class,'company_id','id');
+    }
+
+    public function costprofile()
+    {
+        return $this->hasMany(CostProfile::class,'company_id','id');
+    }
+
 
 }

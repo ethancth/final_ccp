@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CompanyFormController;
+use App\Http\Controllers\CostProfileController;
 use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
@@ -67,9 +69,13 @@ Route::group(['middleware' => ['auth', 'verified']],
 //        Route::get('/operating-expense', 'OperatingExpenseController@list')->name('operating-expense');
 //
 //        //Cost Profile
-//        Route::resource('cost-profile', 'CostProfileController', ['only' => ['create', 'update', 'edit', 'store']]);
-//        Route::get('/cost-profile', 'CostProfileController@index')->name('cost-profile');
+        Route::resource('cost-profile', CostProfileController::class, ['only' => ['create', 'update', 'edit', 'store']]);
+        Route::get('/cost-profile', [CostProfileController::class,'index'])->name('cost-profile');
 //
+        //Environment
+        Route::get('/management-environment', [CompanyFormController::class, 'envform'])->name('management_env');
+        Route::post('/management-environment', [CompanyFormController::class, 'env_request'])->name('management.env.store');
+        Route::post('/management-environment-edit', [CompanyFormController::class, 'env_edit'])->name('management.env.edit');
 //        //Department Cost Profile
 //        Route::resource('department-cost-profile', 'ClusterCostProfileController', ['only' => ['update', 'edit', 'store']]);
 //        Route::get('/department-cost-profile', 'ClusterCostProfileController@index')->name('department-cost-profile');

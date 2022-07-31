@@ -130,7 +130,7 @@
                                     <li class="list-group-item border-0 px-0">
                                         <label for="createAppDevelopment" class="d-flex cursor-pointer">
                                             <span class="avatar avatar-tag bg-light-danger me-1">
-                                                <i data-feather="sliders" class="font-medium-5"></i>
+                                                <i data-feather="youtube" class="font-medium-5"></i>
                                             </span>
                                             <span class="d-flex align-items-center justify-content-between flex-grow-1">
                                                 <span class="me-1">
@@ -144,6 +144,7 @@
                                             </span>
                                         </label>
                                     </li>
+
                                 </ul>
                             </form>
                             <div class="d-flex justify-content-between mt-2">

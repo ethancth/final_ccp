@@ -11,4 +11,10 @@ class CostProfile extends Model
     protected $fillable = [
         'name', 'description', 'vcpu','vcpu_price','vmen_price', 'vmen','h_vcpu_price','h_vmen_price',
     ];
+
+    public function company()
+    {
+        return $this->hasOne(Company::class,'id','company_id');
+    }
+
 }

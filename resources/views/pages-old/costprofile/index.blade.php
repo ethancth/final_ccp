@@ -6,7 +6,7 @@
 
 @section('vendor-style')
   {{-- vendor css files --}}
-  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/datatables.min.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')) }}">
 @endsection
 
 @section('content')

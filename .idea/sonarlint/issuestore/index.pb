@@ -45,42 +45,18 @@ F
 lang/en/validation.php,6/5/6528f85d541ea158fdf58c0a72e79398ba595225
 E
 config/permission.php,2/9/29f0acc6d9348a48c9acf34985464b316aaff2ba
-}
-Mdatabase/migrations/2022_06_06_094110_seed_default_data_to_category_table.php,3/d/3d5f8fbb6bc3e405dd587272992e989d6ec9a44c
 L
 app/Models/OperationCost.php,5/8/588ce7565521a676dfdda4ff4b1d1249aba2c734
-v
-Fdatabase/migrations/2022_06_06_090810_create_cost_categories_table.php,b/e/be5cbe3e1c7cd4c0aa243ccc3ca1f6f6b12887f5
 K
 app/Models/CostCategory.php,0/a/0a96ccfb54a66f216a9937b067c803161bbf2945
 O
 app/Models/ServerManagement.php,c/b/cb257e692e860849bd044a003f415c1d06a1ba4c
-x
-Hdatabase/migrations/2022_06_06_125155_create_server_management_table.php,7/8/78e023f59e1c3babe81692bf9abaae12b7761674
-p
-@database/migrations/2022_06_06_045340_create_vm_tables_table.php,1/f/1f86f728388503efc503c7fbd88faf2029e71052
 |
 Ldatabase/migrations/2022_06_06_130714_create_cost_payment_profiles_table.php,e/d/edf3dd53b7bb1091826fe758433fc0537bccbe85
 Q
 !app/Models/CostPaymentProfile.php,e/4/e43671397348ce90bd0c0a379d0b7c0ffab8363b
-N
-app/Models/CostTypeProfile.php,f/1/f153e1b30a46f988d0ca851f4f8130d5b6f82962
-y
-Idatabase/migrations/2022_06_06_131032_create_cost_type_profiles_table.php,9/a/9ab456d2cfb211b1af0b55e3006031b918896dad
-o
-?database/migrations/2022_06_06_131619_create_clusters_table.php,3/2/32e76f6f72ffc7dea87428b55cad235c7151d42d
-J
-app/Models/CostProfile.php,4/c/4c825133e10425733a28e82e197594d5efe262b5
-t
-Ddatabase/migrations/2022_06_06_132138_create_cost_profiles_table.php,d/e/de6dc4a3917b00c505f0728fa251702c68900b97
-q
-Adatabase/migrations/2022_06_06_132801_create_daily_cost_table.php,7/a/7a868255581d9102cda49d18207ab811315fd18d
-t
-Ddatabase/migrations/2022_06_06_132944_create_vm_datastores_table.php,1/2/12dbef0bd5bcd1d485c80eca17fa974e68cffb2f
 J
 app/Models/VmDatastore.php,4/4/44965a3a9872072017221bd08a511742fd2c9e3e
-q
-Adatabase/migrations/2022_06_06_133117_create_datastores_table.php,8/8/887efc901ba4763be1665e388fa16ab8c131fcd7
 H
 app/Models/Datastore.php,5/9/59ff72823de3101d3f6c45eb1dc971d3d2cda7b2
 S
@@ -89,8 +65,6 @@ S
 Ndatabase/migrations/2022_06_06_133541_create_datastore_cost_profiles_table.php,1/c/1c4257c1f434933e78eedcfc853dbdcb42feabcf
 C
 app/Models/Host.php,8/8/882a4a6de7697cc4d80d54cceb603d3bab9eee78
-}
-Mresources/views/content/table/table-datatable/table-datatable-basic.blade.php,8/7/87388283e8341a171352202aade75a0a831c6ee1
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
@@ -106,8 +80,6 @@ T
 $app/Providers/AppServiceProvider.php,4/8/48b8d8112e9bdd32ee7e25b1224d6739eece1e72
 I
 resources/js/bootstrap.js,2/a/2a602b14e912f494b7df1e17ce8d98958460f936
-v
-Fdatabase/migrations/2022_06_06_095159_create_operation_costs_table.php,2/d/2dc04b8217083ca81e92be102a7d54f0fd0a1ebe
 P
  resources/data/invoice-list.json,d/a/da74bad4c12c29a3e3e014fbb7d3740c67ab3c6e
 o
@@ -118,8 +90,6 @@ J
 .env.example,d/4/d4dae00d11854b35292c2b8a30515a9a0aa2d871
 v
 Fdatabase/migrations/2022_06_22_062316_create_project_servers_table.php,1/2/120092a0843c56707d089a95a096e21664d019d7
-L
-app/Handlers/SlugHandler.php,f/5/f5a2847df0c6b3b5b463c95dd365510396999beb
 Z
 *resources/js/scripts/pages/page-profile.js,e/f/ef832d86cc11b20c5c90fad87e11b1ece0ab24de
 Z
@@ -130,8 +100,6 @@ g
 7resources/js/scripts/extensions/ext-component-toastr.js,2/7/2766ef22e0f217f02f88e7cf353d31fc0637f046
 Z
 *resources/js/scripts/pages/project-home.js,4/b/4b1aee153968ffb11849fae50355a92e5e359d36
-A
-config/custom.php,4/f/4febccf8f1240f3ffc060d2fa1e863cdbb3c0f27
 C
 config/services.php,6/7/67cde7ebf0c82e44eedc43a9b83d4fa13c684078
 >
@@ -150,8 +118,6 @@ C
 config/debugbar.php,7/c/7c41d982a1dc4ee9193740c3f789660923865c74
 X
 (resources/views/panels/scripts.blade.php,7/c/7c51469823010b85b918c1617827673fbc960eb2
-r
-Bdatabase/migrations/2022_06_06_125913_create_departments_table.php,0/7/07843b6830825c51e2f4fd19e4ff64e4cabde786
 w
 Gdatabase/migrations/2022_07_01_055835_create_project_journeys_table.php,2/a/2a8afe765df396366613b078a47acebc475e8fa3
 I
@@ -160,8 +126,6 @@ q
 Aresources/views/content/apps/user/app-user-view-account.blade.php,c/0/c0409c96b94312bc8354eefe1f9c7f728fed0747
 y
 Iresources/views/content/_partials/_modals/modal-add-new-address.blade.php,e/4/e42b666d5f011c07407981187544e002ddbe351c
-U
-%app/Http/Controllers/VMController.php,3/5/357e5241ffb88cc456255e1f3028d2f561012bd7
 Z
 *app/Http/Controllers/CompanyController.php,e/6/e6f4a50c52535d0b3065489bd6feb5e366a179dd
 M
@@ -174,8 +138,6 @@ L
 app/Models/ProjectServer.php,b/f/bf24152f8c8ae47e4f91c245099b44b022a27d0f
 v
 Fdatabase/migrations/2014_10_12_100000_create_password_resets_table.php,e/f/eff59cfca55470b5a81fdbeb82498e8bfe5c8174
-F
-app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
 i
 9resources/views/content/apps/user/app-user-list.blade.php,8/4/84f66fbcccb3d08089150bd1743eb6d06270a46f
 M
@@ -184,12 +146,6 @@ M
 +resources/js/scripts/pages/app-user-list.js,f/8/f837a1d4ec94e990d8d636099469393acad427f4
 x
 Hresources/views/content/_partials/_modals/modal-create-project.blade.php,9/7/976f731ec074576ccf22c20f7b958e15f2218b1e
-^
-.resources/js/scripts/pages/modal-create-app.js,a/d/ade85ed6e1ea3b257f436fd341e6f9098f78a68e
-f
-6resources/views/content/project/project-home.blade.php,f/7/f703b193954b357df0171bfb3e2e6f40300e3394
-V
-&app/Providers/EventServiceProvider.php,6/d/6d80af2c8eccc15fa62a616067d4270df372f87d
 J
 resources/data/kanban.json,6/d/6da9283b18cf4ad579063257c7b836480eb2a168
 X
@@ -204,14 +160,10 @@ p
 @resources/views/layouts/horizontalDetachedLayoutMaster.blade.php,c/7/c793599c935b0896be7c366cbaf2002fb899459c
 e
 5resources/views/layouts/contentLayoutMaster.blade.php,d/6/d6ba8ceeff986b21395c6909f93c6fc1511732bf
-t
-Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6
 [
 +resources/views/panels/breadcrumb.blade.php,c/c/ccbdf9efa2b4a88aba34d45edbaf5415d24d4146
 \
 ,resources/data/menu-data/verticalMenu-1.json,5/7/571ad206b988bfd370646acb126dceec2ac37b8b
-Z
-*resources/data/menu-data/verticalMenu.json,d/4/d48f38ab8df80d77e0df39ed4252c436f360f285
 l
 <resources/views/content/apps/todo/app-todo-sidebar.blade.php,f/d/fde8ed5f595a88477aadcaacdb57b80f8fc17cd3
 d
@@ -226,5 +178,3 @@ r
 Bresources/views/content/_partials/_modals/modal-add-role.blade.php,c/f/cf34c2488833e386304163a8cbe01ac2f774de8d
 z
 Jresources/views/content/_partials/_modals/modal-project-activity.blade.php,a/4/a412959183e16f0234e242ff3a0e4ab5f1672a00
-h
-8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
