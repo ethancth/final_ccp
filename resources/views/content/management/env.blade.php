@@ -37,7 +37,7 @@
     </div>
     <!--/ Permission Table -->
 
-    @include('content/_partials/_modals/modal-add-edit-form')
+    @include('content/_partials/_modals/modal-env-add-edit-form')
 @endsection
 
 @section('vendor-script')
@@ -158,10 +158,10 @@
                             targets: 2,
                             width: '46px',
                             render: function (data, type, full, meta) {
-                                var $status = full['id'];
+                                var $id = full['id'];
                                 var $status_title = full['name'];
                                 // Creates full output for row
-                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>';
+                                var $rowOutput = '<a class="fw-bold edit" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-id="'+$id+'"> ' + $status_title + '</a>';
                                 return $rowOutput;
                             }
                         },

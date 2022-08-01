@@ -9,7 +9,11 @@ class Tier extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name','display_name','display_description','status','display_icon','display_icon_colour'];
+    protected $fillable=['name','display_name','display_description','company_id','status','display_icon','display_icon_colour'];
+
+    protected $casts = [
+        'created_at' => 'date:d-m-Y',
+    ];
 
     public function company()
     {

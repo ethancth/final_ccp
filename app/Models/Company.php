@@ -56,11 +56,14 @@ class Company extends Model
     {
         return $this->hasMany(Tier::class,'company_id','id');
     }
+    public function osform()
+    {
+        return $this->hasMany(OperatingSystem::class,'company_id','id');
+    }
 
     public function costprofile()
     {
         return $this->hasMany(CostProfile::class,'company_id','id');
     }
-
 
 }

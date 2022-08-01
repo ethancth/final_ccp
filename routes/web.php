@@ -76,6 +76,21 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/management-environment', [CompanyFormController::class, 'envform'])->name('management_env');
         Route::post('/management-environment', [CompanyFormController::class, 'env_request'])->name('management.env.store');
         Route::post('/management-environment-edit', [CompanyFormController::class, 'env_edit'])->name('management.env.edit');
+
+        //Tier
+        Route::get('/management-tier', [CompanyFormController::class, 'tierform'])->name('management_tier');
+        Route::post('/management-tier', [CompanyFormController::class, 'tier_request'])->name('management.tier.store');
+        Route::post('/management-tier-edit', [CompanyFormController::class, 'tier_edit'])->name('management.tier.edit');
+
+        //Operating System
+        Route::get('/management-os', [CompanyFormController::class, 'osform'])->name('management_os');
+        Route::post('/management-os', [CompanyFormController::class, 'os_request'])->name('management.os.store');
+        Route::post('/management-os-edit', [CompanyFormController::class, 'os_edit'])->name('management.os.edit');
+
+        //Cost Form
+        Route::get('/management-cost', [CompanyFormController::class, 'costform'])->name('management_cost');
+        Route::post('/management-costform', [CompanyFormController::class, 'costform_store'])->name('management.costform.store');
+
 //        //Department Cost Profile
 //        Route::resource('department-cost-profile', 'ClusterCostProfileController', ['only' => ['update', 'edit', 'store']]);
 //        Route::get('/department-cost-profile', 'ClusterCostProfileController@index')->name('department-cost-profile');

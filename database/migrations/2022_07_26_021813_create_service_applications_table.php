@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('company_id');
             $table->decimal('cost',10,2);
             $table->integer('is_one_time_payment')->default('0');
+            $table->integer('is_cost_per_core')->default('0');
+            $table->integer('cpu_amount')->default('0');
             $table->timestamps();
         });
     }

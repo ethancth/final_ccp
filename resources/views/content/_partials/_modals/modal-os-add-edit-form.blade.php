@@ -7,9 +7,9 @@
             </div>
 
             <div class="modal-body flex-grow-1">
-                <form class="needs-validation" novalidate id="envform" name="envform" action="{{route("management.env.store")}}" method="POST" accept-charset="UTF-8">
+                <form class="needs-validation" novalidate id="envform" name="envform" action="{{route("management.os.store")}}" method="POST" accept-charset="UTF-8">
                     <input class="hidden"  name="_token" value="{{ csrf_token() }}">
-                    <input class="" name="form_id" id="form_id" value="">
+                    <input class="hidden" name="form_id" id="form_id" value="">
                     <div class="mb-1">
                         <label class="form-label" for="basic-addon-name">Name</label>
 
@@ -18,13 +18,13 @@
                             id="basic-addon-name"
                             name="basic_addon_name"
                             class="form-control"
-                            placeholder="e.g. Production"
+                            placeholder="e.g. Windows"
                             aria-label="Name"
                             required
                             aria-describedby="basic-addon-name"
                         />
                         <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Please enter Environment name.</div>
+                        <div class="invalid-feedback">Please enter operating system name.</div>
                     </div>
                     <div class="mb-1">
                         <label class="form-label" for="basic-default-display-name">Display Name</label>
@@ -34,7 +34,7 @@
                             name="basic_default_display_name"
 
                             class="form-control"
-                            placeholder="Production Environment"
+                            placeholder="MS Window 11"
                             aria-label="Display Name"
                             required
                         />
@@ -48,13 +48,30 @@
                             id="basic-default-desc"
                             name="basic_default_desc"
                             class="form-control"
-                            placeholder="Short sentence about environment.."
+                            placeholder="Short sentence about operating system.."
                             minlength="5"
                             required
                         />
                         <div class="valid-feedback">Looks good!</div>
                         <div class="invalid-feedback">Please enter your sentence.</div>
                     </div>
+
+                    <div class="mb-1">
+                        <label class="form-label" for="basic-default-password1">Cost</label>
+                        <input
+                            type="decimal"
+                            id="basic-default-cost"
+                            name="basic_default_cost"
+                            class="form-control"
+                            placeholder="$10"
+                            min="1"
+                            required
+                        />
+                        <small>This cost is Cost per day(temporary decision)</small>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter your Cost.</div>
+                    </div>
+
                     <div class="mb-1">
                         <label class="form-label" for="select-colour">Color Label</label>
                         <select class="form-select" id="select-colour" name="select_colour" required>
