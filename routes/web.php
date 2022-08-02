@@ -87,6 +87,11 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::post('/management-os', [CompanyFormController::class, 'os_request'])->name('management.os.store');
         Route::post('/management-os-edit', [CompanyFormController::class, 'os_edit'])->name('management.os.edit');
 
+        //Service Application
+        Route::get('/management-service-application', [CompanyFormController::class, 'saform'])->name('management_sa');
+        Route::post('/management-sa', [CompanyFormController::class, 'sa_request'])->name('management.sa.store');
+        Route::post('/management-sa-edit', [CompanyFormController::class, 'sa_edit'])->name('management.sa.edit');
+
         //Cost Form
         Route::get('/management-cost', [CompanyFormController::class, 'costform'])->name('management_cost');
         Route::post('/management-costform', [CompanyFormController::class, 'costform_store'])->name('management.costform.store');

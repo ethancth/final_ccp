@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CostProfile;
 use App\Models\Environment;
 use App\Models\OperatingSystem;
+use App\Models\ServiceApplication;
 use App\Models\Tier;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -182,6 +183,71 @@ class CompanyFormController extends Controller
         return "";
     }
 
+    //Service Application
+
+    public function saform(Request $request)
+    {
+
+        $pageConfigs = ['pageHeader' => false,];
+        $data= User::find(Auth::id())->company->saform;
+        $formtxt='Service Application';
+        if ($request->ajax()) {
+            $data = User::find(Auth::id())->company->saform;
+            return Datatables::of($data)
+//                ->addColumn('action', function($row){
+//                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+//                    return $btn;
+//                })
+//                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $breadcrumbs = [
+            ['link' => "/", 'name' => "Home"], ['link' => "management-sa", 'name' => "Service Application Form"]
+        ];
+
+        return view('/content/management/service_application', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Form Configuration']);
+    }
+
+    public function sa_request(Request $request)
+    {
+        //dd($request);
+        if( $request->select_satype==1){
+            $select_satype_one_time=1;
+            $select_satype_cost_per_core=0;
+            $reset_number=0;
+        }else{
+            $select_satype_one_time=0;
+            $select_satype_cost_per_core=1;
+            $reset_number=$request->basic_default_cost_per_core;
+        }
+        ServiceApplication::updateOrCreate(
+            [
+                'id' => $request->form_id,
+            ],
+            [
+                'name' => $request->basic_addon_name,
+                'display_name' => $request->basic_default_display_name,
+                'cost' => $request->basic_default_cost,
+                'display_description' => $request->basic_default_desc,
+                'company_id' => User::find(Auth::id())->company_id,
+                'status' => $request->select_status,
+                'is_one_time_payment' => $select_satype_one_time,
+                'is_cost_per_core' => $select_satype_cost_per_core,
+                'cpu_amount' =>$reset_number,
+            ]);
+        return redirect()->route('management_sa')->with('success', 'Success！');
+    }
+
+    public function sa_edit(Request $request)
+    {
+        $where = array('id' => $request->id);
+        $env  = ServiceApplication::where($where)->first();
+
+        return response()->json($env);
+    }
+
+
+    // cost profile
     public function costform()
     {
         $pageConfigs = ['pageHeader' => false,];

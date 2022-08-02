@@ -249,7 +249,10 @@
                             },
                             init: function (api, node, config) {
                                 $(node).removeClass('btn-secondary');
-                            }
+                            },
+                            action: function (){
+                                $('#envform').trigger("reset");
+                            },
                         },
 
                     ],

@@ -14,8 +14,8 @@
 @endsection
 
 @section('content')
-    <h3>Environment</h3>
-    <p>Environment description.</p>
+    <h3>Service Application</h3>
+    <p>Service Application description.</p>
 
     <!-- Permission Table -->
     <div class="card">
@@ -27,7 +27,8 @@
                     <th>ID</th>
                     <th>Value</th>
                     <th>Display Name</th>
-                    <th>status</th>
+                    <th>Cost</th>
+                    <th>Status</th>
                     <th>Created Date</th>
                     <th>Actions</th>
                 </tr>
@@ -37,7 +38,7 @@
     </div>
     <!--/ Permission Table -->
 
-    @include('content/_partials/_modals/modal-env-add-edit-form')
+    @include('content/_partials/_modals/modal-sa-add-edit-form')
 @endsection
 
 @section('vendor-script')
@@ -77,6 +78,8 @@
                 }
             });
 
+
+
             var bootstrapForm = $('.needs-validation');
 
             if (bootstrapForm.length) {
@@ -96,16 +99,31 @@
 
                 });
             }
+            $('body').on('change', '.select_sa_type', function () {
+                if($(this).val()==2){
+                    document.getElementById("basic-default-cost-per-core").disabled = false;
+                    document.getElementById("basic-default-cost-per-core").value = '';
+
+                }else{
+                    document.getElementById("basic-default-cost-per-core").disabled = true;
+
+                }
+
+            });
 
             $('body').on('click', '.edit', function () {
                 var id = $(this).data('id');
                 $.ajax({
                     type:"POST",
-                    url: "{{ route('management.env.edit') }}",
+                    url: "{{ route('management.sa.edit') }}",
                     data: { id: id },
                     dataType: 'json',
                     success: function(res){
-                        var color=res.display_icon_colour;
+                        if(res.is_one_time_payment!=1){
+                            $("#select-satype").val(2).change();
+                        }else{
+                            $("#select-satype").val(res.is_one_time_payment).change();
+                        }
                         $('#modalsslideinform').modal('show');
                         $('#form-label').text("Edit Record");
                         $('#basic-addon-name').val(res.name);
@@ -113,6 +131,8 @@
                         $('#basic-default-display-name').val(res.display_name);
                         $('#basic-default-desc').val(res.display_description);
                         $('#basic-default-icon').val(res.display_icon);
+                        $('#basic-default-cost').val(res.cost);
+                        $('#basic-default-cost-per-core').val(res.cpu_amount);
                         $("#select-colour").val(color).change();
                         $("#select-status").val(res.status).change();
                         // $('#code').val(res.code);
@@ -126,13 +146,14 @@
             if (dataTableProjectIndex.length) {
                 dt_project_index = dataTableProjectIndex.DataTable({
 
-                    ajax: "{{ route('management_env') }}", // JSON file to add data
+                    ajax: "{{ route('management_sa') }}", // JSON file to add data
                     columns: [
                         // columns according to JSON
                         { data: '' },
                         { data: 'id' },
                         { data: 'name' },
                         { data: 'display_name' },
+                        { data: 'cost' },
                         { data: 'status' },
                         { data: 'created_at' },
                         { data: '' }
@@ -149,12 +170,13 @@
                             }
                         },
                         {
+                            //id
                             targets: 1,
                             visible: true
                         },
 
                         {
-                            // Project Name + link
+                            //  Name + link
                             targets: 2,
                             width: '46px',
                             render: function (data, type, full, meta) {
@@ -163,10 +185,12 @@
                                 // Creates full output for row
                                 var $rowOutput = '<a class="fw-bold edit" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-id="'+$id+'"> ' + $status_title + '</a>';
                                 return $rowOutput;
+
+
                             }
                         },
                         {
-                            // Project Status
+                            // display name
                             targets: 3,
                             orderable: false,
                             render: function (data, type, full, meta) {
@@ -179,8 +203,21 @@
                             }
                         },
                         {
-                            // Project Status
+                            // display cost
                             targets: 4,
+                            orderable: false,
+                            render: function (data, type, full, meta) {
+
+                                var $status = full['cost'];
+
+                                return (
+                                    [$status]
+                                );
+                            }
+                        },
+                        {
+                            //  Status
+                            targets: 5,
                             orderable: false,
                             render: function (data, type, full, meta) {
 
@@ -205,7 +242,7 @@
                                 var $id = full['id'];
                                 return (
 
-                                    '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
+                                    '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit">' +
                                     feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
                                     '</a>' +
 

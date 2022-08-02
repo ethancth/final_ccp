@@ -17,6 +17,7 @@
                             type="text"
                             id="basic-addon-name"
                             name="basic_addon_name"
+                            pattern="[\w,./_=?-]+"
                             class="form-control"
                             placeholder="e.g. Production"
                             aria-label="Name"

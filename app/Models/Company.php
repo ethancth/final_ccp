@@ -66,4 +66,9 @@ class Company extends Model
         return $this->hasMany(CostProfile::class,'company_id','id');
     }
 
+    public function saform()
+    {
+        return $this->hasMany(ServiceApplication::class,'company_id','id');
+    }
+
 }
