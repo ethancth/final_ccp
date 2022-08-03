@@ -223,11 +223,11 @@
                     // Buttons with Dropdown
                     buttons: [
                         {
-                            text: 'Create New Project',
+                            text: 'Create New Policy',
                             className: 'add-new btn btn-primary mt-50',
                             attr: {
                                 'data-bs-toggle': 'modal',
-                                'data-bs-target': '#createProjectModal'
+                                'data-bs-target': '#addNewPolicyModal'
                             },
                             init: function (api, node, config) {
                                 $(node).removeClass('btn-secondary');

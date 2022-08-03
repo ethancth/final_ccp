@@ -1,14 +1,4 @@
 <div class="scrolling-inside-modal">
-    <!-- Button trigger modal -->
-    <button
-        type="button"
-        class="btn btn-outline-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#addNewAddressModal"
-    >
-        Scrolling Content Inside Modal
-    </button>
-
     <!-- Modal -->
     <div
         class="modal fade"
@@ -33,7 +23,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="addNewAddressModal" tabindex="-1" aria-labelledby="addNewAddressTitle" aria-hidden="true">
+    <div class="modal fade" id="addNewPolicyModal" tabindex="-1" aria-labelledby="addNewAddressTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
 
             <div class="modal-content">
