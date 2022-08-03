@@ -85,7 +85,7 @@
             The most basic list group is simply an unordered list with list items, and the proper classes.
           </p>
           <ul class="list-group" id="basic-list-group">
-            <li class="list-group-item draggable">
+            <li class="list-group-item draggable" value="123">
               <div class="d-flex">
                 <img
                   src="{{asset('images/portrait/small/avatar-s-12.jpg')}}"
@@ -100,7 +100,7 @@
                 </div>
               </div>
             </li>
-            <li class="list-group-item draggable">
+            <li class="list-group-item draggable" value="123">
               <div class="d-flex">
                 <img
                   src="{{asset('images/portrait/small/avatar-s-1.jpg')}}"
@@ -115,7 +115,7 @@
                 </div>
               </div>
             </li>
-            <li class="list-group-item draggable">
+            <li class="list-group-item draggable" value="123">
               <div class="d-flex">
                 <img
                   src="{{asset('images/portrait/small/avatar-s-2.jpg')}}"
@@ -130,7 +130,7 @@
                 </div>
               </div>
             </li>
-            <li class="list-group-item draggable">
+            <li class="list-group-item draggable" value="123">
               <div class="d-flex">
                 <img
                   src="{{asset('images/portrait/small/avatar-s-3.jpg')}}"
@@ -145,7 +145,7 @@
                 </div>
               </div>
             </li>
-            <li class="list-group-item draggable">
+            <li class="list-group-item draggable" value="123">
               <div class="d-flex">
                 <img
                   src="{{asset('images/portrait/small/avatar-s-4.jpg')}}"
@@ -173,13 +173,16 @@
           <h4 class="card-title">Multiple Lists</h4>
         </div>
         <div class="card-body">
+            <button class="demo">demo button</button>
+            <input class="" name="form_id" id="form_id" value="">
+            <input class="" name="form_id1" id="form_id1" value="">
           <p class="card-text">Drag and drop items of more than one list. Add same group to group prop</p>
           <div class="row">
             <div class="col-md-6 col-sm-12">
               <h4 class="my-1">People Group 1</h4>
               <ul class="list-group list-group-flush" id="multiple-list-group-a">
-                <li class="list-group-item draggable">
-                  <div class="d-flex">
+                <li class="list-group-item draggable" value="1" >
+                  <div class="d-flex" >
                     <img
                       src="{{asset('images/portrait/small/avatar-s-12.jpg')}}"
                       class="rounded-circle me-2"
@@ -193,7 +196,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="list-group-item draggable">
+                <li class="list-group-item draggable" value="2">
                   <div class="d-flex">
                     <img
                       src="{{asset('images/portrait/small/avatar-s-1.jpg')}}"
@@ -208,7 +211,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="list-group-item draggable">
+                <li class="list-group-item draggable" value="3">
                   <div class="d-flex">
                     <img
                       src="{{asset('images/portrait/small/avatar-s-2.jpg')}}"
@@ -223,7 +226,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="list-group-item draggable">
+                <li class="list-group-item draggable" value="4">
                   <div class="d-flex">
                     <img
                       src="{{asset("images/portrait/small/avatar-s-3.jpg")}}"
@@ -238,7 +241,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="list-group-item draggable">
+                <li class="list-group-item draggable" value="5">
                   <div class="d-flex">
                     <img
                       src="{{asset("images/portrait/small/avatar-s-4.jpg")}}"
@@ -258,7 +261,7 @@
             <div class="col-md-6 col-sm-12">
               <h4 class="my-1">People Group 2</h4>
               <ul class="list-group list-group-flush" id="multiple-list-group-b">
-                <li class="list-group-item draggable">
+                <li class="list-group-item draggable" value="6">
                   <div class="d-flex">
                     <img
                       src="{{asset('images/portrait/small/avatar-s-12.jpg')}}"
@@ -273,7 +276,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="list-group-item draggable">
+                <li class="list-group-item draggable" value="7">
                   <div class="d-flex">
                     <img
                       src="{{asset('images/portrait/small/avatar-s-1.jpg')}}"
@@ -288,7 +291,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="list-group-item draggable">
+                <li class="list-group-item draggable" value="8">
                   <div class="d-flex">
                     <img
                       src="{{asset('images/portrait/small/avatar-s-2.jpg')}}"
@@ -303,7 +306,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="list-group-item draggable">
+                <li class="list-group-item draggable" value="9">
                   <div class="d-flex">
                     <img
                       src="{{asset('images/portrait/small/avatar-s-3.jpg')}}"
@@ -318,7 +321,7 @@
                     </div>
                   </div>
                 </li>
-                <li class="list-group-item draggable">
+                <li class="list-group-item draggable" value="10">
                   <div class="d-flex">
                     <img
                       src="{{asset('images/portrait/small/avatar-s-4.jpg')}}"

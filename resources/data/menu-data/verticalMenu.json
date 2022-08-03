@@ -34,6 +34,7 @@
       {"url":"management-os","name":"OS Form","icon":"grid","slug":"management-os"},
       {"url":"management-service-application","name":"SA Form","icon":"grid","slug":"management-sa"},
       {"url":"management-cost","name":"Cost Form","icon":"grid","slug":"management-costs"},
+      {"url":"management-policy-form","name":"Policy Form","icon":"grid","slug":"management-policy-form"},
 
       {"url":"department.list","name":"Department Management", "icon":"grid","slug":"department-management"},
       {"url":"operating-expense","name":"Operating Expense Management" ,"icon":"grid","slug":"Operating-Expense-Management"},

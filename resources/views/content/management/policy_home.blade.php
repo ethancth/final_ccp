@@ -1,21 +1,24 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', $pagetitle)
+@section('title', 'Policy')
 
 @section('vendor-style')
     <!-- Vendor css files -->
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/dragula.min.css')) }}">
+    <link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
 @endsection
 @section('page-style')
     <!-- Page css files -->
     <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/forms/form-validation.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-drag-drop.css')) }}">
 @endsection
 
 @section('content')
-    <h3>Service Application</h3>
-    <p>Service Application description.</p>
+    <h3>Form Policy</h3>
+    <p>Project Form Policy.</p>
 
     <!-- Permission Table -->
     <div class="card">
@@ -25,10 +28,12 @@
                 <tr>
                     <th></th>
                     <th>ID</th>
-                    <th>Value</th>
-                    <th>Display Name</th>
-                    <th>Cost</th>
-                    <th>Status</th>
+                    <th>Environment</th>
+                    <th>Tier</th>
+                    <th>OS</th>
+                    <th>Mandatory</th>
+                    <th>Optional</th>
+                    <th>status</th>
                     <th>Created Date</th>
                     <th>Actions</th>
                 </tr>
@@ -38,7 +43,7 @@
     </div>
     <!--/ Permission Table -->
 
-    @include('content/_partials/_modals/modal-sa-add-edit-form')
+    @include('content/_partials/_modals/modal-add-edit-policy-form')
 @endsection
 
 @section('vendor-script')
@@ -50,10 +55,10 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.buttons.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.bootstrap5.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
-
+    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
 @endsection
 @section('page-script')
-
     <!-- Page js files -->
     <script>
         $(function () {
@@ -64,7 +69,10 @@
                 dt_project_index,
                 statusObj = {
                     1: { title: 'Active', class: 'badge-light-success' },
-                    0: { title: 'InActive', class: 'badge-light-warning' },
+                    0: { title: 'Inactive', class: 'badge-light-warning' },
+                    3: { title: 'Approve', class: 'badge-light-primary' },
+                    4: { title: 'In-Provisioning', class: 'badge-light-info' },
+                    5: { title: 'Complete', class: 'badge-light-success' },
                 },
                 projectHome='project/';
 
@@ -72,87 +80,20 @@
                 assetPath = $('body').attr('data-asset-path');
 
             }
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-
-
-            var bootstrapForm = $('.needs-validation');
-
-            if (bootstrapForm.length) {
-                Array.prototype.filter.call(bootstrapForm, function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (form.checkValidity() === false) {
-                            form.classList.add('invalid');
-                        }
-                        form.classList.add('was-validated');
-
-                        event.preventDefault();
-                        if (form.checkValidity() === true) {
-                            document.forms["envform"].submit();
-                        }
-
-                    });
-
-                });
-            }
-            $('body').on('change', '.select_sa_type', function () {
-                if($(this).val()==2){
-                    document.getElementById("basic-default-cost-per-core").disabled = false;
-                    document.getElementById("basic-default-cost-per-core").value = '';
-
-                }else{
-                    document.getElementById("basic-default-cost-per-core").disabled = true;
-
-                }
-
-            });
-
-            $('body').on('click', '.edit', function () {
-                var id = $(this).data('id');
-                $.ajax({
-                    type:"POST",
-                    url: "{{ route('management.sa.edit') }}",
-                    data: { id: id },
-                    dataType: 'json',
-                    success: function(res){
-                        if(res.is_one_time_payment!=1){
-                            $("#select-satype").val(2).change();
-                        }else{
-                            $("#select-satype").val(res.is_one_time_payment).change();
-                        }
-                        $('#modalsslideinform').modal('show');
-                        $('#form-label').text("Edit Record");
-                        $('#basic-addon-name').val(res.name);
-                        $('#form_id').val(res.id);
-                        $('#basic-default-display-name').val(res.display_name);
-                        $('#basic-default-desc').val(res.display_description);
-                        $('#basic-default-icon').val(res.display_icon);
-                        $('#basic-default-cost').val(res.cost);
-                        $('#basic-default-cost-per-core').val(res.cpu_amount);
-                        $("#select-status").val(res.status).change();
-                        // $('#code').val(res.code);
-                        // $('#author').val(res.author);
-                    }
-                });
-
-            });
-
             // Users List datatable
             if (dataTableProjectIndex.length) {
                 dt_project_index = dataTableProjectIndex.DataTable({
 
-                    ajax: "{{ route('management_sa') }}", // JSON file to add data
+                    ajax: "{{ route('management_policyform') }}", // JSON file to add data
                     columns: [
                         // columns according to JSON
                         { data: '' },
                         { data: 'id' },
-                        { data: 'name' },
-                        { data: 'display_name' },
-                        { data: 'cost' },
+                        { data: 'intro' },
+                        { data: 'tier_field' },
+                        { data: 'os_field' },
+                        { data: 'mandatory_field' },
+                        { data: 'optional_field' },
                         { data: 'status' },
                         { data: 'created_at' },
                         { data: '' }
@@ -169,62 +110,63 @@
                             }
                         },
                         {
-                            //id
                             targets: 1,
                             visible: true
                         },
 
                         {
-                            //  Name + link
+                            // Project Name + link
                             targets: 2,
                             width: '46px',
                             render: function (data, type, full, meta) {
-                                var $id = full['id'];
-                                var $status_title = full['name'];
+                                var $status = full['id'];
+                                var $status_title = full['envname'];
                                 // Creates full output for row
-                                var $rowOutput = '<a class="fw-bold edit" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-id="'+$id+'"> ' + $status_title + '</a>';
+                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>';
                                 return $rowOutput;
-
-
                             }
                         },
                         {
-                            // display name
+                            // Project Status
                             targets: 3,
-                            orderable: false,
+
                             render: function (data, type, full, meta) {
 
-                                var $status = full['display_name'];
+                                return full['tiername'];
 
-                                return (
-                                    [$status]
-                                );
                             }
                         },
                         {
-                            // display cost
+                            // Project Status
                             targets: 4,
-                            orderable: false,
                             render: function (data, type, full, meta) {
 
-                                var $status = full['cost'];
-                                var $type = full['cpu_amount'];
-                                var $display = "";
-                                if($type!=0){
-                                    $display =" / "+$type+" vCPU";
-                                }else{
-                                    $display =" / License";
-                                }
+                                return full['osname'];
 
-                                return (
-                                   '$'+ [$status] + $display
-                                );
                             }
                         },
                         {
-                            //  Status
+                            // Project Status
                             targets: 5,
                             orderable: false,
+                            render: function (data, type, full, meta) {
+
+                                return full['mandatory_field'];
+
+                            }
+                        },{
+                            // Project Status
+                            targets: 6,
+                            orderable: false,
+                            render: function (data, type, full, meta) {
+
+                                return full['optional_field'];
+
+                            }
+                        },
+                        {
+                            // Project Status
+                            targets: 7,
                             render: function (data, type, full, meta) {
 
                                 var $status = full['status'];
@@ -245,13 +187,12 @@
                             orderable: false,
                             render: function (data, type, full, meta) {
 
-                                var $id = full['id'];
+                                var $project_id = full['id'];
                                 return (
 
-                                    '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit">' +
+                                    '<a class="btn btn-sm btn-icon" href="'+projectHome+ $project_id+'">' +
                                     feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</a>' +
-
+                                    '</i></a>' +
                                     '<button class="btn btn-sm btn-icon delete-record">' +
                                     feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
                                     '</button>'
@@ -282,14 +223,11 @@
                     // Buttons with Dropdown
                     buttons: [
                         {
-                            text: 'Create New {{$formtxt}}',
+                            text: 'Create New Project',
                             className: 'add-new btn btn-primary mt-50',
                             attr: {
                                 'data-bs-toggle': 'modal',
-                                'data-bs-target': '#modalsslideinform'
-                            },
-                            action: function (){
-                                $('#envform').trigger("reset");
+                                'data-bs-target': '#createProjectModal'
                             },
                             init: function (api, node, config) {
                                 $(node).removeClass('btn-secondary');
@@ -345,7 +283,6 @@
                                     '<option value="In-Provisioning" class="text-capitalize">In-Provisioning</option>' +
                                     '<option value="Complete" class="text-capitalize">Complete</option></select>'
                                 )
-                                    .appendTo('.user_role')
                                     .on('change', function () {
                                         var val = $.fn.dataTable.util.escapeRegex($(this).val());
                                         column.search(val ? val : '', true, false).draw();
@@ -366,6 +303,74 @@
                 $('.dataTables_filter .form-control').removeClass('form-control-sm');
                 $('.dataTables_length .form-select').removeClass('form-select-sm');
             }, 300);
+
+            var bootstrapForm = $('.needs-validation'),
+                modalFormEnv = $('#modalFormEnv'),
+                modalFormTier = $('#modalFormTier'),
+                modalFormOs = $('#modalFormOs');
+
+            // --- add new address ----- //
+
+            // Select2 initialization
+            if (modalFormEnv.length) {
+                modalFormEnv.wrap('<div class="position-relative"></div>').select2({
+                    dropdownParent: modalFormEnv.parent()
+                });
+            }
+            if (modalFormTier.length) {
+                modalFormTier.wrap('<div class="position-relative"></div>').select2({
+                    dropdownParent: modalFormTier.parent()
+                });
+            }
+            if (modalFormOs.length) {
+                modalFormOs.wrap('<div class="position-relative"></div>').select2({
+                    dropdownParent: modalFormOs.parent()
+                });
+            }
+
+
+            dragula([document.getElementById('multiple-list-group-a'), document.getElementById('multiple-list-group-b'), document.getElementById('multiple-list-group-c')]);
+
+
+            $('body').on('click', '.demo', function () {
+
+
+                var lis = document.getElementById("multiple-list-group-a").getElementsByTagName("li");
+                var temp =[]
+                for(let i =0;i<lis.length;i++){
+                    temp.push(lis[i].value);
+                    console.log(lis[i].value);
+                }
+                $('#form_group_a').val(temp);
+
+
+                var lis1 = document.getElementById("multiple-list-group-b").getElementsByTagName("li");
+                var temp1 =[]
+                for(let i =0;i<lis1.length;i++){
+                    temp1.push(lis1[i].value);
+                    console.log(lis1[i].value);
+                }
+                $('#form_group_b').val(temp1);
+
+                Array.prototype.filter.call(bootstrapForm, function (form) {
+
+
+                    if (form.checkValidity() === false) {
+                        form.classList.add('invalid');
+                    }
+                    form.classList.add('was-validated');
+
+
+                    if (form.checkValidity() === true) {
+                        document.forms["addNewPolicyForm"].submit();
+                    }
+
+
+
+                });
+
+
+            });
         });
     </script>
 @endsection

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\CostProfile;
 use App\Models\Environment;
+use App\Models\FormPolicy;
 use App\Models\OperatingSystem;
 use App\Models\ServiceApplication;
 use App\Models\Tier;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class CompanyFormController extends Controller
@@ -261,6 +263,8 @@ class CompanyFormController extends Controller
     public function costform_store(Request $request)
     {
 
+
+
         CostProfile::updateOrCreate(
             [
                 'id' => $request->form_id,
@@ -280,4 +284,71 @@ class CompanyFormController extends Controller
             ]);
         return redirect()->route('management_cost')->with('success', 'Success！');
     }
+
+    //policyForm
+
+    public function policyform(Request $request)
+    {
+        $pageConfigs = ['pageHeader' => false,];
+        $policyform= User::find(Auth::id())->company->policyform;
+        $envform=User::find(Auth::id())->company->envform;
+        $tierform=User::find(Auth::id())->company->tierform;
+        $osform=User::find(Auth::id())->company->osform;
+        $saform=User::find(Auth::id())->company->saform;
+
+        $_input_env=1;
+        $_input_tier=1;
+        $_input_os=1;
+
+
+        if ($request->ajax()) {
+            $data = User::find(Auth::id())->company->policyform;
+            return Datatables::of($data)
+                ->addColumn('envname', function(FormPolicy $formpolicy) {
+                    return  $formpolicy->envname->display_name;
+                })
+                ->addColumn('tiername', function(FormPolicy $formpolicy) {
+                    return  $formpolicy->tiername->display_name;
+                })
+                ->addColumn('osname', function(FormPolicy $formpolicy) {
+                    return  $formpolicy->osname->display_name;
+                })
+                ->make(true);
+        }
+
+        return view('/content/management/policy_home', ['pageConfigs' => $pageConfigs,'policyform' => $policyform,'envforms'=>$envform,'tierforms'=>$tierform,'osforms'=>$osform,'saforms'=>$saform]);
+    }
+
+    public function policyform_store(Request $request)
+    {
+        //dd($request);
+        if($request->form_group_a==null && $request->form_group_b==null){
+            return redirect()->route('management_policyform')->with('warning', 'Service Application is Required to drag to Optional or Mandatory group！');
+        }
+        $demo = DB::table('form_policies')
+            ->where('env_field', '=', "$request->modalFormEnv")
+            ->where('tier_field', '=', "$request->modalFormTier")
+            ->Where('os_field', '=', "$request->modalFormOs")
+            ->get();
+
+        if($demo->isEmpty()){
+            FormPolicy::updateOrCreate(
+                [
+                    'id' => $request->form_id,
+                ],
+                [
+                    'env_field' => $request->modalFormEnv,
+                    'tier_field' =>$request->modalFormTier,
+                    'os_field' => $request->modalFormOs,
+                    'mandatory_field' => $request->form_group_a,
+                    'optional_field' => $request->form_group_b,
+                    'company_id' => User::find(Auth::id())->company_id,
+                ]);
+            return redirect()->route('management_policyform')->with('success', 'Success！');
+        }else{
+            return redirect()->route('management_policyform')->with('warning', 'Condition is exist！');
+        }
+
+    }
+
 }

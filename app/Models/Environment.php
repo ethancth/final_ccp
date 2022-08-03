@@ -19,5 +19,10 @@ class Environment extends Model
         return $this->belongsTo(Company::class,'id','company_id');
     }
 
+    public function getEnvDisplayNameAttribute()
+    {
+        return $this->display_name;
+    }
+
 
 }

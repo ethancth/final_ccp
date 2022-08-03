@@ -21,7 +21,7 @@
     "predis/predis": "~1.1",
     "staudenmeir/eloquent-has-many-deep": "^1.7",
     "viacreative/sudo-su": "^1.1",
-    "yajra/laravel-datatables-oracle": "~9.0"
+    "yajra/laravel-datatables-oracle": "^10.0"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.6",
