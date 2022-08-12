@@ -168,16 +168,51 @@
                             }
                         },
                         {
-                            // Project Status
+                            // User full name and username
                             targets: 3,
-                            orderable: false,
+                            responsivePriority: 4,
                             render: function (data, type, full, meta) {
-
-                                var $status = full['display_name'];
-
-                                return (
-                                    [$status]
-                                );
+                                var $name = full['display_name'],
+                                    $desc = full['display_description'],
+                                    $image = '',
+                                    $images = full['display_icon'],
+                                    $colour = full['display_icon_colour'];
+                                var $id = full['id'];
+                                // if ($image) {
+                                //     // For Avatar image
+                                //     var $output =
+                                //         '<img src="' + assetPath + 'images/avatars/' + $image + '" alt="Avatar" height="32" width="32">';
+                                // } else {
+                                // For Avatar badge
+                                var stateNum = Math.floor(Math.random() * 6) + 1;
+                                var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
+                                var $state = states[stateNum],
+                                    $name = full['name'],
+                                    $initials = $name.match(/\b\w/g) || [];
+                                $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
+                                var $output = '<span class="avatar-content" ><i data-feather="'+$images+'"></i></span>';
+                                //}
+                                var colorClass = $image === '' ? ' bg-light-' + $colour + ' ' : '';
+                                // Creates full output for row
+                                var $row_output =
+                                    '<div class="d-flex justify-content-left align-items-center">' +
+                                    '<div class="avatar-wrapper">' +
+                                    '<div class="avatar ' +
+                                    colorClass +
+                                    ' me-1">' +
+                                    $output +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<div class="d-flex flex-column">' +
+                                    '<a href="#" class="user_name text-truncate text-body edit"  data-bs-toggle="tooltip" data-bs-placement="top" data-id="'+$id+'"><span class="fw-bolder">' +
+                                    $name +
+                                    '</span></a>' +
+                                    '<small class="emp_post text-muted">' +
+                                    $desc +
+                                    '</small>' +
+                                    '</div>' +
+                                    '</div>';
+                                return $row_output;
                             }
                         },
                         {

@@ -295,9 +295,15 @@
                                 <div class="card-header" style="
                                     padding-top: 0px;
                                     padding-left: 0px;">
+                                    <div class="row">
                                     <div class="col-xl-4 col-md-4 col-4">
                                         <label class="form-label" for="disabledInput">Server Name</label>
                                         <p class="form-control-static" id="input_hostname">Production</p>
+                                    </div>
+                                        <div class="col-xl-4 col-md-4 col-4">
+                                            <label class="form-label" for="disabledInput">Cost</label>
+                                            <p class="form-control-static" id="input_cost">$123</p>
+                                        </div>
                                     </div>
                                     <hr style="margin-top: 5px;margin-bottom: 5px;">
                                     <div class="row">

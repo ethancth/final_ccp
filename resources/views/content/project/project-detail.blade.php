@@ -697,7 +697,7 @@
                 buttons: [
                         @if($project->status==1)
                         {
-                        text: 'Add Record',
+                        text: 'Add Server',
                         //className: 'btn btn-primary btn-add-record ms-2',
                         className: 'btn btn-primary waves-effect waves-float waves-light',
                         // action: function (e, dt, button, config) {

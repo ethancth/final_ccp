@@ -28,13 +28,13 @@
 
 
       {"url":"","navheader":"Management","icon":""},
-      {"url":"user-management","name":"User Management","icon":"grid","slug":"user-management"},
-      {"url":"management-environment","name":"Env Form","icon":"grid","slug":"management-environment"},
-      {"url":"management-tier","name":"Tier Form","icon":"grid","slug":"management-tier"},
-      {"url":"management-os","name":"OS Form","icon":"grid","slug":"management-os"},
-      {"url":"management-service-application","name":"SA Form","icon":"grid","slug":"management-sa"},
-      {"url":"management-cost","name":"Cost Form","icon":"grid","slug":"management-costs"},
-      {"url":"management-policy-form","name":"Policy Form","icon":"grid","slug":"management-policy-form"},
+      {"url":"user-management","name":"User Management","icon":"grid","slug":"user"},
+      {"url":"management-environment","name":"Env Form","icon":"grid","slug":"management_env"},
+      {"url":"management-tier","name":"Tier Form","icon":"grid","slug":"management_tier"},
+      {"url":"management-os","name":"OS Form","icon":"grid","slug":"management_os"},
+      {"url":"management-service-application","name":"SA Form","icon":"grid","slug":"management_sa"},
+      {"url":"management-cost","name":"Cost Form","icon":"grid","slug":"management_cost"},
+      {"url":"management-policy-form","name":"Policy Form","icon":"grid","slug":"management_policyform"},
 
       {"url":"department.list","name":"Department Management", "icon":"grid","slug":"department-management"},
       {"url":"operating-expense","name":"Operating Expense Management" ,"icon":"grid","slug":"Operating-Expense-Management"},
