@@ -123,6 +123,7 @@
             <div class="col-md-6 mb-1">
               <label class="form-label" for="select2-basic">Basic</label>
               <select class="select2 form-select" id="select2-basic">
+
                 <option value="AK">Alaska</option>
                 <option value="HI">Hawaii</option>
                 <option value="CA">California</option>
@@ -246,7 +247,7 @@
             <!-- Multiple -->
             <div class="col-md-6 mb-1">
               <label class="form-label" for="select2-multiple">Multiple</label>
-              <select class="select2 form-select" id="select2-multiple" multiple>
+              <select class="select2 form-select" id="select2-multiple" multiple >
                 <optgroup label="Alaskan/Hawaiian Time Zone">
                   <option value="AK">Alaska</option>
                   <option value="HI">Hawaii</option>
@@ -364,7 +365,7 @@
             <div class="col-md-6 mb-1">
               <label class="form-label" for="select2-array">Array Data</label>
               <div class="mb-1">
-                <select class="select2-data-array form-select" id="select2-array"></select>
+                <select class="select2-data-array form-select" id="select2-array" multiple></select>
               </div>
             </div>
 
@@ -372,7 +373,7 @@
             <div class="col-md-6 mb-1">
               <label class="form-label" for="select2-ajax">Remote Data</label>
               <div class="mb-1">
-                <select class="select2-data-ajax form-select" id="select2-ajax"></select>
+                <select class="select2-data-ajax form-select" id="select2-ajax" multiple></select>
               </div>
             </div>
 

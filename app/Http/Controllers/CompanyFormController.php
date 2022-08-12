@@ -21,10 +21,10 @@ class CompanyFormController extends Controller
     {
 
         $pageConfigs = ['pageHeader' => false,];
-        $data= User::find(Auth::id())->company->envform;
+        $data= Auth::user()->company->envform;
         $formtxt='Environment';
         if ($request->ajax()) {
-            $data = User::find(Auth::id())->company->envform;
+            $data = Auth::user()->company->envform;
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
@@ -53,7 +53,7 @@ class CompanyFormController extends Controller
                 'display_description' => $request->basic_default_desc,
                 'display_icon' => $request->basic_default_icon,
                 'display_icon_colour' => $request->select_colour,
-                'company_id' => User::find(Auth::id())->company_id,
+                'company_id' => Auth::user()->company_id,
                 'status' => $request->select_status,
             ]);
         return redirect()->route('management_env')->with('success', 'Success！');
@@ -77,10 +77,10 @@ class CompanyFormController extends Controller
     {
 
         $pageConfigs = ['pageHeader' => false,];
-        $data= User::find(Auth::id())->company->tierform;
+        $data= Auth::user()->company->tierform;
         $formtxt='Tier';
         if ($request->ajax()) {
-            $data = User::find(Auth::id())->company->tierform;
+            $data = Auth::user()->company->tierform;
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
@@ -110,7 +110,7 @@ class CompanyFormController extends Controller
                 'display_description' => $request->basic_default_desc,
                 'display_icon' => $request->basic_default_icon,
                 'display_icon_colour' => $request->select_colour,
-                'company_id' => User::find(Auth::id())->company_id,
+                'company_id' => Auth::user()->company_id,
                 'status' => $request->select_status,
             ]);
         return redirect()->route('management_tier')->with('success', 'Success！');
@@ -134,10 +134,10 @@ class CompanyFormController extends Controller
     {
 
         $pageConfigs = ['pageHeader' => false,];
-        $data= User::find(Auth::id())->company->tierform;
+       // $data= Auth::user()->company->tierform;
         $formtxt='Operating System';
         if ($request->ajax()) {
-            $data = User::find(Auth::id())->company->osform;
+            $data = Auth::user()->company->osform;
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
@@ -150,12 +150,35 @@ class CompanyFormController extends Controller
             ['link' => "/", 'name' => "Home"], ['link' => "management-os", 'name' => "Operating System Form"]
         ];
 
-        return view('/content/management/os', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Form Configuration']);
+        return view('/content/management/os', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'formtxt' => $formtxt ,'pagetitle' =>'Form Configuration']);
     }
 
     public function os_request(Request $request)
     {
-        //dd($request);
+        $os_window_icon='windows';
+        $os_window_icon_color='windows';
+        $os_rhel_icon='rhel';
+        $os_rhel_icon_color='rhel';
+        $os_centos_icon='centos';
+        $os_centos_icon_color='centos';
+        $os_other_icon='windows';
+        $os_other_icon_color='windows';
+
+        if($request->select_os_platform='windows'){
+            $_icon=$os_window_icon;
+            $_icon_color=$os_window_icon_color;
+
+        }elseif($request->select_os_platform='centos'){
+            $_icon=$os_centos_icon;
+            $_icon_color=$os_centos_icon_color;
+        }elseif($request->select_os_platform='rhel'){
+                $_icon=$os_rhel_icon;
+                $_icon_color=$os_rhel_icon_color;
+        }else{
+                $_icon=$os_other_icon;
+                $_icon_color=$os_other_icon_color;
+
+        }
         OperatingSystem::updateOrCreate(
             [
                 'id' => $request->form_id,
@@ -165,9 +188,9 @@ class CompanyFormController extends Controller
                 'display_name' => $request->basic_default_display_name,
                 'cost' => $request->basic_default_cost,
                 'display_description' => $request->basic_default_desc,
-                'display_icon' => $request->basic_default_icon,
-                'display_icon_colour' => $request->select_colour,
-                'company_id' => User::find(Auth::id())->company_id,
+                'display_icon' => $_icon,
+                'display_icon_colour' => $_icon_color,
+                'company_id' => Auth::user()->company_id,
                 'status' => $request->select_status,
             ]);
         return redirect()->route('management_os')->with('success', 'Success！');
@@ -191,10 +214,10 @@ class CompanyFormController extends Controller
     {
 
         $pageConfigs = ['pageHeader' => false,];
-        $data= User::find(Auth::id())->company->saform;
+        $data= Auth::user()->company->saform;
         $formtxt='Service Application';
         if ($request->ajax()) {
-            $data = User::find(Auth::id())->company->saform;
+            $data = Auth::user()->company->saform;
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
@@ -231,7 +254,7 @@ class CompanyFormController extends Controller
                 'display_name' => $request->basic_default_display_name,
                 'cost' => $request->basic_default_cost,
                 'display_description' => $request->basic_default_desc,
-                'company_id' => User::find(Auth::id())->company_id,
+                'company_id' => Auth::user()->company_id,
                 'status' => $request->select_status,
                 'is_one_time_payment' => $select_satype_one_time,
                 'is_cost_per_core' => $select_satype_cost_per_core,
@@ -253,7 +276,7 @@ class CompanyFormController extends Controller
     public function costform()
     {
         $pageConfigs = ['pageHeader' => false,];
-        $data= User::find(Auth::id())->company->costprofile->first();
+        $data= Auth::user()->company->costprofile->first();
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "management-tier", 'name' => "Cost Form"]
         ];
@@ -290,11 +313,11 @@ class CompanyFormController extends Controller
     public function policyform(Request $request)
     {
         $pageConfigs = ['pageHeader' => false,];
-        $policyform= User::find(Auth::id())->company->policyform;
-        $envform=User::find(Auth::id())->company->envform;
-        $tierform=User::find(Auth::id())->company->tierform;
-        $osform=User::find(Auth::id())->company->osform;
-        $saform=User::find(Auth::id())->company->saform;
+        $policyform= Auth::user()->company->policyform;
+        $envform=Auth::user()->company->envform;
+        $tierform=Auth::user()->company->tierform;
+        $osform=Auth::user()->company->osform;
+        $saform=Auth::user()->company->saform;
 
         $_input_env=1;
         $_input_tier=1;
@@ -302,7 +325,7 @@ class CompanyFormController extends Controller
 
 
         if ($request->ajax()) {
-            $data = User::find(Auth::id())->company->policyform;
+            $data = Auth::user()->company->policyform;
             return Datatables::of($data)
                 ->addColumn('envname', function(FormPolicy $formpolicy) {
                     return  $formpolicy->envname->display_name;
@@ -342,7 +365,7 @@ class CompanyFormController extends Controller
                     'os_field' => $request->modalFormOs,
                     'mandatory_field' => $request->form_group_a,
                     'optional_field' => $request->form_group_b,
-                    'company_id' => User::find(Auth::id())->company_id,
+                    'company_id' => Auth::user()->company_id,
                 ]);
             return redirect()->route('management_policyform')->with('success', 'Success！');
         }else{
@@ -350,5 +373,107 @@ class CompanyFormController extends Controller
         }
 
     }
+
+    //ajax datafilter
+
+    public function getMandatoryService(Request $request)
+    {
+        //dd($request);
+
+        $env= $request->env;
+        $tier= $request->tier;
+        $os= $request->os;
+//        $company_id=$request->pid;
+
+        $company_id=Auth::user()->company->id;
+       // echo $form = "Environment = ".$env."<p>Tier =".$tier."<p>OS =".$os."<p>Company ID =".$company_id;
+
+         $resule= DB::table('form_policies')
+             ->where('tier_field',$tier)
+             ->where('os_field',$os)
+             ->where('env_field', $env)
+             ->where('company_id',$company_id)
+         ->exists();
+
+        if(!$resule){
+
+            //echo "got no data";
+            //optional data
+            $resuleB=DB::table('service_applications')
+                ->where('company_id',$company_id)
+                ->get();
+            $resuleM=NULL;
+            $a=array('name'=>'','id'=>'');
+
+        }else{
+            //echo "got data";
+            $resule= DB::table('form_policies')
+                ->where('tier_field',$tier)
+                ->where('os_field',$os)
+                ->where('env_field', $env)
+                ->where('company_id',$company_id)
+                ->get();
+            $data=$resule[0]->optional_field;
+            $data2=$resule[0]->mandatory_field;
+            $resuleB= DB::table('service_applications')
+            ->whereIn('id',explode(',', $data))
+            ->get();
+            $resuleM= DB::table('service_applications')
+                ->whereIn('id',explode(',', $data2))
+                ->get();
+            $newName="";
+            $newID="";
+            foreach ($resuleM as $resule) {
+                $newName.= $resule->display_name.", ";
+                $newID.= $resule->id.",";
+            }
+            $resuleName=substr($newName, 0, -2);
+            $resuleID=substr($newID, 0, -1);
+            $a=array('name'=>$resuleName,'id'=>$resuleID);
+
+        }
+
+        if($request->ftype=='getMandatory'){
+            return $resuleM;
+        }elseif($request->ftype=='getMandatoryField'){
+            return $a;
+        }elseif($request->ftype=='getMandatoryID'){
+            return $a;
+        }elseif($request->ftype=='getOptional'){
+            return $resuleB;
+        }
+
+    }
+
+    public function getServiceName(Request $request)
+    {
+       // echo "yahaha";
+        //echo $a=$request->sa;
+        // $new=implode("",$request->sa);
+        //echo print_r($a);
+      //echo substr($a, 0, -1);
+        //dd($request);
+
+//        $company_id=$request->pid;
+
+        $company_id=Auth::user()->company->id;
+        // echo $form = "Environment = ".$env."<p>Tier =".$tier."<p>OS =".$os."<p>Company ID =".$company_id;
+
+       $myArray = explode(',', $request->sa);
+////        //echo $myArray;
+        $sas = ServiceApplication::select("display_name")
+            ->whereIn('id', $myArray)
+            ->get();
+        //dd($sas);
+        $_new_name='';
+        foreach($sas as $sa){
+            $_new_name.=$sa->display_name." ,";
+        }
+        $resuleName=substr($_new_name, 0, -2);
+        return $a=array('name'=>$resuleName);
+
+
+    }
+
 
 }

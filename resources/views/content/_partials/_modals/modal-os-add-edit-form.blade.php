@@ -66,6 +66,7 @@
                             placeholder="$10"
                             min="1"
                             required
+                            pattern="^\d*(\.\d{0,2})?$"
                         />
                         <small>This cost is Cost per day(temporary decision)</small>
                         <div class="valid-feedback">Looks good!</div>
@@ -73,34 +74,16 @@
                     </div>
 
                     <div class="mb-1">
-                        <label class="form-label" for="select-colour">Color Label</label>
-                        <select class="form-select" id="select-colour" name="select_colour" required>
-                            <option value="">Select Colour</option>
-                            <option value="danger">Red</option>
-                            <option value="success">Green</option>
-                            <option value="warning">Yellow</option>
-                            <option value="info">Blue</option>
-                            <option value="primary">Purple</option>
-                            <option value="secondary">Grey</option>
-                            <option value="dark">Black</option>
+                        <label class="form-label" for="select-os-platform">OS Platform</label>
+                        <select class="form-select" id="select-os-platform" name="select_os_platform" required>
+                            <option value="">Select OS Platform</option>
+                            <option value="windows">Windows</option>
+                            <option value="rhel">RHEL</option>
+                            <option value="centos">Centos</option>
+                            <option value="other">Other</option>
                         </select>
                         <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Please select colour label</div>
-                    </div>
-
-                    <div class="mb-1">
-                        <label class="form-label" for="basic-default-icon">Icon</label>
-                        <input
-                            type="text"
-                            id="basic-default-icon"
-                            name="basic_default_icon"
-                            class="form-control"
-                            placeholder="Feather Icon value"
-                            value="box"
-                            required
-                        />
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Please enter valid icon.</div>
+                        <div class="invalid-feedback">Please select Operating System Platform</div>
                     </div>
                     <div class="mb-1">
                         <label class="form-label" for="select-status">Status</label>

@@ -100,6 +100,10 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/management-policy-form', [CompanyFormController::class, 'policyform'])->name('management_policyform');
         Route::post('/management-policy-form', [CompanyFormController::class, 'policyform_store'])->name('management_policyform.store');
 
+        //filter Policy
+        Route::get('/filter-policy-form', [CompanyFormController::class, 'getMandatoryService'])->name('filter_policy');
+        Route::get('/get-service-name', [CompanyFormController::class, 'getServiceName'])->name('service_name');
+
 //        //Department Cost Profile
 //        Route::resource('department-cost-profile', 'ClusterCostProfileController', ['only' => ['update', 'edit', 'store']]);
 //        Route::get('/department-cost-profile', 'ClusterCostProfileController@index')->name('department-cost-profile');

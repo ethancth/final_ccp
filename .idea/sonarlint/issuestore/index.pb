@@ -70,8 +70,6 @@ m
 =resources/js/scripts/virtualmachine/table-datatables-basic.js,1/0/10c2cc119181a8373c2f1e47613cc6411062baba
 >
 webpack.mix.js,7/3/73a5f9e927f70e0292701d67f61dbff4fb17febc
-T
-$app/Providers/AppServiceProvider.php,4/8/48b8d8112e9bdd32ee7e25b1224d6739eece1e72
 I
 resources/js/bootstrap.js,2/a/2a602b14e912f494b7df1e17ce8d98958460f936
 P
@@ -82,8 +80,6 @@ J
 app/Jobs/TranslateSlug.php,6/3/63e8452f73da1bbe2c378ef292c72e1c5e2edf81
 <
 .env.example,d/4/d4dae00d11854b35292c2b8a30515a9a0aa2d871
-v
-Fdatabase/migrations/2022_06_22_062316_create_project_servers_table.php,1/2/120092a0843c56707d089a95a096e21664d019d7
 Z
 *resources/js/scripts/pages/page-profile.js,e/f/ef832d86cc11b20c5c90fad87e11b1ece0ab24de
 Z
@@ -100,10 +96,6 @@ B
 config/session.php,e/1/e1025c27321c40291fc56c4990ab2088a43c3269
 A
 config/sudosu.php,8/b/8bf3307e3c48bbeebc4984012f07be9f4dbf6001
-?
-config/view.php,e/6/e6430547e4595725fda00ce199f6a9e013a954a3
-W
-'resources/views/panels/styles.blade.php,a/4/a438d1bc8f4fb11c64d76f4535e76cf18c57e50c
 ?
 config/auth.php,c/d/cddba0f39ef2cbe4d8189e8f5621a3bb533d6bc2
 C
@@ -122,8 +114,6 @@ M
 0app/Http/Controllers/UserInterfaceController.php,1/1/11d2967f01c0b2ee16b133f406ac2fbf672be1bd
 W
 'app/Http/Controllers/AppsController.php,b/7/b71d9f5035e83670ad5aa2c278925ce1dc1dc356
-L
-app/Models/ProjectServer.php,b/f/bf24152f8c8ae47e4f91c245099b44b022a27d0f
 v
 Fdatabase/migrations/2014_10_12_100000_create_password_resets_table.php,e/f/eff59cfca55470b5a81fdbeb82498e8bfe5c8174
 i
@@ -178,8 +168,6 @@ Y
 .database/factories/ServerManagementFactory.php,3/b/3bfbd2bcbc3f177dc674d7ef9a06b333f08467dd
 [
 +database/factories/ProjectServerFactory.php,2/4/246641724b999aa28e23c4724bbb17b48da7e50b
-C
-app/Models/User.php,a/9/a90f2e50cb06863b54effced365aa5f1fe7d9c88
 F
 app/Models/VmTable.php,e/4/e46988368a51cd0ce9ad64a7fd9f5607c64752f3
 o
@@ -216,8 +204,6 @@ V
 &app/Providers/EventServiceProvider.php,6/d/6d80af2c8eccc15fa62a616067d4270df372f87d
 N
 app/Models/CostTypeProfile.php,f/1/f153e1b30a46f988d0ca851f4f8130d5b6f82962
-J
-app/Models/CostProfile.php,4/c/4c825133e10425733a28e82e197594d5efe262b5
 ^
 .app/Http/Controllers/CostProfileController.php,5/8/58393cc602516354250354f888382088de17c7b9
 e
@@ -252,8 +238,6 @@ y
 Idatabase/migrations/2022_06_06_131032_create_cost_type_profiles_table.php,9/a/9ab456d2cfb211b1af0b55e3006031b918896dad
 o
 ?database/migrations/2022_06_06_131619_create_clusters_table.php,3/2/32e76f6f72ffc7dea87428b55cad235c7151d42d
-q
-Adatabase/migrations/2022_06_06_132801_create_daily_cost_table.php,7/a/7a868255581d9102cda49d18207ab811315fd18d
 t
 Ddatabase/migrations/2022_06_06_132944_create_vm_datastores_table.php,1/2/12dbef0bd5bcd1d485c80eca17fa974e68cffb2f
 q
@@ -264,48 +248,28 @@ l
 <database/migrations/2022_07_24_144438_create_tiers_table.php,9/e/9e09fec2e6c041ffbcf41244d40e91fbdf868b7a
 s
 Cdatabase/migrations/2022_07_24_143830_create_environments_table.php,8/e/8ec67777f569ed209231511e3b99af5fad579a39
-A
-config/custom.php,4/f/4febccf8f1240f3ffc060d2fa1e863cdbb3c0f27
-?
-app/helpers.php,5/e/5e92ff15dd02e679a9c48c1fc7e1b005c24dee00
-G
-app/Helpers/Helpers.php,0/2/024693ae683d7be35f29d493127faaab72ab2618
-q
-Aresources/views/content/forms/form-elements/form-select.blade.php,b/b/bb46b858225bc6bc1ea9d2a5709685a0c6b49268
 F
 app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
-X
-(app/Http/Controllers/FormsController.php,f/f/ff82f62ba3c885fe8925a1f94f75794eb3c56fdf
 f
 6resources/scss/base/plugins/forms/form-validation.scss,7/6/76ceee608d308f1ef86f2252b09b7c032835b053
-^
-.resources/js/scripts/pages/modal-create-app.js,a/d/ade85ed6e1ea3b257f436fd341e6f9098f78a68e
 U
 %app/Http/Controllers/VMController.php,3/5/357e5241ffb88cc456255e1f3028d2f561012bd7
-[
-+app/Http/Controllers/UserPageController.php,7/9/79088bd314422c716c2e1da1bc2e3da0057c1898
 N
 app/Models/OperatingSystem.php,3/8/3895e68db23f576fb32b4172850271fc52c5ee56
 x
 Hdatabase/migrations/2022_07_24_160757_create_operating_systems_table.php,c/c/cc08d629d4e6e1feab24e36adf626867397538b7
-Q
-!app/Observers/CompanyObserver.php,7/b/7b588e884b72cd1b362f136adaa2cfa8a48423d2
 {
 Kdatabase/migrations/2022_07_26_021813_create_service_applications_table.php,9/8/98d48555259cb6dfd3f465d78c2d4749f20d8430
 O
 app/Models/ServerManagement.php,c/b/cb257e692e860849bd044a003f415c1d06a1ba4c
 Q
 !app/Models/ServiceApplication.php,9/c/9c7002bedab2d35ed8aee1e01ea778b895e8c662
-w
-Gresources/views/content/_partials/_modals/modal-share-project.blade.php,a/0/a01fb78ccee906b76925db7eead78a9622d7ebbf
 |
 Lresources/views/content/_partials/_modals/modal-tier-add-edit-form.blade.php,d/5/d56dbbd073fda58fd221f1ed14ae5f9850c2a935
 }
 Mresources/views/content/table/table-datatable/table-datatable-basic.blade.php,8/7/87388283e8341a171352202aade75a0a831c6ee1
 k
 ;resources/views/pages-old/ext-component-drag-drop.blade.php,7/a/7a9e78d77de7a14bf361a3496261f8608fb18c35
-z
-Jresources/views/content/_partials/_modals/modal-sa-add-edit-form.blade.php,1/1/1135ed5a0820926d7e079293394331b65c8a4060
 e
 5resources/js/scripts/tables/table-datatables-basic.js,9/1/9181fd98580667332b5b7671fb8cf4209f36cb3a
 {
@@ -314,12 +278,6 @@ a
 1resources/views/content/management/tier.blade.php,5/1/51b8453d08875332bf72835a515e3fb5674d8f08
 C
 app/Models/Tier.php,5/0/50b5366e7f0164cf10b20f0b464e18a1b65dd23e
-F
-app/Models/Company.php,3/e/3e88a62b724d7c8184e5b4a25a250f7fe64b823b
-Z
-*app/Http/Controllers/ProjectController.php,c/7/c7cfd2fcdf694f3ec04aa2e536539ff1606b6bc6
-Z
-*resources/data/menu-data/verticalMenu.json,d/4/d48f38ab8df80d77e0df39ed4252c436f360f285
 y
 Iresources/views/content/_partials/_modals/modal-two-factor-auth.blade.php,3/d/3dd63276d33b607454b4f5561ac174bc2bb8a52b
 d
@@ -330,5 +288,3 @@ y
 Iresources/views/content/_partials/_modals/modal-edit-permission.blade.php,3/a/3aab851d4b7dbe63c15e3acab56133c88ef531ee
 m
 =resources/views/content/components/component-modals.blade.php,1/c/1c910276b06c56e86351c98dac8b7d97f3716265
-t
-Ddatabase/migrations/2022_08_02_173446_create_form_policies_table.php,2/c/2ca99c09e4a681b912e2e4678448744546adf1eb

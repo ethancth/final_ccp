@@ -32,18 +32,7 @@
                                 </span>
                             </button>
                         </div>
-                        <div class="step" data-target="#create-app-operating-system" role="tab"
-                             id="create-app-operating-system-trigger">
-                            <button type="button" class="step-trigger py-75">
-                                <span class="bs-stepper-box">
-                                    <i data-feather="server" class="font-medium-3"></i>
-                                </span>
-                                <span class="bs-stepper-label">
-                                    <span class="bs-stepper-title">Operating System</span>
-                                    <span class="bs-stepper-subtitle">OS details</span>
-                                </span>
-                            </button>
-                        </div>
+
                         <div class="step" data-target="#create-app-compute" role="tab" id="create-app-compute-trigger">
                             <button type="button" class="step-trigger py-75">
                                 <span class="bs-stepper-box">
@@ -52,6 +41,18 @@
                                 <span class="bs-stepper-label">
                                     <span class="bs-stepper-title">Compute Resource</span>
                                     <span class="bs-stepper-subtitle">Server config </span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="step" data-target="#create-app-apps" role="tab"
+                             id="create-app-apps-trigger">
+                            <button type="button" class="step-trigger py-75">
+                                <span class="bs-stepper-box">
+                                    <i data-feather="server" class="font-medium-3"></i>
+                                </span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">Service Application</span>
+                                    <span class="bs-stepper-subtitle">Apps</span>
                                 </span>
                             </button>
                         </div>
@@ -87,63 +88,47 @@
                             <form id="create-app-page1">
                                 <h5>Server Name</h5>
                                 <input class="form-control" type="text" placeholder="Server Name" value=""
-                                       id="servername" name="servername" />
-
+                                       id="servername" name="servername"/>
                                 <h5 class="mt-2 pt-1">Environment</h5>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item border-0 px-0">
-                                        <label for="createAppProduction" class="d-flex cursor-pointer">
-                                            <span class="avatar avatar-tag bg-light-info me-1">
-                                                <i data-feather="briefcase" class="font-medium-5"></i>
+                                <ul class="list-group list-group-flush" name="EnvGroup">
+
+                                    @foreach($forms as $form)
+                                        <?php
+                                        $_temp_num=1;
+                                        ?>
+                                        @foreach($form->envform as $envforms)
+                                            @if($envforms->status===1)
+
+                                                <li class="list-group-item border-0 px-0">
+                                                    <label for="createApp{{$envforms->name}}" class="d-flex cursor-pointer">
+                                            <span class="avatar avatar-tag bg-light-{{$envforms->display_icon_colour}} me-1">
+                                                <i data-feather="{{$envforms->display_icon}}" class="font-medium-5"></i>
                                             </span>
-                                            <span class="d-flex align-items-center justify-content-between flex-grow-1">
+                                                        <span class="d-flex align-items-center justify-content-between flex-grow-1">
                                                 <span class="me-1">
-                                                    <span class="h5 d-block fw-bolder">Production</span>
-                                                    <span>Scales with Any Business</span>
+                                                    <span class="h5 d-block fw-bolder">{{$envforms->display_name}}</span>
+                                                    <span>{{$envforms->display_description}}</span>
                                                 </span>
                                                 <span>
-                                                    <input class="form-check-input radioEnv" id="createAppProduction"
-                                                           type="radio" name="categoryEnvironment" value="production"
+                                                    <input class="form-check-input radioEnv" id="createApp{{$envforms->name}}"
+                                                           type="radio" text="{{$envforms->name}}" name="categoryEnvironment" <?php
+                                                          if($_temp_num==1){echo "checked";}
+                                                           ?>
+                                                           value="{{$envforms->id}}"
 {{--                                                     {{ $product_attribute->meterial == 'production' ? 'checked' : '' }} --}}
                                                     />
                                                 </span>
                                             </span>
-                                        </label>
-                                    </li>
-                                    <li class="list-group-item border-0 px-0">
-                                        <label for="createAppStaging" class="d-flex cursor-pointer">
-                                            <span class="avatar avatar-tag bg-light-success me-1">
-                                                <i data-feather="layers" class="font-medium-5"></i>
-                                            </span>
-                                            <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                                                <span class="me-1">
-                                                    <span class="h5 d-block fw-bolder">Staging</span>
-                                                    <span>One more step to Production</span>
-                                                </span>
-                                                <span>
-                                                    <input class="form-check-input radioEnv" id="createAppStaging" type="radio" value="staging"
-                                                           name="categoryEnvironment" />
-                                                </span>
-                                            </span>
-                                        </label>
-                                    </li>
-                                    <li class="list-group-item border-0 px-0">
-                                        <label for="createAppDevelopment" class="d-flex cursor-pointer">
-                                            <span class="avatar avatar-tag bg-light-danger me-1">
-                                                <i data-feather="youtube" class="font-medium-5"></i>
-                                            </span>
-                                            <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                                                <span class="me-1">
-                                                    <span class="h5 d-block fw-bolder">Development</span>
-                                                    <span>Start develop today</span>
-                                                </span>
-                                                <span>
-                                                    <input class="form-check-input radioEnv" id="createAppDevelopment"
-                                                           type="radio" value="development" name="categoryEnvironment" checked />
-                                                </span>
-                                            </span>
-                                        </label>
-                                    </li>
+                                                    </label>
+                                                </li>
+                                            @endif
+                                                <?php
+                                                $_temp_num++;
+                                                ?>
+
+                                        @endforeach
+
+                                    @endforeach
 
                                 </ul>
                             </form>
@@ -163,62 +148,58 @@
                         <div id="create-app-tier" class="content" role="tabpanel"
                              aria-labelledby="create-app-tier-trigger">
                             <form id="create-app-page2">
-                                <h5>Select Tier</h5>
+
+                                <h5>Operating System Name</h5>
+
+                                <select class="select2 form-select" name="operatingsystem" id="operatingsystem">
+                                    <option value="">Select Operating System</option>
+                                    @foreach($forms as $form)
+
+                                        @foreach($form->osform as $osforms)
+                                            @if($osforms->status===1)
+                                                <option value="{{$osforms->id}}">{{$osforms->display_name}}</option>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+
+                                </select>
+
+                                <h5 class="mt-2 pt-1">Select Tier</h5>
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item border-0 px-0">
-                                        <label for="createTierWeb" class="d-flex cursor-pointer">
-                                            <span class="avatar avatar-tag bg-light-info me-1">
-                                                <img src="{{asset('images/icons/iconsccp/web-48.png')}}" height="25"
-                                                     alt="web" />
-                                            </span>
-                                            <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                                                <span class="me-1">
-                                                    <span class="h5 d-block fw-bolder">Web</span>
-                                                    <span>Create truly native apps</span>
-                                                </span>
-                                                <span>
-                                                    <input class="form-check-input radioTier" value="web" id="createTierWeb" type="radio"
-                                                           name="tierRadio" />
-                                                </span>
-                                            </span>
-                                        </label>
-                                    </li>
-                                    <li class="list-group-item border-0 px-0">
-                                        <label for="createTierApp" class="d-flex cursor-pointer">
-                                            <span class="avatar avatar-tag bg-light-danger me-1">
-                                                <img src="{{asset('images/icons/iconsccp/apps-48.png')}}" height="25"
-                                                     alt="apps" />
-                                            </span>
-                                            <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                                                <span class="me-1">
-                                                    <span class="h5 d-block fw-bolder">Apps</span>
-                                                    <span>Most suited to your application</span>
-                                                </span>
-                                                <span>
-                                                    <input class="form-check-input radioTier" value="app" id="createTierApp" type="radio"
-                                                           name="tierRadio" checked />
-                                                </span>
-                                            </span>
-                                        </label>
-                                    </li>
-                                    <li class="list-group-item border-0 px-0">
-                                        <label for="createTierDb" class="d-flex cursor-pointer">
-                                            <span class="avatar avatar-tag bg-light-success me-1">
-                                                <img src="{{asset('images/icons/iconsccp/database-40.png')}}" height="25"
-                                                     alt="database" />
-                                            </span>
-                                            <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                                                <span class="me-1">
-                                                    <span class="h5 d-block fw-bolder">Database</span>
-                                                    <span>A way to store data.</span>
-                                                </span>
-                                                <span>
-                                                    <input class="form-check-input radioTier" value="db" id="createTierDb" type="radio"
-                                                           name="tierRadio" />
-                                                </span>
-                                            </span>
-                                        </label>
-                                    </li>
+
+                                    @foreach($forms as $form)
+                                        <?php
+                                        $_temp_num_tier=1;
+                                        ?>
+                                        @foreach($form->tierform as $tierforms)
+                                            @if($tierforms->status===1)
+                                                <li class="list-group-item border-0 px-0">
+                                                    <label for="createTier{{$tierforms->name}}" class="d-flex cursor-pointer">
+                                                        <span class="avatar avatar-tag bg-light-{{$tierforms->display_icon_colour}} me-1">
+                                                            <i data-feather="{{$tierforms->display_icon}}" class="font-medium-5"></i>
+                                                        </span>
+                                                        <span class="d-flex align-items-center justify-content-between flex-grow-1">
+                                                            <span class="me-1">
+                                                                <span class="h5 d-block fw-bolder">{{$tierforms->display_name}}</span>
+                                                                <span>{{$tierforms->display_description}}</span>
+                                                            </span>
+                                                            <span>
+                                                                <input class="form-check-input radioTier" value="{{$tierforms->id}}" <?php
+                                                                if($_temp_num_tier==1){echo "checked";}
+                                                                ?> id="createTier{{$tierforms->name}}" type="radio"
+                                                                       text="{{$tierforms->name}}"
+                                                                       name="tierRadio" />
+                                                            </span>
+                                                        </span>
+                                                    </label>
+                                                </li>
+                                            @endif
+                                <?php
+                                $_temp_num_tier++;
+                                ?>
+                                        @endforeach
+
+                                    @endforeach
                                 </ul>
                             </form>
                                 <div class="d-flex justify-content-between mt-2">
@@ -226,7 +207,7 @@
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
                                         <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                     </button>
-                                    <button class="btn btn-primary btn-next">
+                                    <button class="btn btn-primary btn-next ">
                                         <span class="align-middle d-sm-inline-block d-none">Next</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
@@ -234,78 +215,26 @@
 
                         </div>
 
-                        <div id="create-app-operating-system" class="content" role="tabpanel"
-                             aria-labelledby="create-app-operating-system-trigger">
+                        <div id="create-app-apps" class="content" role="tabpanel"
+                             aria-labelledby="create-app-apps-trigger">
                             <form id="create-app-page3">
-                            <h5>Operating System Name</h5>
+                            <h5>Default Service Application (Mandatory)</h5>
+                                <p class="form-control-static" id="input_sam_1"></p>
+{{--                                <select class="select2-data-array-mandatory form-select" id="select2-array-mandatory" name="select_sa_mandatory" multiple></select>--}}
 
-                            <input class="form-control" type="text" name="operatingsystem" id="operatingsystem"
-                                   placeholder="Prefer OS version" />
 
-                            <h5 class="mt-2 pt-1">Select Operating System Platform</h5>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item border-0 px-0">
-                                    <label for="createAppWindows" class="d-flex cursor-pointer">
-                                        <span class="avatar avatar-tag bg-light-danger me-1">
-                                            <img src="{{asset('images/icons/iconsccp/microsoft-windows.png')}}"
-                                                 height="30" alt="Windows" />
-                                        </span>
-                                        <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                                            <span class="me-1">
-                                                <span class="h5 d-block fw-bolder">Microsoft Windows</span>
-                                                <span>Microsoft Windows</span>
-                                            </span>
-                                            <span>
-                                                <input class="form-check-input osradio" value="windows" id="createAppWindows" type="radio"
-                                                       name="osRadio" />
-                                            </span>
-                                        </span>
-                                    </label>
-                                </li>
-                                <li class="list-group-item border-0 px-0">
-                                    <label for="createAppRhel" class="d-flex cursor-pointer">
-                                        <span class="avatar avatar-tag bg-light-secondary me-1">
-                                            <img src="{{asset('images/icons/iconsccp/rhel-48.png')}}" height="45"
-                                                 alt="RHEL" />
-                                        </span>
-                                        <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                                            <span class="me-1">
-                                                <span class="h5 d-block fw-bolder">Red Hat Enterprise Linux</span>
-                                                <span>Red Hat Enterprise Linux</span>
-                                            </span>
-                                            <span>
-                                                <input class="form-check-input osradio" value="rhel" id="createAppRhel" type="radio"
-                                                       name="osRadio" checked />
-                                            </span>
-                                        </span>
-                                    </label>
-                                </li>
-                                <li class="list-group-item border-0 px-0">
-                                    <label for="createAppCentos" class="d-flex cursor-pointer">
-                                        <span class="avatar avatar-tag bg-light-info me-1">
-                                            <img src="{{asset('images/icons/iconsccp/centos-48.png')}}" height="35"
-                                                 alt="Centos" />
-                                        </span>
-                                        <span class="d-flex align-items-center justify-content-between flex-grow-1">
-                                            <span class="me-1">
-                                                <span class="h5 d-block fw-bolder">Centos</span>
-                                                <span>Centos</span>
-                                            </span>
-                                            <span>
-                                                <input class="form-check-input osradio" value="centos" id="createAppCentos" type="radio"
-                                                       name="osRadio" />
-                                            </span>
-                                        </span>
-                                    </label>
-                                </li>
-                            </ul>
+                            <h5 class="mt-2 pt-1">Optional Service Application</h5>
+                                <select class="select2-data-array-optional form-select" id="select2-array-optional" name="select_sa_optional" multiple></select>
+
+
+
                             </form>
                             <div class="d-flex justify-content-between mt-2">
                                 <button class="btn btn-primary btn-prev">
                                     <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
                                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                 </button>
-                                <button class="btn btn-primary btn-next btn-alert1123">
+                                <button class="btn btn-primary btn-next btn-service">
                                     <span class="align-middle d-sm-inline-block d-none">Next</span>
                                     <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                 </button>
@@ -366,41 +295,52 @@
                                 <div class="card-header" style="
                                     padding-top: 0px;
                                     padding-left: 0px;">
+                                    <div class="col-xl-4 col-md-4 col-4">
+                                        <label class="form-label" for="disabledInput">Server Name</label>
+                                        <p class="form-control-static" id="input_hostname">Production</p>
+                                    </div>
+                                    <hr style="margin-top: 5px;margin-bottom: 5px;">
+                                    <div class="row">
 
-                                        <div class="col-xl-4 col-md-6 col-12">
-                                            <label class="form-label" for="disabledInput">Server Name</label>
-                                            <p class="form-control-static" id="input_hostname">Production</p>
-                                        </div>
-                                    <hr>
-                                        <div class="col-xl-4 col-md-6 col-12">
+                                        <div class="col-xl-4 col-md-4 col-4">
                                             <label class="form-label" for="disabledInput">Environment</label>
                                             <p class="form-control-static" id="input_environment">Production</p>
                                         </div>
-                                        <hr style="margin-top: 5px;margin-bottom: 5px;">
-                                        <div class="col-xl-4 col-md-6 col-12">
+                                        <div class="col-xl-4 col-md-4 col-4">
                                             <label class="form-label" for="disabledInput">Tier</label>
                                             <p class="form-control-static" id="input_tier">WEB</p>
                                         </div>
-                                        <hr style="margin-top: 5px;margin-bottom: 5px;">
-                                        <div class="col-xl-4 col-md-6 col-12">
+                                        <div class="col-xl-4 col-md-4 col-4">
                                             <label class="form-label" for="disabledInput">Operating System</label>
                                             <p class="form-control-static" id="input_prefer_os">WEB</p>
                                         </div>
+                                    </div>
+
                                         <hr style="margin-top: 5px;margin-bottom: 5px;">
-                                        <div class="col-xl-4 col-md-6 col-12">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-md-4 col-4">
                                             <label class="form-label" for="disabledInput">vCPU</label>
                                             <p class="form-control-static" id="input_vcpu">WEB</p>
                                         </div>
-                                        <hr style="margin-top: 5px;margin-bottom: 5px;">
-                                        <div class="col-xl-4 col-md-6 col-12">
-                                            <label class="form-label" for="disabledInput">vMemory (GB)</label>
+                                        <div class="col-xl-4 col-md-4 col-4">
+                                            <label class="form-label" for="disabledInput">vMemory</label>
                                             <p class="form-control-static" id="input_vmemory">WEB</p>
                                         </div>
-                                    <hr style="margin-top: 5px;margin-bottom: 5px;">
-                                        <div class="col-xl-4 col-md-6 col-12">
-                                            <label class="form-label" for="disabledInput">vStorage (GB)</label>
+                                        <div class="col-xl-4 col-md-4 col-4">
+                                            <label class="form-label" for="disabledInput">vStorage</label>
                                             <p class="form-control-static" id="input_vstorage">WEB</p>
                                         </div>
+                                    </div>
+                                    <hr style="margin-top: 5px;margin-bottom: 5px;">
+                                    <div class="col-xl-12 col-md-12 col-12">
+                                        <label class="form-label" for="disabledInput">Mandatory Service Application</label>
+                                        <p class="form-control-static" id="input_sam">WEB</p>
+                                    </div>
+                                    <div class="col-xl-12 col-md-12 col-12">
+                                        <label class="form-label" for="disabledInput">Selected Service Application</label>
+                                        <p class="form-control-static" id="input_sao">WEB</p>
+                                    </div>
+
                                     <form id="projectstoreserver" action="{{route("project.storeserver")}}" method="POST" accept-charset="UTF-8">
                                         <input class="hidden"  name="_token" value="{{ csrf_token() }}">
                                         <input class="hidden" id="server_id" name="server_id" value="">
@@ -409,6 +349,9 @@
                                         <input class="hidden" id="environement" name="environment" value="">
                                         <input class="hidden" id="tier" name="tier" value="">
                                         <input class="hidden" id="operating_system" name="operating_system" value="">
+                                        <input class="hidden" id="operating_system_option" name="operating_system_option" value="">
+                                        <input class="hidden" id="sa_m" name="sa_m" value="">
+                                        <input class="hidden" id="sa_o" name="sa_o" value="">
                                         <input class="hidden" id="operating_system_option" name="operating_system_option" value="">
                                         <input class="hidden" id="v_cpu" name="v_cpu" value="">
                                         <input class="hidden" id="v_memory" name="v_memory" value="">

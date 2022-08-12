@@ -9,6 +9,7 @@
 ==========================================================================================*/
 (function (window, document, $) {
   'use strict';
+    alert('123');
   var select = $('.select2'),
     selectIcons = $('.select2-icons'),
     maxLength = $('.max-length'),
@@ -77,19 +78,46 @@
 
   // Loading array data
   var data = [
-    { id: 0, text: 'enhancement' },
+    { id: 0, text: 'enhancement123' },
     { id: 1, text: 'bug' },
     { id: 2, text: 'duplicate' },
     { id: 3, text: 'invalid' },
     { id: 4, text: 'wontfix' }
   ];
 
+
   selectArray.wrap('<div class="position-relative"></div>').select2({
     dropdownAutoWidth: true,
     dropdownParent: selectArray.parent(),
+    placeholder: 'Select an item',
     width: '100%',
-    data: data
+      ajax: {
+          url: "/filter-policy-form",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+              return {
+                  //myData: params.term, // search term
+                  env:1,
+                  tier:1,
+                  os:1,
+              };
+          },
+          processResults: function (data) {
+              return {
+                  results:  $.map(data, function (item) {
+                      return {
+                          text: item.name,
+                          id: item.id
+                      }
+                  })
+              };
+          },
+          cache: true
+      }
   });
+
+
 
   // Loading remote data
   selectAjax.wrap('<div class="position-relative"></div>').select2({

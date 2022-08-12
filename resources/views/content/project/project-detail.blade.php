@@ -92,7 +92,6 @@
 <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
-<script src="{{ asset(mix('js/scripts/pages/modal-create-app.js')) }}"></script>
 <script src="{{ asset(mix('js/scripts/pages/app-todo.js')) }}"></script>
 
 {{--sweetalert--}}
@@ -104,6 +103,284 @@
 <script>
     $(function () {
         'use strict';
+
+        var direction = 'ltr';
+        if ($('html').data('textdirection') == 'rtl') {
+            direction = 'rtl';
+        }
+        var select = $('.select2'),
+            selectSaM = $('.select2-data-array-mandatory'),
+            selectSaO = $('.select2-data-array-optional');
+
+
+
+        select.each(function () {
+            var $this = $(this);
+            $this.wrap('<div class="position-relative"></div>');
+            $this.select2({
+                // the following code is used to disable x-scrollbar when click in select input and
+                // take 100% width in responsive also
+                dropdownAutoWidth: true,
+                width: '100%',
+                dropdownParent: $this.parent()
+            });
+        });
+
+        selectSaO.wrap('<div class="position-relative"></div>').select2({
+            dropdownAutoWidth: true,
+            dropdownParent: selectSaO.parent(),
+            placeholder: 'Select an item',
+            width: '100%',
+            ajax: {
+                url: "/filter-policy-form",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        //myData: params.term, // search term
+                        env:$("input[type='radio'].radioEnv:checked").val(),
+                        tier:$("input[type='radio'].radioTier:checked").val(),
+                        os:$('#operatingsystem').val(),
+                        ftype:'getOptional',
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results:  $.map(data, function (item) {
+                            return {
+                                text: item.display_name,
+                                id: item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
+        function ajax_getSAM(){
+            $.ajax({
+                type:"get",
+                url: "{{ route('filter_policy') }}",
+                data: {
+                    env:$("input[type='radio'].radioEnv:checked").val(),
+                    tier:$("input[type='radio'].radioTier:checked").val(),
+                    os:$('#operatingsystem').val(),
+                    ftype:'getMandatoryField',
+                },
+                dataType: 'json',
+                success: function(res){
+                    //console.log(res);
+
+                     $('#sa_m').val(res.id);
+                    input_sam.innerText = res.name;
+                    input_sam_1.innerText = res.name;
+
+                }
+            });
+        }
+
+
+        var modernVerticalWizard = document.querySelector('.create-app-wizard'),
+            createAppModal = document.getElementById('createAppModal'),
+            assetsPath = '../../../app-assets/',
+            pipsRangevCPU = document.getElementById('pips-range-vcpu'),
+            pipsRangevMemory = document.getElementById('pips-range-vmemory'),
+            pipsRangevstorage = document.getElementById('pips-range-vstorage');
+
+        if ($('body').attr('data-framework') === 'laravel') {
+            assetsPath = $('body').attr('data-asset-path');
+        }
+
+        // --- create app  ----- //
+        if (typeof modernVerticalWizard !== undefined && modernVerticalWizard !== null) {
+            var modernVerticalStepper = new Stepper(modernVerticalWizard, {
+                    linear: false
+                }),
+                $form = $(createAppModal).find('form');
+            $form.each(function () {
+                var $this = $(this);
+                $this.validate({
+                    rules: {
+                        servername: {
+                            required: true
+                        },
+                        'operatingsystem': {
+                            required: true
+                        },
+                        envRadio:{
+                            required:true
+                        },
+                    }
+                });
+            });
+
+
+            $(modernVerticalWizard)
+                .find('.btn-next')
+                .each(function () {
+                    $(this).on('click', function (e) {
+                        var isValid = $(this).parent().siblings('form').valid();
+                        if (isValid) {
+                            modernVerticalStepper.next();
+                        } else {
+                            e.preventDefault();
+                        }
+                    });
+                });
+
+
+            $(modernVerticalWizard)
+                .find('.btn-prev')
+                .on('click', function () {
+                    modernVerticalStepper.previous();
+                });
+
+            $(modernVerticalWizard)
+                .find('.btn-review')
+                .on('click', function () {
+                    ajax_getSAM();
+                    // var vmos=document.getElementsByName('');
+                    $('#select2-array-optional').val(null).trigger('change');
+                    $('#select2-array-mandatory').val('1').trigger('change');
+                    var get_radio_environment = $("input[type='radio'].radioEnv:checked").val();
+                    var get_radio_tier = $("input[type='radio'].radioTier:checked").val();
+                    var get_radio_os = $("input[type='radio'].osradio:checked").val();
+                    var v_storage=pipsRangevstorage.noUiSlider.get();
+                    document.getElementById("hostname").value = $("input[name=servername]").val();
+                    document.getElementById("environement").value = get_radio_environment;
+                    document.getElementById("tier").value = get_radio_tier;
+                    document.getElementById("operating_system").value = $('#operatingsystem').val();
+                    //document.getElementById("operating_system_option").value = get_radio_os;
+                    document.getElementById("v_cpu").value = pipsRangevCPU.noUiSlider.get();
+                    document.getElementById("v_memory").value = pipsRangevMemory.noUiSlider.get();
+                    document.getElementById("total_storage").value = pipsRangevstorage.noUiSlider.get();
+                    input_environment.innerText =  $("input[type='radio'].radioEnv:checked").attr('text');
+                    input_tier.innerText = $("input[type='radio'].radioTier:checked").attr('text');
+                    input_hostname.innerText = $("input[name=servername]").val();
+                    input_prefer_os.innerText = $('#operatingsystem :selected').text();
+                    input_vcpu.innerText = pipsRangevCPU.noUiSlider.get()+ " vCpu ";
+                    input_vmemory.innerText = pipsRangevMemory.noUiSlider.get()+ "GB vMemory";
+                    input_vstorage.innerText = pipsRangevstorage.noUiSlider.get()+"GB Storage";
+                    //input_sam.innerText = "<?php echo demo();?>";
+                });
+
+            $(modernVerticalWizard)
+                .find('.btn-service')
+                .on('click', function () {
+                    // var vmos=document.getElementsByName('');
+
+                   // alert($('#operatingsystem').val());
+                   // var select_val = $('#operatingsystem').text();
+                    //var data = $('operatingsystem').select2('data');
+                    //$("input[type='radio'].radioEnv:checked").attr('name')
+                   // console.log($("#select2-array-optional").select2('val'));
+                    let $data;
+                    $data=$("#select2-array-optional").select2('val');
+                    $('#sa_o').val($data);
+                    ajax_getSAName();
+
+
+                   // console.log($('#operatingsystem').find(':selected'));
+                    // alert('Submitted..!!');
+                });
+
+            function ajax_getSAName(){
+                $.ajax({
+                    type:"get",
+                    url: "{{ route('service_name') }}",
+                    data: {
+                        sa:''+$("#select2-array-optional").select2('val')+''
+                    },
+                    dataType: 'json',
+                    success: function(res){
+                        console.log(res);
+                        input_sao.innerText = res.name;
+
+
+                    }
+                });
+            }
+
+            $(modernVerticalWizard)
+                .find('.btn-submit')
+                .on('click', function () {
+                    // var vmos=document.getElementsByName('');
+
+                    document.forms["projectstoreserver"].submit();
+                    // alert('Submitted..!!');
+                });
+
+
+            // reset wizard on modal hide
+            createAppModal.addEventListener('hide.bs.modal', function (event) {
+                modernVerticalStepper.to(1);
+            });
+        }
+
+        if (typeof pipsRangevCPU !== undefined && pipsRangevCPU !== null) {
+            // Range
+            noUiSlider.create(pipsRangevCPU, {
+                start: 4,
+                step: 1,
+                range: {
+                    min: {{$costprofile[0]->form_vcpu_min}},
+                    max: {{$costprofile[0]->form_vcpu_max}}
+                },
+                tooltips: true,
+                direction: direction,
+                pips: {
+                    mode: 'steps',
+                    stepped: true,
+                    density: 5
+                },
+                format: {
+                    to: (v) => parseFloat(v).toFixed(0),
+                    from: (v) => parseFloat(v).toFixed(0)
+                }
+            });
+        }
+
+        if (typeof pipsRangevMemory !== undefined && pipsRangevMemory !== null) {
+            // Range
+            noUiSlider.create(pipsRangevMemory, {
+                start: 2,
+                step: 1,
+                range: {
+                    min: {{$costprofile[0]->form_vmen_min}},
+                    max: {{$costprofile[0]->form_vmen_max}}
+                },
+                tooltips: true,
+                direction: direction,
+                pips: {
+                    mode: 'steps',
+                    stepped: false,
+                    density: 5
+                },format: {
+                    to: (v) => parseFloat(v).toFixed(0),
+                    from: (v) => parseFloat(v).toFixed(0)
+                }
+            });
+        }
+
+        if (typeof pipsRangevstorage !== undefined && pipsRangevstorage !== null) {
+            // Range
+            noUiSlider.create(pipsRangevstorage, {
+                start: 100,
+                step: 50,
+                range: {
+                    min: {{$costprofile[0]->form_vstorage_min}},
+                    max: {{$costprofile[0]->form_vstorage_max}}
+                },
+                tooltips: true,
+                format: {
+                    to: (v) => parseFloat(v).toFixed(0),
+                    from: (v) => parseFloat(v).toFixed(0)
+                }
+            });
+        }
+
+
         const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
         var dtInvoiceTable = $('.invoice-list-table'),
             assetPath = '../../../app-assets/',
@@ -123,11 +400,12 @@
             }
         });
 
+
         $('body').on('click', '.edit', function () {
             var id = $(this).data('id');
-           var pipsRangevCPU = document.getElementById('pips-range-vcpu');
-              var  pipsRangevMemory = document.getElementById('pips-range-vmemory');
-                var pipsRangevstorage = document.getElementById('pips-range-vstorage');
+            var pipsRangevCPU = document.getElementById('pips-range-vcpu');
+            var  pipsRangevMemory = document.getElementById('pips-range-vmemory');
+            var pipsRangevstorage = document.getElementById('pips-range-vstorage');
             $.ajax({
                 type:"POST",
                 url: "{{ route('project.editserver') }}",

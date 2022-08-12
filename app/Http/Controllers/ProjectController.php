@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use App\Models\OperatingSystem;
 use App\Models\ProjectServer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -91,7 +93,10 @@ class ProjectController extends Controller
 
        $pageConfigs = ['pageHeader' => true,];
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
-       // $projectservers=$project->server;
+       // dd(Auth::user()->company->id);
+       $form= Company::with('envform','tierform','osform')->where('id','=',Auth::user()->company->id)->get();
+       //dd(Auth::user()->company->costprofile);
+       $costprofile=Auth::user()->company->costprofile;
         if ($request->ajax()) {
             $data =$project->server;
             //dd($data);
@@ -107,7 +112,7 @@ class ProjectController extends Controller
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
         ];
-        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'isprojectdropdown' =>$isprojectdropdown], compact('projectservers','project'));
+        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
 
     public function destroy(Request $request)
@@ -119,25 +124,27 @@ class ProjectController extends Controller
 
     public function storeserver(ProjectServer $projectserver, Request $request)
     {
-
 //        $projectserver->fill($request->all());
 //        $projectserver->owner = Auth::id();
 //        $projectserver->save();
         //dd($request);
+        $find_os_icon=OperatingSystem::find($request->operating_system);
         ProjectServer::updateOrCreate(
             [
                 'id' => $request->server_id
             ],
             [
                 'project_id' => $request->project_id,
-                'hostname' => $request->hostname,
+                'hostname' => remove_spacing($request->hostname),
                 'environment' => $request->environment,
                 'tier' => $request->tier,
                 'operating_system' => $request->operating_system,
-                'operating_system_option' => $request->operating_system_option,
+                'operating_system_option' => $find_os_icon->display_icon,
                 'v_cpu' => $request->v_cpu,
                 'v_memory' => $request -> v_memory,
                 'total_storage' => $request->total_storage,
+                'mandatory_sa_field' => $request->sa_m,
+                'optional_sa_field' => $request->sa_o,
                 'owner' => Auth::id(),
             ]);
         return redirect()->route('project.show', $request->project_id)->with('success', 'Success！');
