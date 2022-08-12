@@ -19,7 +19,6 @@ class CompanyFormController extends Controller
     //
     public function envform(Request $request)
     {
-
         $pageConfigs = ['pageHeader' => false,];
         $data= Auth::user()->company->envform;
         $formtxt='Environment';
@@ -161,17 +160,17 @@ class CompanyFormController extends Controller
         $os_rhel_icon_color='rhel';
         $os_centos_icon='centos';
         $os_centos_icon_color='centos';
-        $os_other_icon='windows';
-        $os_other_icon_color='windows';
-
-        if($request->select_os_platform='windows'){
+        $os_other_icon='other';
+        $os_other_icon_color='other';
+        //dd($request);
+        if($request->select_os_platform=='windows'){
             $_icon=$os_window_icon;
             $_icon_color=$os_window_icon_color;
 
-        }elseif($request->select_os_platform='centos'){
+        }elseif($request->select_os_platform=='centos'){
             $_icon=$os_centos_icon;
             $_icon_color=$os_centos_icon_color;
-        }elseif($request->select_os_platform='rhel'){
+        }elseif($request->select_os_platform=='rhel'){
                 $_icon=$os_rhel_icon;
                 $_icon_color=$os_rhel_icon_color;
         }else{

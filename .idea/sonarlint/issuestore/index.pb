@@ -254,8 +254,6 @@ f
 6resources/scss/base/plugins/forms/form-validation.scss,7/6/76ceee608d308f1ef86f2252b09b7c032835b053
 U
 %app/Http/Controllers/VMController.php,3/5/357e5241ffb88cc456255e1f3028d2f561012bd7
-N
-app/Models/OperatingSystem.php,3/8/3895e68db23f576fb32b4172850271fc52c5ee56
 x
 Hdatabase/migrations/2022_07_24_160757_create_operating_systems_table.php,c/c/cc08d629d4e6e1feab24e36adf626867397538b7
 {

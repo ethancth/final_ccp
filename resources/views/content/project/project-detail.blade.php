@@ -495,17 +495,22 @@
                         width: '42px',
                         render: function (data, type, full, meta) {
                             var $invoiceStatus = full['environment'],
-                             $field_environment = full['environment'],
-                                $field_tier = full['tier'],
+                             $field_environment = full['display_env'],
+                                $field_tier = full['display_tier'],
                                 $dueDate = full['created_at'],
                                 $balance = full['price'],
                                 roleObj = {
-                                    production: { class: 'bg-light-info', icon: 'briefcase' },
-                                    development: { class: 'bg-light-danger', icon: 'sliders' },
-                                    staging: { class: 'bg-light-success', icon: 'layers' },
-                                    Downloaded: { class: 'bg-light-info', icon: 'arrow-down-circle' },
-                                    'Past Due': { class: 'bg-light-danger', icon: 'info' },
-                                    'Partial Payment': { class: 'bg-light-warning', icon: 'pie-chart' }
+                                    @foreach($forms as $form)
+                                        @foreach($form->envform as $envforms)
+                                        {{$envforms->id}}: {{"{class:"}}'bg-light-{{$envforms->display_icon_colour}}', icon:'{{$envforms->display_icon}}'},
+                                        @endforeach
+                                    @endforeach
+                                    // production: { class: 'bg-light-info', icon: 'briefcase' },
+                                    // development: { class: 'bg-light-danger', icon: 'sliders' },
+                                    // staging: { class: 'bg-light-success', icon: 'layers' },
+                                    // Downloaded: { class: 'bg-light-info', icon: 'arrow-down-circle' },
+                                    // 'Past Due': { class: 'bg-light-danger', icon: 'info' },
+                                    // 'Partial Payment': { class: 'bg-light-warning', icon: 'pie-chart' },
                                 };
                             return (
                                 "<span data-bs-toggle='tooltip' data-bs-html='true' title='<span>Detail: " +
@@ -530,7 +535,7 @@
                         width: '130px',
                         render: function (data, type, full, meta) {
                             var $name = full['hostname'],
-                                $email = full['operating_system'],
+                                $email = full['display_os'],
                                 $image = full['operating_system_option']+'.png',
                                 stateNum = Math.floor(Math.random() * 6),
                                 states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'],

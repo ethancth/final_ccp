@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Environment;
 use App\Models\OperatingSystem;
 use App\Models\ProjectServer;
+use App\Models\Tier;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -129,6 +131,9 @@ class ProjectController extends Controller
 //        $projectserver->save();
         //dd($request);
         $find_os_icon=OperatingSystem::find($request->operating_system);
+        $find_tier=Tier::find($request->tier);
+        $find_env=Environment::find($request->environment);
+        //$find_tier=OperatingSystem::find($request->operating_system);
         ProjectServer::updateOrCreate(
             [
                 'id' => $request->server_id
@@ -140,6 +145,9 @@ class ProjectController extends Controller
                 'tier' => $request->tier,
                 'operating_system' => $request->operating_system,
                 'operating_system_option' => $find_os_icon->display_icon,
+                'display_env' => $find_env->display_name,
+                'display_tier' => $find_tier->display_name,
+                'display_os' => $find_os_icon->display_name,
                 'v_cpu' => $request->v_cpu,
                 'v_memory' => $request -> v_memory,
                 'total_storage' => $request->total_storage,

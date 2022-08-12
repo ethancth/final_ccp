@@ -113,7 +113,8 @@
                         $('#form_id').val(res.id);
                         $('#basic-default-display-name').val(res.display_name);
                         $('#basic-default-desc').val(res.display_description);
-                        $('#basic-default-icon').val(res.display_icon);
+                        //$('#basic-default-icon').val(res.display_icon);
+                        $('#select-os-platform').val(res.display_icon);
                         $('#basic-default-cost').val(res.cost);
                         $("#select-colour").val(color).change();
                         $("#select-status").val(res.status).change();

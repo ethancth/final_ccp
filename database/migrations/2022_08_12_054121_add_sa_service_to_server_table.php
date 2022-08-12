@@ -17,6 +17,9 @@ return new class extends Migration
             //
             $table->string('mandatory_sa_field')->nullable();
             $table->string('optional_sa_field')->nullable();
+            $table->string('display_env')->nullable();
+            $table->string('display_tier')->nullable();
+            $table->string('display_os')->nullable();
         });
     }
 
@@ -27,10 +30,13 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('server', function (Blueprint $table) {
+        Schema::table('project_servers', function (Blueprint $table) {
             //
             $table->dropColumn('mandatory_sa_field');
             $table->dropColumn('optional_sa_field');
+            $table->dropColumn('display_env');
+            $table->dropColumn('display_tier');
+            $table->dropColumn('display_os');
         });
     }
 };
