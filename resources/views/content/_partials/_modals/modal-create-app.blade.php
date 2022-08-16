@@ -368,6 +368,7 @@
                                         <input class="hidden" id="tier" name="tier" value="">
                                         <input class="hidden" id="operating_system" name="operating_system" value="">
                                         <input class="hidden" id="operating_system_option" name="operating_system_option" value="">
+                                        <input class="hidden" id="cost" name="cost" value="">
                                         <input class="hidden" id="sa_m" name="sa_m" value="">
                                         <input class="hidden" id="sa_o" name="sa_o" value="">
                                         <input class="hidden" id="operating_system_option" name="operating_system_option" value="">

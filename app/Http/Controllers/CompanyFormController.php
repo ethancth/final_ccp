@@ -382,7 +382,6 @@ class CompanyFormController extends Controller
         $env= $request->env;
         $tier= $request->tier;
         $os= $request->os;
-//        $company_id=$request->pid;
 
         $company_id=Auth::user()->company->id;
        // echo $form = "Environment = ".$env."<p>Tier =".$tier."<p>OS =".$os."<p>Company ID =".$company_id;
@@ -473,6 +472,77 @@ class CompanyFormController extends Controller
 
 
     }
+
+    //project server cost
+
+    public function getCost(Request $request){
+
+       // dd($request);
+
+
+        $company_id=Auth::user()->company->id;
+        $company_cost_profile=Auth::user()->company->costprofile->first();
+
+        //resource cost
+        $_cost_vcpu=($request->cpu/$company_cost_profile->vcpu)*$company_cost_profile->vcpu_price;
+        $_cost_memory=($request->mem/$company_cost_profile->vmen)*$company_cost_profile->vmen_price;
+        $_cost_storage=($request->storage  /$company_cost_profile->vstorage)*$company_cost_profile->vstorage_price;
+
+
+
+        ///////////////////////////////////////////////////////
+        $resule= DB::table('form_policies')
+            ->where('tier_field',$request->tier)
+            ->where('os_field',$request->os)
+            ->where('env_field', $request->env)
+            ->where('company_id',$company_id)
+            ->exists();
+
+        if(!$resule){
+            $sam=NULL;
+        }else{
+            $resule= DB::table('form_policies')
+                ->where('tier_field',$request->tier)
+                ->where('os_field',$request->os)
+                ->where('env_field', $request->env)
+                ->where('company_id',$company_id)
+                ->get();
+            $sam=$resule[0]->mandatory_field;
+
+        }
+         $sam=$sam.','.$request->sao;
+        ///////////////////////////////////////////////////////
+        $resuleB= DB::table('service_applications')
+            ->whereIn('id',explode(',', $sam))
+            ->get();
+        $_total_cost_sam=0;
+        foreach($resuleB as $services){
+
+            if($services->is_one_time_payment){
+                $_total_cost_sam=$_total_cost_sam+$services->cost;
+            }elseif($services->is_cost_per_core){
+
+                if($request->cpu % $services->cpu_amount==0){
+                    $_cost_sam= ($request->cpu / $services->cpu_amount)*$services->cost;
+                }else{
+                    $_cost_sam= floor($request->cpu / $services->cpu_amount+1)*$services->cost;
+                }
+                $_total_cost_sam=$_total_cost_sam+$_cost_sam;
+
+            }
+
+//            echo $request->cpu;
+//            echo $services->name;
+
+        }
+         $_total_cost_sam= number_format((float)$_total_cost_sam, 2, '.', '');
+        $_total_cost_server=$_cost_vcpu+$_cost_memory+$_cost_storage+$_total_cost_sam;
+        //return number_format((float)$_total_cost_server, 2, '.', '');
+        return $a=array('cost'=>number_format((float)$_total_cost_server, 2, '.', ''));
+
+
+    }
+
 
 
 }

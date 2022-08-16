@@ -104,6 +104,9 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/filter-policy-form', [CompanyFormController::class, 'getMandatoryService'])->name('filter_policy');
         Route::get('/get-service-name', [CompanyFormController::class, 'getServiceName'])->name('service_name');
 
+        //server Cost
+        Route::get('/get-cost', [CompanyFormController::class, 'getCost'])->name('server_cost');
+
 //        //Department Cost Profile
 //        Route::resource('department-cost-profile', 'ClusterCostProfileController', ['only' => ['update', 'edit', 'store']]);
 //        Route::get('/department-cost-profile', 'ClusterCostProfileController@index')->name('department-cost-profile');

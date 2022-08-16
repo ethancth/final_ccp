@@ -126,10 +126,7 @@ class ProjectController extends Controller
 
     public function storeserver(ProjectServer $projectserver, Request $request)
     {
-//        $projectserver->fill($request->all());
-//        $projectserver->owner = Auth::id();
-//        $projectserver->save();
-        //dd($request);
+        //TODO price can be modify from client side
         $find_os_icon=OperatingSystem::find($request->operating_system);
         $find_tier=Tier::find($request->tier);
         $find_env=Environment::find($request->environment);
@@ -143,6 +140,7 @@ class ProjectController extends Controller
                 'hostname' => remove_spacing($request->hostname),
                 'environment' => $request->environment,
                 'tier' => $request->tier,
+                'price' => $request->cost,
                 'operating_system' => $request->operating_system,
                 'operating_system_option' => $find_os_icon->display_icon,
                 'display_env' => $find_env->display_name,

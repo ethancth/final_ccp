@@ -163,15 +163,6 @@
             let $resule;
             $resule=true;
 
-            // console.log("default os: " +$('#o_server_os').val() );
-            // console.log("selected os: " +$('#operatingsystem').val() );
-            //
-            // console.log("selected env: " +$('#o_server_env').val() );
-            // console.log("selected env: " + $("input[type='radio'].radioEnv:checked").val() );
-            //
-            // console.log("selected tier: " +$('#o_server_tier').val() );
-            // console.log("selected tier: " +$("input[type='radio'].radioTier:checked").val() );
-
                 if($('#operatingsystem').val() === $('#o_server_os').val())
                 {
                 }else{
@@ -311,17 +302,11 @@
             $(modernVerticalWizard)
                 .find('.btn-service')
                 .on('click', function () {
-                    // var vmos=document.getElementsByName('');
-
-                   // alert($('#operatingsystem').val());
-                   // var select_val = $('#operatingsystem').text();
-                    //var data = $('operatingsystem').select2('data');
-                    //$("input[type='radio'].radioEnv:checked").attr('name')
-                   // console.log($("#select_sa_optional").select2('val'));
                     let $data;
                     $data=$("#select_sa_optional").select2('val');
                     $('#sa_o').val($data);
                     ajax_getSAName();
+                    ajax_getCost();
 
 
                    // console.log($('#operatingsystem').find(':selected'));
@@ -339,6 +324,40 @@
                     success: function(res){
                         //console.log(res);
                         input_sao.innerText = res.name;
+
+
+                    }
+                });
+            }
+
+
+            //
+            // document.getElementById("hostname").value = $("input[name=servername]").val();
+            // document.getElementById("environement").value = get_radio_environment;
+            // document.getElementById("tier").value = get_radio_tier;
+            // document.getElementById("operating_system").value = $('#operatingsystem').val();
+            // //document.getElementById("operating_system_option").value = get_radio_os;
+            // document.getElementById("v_cpu").value = pipsRangevCPU.noUiSlider.get();
+            // document.getElementById("v_memory").value = pipsRangevMemory.noUiSlider.get();
+            // document.getElementById("total_storage").value = pipsRangevstorage.noUiSlider.get();
+            function ajax_getCost(){
+                $.ajax({
+                    type:"get",
+                    url: "{{ route('server_cost') }}",
+                    data: {
+                        sao:''+$("#select_sa_optional").select2('val')+'',
+                        env:$("input[type='radio'].radioEnv:checked").val(),
+                        tier:$("input[type='radio'].radioTier:checked").val(),
+                        os:$('#operatingsystem').val(),
+                        cpu:$('#v_cpu').val(),
+                        mem:$('#v_memory').val(),
+                        storage:$('#total_storage').val(),
+                    },
+                    dataType: 'json',
+                    success: function(res){
+                        //console.log(res);
+                        input_cost.innerText ="$ "+ res.cost;
+                        $('#cost').val(res.cost);
 
 
                     }
