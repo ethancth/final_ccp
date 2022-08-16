@@ -223,9 +223,9 @@
                                 <p class="form-control-static" id="input_sam_1"></p>
 {{--                                <select class="select2-data-array-mandatory form-select" id="select2-array-mandatory" name="select_sa_mandatory" multiple></select>--}}
 
-                                <input class="" id="o_server_os" name="o_server_os" value="">
-                                <input class="" id="o_server_env" name="o_server_env" value="">
-                                <input class="" id="o_server_tier" name="o_server_tier" value="">
+                                <input class="hidden" id="o_server_os" name="o_server_os" value="">
+                                <input class="hidden" id="o_server_env" name="o_server_env" value="">
+                                <input class="hidden" id="o_server_tier" name="o_server_tier" value="">
                             <h5 class="mt-2 pt-1">Optional Service Application</h5>
                                 <select class="select2-data-array-optional form-select" id="select_sa_optional" name="select_sa_optional" multiple>
                                 @foreach($forms as $form)

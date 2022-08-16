@@ -191,7 +191,8 @@
                 $resule=false
             }
             if(!$resule){
-                alert($resule);
+                $('#select_sa_optional').val([]).trigger("change");
+                $('#select_sa_optional').trigger('change');
             }else{
 
             }
@@ -284,7 +285,7 @@
                 .on('click', function () {
                     ajax_getSAM();
                     // var vmos=document.getElementsByName('');
-                    $('#select2-array-mandatory').val('1').trigger('change');
+
                     var get_radio_environment = $("input[type='radio'].radioEnv:checked").val();
                     var get_radio_tier = $("input[type='radio'].radioTier:checked").val();
                     var get_radio_os = $("input[type='radio'].osradio:checked").val();
@@ -316,9 +317,9 @@
                    // var select_val = $('#operatingsystem').text();
                     //var data = $('operatingsystem').select2('data');
                     //$("input[type='radio'].radioEnv:checked").attr('name')
-                   // console.log($("#select2-array-optional").select2('val'));
+                   // console.log($("#select_sa_optional").select2('val'));
                     let $data;
-                    $data=$("#select2-array-optional").select2('val');
+                    $data=$("#select_sa_optional").select2('val');
                     $('#sa_o').val($data);
                     ajax_getSAName();
 
@@ -332,11 +333,11 @@
                     type:"get",
                     url: "{{ route('service_name') }}",
                     data: {
-                        sa:''+$("#select2-array-optional").select2('val')+''
+                        sa:''+$("#select_sa_optional").select2('val')+''
                     },
                     dataType: 'json',
                     success: function(res){
-                        console.log(res);
+                        //console.log(res);
                         input_sao.innerText = res.name;
 
 
@@ -468,7 +469,7 @@
                     // $('#select_sa_optional').val(res.optional_sa_field);
                     // $('#select_sa_optional').select2();
 
-                    $('#select_sa_optional').val(['4']).trigger("change");
+                    $('#select_sa_optional').val(res.optional_sa_field.split(',')).trigger("change");
                     $('#select_sa_optional').trigger('change');
                     $("#createApp"+uppercaseWords(res.environment)).prop("checked", true);
                     $("#createTier"+uppercaseWords(res.tier)).prop("checked", true);
