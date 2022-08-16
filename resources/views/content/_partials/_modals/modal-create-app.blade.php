@@ -100,7 +100,7 @@
                                             @if($envforms->status===1)
 
                                                 <li class="list-group-item border-0 px-0">
-                                                    <label for="createApp{{$envforms->name}}" class="d-flex cursor-pointer">
+                                                    <label for="createApp{{$envforms->id}}" class="d-flex cursor-pointer">
                                             <span class="avatar avatar-tag bg-light-{{$envforms->display_icon_colour}} me-1">
                                                 <i data-feather="{{$envforms->display_icon}}" class="font-medium-5"></i>
                                             </span>
@@ -110,7 +110,7 @@
                                                     <span>{{$envforms->display_description}}</span>
                                                 </span>
                                                 <span>
-                                                    <input class="form-check-input radioEnv" id="createApp{{$envforms->name}}"
+                                                    <input class="form-check-input radioEnv" id="createApp{{$envforms->id}}"
                                                            type="radio" text="{{$envforms->name}}" name="categoryEnvironment" <?php
                                                           if($_temp_num==1){echo "checked";}
                                                            ?>
@@ -149,7 +149,7 @@
                              aria-labelledby="create-app-tier-trigger">
                             <form id="create-app-page2">
 
-                                <h5>Operating System Name</h5>
+                                <h5>Operating System Name </h5>
 
                                 <select class="select2 form-select" name="operatingsystem" id="operatingsystem">
                                     <option value="">Select Operating System</option>
@@ -174,7 +174,7 @@
                                         @foreach($form->tierform as $tierforms)
                                             @if($tierforms->status===1)
                                                 <li class="list-group-item border-0 px-0">
-                                                    <label for="createTier{{$tierforms->name}}" class="d-flex cursor-pointer">
+                                                    <label for="createTier{{$tierforms->id}}" class="d-flex cursor-pointer">
                                                         <span class="avatar avatar-tag bg-light-{{$tierforms->display_icon_colour}} me-1">
                                                             <i data-feather="{{$tierforms->display_icon}}" class="font-medium-5"></i>
                                                         </span>
@@ -184,9 +184,10 @@
                                                                 <span>{{$tierforms->display_description}}</span>
                                                             </span>
                                                             <span>
-                                                                <input class="form-check-input radioTier" value="{{$tierforms->id}}" <?php
+                                                                <input class="form-check-input radioTier" value="{{$tierforms->id}}"
+                                                                       <?php
                                                                 if($_temp_num_tier==1){echo "checked";}
-                                                                ?> id="createTier{{$tierforms->name}}" type="radio"
+                                                                ?> id="createTier{{$tierforms->id}}" type="radio"
                                                                        text="{{$tierforms->name}}"
                                                                        name="tierRadio" />
                                                             </span>
@@ -222,11 +223,22 @@
                                 <p class="form-control-static" id="input_sam_1"></p>
 {{--                                <select class="select2-data-array-mandatory form-select" id="select2-array-mandatory" name="select_sa_mandatory" multiple></select>--}}
 
-
+                                <input class="" id="o_server_os" name="o_server_os" value="">
+                                <input class="" id="o_server_env" name="o_server_env" value="">
+                                <input class="" id="o_server_tier" name="o_server_tier" value="">
                             <h5 class="mt-2 pt-1">Optional Service Application</h5>
-                                <select class="select2-data-array-optional form-select" id="select2-array-optional" name="select_sa_optional" multiple></select>
-
-
+                                <select class="select2-data-array-optional form-select" id="select_sa_optional" name="select_sa_optional" multiple>
+                                @foreach($forms as $form)
+                                    <?php
+                                    $_temp_num=1;
+                                    ?>
+                                    @foreach($form->saform as $saforms)
+                                        @if($saforms->status===1)
+                                                <option value="{{$saforms->id}}">{{$saforms->display_name}}</option>
+                                            @endif
+                                     @endforeach
+                                @endforeach
+                                </select>
 
                             </form>
                             <div class="d-flex justify-content-between mt-2">

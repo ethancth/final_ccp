@@ -96,7 +96,7 @@ class ProjectController extends Controller
        $pageConfigs = ['pageHeader' => true,];
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
        // dd(Auth::user()->company->id);
-       $form= Company::with('envform','tierform','osform')->where('id','=',Auth::user()->company->id)->get();
+       $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
        //dd(Auth::user()->company->costprofile);
        $costprofile=Auth::user()->company->costprofile;
         if ($request->ajax()) {

@@ -113,7 +113,6 @@
             selectSaO = $('.select2-data-array-optional');
 
 
-
         select.each(function () {
             var $this = $(this);
             $this.wrap('<div class="position-relative"></div>');
@@ -158,7 +157,51 @@
             }
         });
 
+        function checksa(){
+
+
+            let $resule;
+            $resule=true;
+
+            // console.log("default os: " +$('#o_server_os').val() );
+            // console.log("selected os: " +$('#operatingsystem').val() );
+            //
+            // console.log("selected env: " +$('#o_server_env').val() );
+            // console.log("selected env: " + $("input[type='radio'].radioEnv:checked").val() );
+            //
+            // console.log("selected tier: " +$('#o_server_tier').val() );
+            // console.log("selected tier: " +$("input[type='radio'].radioTier:checked").val() );
+
+                if($('#operatingsystem').val() === $('#o_server_os').val())
+                {
+                }else{
+                    $resule=false
+
+                }
+            if( $("input[type='radio'].radioEnv:checked").val() === $('#o_server_env').val())
+            {
+            }else{
+                $resule=false
+
+            }
+            if($("input[type='radio'].radioTier:checked").val() === $('#o_server_tier').val())
+            {
+
+            }else{
+                $resule=false
+            }
+            if(!$resule){
+                alert($resule);
+            }else{
+
+            }
+
+
+
+        }
+
         function ajax_getSAM(){
+            checksa()
             $.ajax({
                 type:"get",
                 url: "{{ route('filter_policy') }}",
@@ -208,7 +251,7 @@
                         'operatingsystem': {
                             required: true
                         },
-                        envRadio:{
+                        createAppDevelopment:{
                             required:true
                         },
                     }
@@ -241,7 +284,6 @@
                 .on('click', function () {
                     ajax_getSAM();
                     // var vmos=document.getElementsByName('');
-                    $('#select2-array-optional').val(null).trigger('change');
                     $('#select2-array-mandatory').val('1').trigger('change');
                     var get_radio_environment = $("input[type='radio'].radioEnv:checked").val();
                     var get_radio_tier = $("input[type='radio'].radioTier:checked").val();
@@ -417,9 +459,20 @@
                      $('#servername').val(res.hostname);
                      $('#server_id').val(res.id);
                      $('#operatingsystem').val(res.operating_system);
+                     $('#o_server_os').val(res.operating_system);
+                     $('#o_server_env').val(res.environment);
+                    document.getElementById("o_server_env").checked = true;
+                     $('#o_server_tier').val(res.tier);
+                     $('#operatingsystem').val(res.operating_system);
+                    $('#operatingsystem').select2();
+                    // $('#select_sa_optional').val(res.optional_sa_field);
+                    // $('#select_sa_optional').select2();
+
+                    $('#select_sa_optional').val(['4']).trigger("change");
+                    $('#select_sa_optional').trigger('change');
                     $("#createApp"+uppercaseWords(res.environment)).prop("checked", true);
                     $("#createTier"+uppercaseWords(res.tier)).prop("checked", true);
-                    $("#createApp"+uppercaseWords(res.operating_system_option)).prop("checked", true);
+                    //$("#createApp"+uppercaseWords(res.operating_system_option)).prop("checked", true);
                     pipsRangevCPU.noUiSlider.set(res.v_cpu);
                     pipsRangevMemory.noUiSlider.set(res.v_memory);
                     pipsRangevstorage.noUiSlider.set(res.total_storage);
