@@ -29,39 +29,43 @@
                         <form class="needs-validation" novalidate id="costform" name="costform" action="{{route("management.costform.store")}}" method="POST" accept-charset="UTF-8">
                             <input class="hidden"  name="_token" value="{{ csrf_token()}}">
                             <input class="hidden" name="form_id" id="form_id" value="{{$data->id}}">
-                            <div class="mb-1">
-                                <label class="form-label" for="basic-addon-name">Name</label>
+                            <div class="row">
+                                <div class="mb-1 col-md-6 col-6">
+                                    <label class="form-label" for="basic-addon-name">Name</label>
 
-                                <input
-                                    type="text"
-                                    id="basic-addon-name"
-                                    name="name"
-                                    class="form-control"
-                                    placeholder="Name"
-                                    aria-label="Name"
-                                    aria-describedby="basic-addon-name"
-                                    value="{{$data->name}}"
-                                    required
-                                />
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Please enter profile name.</div>
+                                    <input
+                                        type="text"
+                                        id="basic-addon-name"
+                                        name="name"
+                                        class="form-control"
+                                        placeholder="Name"
+                                        aria-label="Name"
+                                        aria-describedby="basic-addon-name"
+                                        value="{{$data->name}}"
+                                        required
+                                    />
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Please enter profile name.</div>
+                                </div>
+                                <div class="mb-1 col-md-6 col-6">
+                                    <label class="form-label" for="basic-default-desc">Description</label>
+                                    <input
+                                        type="text"
+                                        id="basic-default-desc"
+                                        name="description"
+                                        class="form-control"
+                                        placeholder="Description"
+                                        aria-label=""
+                                        value="{{$data->description}}"
+                                        required
+                                    />
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Please enter description</div>
+                                </div>
                             </div>
-                            <div class="mb-1">
-                                <label class="form-label" for="basic-default-desc">Description</label>
-                                <input
-                                    type="text"
-                                    id="basic-default-desc"
-                                    name="description"
-                                    class="form-control"
-                                    placeholder="Description"
-                                    aria-label=""
-                                    value="{{$data->description}}"
-                                    required
-                                />
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Please enter description</div>
-                            </div>
-                            <div class="mb-1">
+                            <hr>
+                            <div class="row">
+                            <div class="mb-1 col-md-6 col-6">
                                 <label class="form-label" for="basic-default-vcpu-price">vCPU Price</label>
                                 <input
                                     type="decimal"
@@ -76,7 +80,9 @@
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Please enter vCPU price.</div>
                             </div>
-                            <div class="mb-1">
+                            </div>
+                            <div class="row">
+                            <div class="mb-1 col-md-6 col-6">
                                 <label class="form-label" for="basic-default-vcpu-min">Minimum vCPU in Form</label>
                                 <input
                                     type="number"
@@ -91,7 +97,7 @@
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Please enter vCPU minimum range.</div>
                             </div>
-                            <div class="mb-1">
+                            <div class="mb-1 col-md-6 col-6">
                                 <label class="form-label" for="basic-default-vcpu-max">Maximum vCPU in Form</label>
                                 <input
                                     type="number"
@@ -106,8 +112,10 @@
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Please enter vCPU minimum range.</div>
                             </div>
-
-                            <div class="mb-1">
+                            </div>
+                            <hr>
+                            <div class="row">
+                            <div class="mb-1 col-md-6 col-6">
                                 <label class="form-label" for="basic-default-vmen-price">vMemory Price</label>
                                 <input
                                     type="decimal"
@@ -122,7 +130,9 @@
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Please enter vMemory price.</div>
                             </div>
-                            <div class="mb-1">
+                            </div>
+                            <div class="row">
+                            <div class="mb-1 col-md-6 col-6">
                                 <label class="form-label" for="basic-default-vmen-min">Minimum vMemory in Form</label>
                                 <input
                                     type="number"
@@ -137,7 +147,7 @@
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Please enter vMemory minimum range.</div>
                             </div>
-                            <div class="mb-1">
+                            <div class="mb-1 col-md-6 col-6">
                                 <label class="form-label" for="basic-default-vmen-max">Maximum vMemory in Form</label>
                                 <input
                                     type="number"
@@ -152,8 +162,11 @@
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Please enter vMemory maximum range.</div>
                             </div>
+                            </div>
 
-                            <div class="mb-1">
+                            <hr>
+                            <div class="row">
+                                <div class="mb-1 col-md-6 col-6">
                                 <label class="form-label" for="basic-default-vstorage-price">vStorage Price (100 GB)</label>
                                 <input
                                     type="decimal"
@@ -168,7 +181,9 @@
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Please enter vStorage price.</div>
                             </div>
-                            <div class="mb-1">
+                            </div>
+                            <div class="row">
+                            <div class="mb-1 col-md-6 col-6">
                                 <label class="form-label" for="basic-default-vstorage-min">Minimum vStorage in Form</label>
                                 <input
                                     type="number"
@@ -183,7 +198,7 @@
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Please enter vStorage minimum range.</div>
                             </div>
-                            <div class="mb-1">
+                            <div class="mb-1 col-md-6 col-6">
                                 <label class="form-label" for="basic-default-vstorage-max">Maximum vStorage in Form</label>
                                 <input
                                     type="number"
@@ -197,6 +212,7 @@
                                 />
                                 <div class="valid-feedback">Looks good!</div>
                                 <div class="invalid-feedback">Please enter vStorage maximum range.</div>
+                            </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
