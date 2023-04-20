@@ -2,6 +2,7 @@
 
 return [
     "Server" => "Server",
+    "Firewall Services" => "Firewall Services",
     "Firewall" => "Firewall",
     "Virtual Machine" => "Virtual Machine",
     "User Management" => "User Management",

@@ -27,6 +27,7 @@
       {"url":"project","name":"Project", "icon":"grid","slug":"project"},
 
       {"url":"","navheader":"Firewall","icon":""},
+      {"url":"management-firewall-services","name":"Firewall Services", "icon":"grid","slug":"management_firewall_service"},
 
       {"url":"","navheader":"Server","icon":""},
       {"url":"server","name":"Server", "icon":"grid","slug":"server"},

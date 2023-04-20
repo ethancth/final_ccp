@@ -11,7 +11,9 @@ class FirewallService extends Model
 
     protected $fillable =[
         'uuid',
-        'name',
+        'company_id',
+        'type',
+        'protocol',
         'source',
         'destination',
         'port',

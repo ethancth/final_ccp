@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompanyFormController;
 use App\Http\Controllers\CostProfileController;
+use App\Http\Controllers\FirewallServiceControler;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
@@ -92,6 +93,11 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/management-service-application', [CompanyFormController::class, 'saform'])->name('management_sa');
         Route::post('/management-sa', [CompanyFormController::class, 'sa_request'])->name('management.sa.store');
         Route::post('/management-sa-edit', [CompanyFormController::class, 'sa_edit'])->name('management.sa.edit');
+
+        //Firewall Service
+        Route::get('/management-firewall-services', [FirewallServiceControler::class, 'index'])->name('management_firewall_service');
+        Route::post('/management-firewall-services-store', [FirewallServiceControler::class, 'store'])->name('management_firewall_service.store');
+        Route::post('/management-firewall-services-edit', [FirewallServiceControler::class, 'edit'])->name('management_firewall_service.edit');
 
         //Cost Form
         Route::get('/management-cost', [CompanyFormController::class, 'costform'])->name('management_cost');

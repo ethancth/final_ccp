@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('firewall_services', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->nullable();
-            $table->string('name');
+            $table->string('company_id');
+            $table->string('type')->nullable()->comment('ssh http https etc');
+            $table->string('protocol')->default('TCP')->comment('TCP UDP');
             $table->string('source')->nullable();
             $table->string('destination')->nullable();
             $table->string('port')->nullable();
-            $table->string('action')->nullable();
+            $table->string('action')->nullable()->comment('allow or deny');
             $table->string('status')->default('1');
             $table->timestamps();
         });
