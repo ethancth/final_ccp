@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompanyFormController;
 use App\Http\Controllers\CostProfileController;
+use App\Http\Controllers\ServerController;
 use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
@@ -139,6 +140,9 @@ Route::group(['middleware' => ['auth', 'verified']],
 //        //Company & user
         Route::get('/user-management', [UserPageController::class, 'index'])->name('user');
         Route::post('/user-management', [UserPageController::class, 'store'])->name('user.store');
+
+        //Server Object
+        Route::get('server',[ServerController::class,'index'])->name('server');
 
 //
 //        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);

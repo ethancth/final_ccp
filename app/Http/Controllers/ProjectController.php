@@ -20,12 +20,19 @@ class ProjectController extends Controller
     public function index(Request $request,Project $project)
     {
 
-
+        //dd($request);
         $pageConfigs = ['pageHeader' => false,];
-        $project= User::find(Auth::id())->project;
+        //$project= User::find(Auth::id())->project;
+        $project1=$project->withStatus($request->status)
+            ->where('owner',Auth::id())
+            ->get();
 
         if ($request->ajax()) {
-            $data = User::find(Auth::id())->project;
+           // dd($request);
+            //$data = User::find(Auth::id())->project;
+            $data = $project->withStatus($request->status)
+                ->where('owner',Auth::id())
+                ->get();
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
@@ -37,7 +44,6 @@ class ProjectController extends Controller
 
         return view('/content/project/project-home', ['pageConfigs' => $pageConfigs,'project' => $project]);
     }
-
     public function store(Project $project, Request $request)
     {
         $project->fill($request->all());

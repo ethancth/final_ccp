@@ -1,0 +1,75 @@
+
+vjavascript:S3776 "URefactor this function to reduce its Cognitive Complexity from 344 to the 15 allowed.(€ù¯Éÿÿÿÿÿ
+Ijavascript:S11174"-'rtl' is already declared in the upper scope.(‹ğ§
+Mjavascript:S1854<"1Remove this useless assignment to variable "rtl".(•µ
+wjavascript:S1172M"[Remove the unused function parameter "bp" or rename it to "_bp" to make intention explicit.(¿¤æ’
+]javascript:S1481V"<Remove the declaration of the unused 'tooltipList' variable.(¤ğ¸ùÿÿÿÿ
+Zjavascript:S1854V"9Remove this useless assignment to variable "tooltipList".(¤ğ¸ùÿÿÿÿ
+ajavascript:S1481r"ERemove the declaration of the unused 'scrollable_container' variable.(«Õ˜¹
+^javascript:S1854r"BRemove this useless assignment to variable "scrollable_container".(«Õ˜¹
+Jjavascript:S2814|")'reloadActionOverlay' is already defined.(÷º–üÿÿÿÿ
+Šjavascript:S2392|"iConsider moving declaration of 'reloadActionOverlay' as it is referenced outside current binding context.(÷º–üÿÿÿÿ
+Jjavascript:S2814~")'reloadActionOverlay' is already defined.(ƒ­Ñˆüÿÿÿÿ
+@javascript:S125³"Remove this commented out code.(¾ã«†ùÿÿÿÿ
+Yjavascript:S1126ø"<Replace this if-then-else flow by a single return statement.(©ÿ­
+Wjavascript:S1117ÿ"5'searchInput' is already declared in the upper scope.(Á³ê÷ûÿÿÿÿ
+{javascript:S1172™"YRemove the unused function parameter "e" or rename it to "_e" to make intention explicit.(¿½ÿùÿÿÿÿ
+}javascript:S1172³"[Remove the unused function parameter "ev" or rename it to "_ev" to make intention explicit.(’Âœùÿÿÿÿ
+xjavascript:S1172È"[Remove the unused function parameter "ev" or rename it to "_ev" to make intention explicit.(ò€€ì
+ujavascript:S4144×"XUpdate this function so that its implementation is not identical to the one on line 328.(Å¥åª
+xjavascript:S1172×"[Remove the unused function parameter "ev" or rename it to "_ev" to make intention explicit.(Å¥åª
+javascript:S1172·"]Remove the unused function parameter "err" or rename it to "_err" to make intention explicit.(ıÁ»–úÿÿÿÿ
+{javascript:S1172·"YRemove the unused function parameter "t" or rename it to "_t" to make intention explicit.(ıÁ»–úÿÿÿÿ
+Sjavascript:S1117Â"6'selectedLang' is already declared in the upper scope.(Ú ‹ß
+Xjavascript:S1117Ã"6'selectedFlag' is already declared in the upper scope.(Ò­ÏÙşÿÿÿÿ
+javascript:S1172Ç"]Remove the unused function parameter "err" or rename it to "_err" to make intention explicit.(«Íòùÿÿÿÿ
+{javascript:S1172Ç"YRemove the unused function parameter "t" or rename it to "_t" to make intention explicit.(«Íòùÿÿÿÿ
+Xjavascript:S1481"6Remove the declaration of the unused '$this' variable.(Ü“§¨şÿÿÿÿ
+Ujavascript:S1854"3Remove this useless assignment to variable "$this".(Ü“§¨şÿÿÿÿ
+Wjavascript:S1117"5'searchInput' is already declared in the upper scope.(ëÓ¡úüÿÿÿÿ
+Sjavascript:S1481˜"6Remove the declaration of the unused '$this' variable.(ÅÓ¶‰
+Pjavascript:S1854˜"3Remove this useless assignment to variable "$this".(ÅÓ¶‰
+Qjavascript:S1117™"5'searchInput' is already declared in the upper scope.(Ü“ÓY
+€javascript:S2392¥"dConsider moving declaration of 'searchListMain' as it is referenced outside current binding context.(ºª i
+ejavascript:S1481ª"CRemove the declaration of the unused 'searchListBookmark' variable.(·€†ûÿÿÿÿ
+bjavascript:S1854ª"@Remove this useless assignment to variable "searchListBookmark".(·€†ûÿÿÿÿ
+ƒjavascript:S2392è"fConsider moving declaration of '$activeItemClass' as it is referenced outside current binding context.(áÂşæ
+ijavascript:S4138ï"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(ÌÉş¤
+tjavascript:S2392ï"WConsider moving declaration of 'i' as it is referenced outside current binding context.(ÌÉş¤
+Hjavascript:S1117ï"+'i' is already declared in the upper scope.(ÌÉş¤
+javascript:S2392ø"]Consider moving declaration of 'arrList' as it is referenced outside current binding context.(™³¨úÿÿÿÿ
+Sjavascript:S1117ø"1'arrList' is already declared in the upper scope.(™³¨úÿÿÿÿ
+€javascript:S2392ù"^Consider moving declaration of '$arrList' as it is referenced outside current binding context.(İ» ™úÿÿÿÿ
+[javascript:S1481ù"9Remove the declaration of the unused '$arrList' variable.(İ» ™úÿÿÿÿ
+Tjavascript:S1117ù"2'$arrList' is already declared in the upper scope.(İ» ™úÿÿÿÿ
+Šjavascript:S4165ù"hReview this redundant assignment: "$arrList" already holds the assigned value along all execution paths.(İ» ™úÿÿÿÿ
+ijavascript:S4138û"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(õ­¦ô
+tjavascript:S2392û"WConsider moving declaration of 'j' as it is referenced outside current binding context.(õ­¦ô
+ijavascript:S4138 "LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(ÌÉş¤
+4javascript:S2814 "'i' is already defined.(ÌÉş¤
+?javascript:S2814£"'arrList' is already defined.(™³¨úÿÿÿÿ
+@javascript:S2814¤"'$arrList' is already defined.(İ» ™úÿÿÿÿ
+[javascript:S1481¤"9Remove the declaration of the unused '$arrList' variable.(İ» ™úÿÿÿÿ
+Šjavascript:S4165¤"hReview this redundant assignment: "$arrList" already holds the assigned value along all execution paths.(İ» ™úÿÿÿÿ
+ijavascript:S4138¦"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(õ­¦ô
+4javascript:S2814¦"'j' is already defined.(õ­¦ô
+Ijavascript:S1940²"'Use the opposite operator (!=) instead.(İÿÔ›üÿÿÿÿ
+Tjavascript:S1854í"7Remove this useless assignment to variable "className".(ªíÃÌ
+vjavascript:S1172’"YRemove the unused function parameter "e" or rename it to "_e" to make intention explicit.(Ì¢ğ
+{javascript:S1172§"YRemove the unused function parameter "e" or rename it to "_e" to make intention explicit.(Œ”Ù©şÿÿÿÿ
+zjavascript:S2392±"]Consider moving declaration of 'arrList' as it is referenced outside current binding context.(Õ˜Îò
+ijavascript:S4138²"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(ƒÛ·å
+:javascript:S2814¹"'arrList' is already defined.(Õ˜Îò
+Rjavascript:S1854¹"5Remove this useless assignment to variable "arrList".(Õ˜Îò
+djavascript:S1481¿"BRemove the declaration of the unused '$listItemDropdown' variable.(¥ğúÿÿÿÿ
+Xjavascript:S1854Ü"6Remove this useless assignment to variable "$current".(“¿âŠúÿÿÿÿ
+Xjavascript:S1854à"6Remove this useless assignment to variable "$current".(€ë„ôÿÿÿÿÿ
+Vjavascript:S1135Ş"4Complete the task associated to this "TODO" comment.(÷”Å£ûÿÿÿÿ
+ljavascript:S1481ç"JRemove the declaration of the unused 'currentLocalStorageLayout' variable.(ˆÀúšşÿÿÿÿ
+ijavascript:S1854ç"GRemove this useless assignment to variable "currentLocalStorageLayout".(ˆÀúšşÿÿÿÿ
+`javascript:S1117í"C'currentLocalStorageLayout' is already declared in the upper scope.(´ß—ü
+javascript:S1172³"kRemove the unused function parameter "errorClass" or rename it to "_errorClass" to make intention explicit.(”Ù²•üÿÿÿÿ
+javascript:S1172³"kRemove the unused function parameter "validClass" or rename it to "_validClass" to make intention explicit.(”Ù²•üÿÿÿÿ
+ˆjavascript:S1172¹"kRemove the unused function parameter "errorClass" or rename it to "_errorClass" to make intention explicit.(…ˆ‰¶
+ˆjavascript:S1172¹"kRemove the unused function parameter "validClass" or rename it to "_validClass" to make intention explicit.(…ˆ‰¶
+@javascript:S125Ã"Remove this commented out code.(é³ÁÅıÿÿÿÿ

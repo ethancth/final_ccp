@@ -153,7 +153,7 @@
     <!-- User Content -->
     <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
       <!-- User Pills -->
-      <ul class="nav nav-pills mb-2">
+      <ul class="nav nav-pills mb-2" >
         <li class="nav-item">
           <a class="nav-link active" href="{{asset('app/user/view/account')}}">
             <i data-feather="user" class="font-medium-3 me-50"></i>

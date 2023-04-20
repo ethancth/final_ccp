@@ -25,6 +25,7 @@ class User extends Authenticatable
         'introduction',
         'department_id',
         'is_teamlead',
+        'profile_photo_path'
 
     ];
 

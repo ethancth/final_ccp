@@ -14,90 +14,12 @@
 @endsection
 
 @section('content')
-
-    <input type="text" class="hidden" name="_status" id="_status" value="draft">
-
-
-    <ul class="nav nav-tabs nav-tab-status" role="tablist">
-        <li class="nav-item">
-            <a
-                class="nav-link active"
-                id="draft-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="draft"
-                role="tab"
-                aria-selected="true"
-                text="draft"
-                value="draft"
-            ><i data-feather="edit"></i> Draft</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="review-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="review"
-                role="tab"
-                aria-selected="false"
-                val
-            ><i data-feather="loader"></i> Review</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="approve-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="approve"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="user"></i> Approve</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="inProvision-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="inProvision"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="slack"></i> In-Provision</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="complete-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="complete"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="award"></i> Complete</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="all-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="all"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="more-horizontal"></i> All</a
-            >
-        </li>
-    </ul>
+    <h3>Project Home</h3>
+    <p>Project description.</p>
+    <!-- Permission Table -->
     <div class="card">
         <div class="card-datatable table-responsive">
-            <table class="datatables-project-index table"  id="memListTable">
+            <table class="datatables-project-index table">
                 <thead class="table-light">
                 <tr>
                     <th></th>
@@ -130,20 +52,17 @@
     <script src="{{ asset(mix('js/scripts/pages/modal-create-app.js')) }}"></script>
     <!-- Page js files -->
     <script>
-
+        function demo123(){
+            alert('123');
+            var dataTableProjectIndex = $('.datatables-project-index');
+            dataTableProjectIndex.DataTable().destroy();
+            dataTableProjectIndex.DataTable().draw();
+            var oTable = dataTableProjectIndex.DataTable( );
+           // oTable.ajax.reload();
+           // oTable.DataTable().ajax.reload();
+        }
         $(function () {
-
             'use strict';
-
-
-            var navTabStatus = document.querySelector('.nav-tab-status');
-            $(navTabStatus)
-                .find('.nav-link')
-                .on('click', function () {
-                  // console.log($(this).text());
-                    $("input[name=_status]").val($(this).text().toLowerCase());
-                    $('#memListTable').DataTable().ajax.reload();
-                });
 
             var dataTableProjectIndex = $('.datatables-project-index'),
                 assetPath = '../../../app-assets/',
@@ -161,20 +80,15 @@
                 assetPath = $('body').attr('data-asset-path');
 
             }
-
-            // setInterval(function () {
-            //
-            // }, 5000);
             // Users List datatable
             if (dataTableProjectIndex.length) {
                 dt_project_index = dataTableProjectIndex.DataTable({
                     processing: true,
                     serverSide: true,
-                    type: 'POST',
                     ajax: {
                         url:"{{ route('project') }}",
                         data:{
-                            status: function() { return $("input[name=_status]").val()}
+                            status:$("input[name=_status]").val()
                         }
                     },
 
@@ -264,14 +178,14 @@
                         '>',
 
                     // language: {
-                    sLengthMenu: 'Show _MENU_',
-                    search: 'Search',
-                    searchPlaceholder: 'Search..',
-                    paginate: {
-                        // remove previous & next text from pagination
-                        previous: '&nbsp;',
-                        next: '&nbsp;'
-                    },
+                        sLengthMenu: 'Show _MENU_',
+                        search: 'Search',
+                        searchPlaceholder: 'Search..',
+                        paginate: {
+                            // remove previous & next text from pagination
+                            previous: '&nbsp;',
+                            next: '&nbsp;'
+                        },
                     // Buttons with Dropdown
                     buttons: [
                         {

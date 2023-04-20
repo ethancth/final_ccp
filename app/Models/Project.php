@@ -53,4 +53,63 @@ class Project extends Model
         }
 
     }
+
+
+    public function scopeWithStatus($query, $status)
+    {
+
+        //dd($status);
+        switch ($status) {
+            case 'draft':
+                $query->ProjectDraft();
+                break;
+            case 'review':
+                $query->ProjectReview();
+                break;
+            case 'approve':
+                $query->ProjectApprove();
+                break;
+            case 'in-provision':
+                $query->ProjectInProvision();
+                break;
+            case 'complete':
+                $query->ProjectComplete();
+                break;
+
+            default:
+                $query->ProjectAll();
+                break;
+        }
+    }
+    public function scopeProjectDraft($query)
+    {
+        return $query->where('status', '1');
+    }
+
+    public function scopeProjectReview($query)
+    {
+        return $query->where('status', '2');
+    }
+
+    public function scopeProjectApprove($query)
+    {
+        return $query->where('status', '3');
+    }
+
+    public function scopeProjectInProvision($query)
+    {
+        return $query->where('status', '4');
+    }
+
+    public function scopeProjectComplete($query)
+    {
+        return $query->where('status', '5');
+    }
+
+    public function scopeProjectAll($query)
+    {
+        return $query;
+    }
+
+
 }

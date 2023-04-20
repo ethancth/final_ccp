@@ -1,7 +1,8 @@
 <?php
 
 return [
-    "Infrastructure" => "Infrastructure",
+    "Server" => "Server",
+    "Firewall" => "Firewall",
     "Virtual Machine" => "Virtual Machine",
     "User Management" => "User Management",
     "All VM history" => "All VM history",

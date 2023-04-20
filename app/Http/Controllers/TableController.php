@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TableController extends Controller
+class wTableController extends Controller
 {
     // Bootstrap Table
     public function table()

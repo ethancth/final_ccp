@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Project Home')
+@section('title', 'Server Instance')
 
 @section('vendor-style')
     <!-- Vendor css files -->
@@ -18,83 +18,83 @@
     <input type="text" class="hidden" name="_status" id="_status" value="draft">
 
 
-    <ul class="nav nav-tabs nav-tab-status" role="tablist">
-        <li class="nav-item">
-            <a
-                class="nav-link active"
-                id="draft-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="draft"
-                role="tab"
-                aria-selected="true"
-                text="draft"
-                value="draft"
-            ><i data-feather="edit"></i> Draft</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="review-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="review"
-                role="tab"
-                aria-selected="false"
-                val
-            ><i data-feather="loader"></i> Review</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="approve-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="approve"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="user"></i> Approve</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="inProvision-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="inProvision"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="slack"></i> In-Provision</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="complete-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="complete"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="award"></i> Complete</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="all-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="all"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="more-horizontal"></i> All</a
-            >
-        </li>
-    </ul>
+{{--    <ul class="nav nav-tabs nav-tab-status" role="tablist">--}}
+{{--        <li class="nav-item">--}}
+{{--            <a--}}
+{{--                class="nav-link active"--}}
+{{--                id="draft-tab"--}}
+{{--                data-bs-toggle="tab"--}}
+{{--                href="#"--}}
+{{--                aria-controls="draft"--}}
+{{--                role="tab"--}}
+{{--                aria-selected="true"--}}
+{{--                text="draft"--}}
+{{--                value="draft"--}}
+{{--            ><i data-feather="edit"></i> Draft</a--}}
+{{--            >--}}
+{{--        </li>--}}
+{{--        <li class="nav-item">--}}
+{{--            <a--}}
+{{--                class="nav-link"--}}
+{{--                id="review-tab"--}}
+{{--                data-bs-toggle="tab"--}}
+{{--                href="#"--}}
+{{--                aria-controls="review"--}}
+{{--                role="tab"--}}
+{{--                aria-selected="false"--}}
+{{--                val--}}
+{{--            ><i data-feather="loader"></i> Review</a--}}
+{{--            >--}}
+{{--        </li>--}}
+{{--        <li class="nav-item">--}}
+{{--            <a--}}
+{{--                class="nav-link"--}}
+{{--                id="approve-tab"--}}
+{{--                data-bs-toggle="tab"--}}
+{{--                href="#"--}}
+{{--                aria-controls="approve"--}}
+{{--                role="tab"--}}
+{{--                aria-selected="false"--}}
+{{--            ><i data-feather="user"></i> Approve</a--}}
+{{--            >--}}
+{{--        </li>--}}
+{{--        <li class="nav-item">--}}
+{{--            <a--}}
+{{--                class="nav-link"--}}
+{{--                id="inProvision-tab"--}}
+{{--                data-bs-toggle="tab"--}}
+{{--                href="#"--}}
+{{--                aria-controls="inProvision"--}}
+{{--                role="tab"--}}
+{{--                aria-selected="false"--}}
+{{--            ><i data-feather="slack"></i> In-Provision</a--}}
+{{--            >--}}
+{{--        </li>--}}
+{{--        <li class="nav-item">--}}
+{{--            <a--}}
+{{--                class="nav-link"--}}
+{{--                id="complete-tab"--}}
+{{--                data-bs-toggle="tab"--}}
+{{--                href="#"--}}
+{{--                aria-controls="complete"--}}
+{{--                role="tab"--}}
+{{--                aria-selected="false"--}}
+{{--            ><i data-feather="award"></i> Complete</a--}}
+{{--            >--}}
+{{--        </li>--}}
+{{--        <li class="nav-item">--}}
+{{--            <a--}}
+{{--                class="nav-link"--}}
+{{--                id="all-tab"--}}
+{{--                data-bs-toggle="tab"--}}
+{{--                href="#"--}}
+{{--                aria-controls="all"--}}
+{{--                role="tab"--}}
+{{--                aria-selected="false"--}}
+{{--            ><i data-feather="more-horizontal"></i> All</a--}}
+{{--            >--}}
+{{--        </li>--}}
+{{--    </ul>--}}
     <div class="card">
         <div class="card-datatable table-responsive">
             <table class="datatables-project-index table"  id="memListTable">
@@ -102,9 +102,9 @@
                 <tr>
                     <th></th>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>Hostname</th>
                     <th>status</th>
-                    <th>Created Date</th>
+                    <th>Project Name</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -113,7 +113,7 @@
     </div>
     <!--/ Permission Table -->
 
-    @include('content/_partials/_modals/modal-create-project')
+{{--    @include('content/_partials/_modals/modal-create-project')--}}
 @endsection
 
 @section('vendor-script')
@@ -127,7 +127,7 @@
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
 @endsection
 @section('page-script')
-    <script src="{{ asset(mix('js/scripts/pages/modal-create-app.js')) }}"></script>
+{{--    <script src="{{ asset(mix('js/scripts/pages/modal-create-app.js')) }}"></script>--}}
     <!-- Page js files -->
     <script>
 
@@ -140,7 +140,7 @@
             $(navTabStatus)
                 .find('.nav-link')
                 .on('click', function () {
-                  // console.log($(this).text());
+                    // console.log($(this).text());
                     $("input[name=_status]").val($(this).text().toLowerCase());
                     $('#memListTable').DataTable().ajax.reload();
                 });
@@ -149,11 +149,8 @@
                 assetPath = '../../../app-assets/',
                 dt_project_index,
                 statusObj = {
-                    1: { title: 'Draft', class: 'badge-light-secondary' },
-                    2: { title: 'Review', class: 'badge-light-warning' },
-                    3: { title: 'Approve', class: 'badge-light-primary' },
-                    4: { title: 'In-Provisioning', class: 'badge-light-info' },
-                    5: { title: 'Complete', class: 'badge-light-success' },
+                    1: { title: 'Power On', class: 'badge-light-success' },
+                    0: { title: 'Power Off', class: 'badge-light-secondary' },
                 },
                 projectHome='project/';
 
@@ -172,7 +169,7 @@
                     serverSide: true,
                     type: 'POST',
                     ajax: {
-                        url:"{{ route('project') }}",
+                        url:"{{ route('server') }}",
                         data:{
                             status: function() { return $("input[name=_status]").val()}
                         }
@@ -184,7 +181,7 @@
                         { data: 'id' },
                         { data: 'title' },
                         { data: 'status' },
-                        { data: 'created_at' },
+                        { data: 'operating_system_option' },
                         { data: '' }
                     ],
                     columnDefs: [
@@ -209,7 +206,7 @@
                             width: '46px',
                             render: function (data, type, full, meta) {
                                 var $status = full['id'];
-                                var $status_title = full['title'];
+                                var $status_title = full['hostname'];
                                 // Creates full output for row
                                 var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>';
                                 return $rowOutput;
@@ -221,7 +218,7 @@
                             orderable: false,
                             render: function (data, type, full, meta) {
 
-                                var $status = full['status'];
+                                var $status = full['vm_power_status'];
 
                                 return (
                                     '<span class="badge rounded-pill ' +
@@ -256,7 +253,7 @@
                     dom:
                         '<"d-flex justify-content-between align-items-center header-actions text-nowrap mx-1 row mt-75"' +
                         '<"col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start" l>' +
-                        '<"col-sm-12 col-lg-8"<"dt-action-buttons d-flex align-items-center justify-content-lg-end justify-content-center flex-md-nowrap flex-wrap"<"me-1"f><"user_role mt-50 width-200 me-1">B>>' +
+                        '<"col-sm-12 col-lg-8"<"dt-action-buttons d-flex align-items-center justify-content-lg-end justify-content-center flex-md-nowrap flex-wrap"<"me-1"f>B>>' +
                         '><"text-nowrap" t>' +
                         '<"d-flex justify-content-between mx-2 row mb-1"' +
                         '<"col-sm-12 col-md-6"i>' +
@@ -274,17 +271,17 @@
                     },
                     // Buttons with Dropdown
                     buttons: [
-                        {
-                            text: 'Create New Project',
-                            className: 'add-new btn btn-primary mt-50',
-                            attr: {
-                                'data-bs-toggle': 'modal',
-                                'data-bs-target': '#createProjectModal'
-                            },
-                            init: function (api, node, config) {
-                                $(node).removeClass('btn-secondary');
-                            }
-                        },
+                        // {
+                        //     text: 'Create New Project',
+                        //     className: 'add-new btn btn-primary mt-50',
+                        //     attr: {
+                        //         'data-bs-toggle': 'modal',
+                        //         'data-bs-target': '#createProjectModal'
+                        //     },
+                        //     init: function (api, node, config) {
+                        //         $(node).removeClass('btn-secondary');
+                        //     }
+                        // },
 
                     ],
                     // For responsive popup

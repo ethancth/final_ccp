@@ -26,6 +26,10 @@
       {"url":"","navheader":"Project","icon":""},
       {"url":"project","name":"Project", "icon":"grid","slug":"project"},
 
+      {"url":"","navheader":"Firewall","icon":""},
+
+      {"url":"","navheader":"Server","icon":""},
+      {"url":"server","name":"Server", "icon":"grid","slug":"server"},
 
       {"url":"","navheader":"Management","icon":""},
       {"url":"user-management","name":"User Management","icon":"grid","slug":"user"},
@@ -34,16 +38,6 @@
       {"url":"management-os","name":"OS Form","icon":"grid","slug":"management_os"},
       {"url":"management-service-application","name":"SA Form","icon":"grid","slug":"management_sa"},
       {"url":"management-cost","name":"Cost Form","icon":"grid","slug":"management_cost"},
-      {"url":"management-policy-form","name":"Policy Form","icon":"grid","slug":"management_policyform"},
-
-      {"url":"department.list","name":"Department Management", "icon":"grid","slug":"department-management"},
-      {"url":"operating-expense","name":"Operating Expense Management" ,"icon":"grid","slug":"Operating-Expense-Management"},
-      {"url":"cost-profile","name":"Cost Profile","icon":"grid","slug":"Cost-Profile-Management"},
-      {"url":"department-cost-profile","name":"Cost Profile Management", "icon":"grid","slug":"Cost-Profile-Management"},
-      {"url":"datastore","name":"Datastore", "icon":"grid","slug":"Datastore-Cost-Profile"},
-      {"url":"datastore-cost-profile","name":"Datastore Cost Profile", "icon":"grid","slug":"Datastore-Cost-Profile"},
-      {"url":"","navheader":"Infrastructure","icon":""},
-      {"url":"vm-table","name":"Virtual Machine", "icon":"grid","slug":"table-datatable"},
-      {"url":"vm-all","name":"All VM history", "icon":"grid","slug":"table-datatable"}
+      {"url":"management-policy-form","name":"Policy Form","icon":"grid","slug":"management_policyform"}
   ]
 }
