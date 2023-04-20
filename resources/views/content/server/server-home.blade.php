@@ -152,7 +152,7 @@
                     1: { title: 'Power On', class: 'badge-light-success' },
                     0: { title: 'Power Off', class: 'badge-light-secondary' },
                 },
-                projectHome='project/';
+                projectHome='server/';
 
             if ($('body').attr('data-framework') === 'laravel') {
                 assetPath = $('body').attr('data-asset-path');
@@ -208,7 +208,7 @@
                                 var $status = full['id'];
                                 var $status_title = full['hostname'];
                                 // Creates full output for row
-                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>';
+                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '/firewall"> ' + $status_title + '</a>';
                                 return $rowOutput;
                             }
                         },

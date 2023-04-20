@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Project;
 use App\Models\ProjectServer;
 use Illuminate\Http\Request;
@@ -37,5 +38,31 @@ class ServerController extends Controller
         }
 
         return view('/content/server/server-home', ['pageConfigs' => $pageConfigs,'project' => $project]);
+    }
+
+    public function firewall(Request $request,ProjectServer $server)
+    {
+
+        $pageConfigs = ['pageHeader' => true,];
+        // dd(Auth::user()->company->id);
+        $form= Company::with('firewallserviceform')->where('id','=',Auth::user()->company->id)->get();
+        //dd(Auth::user()->company->costprofile);
+        $costprofile=Auth::user()->company->costprofile;
+        if ($request->ajax()) {
+            $data =$server->firewall;
+            //dd($data);
+            return Datatables::of($data)
+//                ->addColumn('action', function($row){
+//                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+//                    return $btn;
+//                })
+//                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $isprojectdropdown=true;
+        $breadcrumbs = [
+            ['link' => "/", 'name' => "Home"], [ 'name' =>  $server->hostname], ['name' => 'Firewall Rules']
+        ];
+        return view('content/server/server-firewall-list', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('server','costprofile'));
     }
 }

@@ -150,6 +150,9 @@ Route::group(['middleware' => ['auth', 'verified']],
         //Server Object
         Route::get('server',[ServerController::class,'index'])->name('server');
 
+        //ServerFirewall
+        Route::get('/server/{server}/firewall', [ServerController::class, 'firewall'])->name('server.firewall');
+
 //
 //        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);
 //        Route::get('/company-staff', 'CompanyController@allstaff')->name('company.staff');
