@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'New Project')
+@section('title', 'Asset')
 
 @section('vendor-style')
     <!-- Vendor css files -->
@@ -18,83 +18,7 @@
     <input type="text" class="hidden" name="_status" id="_status" value="draft">
 
 
-    <ul class="nav nav-tabs nav-tab-status" role="tablist">
-        <li class="nav-item">
-            <a
-                class="nav-link active"
-                id="draft-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="draft"
-                role="tab"
-                aria-selected="true"
-                text="draft"
-                value="draft"
-            ><i data-feather="edit"></i> Draft</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="review-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="review"
-                role="tab"
-                aria-selected="false"
-                val
-            ><i data-feather="loader"></i> Review</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="approve-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="approve"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="user"></i> Approve</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="inProvision-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="inProvision"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="slack"></i> In-Provision</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="complete-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="complete"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="award"></i> Complete</a
-            >
-        </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="all-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="all"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="more-horizontal"></i> All</a
-            >
-        </li>
-    </ul>
+
     <div class="card">
         <div class="card-datatable table-responsive">
             <table class="datatables-project-index table"  id="memListTable">
@@ -102,18 +26,16 @@
                 <tr>
                     <th></th>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>status</th>
-                    <th>Created Date</th>
-                    <th>Actions</th>
+                    <th>Project Name</th>
+                    <th>Power Status</th>
+                    <th>Security Group</th>
+                    <th>Cost</th>
                 </tr>
                 </thead>
             </table>
         </div>
     </div>
     <!--/ Permission Table -->
-
-    @include('content/_partials/_modals/modal-create-project')
 @endsection
 
 @section('vendor-script')
@@ -127,7 +49,6 @@
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
 @endsection
 @section('page-script')
-    <script src="{{ asset(mix('js/scripts/pages/modal-create-app.js')) }}"></script>
     <!-- Page js files -->
     <script>
 
@@ -153,7 +74,7 @@
                     2: { title: 'Review', class: 'badge-light-warning' },
                     3: { title: 'Approve', class: 'badge-light-primary' },
                     4: { title: 'In-Provisioning', class: 'badge-light-info' },
-                    5: { title: 'Complete', class: 'badge-light-success' },
+                    5: { title: 'Power On', class: 'badge-light-success' },
                 },
                 projectHome='project/';
 
@@ -172,7 +93,7 @@
                     serverSide: true,
                     type: 'POST',
                     ajax: {
-                        url:"{{ route('project') }}",
+                        url:"{{ route('asset.project') }}",
                         data:{
                             status: function() { return $("input[name=_status]").val()}
                         }
@@ -184,7 +105,7 @@
                         { data: 'id' },
                         { data: 'title' },
                         { data: 'status' },
-                        { data: 'created_at' },
+                        { data: 'status' },
                         { data: '' }
                     ],
                     columnDefs: [
@@ -217,6 +138,18 @@
                         },
                         {
                             // Project Status
+                            targets: -1,
+                            orderable: false,
+                            render: function (data, type, full, meta) {
+
+                                var $status = full['status'];
+
+                                return '$ '+ full['price'];
+                            }
+                        },
+
+                        {
+                            // Project Status
                             targets: 3,
                             orderable: false,
                             render: function (data, type, full, meta) {
@@ -229,31 +162,43 @@
                                     '" text-capitalized>' +
                                     statusObj[$status].title +
                                     '</span>'
+
                                 );
                             }
                         },
                         {
-                            // Actions
-                            targets: -1,
-                            title: 'Actions',
+                            // Project Status
+                            targets: 4,
                             orderable: false,
                             render: function (data, type, full, meta) {
 
                                 var $project_id = full['id'];
                                 return (
 
-                                    '<a class="btn btn-sm btn-icon" href="'+projectHome+ $project_id+'">' +
-                                    feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</i></a>' +
+
                                     '<a class="btn btn-sm btn-icon" href="'+"SG/"+ $project_id+'">' +
-                                    feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</i></a>' +
-                                    '<button class="btn btn-sm btn-icon delete-record">' +
-                                    feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</button>'
+                                    feather.icons['shield'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                    '</i></a> '
                                 );
                             }
-                        }
+                        },
+                        // {
+                        //     // Actions
+                        //     targets: -1,
+                        //     title: 'Actions',
+                        //     orderable: false,
+                        //     render: function (data, type, full, meta) {
+                        //
+                        //         var $project_id = full['id'];
+                        //         return (
+                        //
+                        //
+                        //             '<a class="btn btn-sm btn-icon" href="'+"SG/"+ $project_id+'">' +
+                        //             feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                        //             '</i></a>'
+                        //         );
+                        //     }
+                        // }
                     ],
                     order: [[1, 'desc']],
                     dom:

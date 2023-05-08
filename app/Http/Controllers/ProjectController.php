@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Environment;
 use App\Models\OperatingSystem;
+use App\Models\ProjectSecurityGroup;
+use App\Models\ProjectSecurityGroupEnv;
+use App\Models\ProjectSecurityGroupEnvFirewall;
 use App\Models\ProjectServer;
 use App\Models\Tier;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
@@ -44,6 +48,178 @@ class ProjectController extends Controller
 
         return view('/content/project/project-home', ['pageConfigs' => $pageConfigs,'project' => $project]);
     }
+
+    public function asset(Request $request,Project $project)
+    {
+
+        //dd($request);
+        $pageConfigs = ['pageHeader' => false,];
+        //$project= User::find(Auth::id())->project;
+        $total_price = 0;
+        $project1=$project->withStatus('complete')
+            ->where('owner',Auth::id())
+            ->each(function($p, $k) use (&$total_price) {
+                $total_price += $p->server()->sum('price');
+                $p->price=$total_price;
+                $p->save();
+            });
+
+
+
+        if ($request->ajax()) {
+            // dd($request);
+            //$data = User::find(Auth::id())->project;
+            $data = $project->withStatus('complete')
+                ->where('owner',Auth::id())
+                ->get();
+            return Datatables::of($data)
+//                ->addColumn('action', function($row){
+//                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+//                    return $btn;
+//                })
+//                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('/content/project/asset', ['pageConfigs' => $pageConfigs,'project' => $project]);
+    }
+
+    public function sg(Project $project, Request $request){
+
+        $projectsg=$project->sg()->get();
+        if($projectsg->isEmpty()){
+           $query= ProjectSecurityGroup::firstOrCreate(
+                ['project_id' =>  $project->id],
+                ['slug' => "SG-".$project->slug]
+            );
+
+           $query->save();
+        }
+        $projectsg=$project->sg()->get();
+        $_project_g=$projectsg[0]->env()->get();
+        $alltier=$project->server()->select('display_tier')->distinct()->pluck('display_tier')->toArray();
+
+
+
+        if($_project_g->isEmpty()){
+
+            foreach ($alltier as $field){
+                $query= ProjectSecurityGroupEnv::firstOrCreate(
+                ['security_id' =>  $projectsg[0]->id,
+                'env' => $field,
+                'slug' => $projectsg[0]->slug.'-'.$field]
+
+            );
+            }
+
+//            $query= ProjectSecurityGroup::firstOrCreate(
+//                ['project_id' =>  $project->id],
+//                ['slug' => "SG-".$project->slug]
+//            );
+
+//
+            $query->save();
+        }
+
+        foreach ($_project_g as $project_sg_env) {
+
+            foreach ($project_sg_env->firewall as $row) {
+                $_row_array[] = [
+                    'id' => $row->id,
+                    'security_env_id' => $row->security_env_id,
+                    'name' => $row->name,
+                    'source' => $row->source,
+                    'destination' => $row->destination,
+                    'port' => $row->port,
+                    'status'=>$row->status,
+
+                ];
+
+            }
+            if (!isset($_row_array)) {
+                // list is empty.
+
+                $_section_array[] = [
+                    'id' => $project_sg_env->id,
+                    'slug' => $project_sg_env->slug,
+
+                    'item'=>[]
+                ];
+            }else{
+                $_section_array[] = [
+                    'id' => $project_sg_env->id,
+                    'slug' => $project_sg_env->slug,
+
+                    'item'=>$_row_array
+                ];
+            }
+
+            unset($_row_array);
+        }
+
+//        if ($request->ajax()) {
+//            return $_section_array;
+//        }
+
+      //  dd($_section_array);
+        $pageConfigs = ['pageHeader' => false,];
+
+        return view('/content/project/project-sg-list', [
+            'pageConfigs' => $pageConfigs,
+            //'sensors'=>$data,'crops'=>$datacrops,
+            'pagetitle'=>$projectsg[0]->slug,
+            //'pagetitledescription'=>$formtxtdesc,
+            'section_array'=>$_section_array,
+            //'plot_id'=>$_plot_id
+        ]);
+
+
+
+
+
+
+    }
+
+    public function sg_store(Request $request){
+
+
+
+        if( $request->basic_port_range==null){
+            $_port='All ports';
+        }else{
+            $_port=$request->basic_port_range;
+        }
+
+        ProjectSecurityGroupEnvFirewall::updateOrCreate(
+            [
+                'id' => $request->form_id,
+            ],
+            [
+
+                'security_env_id' => $request->security_env_id,
+                'name' => $request->rule_name,
+                'protocol' => $request->select_type,
+                'port' => $_port,
+                'type' => $request->select_type,
+                'rule' => $request->select_rule_type,
+                'status' => $request->select_status,
+                'source' => $request->source,
+                'destination' => $request->destination,
+
+            ]
+        );
+        return back()->with('success', 'Success！');
+
+}
+
+    public function get_sg_env_firewall(Request $request){
+
+        $where = array('id' => $request->id);
+        $data  = ProjectSecurityGroupEnvFirewall::where($where)->first();
+
+        return response()->json($data);
+    }
+
     public function store(Project $project, Request $request)
     {
         $project->fill($request->all());

@@ -30,6 +30,10 @@ class Project extends Model
         return $this->hasone(User::class,'owner','id');
     }
 
+    public function sg()
+    {
+        return $this->hasone(ProjectSecurityGroup::class,'project_id','id');
+    }
     public function link($params = [])
     {
         return route('project.show', array_merge([$this->id,$this->slug], $params));
@@ -110,6 +114,8 @@ class Project extends Model
     {
         return $query;
     }
+
+
 
 
 }

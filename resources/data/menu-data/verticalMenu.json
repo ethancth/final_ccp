@@ -24,15 +24,17 @@
 
 
       {"url":"","navheader":"Project","icon":""},
-      {"url":"project","name":"Project", "icon":"grid","slug":"project"},
+      {"url":"project","name":"New Project", "icon":"grid","slug":"project"},
 
       {"url":"","navheader":"Firewall","icon":""},
-      {"url":"management-firewall-services","name":"Firewall Services", "icon":"grid","slug":"management_firewall_service"},
 
-      {"url":"","navheader":"Server","icon":""},
-      {"url":"server","name":"Server", "icon":"grid","slug":"server"},
+
+      {"url":"","navheader":"Asset","icon":""},
+      {"url":"server","name":"Asset (VM)", "icon":"grid","slug":"server"},
+      {"url":"asset-project","name":"Asset (Project)", "icon":"grid","slug":"asset.project"},
 
       {"url":"","navheader":"Management","icon":""},
+      {"url":"management-firewall-services","name":"Firewall Services", "icon":"grid","slug":"management_firewall_service"},
       {"url":"user-management","name":"User Management","icon":"grid","slug":"user"},
       {"url":"management-environment","name":"Env Form","icon":"grid","slug":"management_env"},
       {"url":"management-tier","name":"Tier Form","icon":"grid","slug":"management_tier"},

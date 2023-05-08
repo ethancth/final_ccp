@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CompanyFormController;
 use App\Http\Controllers\CostProfileController;
 use App\Http\Controllers\FirewallServiceControler;
@@ -152,6 +153,16 @@ Route::group(['middleware' => ['auth', 'verified']],
 
         //ServerFirewall
         Route::get('/server/{server}/firewall', [ServerController::class, 'firewall'])->name('server.firewall');
+
+        //ProjectSecurityGroup
+        Route::get('/SG/{project}/', [ProjectController::class, 'sg'])->name('project.sg');
+        Route::post('/SG/store', [ProjectController::class, 'sg_store'])->name('project.sg.store');
+        Route::post('/SG/edit', [ProjectController::class, 'get_sg_env_firewall'])->name('project.sg.env.firewall.store');
+
+
+
+        //Asset ProjectAssetController
+        Route::get('/asset-project', [ProjectController::class, 'asset'])->name('asset.project');
 
 //
 //        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);

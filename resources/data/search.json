@@ -1,6 +1,6 @@
 {
   "listItems": [
-    { "name": "Analytics Dashboard", "url": "dashboard/analytics", "icon": "home" },
+    { "name": "Analytics Dashboard123", "url": "dashboard/analytics", "icon": "home" },
     { "name": "eCommerce Dashboard", "url": "dashboard/ecommerce", "icon": "home" },
     { "name": "Email", "url": "app/email", "icon": "mail" },
     { "name": "Chat", "url": "app/chat", "icon": "message-square" },
@@ -36,7 +36,7 @@
     { "name": "Verify Email Cover", "url": "auth/verify-email-cover", "icon": "at-sign" },
     { "name": "Two Steps Basic", "url": "auth/two-steps-basic", "icon": "help-circle" },
     { "name": "Two Steps Cover", "url": "auth/two-steps-cover", "icon": "help-circle" },
-    { "name": "Account Settings - Account", "url": "page/account-settings-account", "icon": "user" },
+    { "name": "Account Settings - Account123", "url": "page/account-settings-account", "icon": "user" },
     { "name": "Account Settings - Security", "url": "page/account-settings-security", "icon": "lock" },
     { "name": "Account Settings - Billings & Plans", "url": "page/account-settings-billing", "icon": "bookmark" },
     { "name": "Account Settings - Notifications", "url": "page/account-settings-notifications", "icon": "bell" },
