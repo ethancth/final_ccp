@@ -93,4 +93,25 @@ class FirewallServiceControler extends Controller
 
         return response()->json($env);
     }
+
+    public function favor(FirewallService $firewallService, Request $request)
+    {
+        dd($request);
+        $server = $request->ProjectServer();
+        if ($server->subscribeFirewall()->find($firewallService->id)) {
+            return [];
+        }
+
+        $server->subscribeFirewall()->attach($firewallService);
+
+        return [];
+    }
+
+    public function disfavor(FirewallService $firewallService, Request $request)
+    {
+        $server = $request->ProjectServer();
+        $server->subscribeFirewall()->detach($firewallService);
+
+        return [];
+    }
 }

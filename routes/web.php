@@ -154,6 +154,18 @@ Route::group(['middleware' => ['auth', 'verified']],
         //ServerFirewall
         Route::get('/server/{server}/firewall', [ServerController::class, 'firewall'])->name('server.firewall');
 
+
+        //ServerFirewall
+        Route::get('/server/{server}/firewall', [ServerController::class, 'firewall'])->name('server.firewall');
+        Route::get('/server/{server}/information', [ServerController::class, 'information'])->name('server.information');
+
+        Route::post('/server/firewall/request/store', [ServerController::class, 'firewall_request'])->name('server.firewall.store');
+        Route::post('/server/firewall/request/edit', [ServerController::class, 'firewall_request_edit'])->name('server.firewall.edit');
+
+        //ProjectServer subscribe firewall
+
+        Route::post('server/firewall/{firewallService}/subscribe', [FirewallServiceControler::class, 'favor'])->name('firewall.subscribe');
+
         //ProjectSecurityGroup
         Route::get('/SG/{project}/', [ProjectController::class, 'sg'])->name('project.sg');
         Route::post('/SG/store', [ProjectController::class, 'sg_store'])->name('project.sg.store');

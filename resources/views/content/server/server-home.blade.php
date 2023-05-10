@@ -208,7 +208,7 @@
                                 var $status = full['id'];
                                 var $status_title = full['hostname'];
                                 // Creates full output for row
-                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '/firewall"> ' + $status_title + '</a>';
+                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '/information"> ' + $status_title + '</a>';
                                 return $rowOutput;
                             }
                         },

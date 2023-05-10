@@ -19,12 +19,28 @@ class ProjectServer extends Model
 
     public function project()
     {
-        return $this->belongsTo(Project::class,'id','project_id');
+        return $this->belongsTo(Project::class,'project_id','id');
     }
 
     public function owner()
     {
         return $this->belongsTo(User::class,'id','owner');
+    }
+
+    public function tiername()
+    {
+            return $this->hasOne(Tier::class,'id','tier');
+    }
+    public function envname()
+    {
+            return $this->hasOne(Environment::class,'id','tier');
+    }
+
+    public function subscribeFirewall()
+    {
+        return $this->belongsToMany(FirewallService::class, 'server_subscribe_firewall')
+            ->withTimestamps()
+            ->orderBy('server_subscribe_firewall.created_at', 'desc');
     }
 
 
