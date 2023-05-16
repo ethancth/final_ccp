@@ -315,6 +315,7 @@ class ProjectController extends Controller
         $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
         //dd(Auth::user()->company->costprofile);
         $costprofile=Auth::user()->company->costprofile;
+        $projectfirewall=$project->firewall;
         if ($request->ajax()) {
             $data =$project->server;
             //dd($data);
@@ -330,7 +331,7 @@ class ProjectController extends Controller
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
         ];
-        return view('content/project/asset-project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
+        return view('content/project/asset-project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectfirewall' => $projectfirewall,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
 
     public function destroy(Request $request)

@@ -30,6 +30,11 @@ class Project extends Model
         return $this->hasone(User::class,'owner','id');
     }
 
+    public function firewall()
+    {
+        return $this->hasMany(ProjectFirewall::class,'project_id','id');
+    }
+
     public function sg()
     {
         return $this->hasone(ProjectSecurityGroup::class,'project_id','id');
