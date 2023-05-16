@@ -79,6 +79,10 @@ class ServerController extends Controller
         //dd(Auth::user()->company->costprofile);
         $costprofile=Auth::user()->company->costprofile;
         $_serverfirewall=ServerFirewallRules::where('server_id','=',$server->id)->get();
+
+        //get project security rule
+        $_project_sercurity_group_env=$server->project->sg->env;
+
         if ($request->ajax()) {
             $data =$server->firewall;
             //dd($data);
@@ -94,7 +98,7 @@ class ServerController extends Controller
         $breadcrumbs = [
            [ 'name' =>  'Server','link' => "/server"],[ 'name' =>  $server->hostname], ['name' => 'Server Information']
         ];
-        return view('content/server/information', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'serverfirewallservice'=>$_serverfirewall,'firewallservice'=>$firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('server','costprofile'));
+        return view('content/server/information', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectsecuritygroup'=>$_project_sercurity_group_env,'serverfirewallservice'=>$_serverfirewall,'firewallservice'=>$firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('server','costprofile'));
     }
 
     public function firewall_request(Request $request, ProjectServer $server)

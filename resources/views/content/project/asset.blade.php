@@ -76,7 +76,7 @@
                     4: { title: 'In-Provisioning', class: 'badge-light-info' },
                     5: { title: 'Power On', class: 'badge-light-success' },
                 },
-                projectHome='project/';
+                projectHome='asset/project/';
 
             if ($('body').attr('data-framework') === 'laravel') {
                 assetPath = $('body').attr('data-asset-path');

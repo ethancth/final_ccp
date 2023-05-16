@@ -1,7 +1,7 @@
 
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Server Information')
+@section('title', 'Summary')
 
 @section('content')
     <section class="form-control-repeater">
@@ -90,7 +90,7 @@
                             @foreach($firewallservice as $fs)
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="checked" checked />
+                                        <input class="form-check-input btn-favor" data-id="{{$fs->id}}" type="checkbox" id="{{$fs->id}}" value="checked" checked />
                                         <label class="form-check-label" for="inlineCheckbox1">{{$fs->type}}</label>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                             <tbody>
                                             @foreach($serverfirewallservice as $fws)
                                             <tr>
-                                                <td><a class="btn-edit-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$fws->type}}</a></td>
+                                                <td><a class="btn-edit-row " data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$fws->type}}</a></td>
                                                 <td>
                                                     {{$fws->source}}
                                                 </td>
@@ -151,6 +151,57 @@
                 </div>
             </div>
 
+
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <h2>Security Group
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="table-hover-row">
+                            <div class="col-12">
+                                <div class="card">
+
+                                    @foreach($projectsecuritygroup as $psg)
+                                        @if($psg->env ==$server->tiername->name)
+                                            {{$psg->slug}}
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Source</th>
+                                                        <th>Ports/Predefined Service</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($psg->firewall as $fws)
+                                                        <tr>
+                                                            <td>{{$fws->name}}</td>
+                                                            <td>
+                                                                {{$fws->source}}
+                                                            </td>
+                                                            <td> {{$fws->port}}</td>
+
+                                                        </tr>
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        @endif
+                                    @endforeach
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
         </div>
     </section>
     @include('content/_partials/_modals/modal-add-edit-server-firewall')
@@ -163,6 +214,7 @@
 @section('page-script')
     <!-- Page js files -->
     <script src="{{ asset(mix('js/scripts/forms/form-repeater.js')) }}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         $('body').on('click', '.btn-add-server-firewall', function () {
             var id = $(this).data('id');
@@ -201,7 +253,6 @@
             var id = $(this).data('id');
 
 
-            console.log(id);
             $.ajax({
                 type:"POST",
                 url: "{{ route('server.firewall.edit') }}",
@@ -228,6 +279,33 @@
             });
 
             $('#row_section_id').val(this.id);
+
+        });
+
+            $('.btn-favor').click(function () {
+                var id = $(this).data('id');
+                var status = $(this).prop('checked') == true ? 1 : 0;
+
+                console.log(status);
+                $.ajax({
+
+                    type: "POST",
+                    dataType: "json",
+                    url: "{{ route('firewall.subscribe',['firewallService' => 1]) }}",
+                    data: {'status': status, 'id': id,'s_id': {{$server->id}}},
+                    success: function(data){
+                        console.log(data.success)
+                        toastr[data.type](data.message, data.title, {
+                            closeButton: true,
+                            tapToDismiss: false,
+                            progressBar: true,
+                        });
+                    }
+                });
+
+            });
+
+        $('body').on('click', '.toggle-class', function () {
 
         });
     </script>

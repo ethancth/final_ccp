@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Environment;
+use App\Models\FirewallService;
 use App\Models\OperatingSystem;
 use App\Models\ProjectSecurityGroup;
 use App\Models\ProjectSecurityGroupEnv;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProjectController extends Controller
@@ -279,6 +281,7 @@ class ProjectController extends Controller
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
        // dd(Auth::user()->company->id);
        $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
+        $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
        //dd(Auth::user()->company->costprofile);
        $costprofile=Auth::user()->company->costprofile;
         if ($request->ajax()) {
@@ -296,7 +299,38 @@ class ProjectController extends Controller
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
         ];
-        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
+        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
+    }
+
+    public function assetshow(Request $request,Project $project)
+    {
+        if ( !empty($project->slug) && $project->slug != $request->slug) {
+            return redirect($project->link(), 301);
+        }
+
+        $pageConfigs = ['pageHeader' => true,];
+        $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
+        // dd(Auth::user()->company->id);
+        $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
+        $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
+        //dd(Auth::user()->company->costprofile);
+        $costprofile=Auth::user()->company->costprofile;
+        if ($request->ajax()) {
+            $data =$project->server;
+            //dd($data);
+            return Datatables::of($data)
+//                ->addColumn('action', function($row){
+//                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+//                    return $btn;
+//                })
+//                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $isprojectdropdown=true;
+        $breadcrumbs = [
+            ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
+        ];
+        return view('content/project/asset-project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
 
     public function destroy(Request $request)
@@ -304,6 +338,25 @@ class ProjectController extends Controller
         $ProjectServer = ProjectServer::where('id',$request->id)->delete();
 
         return response()->json(['success' => true]);
+    }
+
+    public function storeprojectsg(Request $request)
+    {
+
+        $sid=Project::find($request->_pid);
+        ProjectSecurityGroupEnv::updateOrCreate(
+            [
+                'id' => $request->_id,
+            ],
+            [
+                'security_id' => $sid->sg->id,
+                'slug' => 'SG-'.str::slug($request->name),
+                'env' => 'Custom',
+                'scope' => 'env',
+                'can_delete' => '1',
+
+            ]);
+        return back()->with('success', 'Success！');
     }
 
     public function storeserver(ProjectServer $projectserver, Request $request)

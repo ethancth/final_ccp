@@ -97,7 +97,9 @@ class FirewallServiceControler extends Controller
     public function favor(FirewallService $firewallService, Request $request)
     {
         dd($request);
+        $firewallService= FirewallService::find($request->id);
         $server = $request->ProjectServer();
+
         if ($server->subscribeFirewall()->find($firewallService->id)) {
             return [];
         }

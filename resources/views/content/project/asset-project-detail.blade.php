@@ -7,18 +7,18 @@
 <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/extensions/dataTables.checkboxes.css')}}">
 <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css')}}">
 <link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
-<link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/nouislider.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/editors/quill/katex.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/editors/quill/monokai-sublime.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/editors/quill/quill.snow.css')) }}">
-<link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/dragula.min.css')) }}">
+
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}">
 
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/animate/animate.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
+<link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
 
 
 @endsection
@@ -119,10 +119,167 @@
     </div>
   </div>
 </section>
+    <div class="col-12">
+        <div class="card">
 
-@include('content/_partials/_modals/modal-create-app')
-@include('content/_partials/_modals/modal-project-activity')
-@include('content/_partials/_modals/modal-project-submit-form')
+            <div class="card-body">
+                <h2>Firewall Rules (Inbound) <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">+ </button>
+                </h2>
+                <div>
+
+                    @foreach($firewallservice as $fs)
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input btn-favor" data-id="{{$fs->id}}" type="checkbox" id="{{$fs->id}}" value="checked" checked />
+                                <label class="form-check-label" for="inlineCheckbox1">{{$fs->type}}</label>
+                            </div>
+                        </div>
+                    @endforeach
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-body">
+                <h2>Security Group <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-security-group"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#createProjectSecurityGroupModal">+ </button>
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="row" id="table-hover-row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Member</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a class="btn-edit-row " data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#SecurityGroupMember">{{$project->sg ->slug}}</a></td>
+                                            <td>{{$project->server->count()}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
+                                                    <i data-feather="more-vertical"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item btn-edit-row" data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">
+                                                        <i data-feather="edit-2" class="me-50"></i>
+                                                        <span>Edit</span>
+                                                    </a>
+                                                </div>
+                                            </td>
+
+
+                                        </tr>
+                                    @foreach($project->sg->env as $psg)
+                                        <tr>
+                                            <td><a class="btn-edit-row " data-id="{{$psg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$psg->slug}}</a></td>
+
+                                            <td>{{$project->server->count('Database')}}</td>
+                                           <td>
+                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
+                                                    <i data-feather="more-vertical"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item btn-edit-row" data-id="{{$psg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">
+                                                        <i data-feather="edit-2" class="me-50"></i>
+                                                        <span>Edit</span>
+                                                    </a>
+                                                    @if($psg->can_delete)
+                                                    <a class="dropdown-item" href="#">
+                                                        <i data-feather="trash" class="me-50"></i>
+                                                        <span>Delete</span>
+                                                    </a>
+                                                    @endif
+                                                </div>
+                                            </td>
+
+
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- share SecurityGroup modal -->
+    <div class="modal fade" id="SecurityGroupMember" tabindex="-1" aria-labelledby="shareSecurityGroupTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-transparent">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body px-sm-5 mx-50 pb-4">
+                    <h1 class="text-center mb-1" id="shareSecurityGroupTitle">Security Group Member</h1>
+
+                    <label class="form-label fw-bolder font-size font-small-4 mb-50" for="addMemberSelect"> Add members </label>
+                    <select class="select2-data-ajax form-select" id="select2-ajax"></select>
+
+                    <p class="fw-bolder pt-50 mt-2">X Members</p>
+
+                    <!-- member's list  -->
+                    <ul class="list-group list-group-flush mb-2">
+                        @foreach($project->server as $servers)
+                            <li class="list-group-item d-flex align-items-start border-0 px-0">
+                                <div class="avatar me-75">
+                                    @php
+                                        $newpath='images/avatars/'.$servers->operating_system_option.'.png';
+                                    @endphp
+                                    <img src="{{asset($newpath)}}" alt="avatar" width="38" height="38" />
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between w-100">
+                                    <div class="me-1">
+                                        <h5 class="mb-25">{{$servers->hostname}}</h5>
+                                        <span>{{$servers->display_os}}</span>
+                                    </div>
+
+                                    <div class="dropdown">
+                                        <button
+                                            class="btn btn-flat-secondary dropdown-toggle"
+                                            type="button"
+                                            id="member1"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            <span class="d-none d-lg-inline-block">Action</span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="member1">
+                                            <li><a class="dropdown-item" href="javascript:void(0)">Remove</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <!--/ member's list  -->
+
+                    <!-- SecurityGroup link -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / share SecurityGroup modal -->
+
+
+    @include('content/_partials/_modals/modal-create-security-group')
 @endsection
 
 @section('vendor-script')
@@ -143,14 +300,20 @@
 <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/nouislider.min.js')) }}"></script>
 
+<script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
+
+<script src="{{ asset(mix('js/scripts/pages/modal-share-project.js')) }}"></script>
+
 <script src="{{ asset(mix('vendors/js/editors/quill/katex.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/editors/quill/highlight.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/editors/quill/quill.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
 
 <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
 <script src="{{ asset(mix('js/scripts/pages/app-todo.js')) }}"></script>
+
 
 {{--sweetalert--}}
 <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
@@ -159,6 +322,53 @@
 
 @section('page-script')
 <script>
+    //select multiple vm
+
+
+    function formatRepo(repo) {
+        if (repo.loading) return repo.text;
+
+        var markup =
+            "<div class='select2-result-repository clearfix'>" +
+            "<div class='select2-result-repository__avatar'><img src='" +
+            repo.owner.avatar_url +
+            "' /></div>" +
+            "<div class='select2-result-repository__meta'>" +
+            "<div class='select2-result-repository__title'>" +
+            repo.full_name +
+            '</div>';
+
+        if (repo.description) {
+            markup += "<div class='select2-result-repository__description'>" + repo.description + '</div>';
+        }
+
+        markup +=
+            "<div class='select2-result-repository__statistics'>" +
+            "<div class='select2-result-repository__forks'>" +
+            feather.icons['share-2'].toSvg({ class: 'me-50' }) +
+            repo.forks_count +
+            ' Forks</div>' +
+            "<div class='select2-result-repository__stargazers'>" +
+            feather.icons['star'].toSvg({ class: 'me-50' }) +
+            repo.stargazers_count +
+            ' Stars</div>' +
+            "<div class='select2-result-repository__watchers'>" +
+            feather.icons['eye'].toSvg({ class: 'me-50' }) +
+            repo.watchers_count +
+            ' Watchers</div>' +
+            '</div>' +
+            '</div></div>';
+
+        return markup;
+    }
+
+    function formatRepoSelection(repo) {
+        return repo.full_name || repo.text;
+    }
+    //select multiple vm
+
+
+
     $(function () {
         'use strict';
 
@@ -181,6 +391,47 @@
                 width: '100%',
                 dropdownParent: $this.parent()
             });
+        });
+
+        var selectAjax = $('.select2-data-ajax');
+        selectAjax.wrap('<div class="position-relative"></div>').select2({
+            dropdownAutoWidth: true,
+            dropdownParent: selectAjax.parent(),
+            width: '100%',
+            multiple:true,
+            ajax: {
+                url: 'https://api.github.com/search/repositories',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function (data, params) {
+                    // parse the results into the format expected by Select2
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data, except to indicate that infinite
+                    // scrolling can be used
+                    params.page = params.page || 1;
+
+                    return {
+                        results: data.items,
+                        pagination: {
+                            more: params.page * 30 < data.total_count
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Search for a repository',
+            escapeMarkup: function (markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            templateResult: formatRepo,
+            templateSelection: formatRepoSelection
         });
 
         selectSaO.wrap('<div class="position-relative"></div>').select2({
@@ -514,11 +765,11 @@
             invoiceAdd = assetPath + '#';
             invoiceEdit = assetPath + '#';
         }
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
 
 
         $('body').on('click', '.edit', function () {

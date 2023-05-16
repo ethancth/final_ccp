@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProjectSecurityGroupEnv extends Model
 {
     use HasFactory;
-    protected $fillable=['security_id','slug','env'];
+    protected $fillable=['security_id','slug','env','scope','can_delete'];
 
 
     public function firewall()
