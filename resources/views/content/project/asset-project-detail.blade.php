@@ -655,7 +655,6 @@
                     input_vcpu.innerText = pipsRangevCPU.noUiSlider.get()+ " vCpu ";
                     input_vmemory.innerText = pipsRangevMemory.noUiSlider.get()+ "GB vMemory";
                     input_vstorage.innerText = pipsRangevstorage.noUiSlider.get()+"GB Storage";
-                    //input_sam.innerText = "<?php echo demo();?>";
                 });
 
             $(modernVerticalWizard)
