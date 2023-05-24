@@ -6,18 +6,21 @@ use App\Models\Company;
 use App\Models\Environment;
 use App\Models\FirewallService;
 use App\Models\OperatingSystem;
+use App\Models\ProjectFirewall;
 use App\Models\ProjectSecurityGroup;
 use App\Models\ProjectSecurityGroupEnv;
 use App\Models\ProjectSecurityGroupEnvFirewall;
 use App\Models\ProjectServer;
 use App\Models\Tier;
 use App\Models\User;
+use App\Models\VcVirtualMachine;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
+use function PHPUnit\Framework\isEmpty;
 
 class ProjectController extends Controller
 {
@@ -182,6 +185,102 @@ class ProjectController extends Controller
 
     }
 
+    public function get_display($param, $class){
+        $_new_array='';
+        foreach(array_unique($param) as $array)
+        {
+
+            if($class=='FirewallService'){
+                $_array=FirewallService::where('port','=',$array)->get();
+            }
+
+            if($class=='vm'){
+                $_array=VcVirtualMachine::where('id','=',$array)->get();
+            }
+
+            if($class=='sg'){
+                $_array=ProjectSecurityGroupEnv::where('id','=',$array)->get();
+            }
+
+
+
+
+            if(count($_array)>='1')
+            {
+
+                if($class=='FirewallService'){
+                    $_new_array.=$_array[0]->type.',';
+                }
+
+                if($class=='vm'){
+                    $_new_array.=$_array[0]->vm_hostname.',';
+                }
+                if($class=='sg'){
+                    $_new_array.=$_array[0]->slug.',';
+                }
+            }else{
+                $_new_array.=$array.',';
+            }
+
+
+        }
+        return substr($_new_array, 0, -1);
+    }
+
+    public function create_project_firewall(Request $request){
+
+        //dd($request);
+        $_new_display_port=$this->get_display($request->modalPort,'FirewallService');
+        $_new_display_port_only=implode(',',array_unique($request->modalPort));
+
+
+
+        if($request->newSource=='custom'){
+
+            $_source='Custom';
+            $_firewall_name='[Custom]'.$request->modalFirewallName;
+            $_source_type='Custom';
+            $_source_ip = implode(',',array_unique($request->modalCustomIP));
+            $_source_vm = $request->modalCustomVm;
+            $_source_sg = $request->modalCustomSecurityGroup;
+
+            $_new_display_custom_vm=$this->get_display($request->modalCustomVm,'vm');
+            $_new_display_custom_sg=$this->get_display($request->modalCustomSecurityGroup,'sg');
+        }else{
+            $_source='ANY';
+            $_firewall_name=''.$request->modalFirewallName;
+            $_source_type='ANY';
+            $_source_ip='';
+            $_new_display_custom_vm='';
+            $_new_display_custom_sg='';
+
+        }
+        $_destination =ProjectSecurityGroupEnv::find($request->modalDestination);
+//$_destination[0]->slug;
+
+        ProjectFirewall::updateOrCreate(
+            [
+                'id' => $request->form_id,
+            ],
+            [
+                'project_id' => $request->project_id,
+                'firewall_name' => $_firewall_name,
+                'source' => $_source,
+                'source_type' => $_source,
+                'destination_id' => $_destination[0]->id,
+                'display_destination' => $_destination[0]->slug,
+                'destination_name' => $_destination[0]->slug,
+                'port' => $_new_display_port_only,
+                'display_port' => $_new_display_port,
+                'display_source_custom_ip' => $_source_ip,
+                'display_source_custom_vm' => $_new_display_custom_vm,
+                'display_source_custom_sg' => $_new_display_custom_sg,
+
+            ]
+        );
+        return back()->with('success', 'Success！');
+    }
+
     public function sg_store(Request $request){
 
 
@@ -316,6 +415,8 @@ class ProjectController extends Controller
         //dd(Auth::user()->company->costprofile);
         $costprofile=Auth::user()->company->costprofile;
         $projectfirewall=$project->firewall;
+        $vcvm=VcVirtualMachine::all();
+        $projectsg=$project->sg->env;
         if ($request->ajax()) {
             $data =$project->server;
             //dd($data);
@@ -331,7 +432,7 @@ class ProjectController extends Controller
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
         ];
-        return view('content/project/asset-project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectfirewall' => $projectfirewall,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
+        return view('content/project/asset-project-detail', ['projectsgs'=>$projectsg,'vcvms'=>$vcvm,'pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectfirewall' => $projectfirewall,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
 
     public function destroy(Request $request)

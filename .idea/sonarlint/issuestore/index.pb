@@ -166,10 +166,6 @@ c
 3resources/js/scripts/pages/modal-add-new-address.js,9/6/96cfa686ef27df692a5d95b93e8619312eb05747
 >
 config/app.php,7/3/734f7be25e8008acc7129e73cd116d5de913e6fd
-y
-Iresources/views/content/_partials/_modals/modal-add-new-address.blade.php,e/4/e42b666d5f011c07407981187544e002ddbe351c
-t
-Dresources/views/content/_partials/_modals/modal-add-new-cc.blade.php,a/6/a6cf3bd31eada19b8cf59b47c78bf4daf839467c
 W
 'resources/views/panels/footer.blade.php,f/a/fa53fb554aa648ac0a3ac37de28010f6d1e49fd0
 b
@@ -220,8 +216,6 @@ l
 <database/migrations/2014_10_12_000000_create_users_table.php,d/e/de963aaada5c6577b654cfbdcf083dc355b1fa2b
 Y
 )database/factories/VmDatastoreFactory.php,e/1/e1901615fde7a0196602066682785c5a3ce3491c
-R
-"database/factories/UserFactory.php,3/4/3401747fc769758d97931473eab6222bc2abf009
 `
 0database/factories/ServiceApplicationFactory.php,0/6/06c9670cd2cd132f215c9b4d1e851ef4e4f499f2
 ^
@@ -248,8 +242,6 @@ Cdatabase/migrations/2022_07_24_143830_create_environments_table.php,8/e/8ec677
 +database/factories/OperationCostFactory.php,b/1/b1ff9f605cc8e5874704898fcfb851362508bcac
 U
 %database/seeders/UsersTableSeeder.php,2/7/2772f3d7cf5d92e076844d0740f629a6e905056d
-S
-#database/seeders/DatabaseSeeder.php,a/c/aca1efccd4101e0c9bdd34803577859ace08ef45
 Y
 )database/seeders/CompaniesTableSeeder.php,9/e/9e03bb7a9350c0d33436e59503fc451dc3ba92c7
 V
@@ -390,10 +382,6 @@ Ndatabase/migrations/2023_04_20_072339_create_project_security_groups_table.php
 Xresources/views/content/_partials/_modals/modal-firewallservices-add-edit-form.blade.php,3/9/39d30f8b02905d3a20365e78b058dd722c3f4185
 B
 lang/en/locale.php,7/c/7c46845a8dbe950db03fcc9491123661f82d7839
-M
-app/Models/VirtualMachine.php,b/f/bf85ee75f277049c3408125bd40c29890071b08e
-w
-Gdatabase/migrations/2023_05_09_044151_create_virtual_machines_table.php,3/1/31c9deed6f31128bfc3c07a647f185706a744475
 m
 =resources/views/content/server/server-firewall-list.blade.php,e/a/ea0db1783382ae1cca8167b3e2bcb397a9e4090a
 d

@@ -19,6 +19,13 @@ class ProjectFirewall extends Model
         'port',
         'is_custom_port',
         'status',
+
+       'display_source_custom_vm',
+'display_source_custom_sg',
+'display_source_custom_ip',
+'display_destination',
+'display_port',
+'editable',
     ];
 
 

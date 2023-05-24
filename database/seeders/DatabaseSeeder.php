@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        \App\Models\OperationCost::factory(1)->create(0);
+      //  \App\Models\OperationCost::factory(1)->create(0);
        // \App\Models\CostCategory::factory(10)->create(0);
         //$this->factory(\App\Models\Project::class, 10000)->create();
-        $this->call(UsersTableSeeder::class);
+        //$this->call(UsersTableSeeder::class);
         //D $this->call(DepartmentsSeeder::class);
-        \App\Models\Project::factory(10)->create();
+       // \App\Models\Project::factory(10)->create();
         //$this->call(OperationCostTablesSeeder::Class);
         //$this->call(CostPaymentProfilesSeeder::Class);
         //$this->call(CostTypeProfilesSeeder::Class);
@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(EnvironmentSeeder::Class);
         //$this->call(TierSeeder::Class);
         //$this->call(ProjectsTableSeeder::Class);
+
+        \App\Models\VcVirtualMachine::factory(10)->create();
     }
 }

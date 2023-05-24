@@ -188,6 +188,10 @@ Route::group(['middleware' => ['auth', 'verified']],
         //Asset ProjectAssetController
         Route::get('/asset-project', [ProjectController::class, 'asset'])->name('asset.project');
 
+        Route::post('/api/asset/project/firewall/new', [ProjectController::class, 'create_project_firewall'])->name('project.firewall.new');
+
+
+
 //
 //        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);
 //        Route::get('/company-staff', 'CompanyController@allstaff')->name('company.staff');

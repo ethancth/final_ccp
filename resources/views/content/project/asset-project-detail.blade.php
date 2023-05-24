@@ -123,21 +123,22 @@
         <div class="card">
 
             <div class="card-body">
-                <h2>Firewall Rules (Inbound) <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">+ </button>
+                <h2>Firewall Rules (Inbound) <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">+ </button>
                 </h2>
-                <div>
+{{--                <div>--}}
 
-                    @foreach($firewallservice as $fs)
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input btn-favor" data-id="{{$fs->id}}" type="checkbox" id="{{$fs->id}}" value="checked" checked />
-                                <label class="form-check-label" for="inlineCheckbox1">{{$fs->type}}</label>
-                            </div>
-                        </div>
-                    @endforeach
+{{--                    @foreach($firewallservice as $fs)--}}
+{{--                        <div class="d-flex justify-content-between align-items-center">--}}
+{{--                            <div class="form-check form-check-inline">--}}
+{{--                                <input class="form-check-input btn-favor" data-id="{{$fs->id}}" type="checkbox" id="{{$fs->id}}" value="checked" checked />--}}
+
+{{--                                <label class="form-check-label" for="inlineCheckbox1">{{$fs->type}}</label>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @endforeach--}}
 
 
-                </div>
+{{--                </div>--}}
             </div>
 
             <div class="card-body">
@@ -151,6 +152,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Source</th>
+                                        <th>Destination</th>
                                         <th>Ports/Predefined Service</th>
                                         <th>Actions</th>
                                     </tr>
@@ -161,41 +163,49 @@
                                         <tr>
                                             <td><a class="btn-edit-row " data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$fws->firewall_name}}</a></td>
                                             <td>
-                                                {{$fws->source}}
-                                            </td>
-                                            <td> {{$fws->port}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
-                                                    <i data-feather="more-vertical"></i>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item btn-edit-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">
-                                                        <i data-feather="edit-2" class="me-50"></i>
-                                                        <span>Edit</span>
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <i data-feather="trash" class="me-50"></i>
-                                                        <span>Delete</span>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                                @if($fws->source=='Custom')
+                                                    [IP] {{$fws->display_source_custom_ip}} <br/>
+                                                        [VM]{{$fws->display_source_custom_vm}}<br/>
+                                                        [SG]{{$fws->display_source_custom_sg}}
+                                                    @else
+                                                        {{$fws->source}}
+                                                    @endif
+
+                                                </td>
+                                                <td> {{$fws->display_destination}}</td>
+                                                <td> {{$fws->display_port}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
+                                                        <i data-feather="more-vertical"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item btn-edit-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">
+                                                            <i data-feather="edit-2" class="me-50"></i>
+                                                            <span>Edit</span>
+                                                        </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i data-feather="trash" class="me-50"></i>
+                                                            <span>Delete</span>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
-    <div class="col-12">
-        <div class="card">
+        <div class="col-12">
+            <div class="card">
 
-            <div class="card-body">
-                <h2>Security Group <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-security-group"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#createProjectSecurityGroupModal">+ </button>
+                <div class="card-body">
+                    <h2>Security Group <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-security-group"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#createProjectSecurityGroupModal">+ </button>
                 </h2>
             </div>
             <div class="card-body">
@@ -330,6 +340,7 @@
 
 
     @include('content/_partials/_modals/modal-create-security-group')
+    @include('content/_partials/_modals/modal-add-edit-server-firewall-form')
 @endsection
 
 @section('vendor-script')
@@ -373,6 +384,18 @@
 @section('page-script')
 <script>
     //select multiple vm
+
+    function showany(){
+        document.getElementById('div-ip').style.display ='none';
+        document.getElementById('div-sg').style.display ='none';
+        document.getElementById('div-vm').style.display ='none';
+    }
+    function show(){
+        document.getElementById('div-ip').style.display = 'block';
+
+        document.getElementById('div-sg').style.display ='block';
+        document.getElementById('div-vm').style.display ='block';
+    }
 
 
     function formatRepo(repo) {
@@ -442,6 +465,14 @@
                 dropdownParent: $this.parent()
             });
         });
+
+
+        $(".js-select2-port").select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        })
+
+
 
         var selectAjax = $('.select2-data-ajax');
         selectAjax.wrap('<div class="position-relative"></div>').select2({
@@ -1107,7 +1138,7 @@
                 dom:
                     '<"row d-flex justify-content-between align-items-center m-1"' +
                     '<"col-lg-6 d-flex align-items-center"l<"dt-action-buttons_new text-xl-end text-lg-start text-lg-end text-start " B>>' +
-                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f<"environment_status ms-sm-2 width-200 "><"submit_button mt-50 width-200 me-1">>' +
+                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f>' +
                     '>t' +
                     '<"d-flex justify-content-between mx-2 row"' +
                     '<"col-sm-12 col-md-6"i>' +
@@ -1126,217 +1157,8 @@
                 },
                 // Buttons with Dropdown
                 buttons: [
-                        @if($project->status==1)
-                        {
-                        text: 'Add Server',
-                        //className: 'btn btn-primary btn-add-record ms-2',
-                        className: 'btn btn-primary waves-effect waves-float waves-light',
-                        // action: function (e, dt, button, config) {
-                        //     window.location = invoiceAdd;
-                        // }
-                        attr: {
-                            'data-bs-toggle': 'modal',
-                            'data-bs-target': '#createAppModal',
-                            'style':'margin-top:10px'
-                        },
-                        action: function (){
-                            $('#create-app-page1').trigger("reset");
-                            $('#create-app-page2').trigger("reset");
-                            $('#create-app-page3').trigger("reset");
-                            $('#create-app-page4').trigger("reset");
-                        }
-                        //$('#addEditBookForm').trigger("reset");
-                    },{
-                        text: 'Submit Project',
-                        //className: 'btn btn-primary btn-add-record ms-2',
-                        className: 'btn btn-success waves-effect waves-float waves-light',
-                        // action: function (e, dt, button, config) {
-                        //     window.location = invoiceAdd;
-                        // }
-                        style: {
 
-                        },
 
-                        attr: {
-                            'id':'confirm-text',
-                            // 'data-bs-toggle': 'modal',
-                            // 'data-bs-target': '#project-submit-modal',
-                             'style':'margin-top:10px'
-                        },
-                        action: function (){
-                            Swal.fire({
-                                title: 'Are you sure?',
-                                text: "Submit this project and get review!",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonText: 'Yes, Submit it!',
-                                customClass: {
-                                    confirmButton: 'btn btn-primary',
-                                    cancelButton: 'btn btn-outline-danger ms-1'
-                                },
-                                buttonsStyling: false
-                            }).then(function (result) {
-                                if (result.value) {
-                                    var $projectid={{$project->id}};
-                                    $.ajax({
-                                        type:"POST",
-                                        url: "{{ route('project.submit') }}",
-                                        data: { id: $projectid },
-                                        dataType: 'json',
-                                        success: function(res){
-                                            Swal.fire({
-
-                                                icon: 'success',
-                                                title: 'Submitted!',
-                                                text: 'Your Project has been Submitted.',
-                                                customClass: {
-                                                    confirmButton: 'btn btn-success'
-                                                }
-                                            })
-                                            window.location.reload();
-                                        }
-                                    })
-
-                                }
-                            });
-                        }
-                        //$('#addEditBookForm').trigger("reset");
-                    },
-                    @endif
-
-                        @if($project->status==2&&Auth::user()->is_teamlead==1)
-                    {
-
-                        text: 'Add Record',
-                        //className: 'btn btn-primary btn-add-record ms-2',
-                        className: 'btn btn-primary waves-effect waves-float waves-light',
-                        // action: function (e, dt, button, config) {
-                        //     window.location = invoiceAdd;
-                        // }
-                        attr: {
-                            'data-bs-toggle': 'modal',
-                            'data-bs-target': '#createAppModal',
-                            'style':'margin-top:10px'
-                        },
-                        action: function (){
-                            $('#create-app-page1').trigger("reset");
-                            $('#create-app-page2').trigger("reset");
-                            $('#create-app-page3').trigger("reset");
-                            $('#create-app-page4').trigger("reset");
-                        }
-                        //$('#addEditBookForm').trigger("reset");
-                    },{
-                        text: 'Approve Project',
-                        //className: 'btn btn-primary btn-add-record ms-2',
-                        className: 'btn btn-success waves-effect waves-float waves-light',
-                        // action: function (e, dt, button, config) {
-                        //     window.location = invoiceAdd;
-                        // }
-                        style: {
-
-                        },
-
-                        attr: {
-                            'id':'confirm-text',
-                            // 'data-bs-toggle': 'modal',
-                            // 'data-bs-target': '#project-submit-modal',
-                            'style':'margin-top:10px'
-                        },
-                        action: function (){
-                            Swal.fire({
-                                title: 'Are you sure?',
-                                text: "Approve this project!",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonText: 'Yes, Approve it!',
-                                customClass: {
-                                    confirmButton: 'btn btn-primary',
-                                    cancelButton: 'btn btn-outline-danger ms-1'
-                                },
-                                buttonsStyling: false
-                            }).then(function (result) {
-                                if (result.value) {
-                                    var $projectid={{$project->id}};
-                                    $.ajax({
-                                        type:"POST",
-                                        url: "{{ route('project.approve') }}",
-                                        data: { id: $projectid },
-                                        dataType: 'json',
-                                        success: function(res){
-                                            Swal.fire({
-
-                                                icon: 'success',
-                                                title: 'Approved!',
-                                                text: 'This Project has been Approved!.',
-                                                customClass: {
-                                                    confirmButton: 'btn btn-success'
-                                                }
-                                            })
-                                            window.location.reload();
-                                        }
-                                    })
-
-                                }
-                            });
-                        }
-                        //$('#addEditBookForm').trigger("reset");
-                    },{
-                        text: 'Reject Project',
-                        //className: 'btn btn-primary btn-add-record ms-2',
-                        className: 'btn btn-warning waves-effect waves-float waves-light',
-                        // action: function (e, dt, button, config) {
-                        //     window.location = invoiceAdd;
-                        // }
-                        style: {
-
-                        },
-
-                        attr: {
-                            'id':'confirm-text',
-                            // 'data-bs-toggle': 'modal',
-                            // 'data-bs-target': '#project-submit-modal',
-                            'style':'margin-top:10px'
-                        },
-                        action: function (){
-                            Swal.fire({
-                                title: 'Are you sure?',
-                                text: "Reject this project!",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonText: 'Yes, Reject it!',
-                                customClass: {
-                                    confirmButton: 'btn btn-primary',
-                                    cancelButton: 'btn btn-outline-danger ms-1'
-                                },
-                                buttonsStyling: false
-                            }).then(function (result) {
-                                if (result.value) {
-                                    var $projectid={{$project->id}};
-                                    $.ajax({
-                                        type:"POST",
-                                        url: "{{ route('project.reject') }}",
-                                        data: { id: $projectid },
-                                        dataType: 'json',
-                                        success: function(res){
-                                            Swal.fire({
-
-                                                icon: 'success',
-                                                title: 'Reject!',
-                                                text: 'This Project has been Reject!.',
-                                                customClass: {
-                                                    confirmButton: 'btn btn-success'
-                                                }
-                                            })
-                                            window.location.reload();
-                                        }
-                                    })
-
-                                }
-                            });
-                        }
-                        //$('#addEditBookForm').trigger("reset");
-                    },
-                        @endif
 
 
                 ],
