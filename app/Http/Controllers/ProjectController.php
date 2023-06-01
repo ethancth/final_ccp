@@ -404,7 +404,7 @@ class ProjectController extends Controller
     public function assetshow(Request $request,Project $project)
     {
         if ( !empty($project->slug) && $project->slug != $request->slug) {
-            return redirect($project->link(), 301);
+            return redirect($project->assetlink(), 301);
         }
 
         $pageConfigs = ['pageHeader' => true,];

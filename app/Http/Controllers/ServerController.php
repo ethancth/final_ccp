@@ -81,6 +81,7 @@ class ServerController extends Controller
         $_serverfirewall=ServerFirewallRules::where('server_id','=',$server->id)->get();
 
         //get project security rule
+
         $_project_sercurity_group_env=$server->project->sg->env;
 
         if ($request->ajax()) {

@@ -43,6 +43,11 @@ class Project extends Model
     {
         return route('project.show', array_merge([$this->id,$this->slug], $params));
     }
+
+    public function assetlink($params = [])
+    {
+        return route('project.asset.show', array_merge([$this->id,$this->slug], $params));
+    }
     public function getProjectStatusAttribute()
     {
         if($this->status==1){

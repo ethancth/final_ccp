@@ -894,25 +894,6 @@
 
         });
 
-        $('body').on('click', '.delete', function () {
-
-            if (confirm("Delete Record?") == true) {
-                var id = $(this).data('id');
-
-                // ajax
-                $.ajax({
-                    type:"POST",
-                    url: "{{ route('project.delete') }}",
-                    data: { id: id },
-                    dataType: 'json',
-                    success: function(res){
-
-                        window.location.reload();
-                    }
-                });
-            }
-
-        });
 
 
         // datatable

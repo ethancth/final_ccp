@@ -368,8 +368,6 @@ J
 resources/data/search.json,3/c/3ccccb1a706d43261c12b0c1c18129e27c3ee995
 X
 (app/Http/Controllers/AssetController.php,a/7/a73d3b3f15d9343358623956546c534444264ecc
-f
-6resources/views/content/project/project-home.blade.php,f/7/f703b193954b357df0171bfb3e2e6f40300e3394
 ^
 .app/Models/ProjectSecurityGroupEnvFirewall.php,f/1/f1746d2824a2f502dbd674031b759146fb0b31b2
 ‹
@@ -386,8 +384,6 @@ m
 =resources/views/content/server/server-firewall-list.blade.php,e/a/ea0db1783382ae1cca8167b3e2bcb397a9e4090a
 d
 4resources/views/content/server/server-home.blade.php,8/3/831ce105285a67a8e94542580c96d5ff4e855a54
-G
-app/Helpers/Helpers.php,0/2/024693ae683d7be35f29d493127faaab72ab2618
 |
 Ldatabase/migrations/2023_04_20_053954_create_server_firewall_rules_table.php,e/4/e4736147b66b6c878ff4a0038b8b159e8bcfaa00
 s
@@ -402,7 +398,5 @@ Q
 !app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
 Q
 !app/Observers/CompanyObserver.php,7/b/7b588e884b72cd1b362f136adaa2cfa8a48423d2
-[
-+app/Http/Controllers/UserPageController.php,7/9/79088bd314422c716c2e1da1bc2e3da0057c1898
 ‚
 Rresources/views/content/_partials/_modals/modal-add-edit-server-firewall.blade.php,0/d/0deea5e54b37210b30cf1f7165fdbb99dcfbb27a

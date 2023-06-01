@@ -31,20 +31,6 @@ use App\Http\Controllers\ProjectController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//login auth
-Auth::routes(['verify' => true]);
-Route::group(['middleware' => ['auth', 'verified']],
-    function () {
-        Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce');
-
-        Route::get('analytics', [DashboardController::class, 'dashboardAnalytics'])->name('dashboard-analytics');
-        Route::get('ecommerce', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce');
-        //TODO VM TABLE
-       // Route::get('vm-table', [VMController::class,'table'])->name('vm-table');
-       // Route::get('vm-all', 'VMController@display_vm_all_history')->name('vm-all');
-    });
-
-
 
 // Main Page Route
 
@@ -56,7 +42,7 @@ Route::group(['middleware' => ['auth', 'verified']],
     function () {
 // Route Dashboards
 
-        // Route::get('/', 'UserPagesController@user_list')->name('user.list');
+        Route::get('/', [ProjectController::class, 'index'])->name('project');
 
         //User Management
        // Route::resource('users', 'UserPagesController', ['only' => ['show', 'update', 'edit']]);
@@ -144,7 +130,7 @@ Route::group(['middleware' => ['auth', 'verified']],
 
 
 
-        Route::get('/asset/project/{project}/{slug?}', [ProjectController::class, 'assetshow'])->name('project.show');
+        Route::get('asset/project/{project}/{slug?}', [ProjectController::class, 'assetshow'])->name('project.asset.show');
 
 
 
