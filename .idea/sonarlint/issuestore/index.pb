@@ -72,8 +72,6 @@ v
 Fdatabase/migrations/2014_10_12_100000_create_password_resets_table.php,e/f/eff59cfca55470b5a81fdbeb82498e8bfe5c8174
 M
 resources/data/user-list.json,e/e/eed8ebdd62f756eaeefacaf5bebb9d80a5b29505
-[
-+resources/js/scripts/pages/app-user-list.js,f/8/f837a1d4ec94e990d8d636099469393acad427f4
 J
 resources/data/kanban.json,6/d/6da9283b18cf4ad579063257c7b836480eb2a168
 X
@@ -330,8 +328,6 @@ b
 +resources/js/scripts/pages/app-user-view.js,d/8/d87a2589bfac7fae74965780bf3f61e02bb76fd6
 l
 <resources/views/content/apps/calendar/app-calendar.blade.php,6/7/677dc236697c9e6aad2ee3a7c0cdce53275c5c88
-c
-3resources/js/scripts/pages/app-user-view-account.js,9/8/98651714e744d99618aa262474536747f6b0bedc
 q
 Aresources/views/content/apps/user/app-user-view-account.blade.php,c/0/c0409c96b94312bc8354eefe1f9c7f728fed0747
 Z

@@ -229,7 +229,7 @@ class ProjectController extends Controller
 
     public function create_project_firewall(Request $request){
 
-        //dd($request);
+        dd($request);
         $_new_display_port=$this->get_display($request->modalPort,'FirewallService');
         $_new_display_port_only=implode(',',array_unique($request->modalPort));
 

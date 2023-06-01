@@ -123,7 +123,9 @@
         <div class="card">
 
             <div class="card-body">
-                <h2>Firewall Rules (Inbound) <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">+ </button>
+                <h2>Firewall Rules (Inbound)
+                    <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">+ </button>
+                    <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#assetFirewallModal">+ </button>
                 </h2>
 {{--                <div>--}}
 
@@ -341,6 +343,7 @@
 
     @include('content/_partials/_modals/modal-create-security-group')
     @include('content/_partials/_modals/modal-add-edit-server-firewall-form')
+    @include('content/_partials/_modals/modal-asset-firewall')
 @endsection
 
 @section('vendor-script')
@@ -374,12 +377,16 @@
 <script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/toastr.min.js')) }}"></script>
 <script src="{{ asset(mix('js/scripts/pages/app-todo.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/forms/repeater/jquery.repeater.min.js')) }}"></script>
 
 
 {{--sweetalert--}}
 <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/polyfill.min.js')) }}"></script>
+<script src="{{ asset(mix('vendors/js/forms/repeater/jquery.repeater.min.js')) }}"></script>
 @endsection
+
+
 
 @section('page-script')
 <script>
@@ -445,6 +452,148 @@
     $(function () {
         'use strict';
 
+
+        // ---form repeater use start ----- //
+        var FirewallOption = new bootstrap.Modal(document.getElementById('assetFirewallModal')),
+            sourceFirewall = new bootstrap.Modal(document.getElementById('twoFactorAuthSmsModal')),
+            destinationFirewall = new bootstrap.Modal(document.getElementById('destinationModal')),
+            portFirewall = new bootstrap.Modal(document.getElementById('assetFirewallPortModal'));
+
+        // toggle modals
+        document.getElementById('nextStepAuth').onclick = function () {
+            var currentSelectMethod = document.querySelector('input[name=FirewallRoleRadio]:checked').value;
+
+            document.getElementById("_firewall_type").value=currentSelectMethod;
+            if (currentSelectMethod === 'any-method') {
+                FirewallOption.hide();
+                destinationFirewall.show();
+            } else {
+                FirewallOption.hide();
+                sourceFirewall.show();
+            }
+        };
+
+        document.getElementById('sourcenextstep').onclick = function () {
+
+
+            sourceFirewall.hide();
+            destinationFirewall.show();
+        };
+        document.getElementById('destinationnextstep').onclick = function () {
+            destinationFirewall.hide();
+            portFirewall.show();
+        };
+
+        document.getElementById('submitfirewall').onclick= function(){
+            console.log('click');
+          document.getElementById("addNewAnyForm").submit(function() {
+                console.log('submit');
+                var action = $(this).attr('action');
+                $.ajax({
+                    url  : '{{route("demo")}}',
+                    type : 'POST',
+                    data : $('#addNewAnyForm,#firewall_source, #firewall_destination').serialize(),
+                    success : function() {
+                       // window.location.replace(action);
+                    }
+                });
+            });
+        }
+        $('.port-form').repeater({
+            initEmpty: false,
+            show: function () {
+                $(this).slideDown();
+                // $('.hide-search').on('change', function () {
+                //     console.log('You selected: ', this.value);
+                // });
+                // Feather Icons
+                if (feather) {
+                    feather.replace({ width: 14, height: 14 });
+                }
+            },
+            hide: function (deleteElement) {
+                if (confirm('Are you sure you want to delete this element?')) {
+                    $(this).slideUp(deleteElement);
+                }
+            }
+        });
+
+        $(document).on('change', '.hide-search', function() {
+            var selectedValue = $(this).val();
+            var $field2 = $(this).closest('div[data-repeater-item]').find('.hide-search');
+            let str = $(this).attr("name")
+            var $_protocol = str.slice(0, -5);
+            var $new_protocol=$_protocol+'protocol]';
+            var $new_port_range=$_protocol+'portrange]';
+
+
+            switch(selectedValue) {
+                case "ssh":
+                    document.getElementsByName($new_protocol)[0].value='tcp';
+                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_port_range)[0].value='22'
+                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
+                    break;
+                case "https":
+                    document.getElementsByName($new_protocol)[0].value='tcp'
+                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_port_range)[0].value='443'
+                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
+                    break;
+                case "http":
+                    document.getElementsByName($new_protocol)[0].value='tcp'
+                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_port_range)[0].value='80'
+                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
+                    break;
+                case "mysql":
+                    document.getElementsByName($new_protocol)[0].value='tcp'
+                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_port_range)[0].value='3306'
+                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
+                    break;
+                case "alltcp":
+                    document.getElementsByName($new_protocol)[0].value='tcp'
+                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_port_range)[0].value=''
+                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
+                    break;
+                case "alludp":
+                    document.getElementsByName($new_protocol)[0].value='udp'
+                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_port_range)[0].value=''
+                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
+                    break;
+                default:
+                    document.getElementsByName($new_port_range)[0].removeAttribute('readonly');
+                    document.getElementsByName($new_protocol)[0].removeAttribute('disabled');
+
+
+
+            }
+
+
+
+            // $.ajax({
+            //     type: 'GET',
+            //     url: "{{route('getservice')}}",
+            //     data: {'value': selectedValue},
+            //
+            //     success: function (response) {
+            //         console.log(response);
+            //         var options = JSON.parse(response);
+            //         var select = $field2;
+            //         select.empty();
+            //         select.append('<option value="">Select an option</option>');
+            //         for (var i = 0; i < options.length; i++) {
+            //             select.append('<option value="' + options[i].value + '">' + options[i].text + '</option>');
+            //         }
+            //         select.prop('disabled', false);
+            //     }
+            // });
+        });
+
+        //form repeater use end
         var direction = 'ltr';
         if ($('html').data('textdirection') == 'rtl') {
             direction = 'rtl';

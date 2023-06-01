@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CompanyFormController;
 use App\Http\Controllers\CostProfileController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\FirewallServiceControler;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\UserPageController;
@@ -43,6 +44,8 @@ Route::group(['middleware' => ['auth', 'verified']],
 // Route Dashboards
 
         Route::get('/', [ProjectController::class, 'index'])->name('project');
+
+
 
         //User Management
        // Route::resource('users', 'UserPagesController', ['only' => ['show', 'update', 'edit']]);
@@ -131,6 +134,9 @@ Route::group(['middleware' => ['auth', 'verified']],
 
 
         Route::get('asset/project/{project}/{slug?}', [ProjectController::class, 'assetshow'])->name('project.asset.show');
+
+        Route::post('read_content', [DemoController::class, 'demo'])->name('demo');
+        Route::post('read_available_service', [DemoController::class, 'getservice'])->name('getservice');
 
 
 
