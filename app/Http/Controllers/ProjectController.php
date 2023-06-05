@@ -415,7 +415,7 @@ class ProjectController extends Controller
         //dd(Auth::user()->company->costprofile);
         $costprofile=Auth::user()->company->costprofile;
         $projectfirewall=$project->firewall;
-        $vcvm=VcVirtualMachine::all();
+        $vcvm=ProjectServer::all();
         $projectsg=$project->sg->env;
         if ($request->ajax()) {
             $data =$project->server;

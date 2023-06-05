@@ -17,5 +17,8 @@ class VcVirtualMachine extends Model
         'vmem',
         'vstorage',
         'power_status',
+        'project_id',
+        'vm_owner',
+        'assign_status',
     ];
 }

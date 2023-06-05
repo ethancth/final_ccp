@@ -65,7 +65,7 @@
                         <select id="modalCustomVm" name="modalCustomVm[]" multiple="multiple" class="select2 form-select ">
                             <option value="">Select a Virtual Machine</option>
                             @foreach($vcvms as $vcvc)
-                                <option value="{{$vcvc->id}}">{{$vcvc->vm_hostname}}</option>
+                                <option value="{{$vcvc->id}}">{{$vcvc->hostname}}</option>
                             @endforeach
                         </select>
                     </div>

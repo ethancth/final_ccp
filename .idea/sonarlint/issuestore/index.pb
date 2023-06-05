@@ -368,8 +368,6 @@ X
 .app/Models/ProjectSecurityGroupEnvFirewall.php,f/1/f1746d2824a2f502dbd674031b759146fb0b31b2
 ‹
 [database/migrations/2023_05_01_150724_create_project_security_group_env_firewalls_table.php,d/e/de7a22a474880eba64b14160252137dd62621c48
-‚
-Rdatabase/migrations/2023_04_20_080909_create_project_security_group_envs_table.php,e/a/ead310786cad34997380baa31d026d1f69669bbf
 ~
 Ndatabase/migrations/2023_04_20_072339_create_project_security_groups_table.php,3/1/31af7c516e3edc98b1c463f8717ffd4b48409d37
 B
@@ -390,12 +388,8 @@ Q
 !app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
 Q
 !app/Observers/CompanyObserver.php,7/b/7b588e884b72cd1b362f136adaa2cfa8a48423d2
-‚
-Rresources/views/content/_partials/_modals/modal-add-edit-server-firewall.blade.php,0/d/0deea5e54b37210b30cf1f7165fdbb99dcfbb27a
 a
 1app/Http/Controllers/FirewallServiceControler.php,7/c/7c84e05f3b1416513c21e6ac97e79a2d9727b157
-V
-&app/Models/ProjectSecurityGroupEnv.php,1/e/1e1755fb2c076d113a3299beca7a78decedcf092
 x
 Hdatabase/migrations/2022_08_12_054121_add_sa_service_to_server_table.php,4/2/421c1e0f83c2ac28920aac4e89acc78d454857bb
 i
@@ -406,8 +400,6 @@ S
 #app/Models/ProjectSecurityGroup.php,0/4/0477a2d1f9ae6ce9c89b3752aaa0035206ba23e8
 x
 Hresources/views/content/_partials/_modals/modal-add-permission.blade.php,4/5/45c35ccb478a938906244dd50809fa6f0aab908d
-L
-app/Models/ProjectServer.php,b/f/bf24152f8c8ae47e4f91c245099b44b022a27d0f
 r
 Bresources/views/content/_partials/_modals/modal-add-role.blade.php,c/f/cf34c2488833e386304163a8cbe01ac2f774de8d
 t
@@ -448,8 +440,6 @@ S
 #database/seeders/DatabaseSeeder.php,a/c/aca1efccd4101e0c9bdd34803577859ace08ef45
 R
 "database/factories/UserFactory.php,3/4/3401747fc769758d97931473eab6222bc2abf009
-O
-app/Models/VcVirtualMachine.php,2/0/208b22bf2dda1a777b26913974bfe7b538dfa5d4
 z
 Jdatabase/migrations/2023_05_23_022038_create_vc_virtual_machines_table.php,c/7/c7427881640f8286ba9c78cafbfa5a33a42aa2b9
 
@@ -464,10 +454,6 @@ N
 app/Models/ProjectFirewall.php,c/8/c8cd97ec8bf20b12f14850e4a29ee3e9c8167b05
 t
 Dresources/views/content/_partials/_modals/modal-add-new-cc.blade.php,a/6/a6cf3bd31eada19b8cf59b47c78bf4daf839467c
-x
-Hdatabase/migrations/2023_05_23_151203_add_field_on__project_firewall.php,f/a/fa0d50623ae4c44e9fbd705e9c8e05dea1cbdfb8
-^
-.database/factories/VcVirtualMachineFactory.php,4/f/4f140e1b0378a8cd4d9f741b6e13d7d21c4d1a7a
 h
 8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
 Y

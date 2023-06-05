@@ -16,4 +16,9 @@ class ProjectSecurityGroupEnv extends Model
         return $this->hasMany(ProjectSecurityGroupEnvFirewall::class,'security_env_id','id');
     }
 
+    public function servers()
+    {
+        return $this->belongsToMany(ProjectServer::class, 'security_group_members');
+    }
+
 }

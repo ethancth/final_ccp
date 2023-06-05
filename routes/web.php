@@ -128,7 +128,8 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::post('read_available_service', [DemoController::class, 'getservice'])->name('getservice');
 
 
-        Route::post('get_security_group_member', [ProjectSecurityGroupController::class, 'getpsg_member'])->name('get.psg.member');
+        Route::post('get_security_group_member', [ProjectSecurityGroupController::class, 'getservice'])->name('get.psg.member');
+        Route::post('update_security_group_member', [ProjectSecurityGroupController::class, 'getpsg_member_store'])->name('psg.member.store');
 
 
 

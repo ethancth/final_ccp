@@ -225,19 +225,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><a class="btn-edit-row security_group_member" data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#SecurityGroupMember">{{$project->sg ->slug}}</a></td>
+                                            <td><a class="btn-edit-row security_group_member" data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="">{{$project->sg ->slug}}</a></td>
                                             <td>{{$project->server->count()}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
-                                                    <i data-feather="more-vertical"></i>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item btn-edit-row" data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">
-                                                        <i data-feather="edit-2" class="me-50"></i>
-                                                        <span>Edit</span>
-                                                    </a>
-                                                </div>
-                                            </td>
+                                            <td></td>
 
 
                                         </tr>
@@ -245,7 +235,7 @@
                                         <tr>
                                             <td><a class="btn-edit-row security_group_member" data-id="{{$psg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#SecurityGroupMember">{{$psg->id}} - {{$psg->slug}}</a></td>
 
-                                            <td>{{$project->server->count('Database')}}</td>
+                                            <td>{{$psg->servers()->count()}}</td>
                                            <td>
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
                                                     <i data-feather="more-vertical"></i>
@@ -280,7 +270,6 @@
 
         </div>
     </div>
-
     <!-- share SecurityGroup modal -->
     <div class="modal fade" id="SecurityGroupMember" tabindex="-1" aria-labelledby="shareSecurityGroupTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -292,43 +281,33 @@
                     <h1 class="text-center mb-1" id="shareSecurityGroupTitle">Security Group Member</h1>
 
                     <label class="form-label fw-bolder font-size font-small-4 mb-50" for="addMemberSelect"> Add members </label>
-                    <select class="select2-data-ajax form-select" id="select2-ajax"></select>
+                    <form class="needs-validation" novalidate id="memberform" name="memberform" action="{{route("psg.member.store")}}" method="POST" accept-charset="UTF-8">
+                        <input class="hidden"  name="_token" value="{{ csrf_token() }}">
+                        <input class="hidden" name="form_firewall_group_id" id="form_firewall_group_id" value="">
+                        <select id="CustomVm" name="CustomVm[]" multiple="multiple" class="select2 form-select ">
+                            <option value="">Select a Virtual Machine</option>
+                            @foreach($vcvms as $vcvc)
+                                <option value="{{$vcvc->id}}">{{$vcvc->hostname}}</option>
+                            @endforeach
+                        </select>
+                        <div class="form-check form-switch">
+                            <input type="checkbox" class="form-check-input" value="1" name="customSwitchOverwrite" id="customSwitchOverwrite" />
+                            <label class="form-check-label" for="customSwitch1">Overwrite</label>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary me-1 mt-2">Submit</button>
+                            <button type="reset" class="btn btn-outline-secondary mt-2" data-bs-dismiss="modal" aria-label="Close">
+                                Discard
+                            </button>
+                        </div>
 
-                    <p class="fw-bolder pt-50 mt-2">X Members</p>
+                    </form>
+
+                    <p class="fw-bolder pt-50 mt-2" id="total_number"> Members</p>
 
                     <!-- member's list  -->
                     <ul class="list-group list-group-flush mb-2">
-                        @foreach($project->server as $servers)
-                            <li class="list-group-item d-flex align-items-start border-0 px-0">
-                                <div class="avatar me-75">
-                                    @php
-                                        $newpath='images/avatars/'.$servers->operating_system_option.'.png';
-                                    @endphp
-                                    <img src="{{asset($newpath)}}" alt="avatar" width="38" height="38" />
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between w-100">
-                                    <div class="me-1">
-                                        <h5 class="mb-25">{{$servers->hostname}}</h5>
-                                        <span>{{$servers->display_os}}</span>
-                                    </div>
-
-                                    <div class="dropdown">
-                                        <button
-                                            class="btn btn-flat-secondary dropdown-toggle"
-                                            type="button"
-                                            id="member1"
-                                            data-bs-toggle="dropdown"
-                                            aria-expanded="false"
-                                        >
-                                            <span class="d-none d-lg-inline-block">Action</span>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="member1">
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Remove</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
+                        <div id="content_member"/>
                     </ul>
                     <!--/ member's list  -->
 
@@ -340,9 +319,10 @@
     <!-- / share SecurityGroup modal -->
 
 
+
+
     @include('content/_partials/_modals/modal-create-security-group')
     @include('content/_partials/_modals/modal-add-edit-server-firewall-form')
-{{--    @include('content/_partials/_modals/modal-asset-firewall')--}}
 @endsection
 
 @section('vendor-script')
@@ -407,6 +387,56 @@
             data: { id: id },
             dataType: 'json',
             success: function(res){
+                document.getElementById('total_number').innerHTML = 'Total member: '+res.length;
+                $('#form_firewall_group_id').val(id);
+               console.log(res);
+                if(res.length>0){
+                    let temp_market='';
+                    jQuery.each(res, function(index, item) {
+                        temp_market+=
+                            "<li class='list-group-item d-flex align-items-start border-0 px-0'>" +
+                            " <div class='avatar me-75'>" +
+                            "<img src='"+window.location.origin+"/images/avatars/" +item['operating_system_option'] +".png'  alt='avatar' width='38' height='38' />" +
+                            "</div>" +
+                            '<div class="d-flex align-items-center justify-content-between w-100">'+
+                            '<div class="me-1">'+
+                            ' <h5 class="mb-25">'+item['hostname'] +'</h5>'+
+                            ' <span>'+item['display_os'] +'</span>'+
+                            '</div>'+
+                            '<div class="dropdown">'+
+                                '<button'+
+                                   ' class="btn btn-flat-secondary dropdown-toggle"'+
+                                    'type="button"' +
+                                    'id="member1"'+
+                                    'data-bs-toggle="dropdown"'+
+                                    'aria-expanded="false"'+
+                                '>'+
+                                    '<span class="d-none d-lg-inline-block">Action</span>'+
+                                '</button>' +
+                                '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="member1">'+
+                                    '<li><a class="dropdown-item" href="javascript:void(0)">Remove</a></li>' +
+                                '</ul>'+
+                            '</div>'+
+                            ' </div>'+
+                            '</li>';
+
+
+
+                        //now you can access properties using dot notation
+                    });
+
+                    document.getElementById("content_member").innerHTML = temp_market;
+                }else{
+                    document.getElementById("content_member").innerHTML = '';
+                }
+
+
+                //   $.each(res, function() {
+              //       $.each(this, function(k, v) {
+              //           /// do stuff
+              //           console.log(k);
+              //       });
+              //   });
                 //var color=res.display_icon_colour;
                 // $('#modalsslideinform').modal('show');
                 // $('#form-label').text("Edit Record");
@@ -420,7 +450,10 @@
                 // $('#code').val(res.code);
                 // $('#author').val(res.author);
             }
-        });
+        }
+      );
+
+
 
     });
     // ------

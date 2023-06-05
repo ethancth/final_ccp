@@ -43,5 +43,10 @@ class ProjectServer extends Model
             ->orderBy('server_subscribe_firewall.created_at', 'desc');
     }
 
+    public function securitygroups()
+    {
+        return $this->belongsToMany(ProjectSecurityGroupEnv::class, 'security_group_members');
+    }
+
 
 }
