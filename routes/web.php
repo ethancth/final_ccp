@@ -1,25 +1,14 @@
 <?php
 
-use App\Http\Controllers\AssetController;
 use App\Http\Controllers\CompanyFormController;
 use App\Http\Controllers\CostProfileController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\FirewallServiceControler;
+use App\Http\Controllers\ProjectSecurityGroupController;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AppsController;
-use App\Http\Controllers\UserInterfaceController;
-use App\Http\Controllers\CardsController;
-use App\Http\Controllers\ComponentsController;
-use App\Http\Controllers\ExtensionController;
-use App\Http\Controllers\PageLayoutController;
-use App\Http\Controllers\FormsController;
-use App\Http\Controllers\PagesController;
-use App\Http\Controllers\MiscellaneousController;
-use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\ProjectController;
 /*
@@ -43,7 +32,7 @@ Route::group(['middleware' => ['auth', 'verified']],
     function () {
 // Route Dashboards
 
-        Route::get('/', [ProjectController::class, 'index'])->name('project');
+        Route::get('/', [ProjectController::class, 'index'])->name('dashboard');
 
 
 
@@ -137,6 +126,9 @@ Route::group(['middleware' => ['auth', 'verified']],
 
         Route::post('read_content', [DemoController::class, 'demo'])->name('demo');
         Route::post('read_available_service', [DemoController::class, 'getservice'])->name('getservice');
+
+
+        Route::post('get_security_group_member', [ProjectSecurityGroupController::class, 'getpsg_member'])->name('get.psg.member');
 
 
 

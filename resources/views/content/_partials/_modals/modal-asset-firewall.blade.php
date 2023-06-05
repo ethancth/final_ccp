@@ -183,7 +183,7 @@
                     <div class="card">
                         <div class="card-body">
                             {{--                            <form action="#" class="port-form">--}}
-                            <form id="addNewAnyForm" class=" row gy-1 gx-2 port-form" action="{{route("demo")}}" method="POST" accept-charset="UTF-8">
+                            <form id="addNewFirewallPortForm" class=" row gy-1 gx-2 port-form" action="{{route("demo")}}" method="POST" accept-charset="UTF-8">
                                 <input class="hidden"  name="_token" value="{{ csrf_token() }}">
                                 <input class="hidden"  name="project_id" value="{{$project->id}}">
                                 <input class="hidden" id="_firewall_type" name="_firewall_type" value="">

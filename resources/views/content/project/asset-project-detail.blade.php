@@ -125,8 +125,7 @@
             <div class="card-body">
                 <h2>Firewall Rules (Inbound)
                     <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">+ </button>
-                    <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#assetFirewallModal">+ </button>
-                </h2>
+                   </h2>
 {{--                <div>--}}
 
 {{--                    @foreach($firewallservice as $fs)--}}
@@ -226,7 +225,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><a class="btn-edit-row " data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#SecurityGroupMember">{{$project->sg ->slug}}</a></td>
+                                            <td><a class="btn-edit-row security_group_member" data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#SecurityGroupMember">{{$project->sg ->slug}}</a></td>
                                             <td>{{$project->server->count()}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
@@ -244,7 +243,7 @@
                                         </tr>
                                     @foreach($project->sg->env as $psg)
                                         <tr>
-                                            <td><a class="btn-edit-row " data-id="{{$psg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$psg->slug}}</a></td>
+                                            <td><a class="btn-edit-row security_group_member" data-id="{{$psg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#SecurityGroupMember">{{$psg->id}} - {{$psg->slug}}</a></td>
 
                                             <td>{{$project->server->count('Database')}}</td>
                                            <td>
@@ -343,7 +342,7 @@
 
     @include('content/_partials/_modals/modal-create-security-group')
     @include('content/_partials/_modals/modal-add-edit-server-firewall-form')
-    @include('content/_partials/_modals/modal-asset-firewall')
+{{--    @include('content/_partials/_modals/modal-asset-firewall')--}}
 @endsection
 
 @section('vendor-script')
@@ -390,6 +389,41 @@
 
 @section('page-script')
 <script>
+
+
+    // ---Group Member---
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('body').on('click', '.security_group_member', function () {
+        var id = $(this).data('id');
+        $.ajax({
+            type:"POST",
+            url: "{{ route('get.psg.member') }}",
+            data: { id: id },
+            dataType: 'json',
+            success: function(res){
+                //var color=res.display_icon_colour;
+                // $('#modalsslideinform').modal('show');
+                // $('#form-label').text("Edit Record");
+                // $('#basic-addon-name').val(res.name);
+                // $('#form_id').val(res.id);
+                // $('#basic-default-display-name').val(res.display_name);
+                // $('#basic-default-desc').val(res.display_description);
+                // $('#basic-default-icon').val(res.display_icon);
+                // $("#select-colour").val(color).change();
+                // $("#select-status").val(res.status).change();
+                // $('#code').val(res.code);
+                // $('#author').val(res.author);
+            }
+        });
+
+    });
+    // ------
     //select multiple vm
 
     function showany(){
@@ -454,51 +488,7 @@
 
 
         // ---form repeater use start ----- //
-        var FirewallOption = new bootstrap.Modal(document.getElementById('assetFirewallModal')),
-            sourceFirewall = new bootstrap.Modal(document.getElementById('twoFactorAuthSmsModal')),
-            destinationFirewall = new bootstrap.Modal(document.getElementById('destinationModal')),
-            portFirewall = new bootstrap.Modal(document.getElementById('assetFirewallPortModal'));
 
-        // toggle modals
-        document.getElementById('nextStepAuth').onclick = function () {
-            var currentSelectMethod = document.querySelector('input[name=FirewallRoleRadio]:checked').value;
-
-            document.getElementById("_firewall_type").value=currentSelectMethod;
-            if (currentSelectMethod === 'any-method') {
-                FirewallOption.hide();
-                destinationFirewall.show();
-            } else {
-                FirewallOption.hide();
-                sourceFirewall.show();
-            }
-        };
-
-        document.getElementById('sourcenextstep').onclick = function () {
-
-
-            sourceFirewall.hide();
-            destinationFirewall.show();
-        };
-        document.getElementById('destinationnextstep').onclick = function () {
-            destinationFirewall.hide();
-            portFirewall.show();
-        };
-
-        document.getElementById('submitfirewall').onclick= function(){
-            console.log('click');
-          document.getElementById("addNewAnyForm").submit(function() {
-                console.log('submit');
-                var action = $(this).attr('action');
-                $.ajax({
-                    url  : '{{route("demo")}}',
-                    type : 'POST',
-                    data : $('#addNewAnyForm,#firewall_source, #firewall_destination').serialize(),
-                    success : function() {
-                       // window.location.replace(action);
-                    }
-                });
-            });
-        }
         $('.port-form').repeater({
             initEmpty: false,
             show: function () {
