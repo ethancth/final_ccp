@@ -432,8 +432,6 @@ x
 Hdatabase/migrations/2023_05_16_033559_create_project_firewalls_table.php,3/1/31959c620e3acd34fab3a39096504c53fb446f4a
 t
 Ddatabase/migrations/2022_06_06_132944_create_vm_datastores_table.php,1/2/12dbef0bd5bcd1d485c80eca17fa974e68cffb2f
-d
-4resources/views/content/server/information.blade.php,9/4/941255e86fa0d27e35129a01292b1f31da130d24
 Z
 *resources/data/menu-data/verticalMenu.json,d/4/d48f38ab8df80d77e0df39ed4252c436f360f285
 S
@@ -456,8 +454,6 @@ t
 Dresources/views/content/_partials/_modals/modal-add-new-cc.blade.php,a/6/a6cf3bd31eada19b8cf59b47c78bf4daf839467c
 h
 8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
-Y
-)app/Http/Controllers/ServerController.php,3/5/35d184f674aafc0a18b9b89bd636f8edef9700a2
 F
 app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
 f

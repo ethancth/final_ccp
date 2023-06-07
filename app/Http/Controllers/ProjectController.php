@@ -185,7 +185,51 @@ class ProjectController extends Controller
 
     }
 
+    public function get_display_port($param,$type){
+
+        if($type=='display'){
+            $new_value='';
+            foreach ($param as $value) {
+                if($value['type']!='custom')
+                {
+                    $new_value.= strtoupper($value['type']).',';
+                }else{
+                    if($value['portrange']==null){
+                        $new_value.= strtoupper($value['protocol']).' - All Port,';
+                    }else{
+                        $new_value.= strtoupper($value['protocol']).' - '.$value['portrange'].',';
+                    }
+
+
+                }
+
+            }
+            return  substr($new_value, 0, -1);
+        }else{
+            $new_value='';
+            foreach ($param as $value) {
+                if($value['type']!='custom')
+                {
+                    $new_value.= strtoupper($value['portrange']).',';
+                }else{
+                    if($value['portrange']==null){
+                        $new_value.= '0 - 99999,';
+                    }else{
+                        $new_value.=$value['portrange'].',';
+                    }
+
+
+                }
+
+            }
+
+            return  substr($new_value, 0, -1);
+        }
+
+    }
+
     public function get_display($param, $class){
+        print_r($class) ;
         $_new_array='';
         foreach(array_unique($param) as $array)
         {
@@ -229,26 +273,44 @@ class ProjectController extends Controller
 
     public function create_project_firewall(Request $request){
 
-        dd($request);
-        $_new_display_port=$this->get_display($request->modalPort,'FirewallService');
-        $_new_display_port_only=implode(',',array_unique($request->modalPort));
 
+     //   $_new_display_port=$this->get_display($request->modalPort,'FirewallService');
+       // $_new_display_port_only=implode(',',array_unique($request->portserviceform));
+
+        $_new_display_port=$this->get_display_port($request->portserviceform,'display');
+        $_new_display_port_only=$this->get_display_port($request->portserviceform,'display1');
 
 
         if($request->newSource=='custom'){
 
             $_source='Custom';
-            $_firewall_name='[Custom]'.$request->modalFirewallName;
+            $_firewall_name='[Custom]';
             $_source_type='Custom';
-            $_source_ip = implode(',',array_unique($request->modalCustomIP));
-            $_source_vm = $request->modalCustomVm;
-            $_source_sg = $request->modalCustomSecurityGroup;
+            $_source_ip='';
+            $_source_vm='';
+            $_source_sg='';
+            $_new_display_custom_vm='';
+            $_new_display_custom_sg='';
 
-            $_new_display_custom_vm=$this->get_display($request->modalCustomVm,'vm');
-            $_new_display_custom_sg=$this->get_display($request->modalCustomSecurityGroup,'sg');
+            if($request->modalCustomIP){
+                $_source_ip = implode(',',array_unique($request->modalCustomIP));
+            }
+
+            if($request->modalCustomVm){
+                $_new_display_custom_vm=$this->get_display($request->modalCustomVm,'vm');
+                $_source_vm = $request->modalCustomVm;
+            }
+            if($request->modalCustomSecurityGroup){
+                $_new_display_custom_sg=$this->get_display($request->modalCustomSecurityGroup,'sg');
+                $_source_sg = $request->modalCustomSecurityGroup;
+            }
+
+
+
+
         }else{
             $_source='ANY';
-            $_firewall_name=''.$request->modalFirewallName;
+            $_firewall_name='[ANY]';
             $_source_type='ANY';
             $_source_ip='';
             $_new_display_custom_vm='';

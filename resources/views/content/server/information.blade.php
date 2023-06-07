@@ -192,6 +192,32 @@
                                             </div>
                                         @endif
                                     @endforeach
+                                        @foreach($server->securitygroups()->get() as $psg)
+                                                {{$psg->slug}}
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Source</th>
+                                                            <th>Ports/Predefined Service</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($psg->firewall as $fws)
+                                                            <tr>
+                                                                <td>{{$fws->name}}</td>
+                                                                <td>
+                                                                    {{$fws->source}}
+                                                                </td>
+                                                                <td> {{$fws->port}}</td>
+
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                        @endforeach
 
                                 </div>
                             </div>
