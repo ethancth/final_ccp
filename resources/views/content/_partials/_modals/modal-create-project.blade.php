@@ -24,7 +24,7 @@
                             data-msg="Please enter Project name"
                         />
                     </div>
-                    <div class="col-12 mt-75">
+                    <div class="col-12 mt-75 hidden">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="groupProject" />
                             <label class="form-check-label" for="groupProject"> Set as group project </label>

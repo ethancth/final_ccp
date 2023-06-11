@@ -457,9 +457,23 @@
 
     });
 
+    function showany(){
+        document.getElementById('div-ip').style.display ='none';
+        document.getElementById('div-sg').style.display ='none';
+        document.getElementById('div-vm').style.display ='none';
+    }
+    function show(){
+        document.getElementById('div-ip').style.display = 'block';
+
+        document.getElementById('div-sg').style.display ='block';
+        document.getElementById('div-vm').style.display ='block';
+    }
+
 
     $(function () {
         'use strict';
+
+
 
 
         // ---form repeater use start ----- //

@@ -385,8 +385,6 @@ V
 N
 app/Observers/UserObserver.php,5/8/58b0ca3953943da94a198e58ca46b0403cbd13f3
 Q
-!app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
-Q
 !app/Observers/CompanyObserver.php,7/b/7b588e884b72cd1b362f136adaa2cfa8a48423d2
 a
 1app/Http/Controllers/FirewallServiceControler.php,7/c/7c84e05f3b1416513c21e6ac97e79a2d9727b157
@@ -452,16 +450,12 @@ N
 app/Models/ProjectFirewall.php,c/8/c8cd97ec8bf20b12f14850e4a29ee3e9c8167b05
 t
 Dresources/views/content/_partials/_modals/modal-add-new-cc.blade.php,a/6/a6cf3bd31eada19b8cf59b47c78bf4daf839467c
-h
-8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
 F
 app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
 f
 6resources/views/content/project/project-home.blade.php,f/7/f703b193954b357df0171bfb3e2e6f40300e3394
 j
 :resources/vendors/js/forms/repeater/jquery.repeater.min.js,d/b/db25b6515f8488dbf8152883a4941213e1fdc80f
-x
-Hresources/views/content/_partials/_modals/modal-create-project.blade.php,9/7/976f731ec074576ccf22c20f7b958e15f2218b1e
 ~
 Nresources/views/content/_partials/_modals/modal-add-edit-policy-form.blade.php,9/3/93e6e393998711b9fa693af2595b0ebf710b9d02
 c
