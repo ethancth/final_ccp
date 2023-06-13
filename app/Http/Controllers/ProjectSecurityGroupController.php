@@ -19,10 +19,15 @@ class ProjectSecurityGroupController extends Controller
     {
         //dd($request);
         $sg=ProjectSecurityGroupEnv::find($request->form_firewall_group_id);
-        if($request->customSwitchOverwrite){
-            $sg->servers()->sync($request->CustomVm);
+        if($request->customSwitchOverwrite && $sg->can_delete==1){
+            if( $sg->can_delete){
+                $sg->servers()->sync($request->CustomVm);
+            }
+
         }else{
-            $sg->servers()->syncWithoutDetaching($request->CustomVm);
+            if( $sg->can_delete) {
+                $sg->servers()->syncWithoutDetaching($request->CustomVm);
+            }
         }
         return back()->with('success', 'Success add member to security Group！');
 

@@ -31,7 +31,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h6 class="text">Tier - <span class="badge badge-light-{{$server->tiername->display_icon_colour}} profile-badge">{{$server->tiername->name}}</span></span> </h6>
-                                    <h6 class="text">Environment -  <span class="badge badge-light-{{$server->envname->display_icon_colour}} profile-badge">{{$server->envname->name}}</span> </h6>
+                                    <h6 class="text">Environment -  <span class="badge badge-light-{{ $server->envname->display_icon_colour}} profile-badge">{{$server->display_env}}</span> </h6>
 
                                 </div>
                                 <div>
@@ -85,19 +85,19 @@
                     <div class="card-body">
                         <h2>Firewall Rules (Inbound) <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$server->id}}" value="{{$server->id}}}"   data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">+ </button>
                         </h2>
-                        <div>
+{{--                        <div>--}}
 
-                            @foreach($firewallservice as $fs)
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input btn-favor" data-id="{{$fs->id}}" type="checkbox" id="{{$fs->id}}" value="checked" checked />
-                                        <label class="form-check-label" for="inlineCheckbox1">{{$fs->type}}</label>
-                                    </div>
-                                </div>
-                            @endforeach
+{{--                            @foreach($firewallservice as $fs)--}}
+{{--                                <div class="d-flex justify-content-between align-items-center">--}}
+{{--                                    <div class="form-check form-check-inline">--}}
+{{--                                        <input class="form-check-input btn-favor" data-id="{{$fs->id}}" type="checkbox" id="{{$fs->id}}" value="checked" checked />--}}
+{{--                                        <label class="form-check-label" for="inlineCheckbox1">{{$fs->type}}</label>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            @endforeach--}}
 
 
-                        </div>
+{{--                        </div>--}}
                     </div>
                     <div class="card-body">
                         <div class="row" id="table-hover-row">
@@ -156,7 +156,7 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <h2>Security Group
+                        <h2>Firewall Rules (Project)
                         </h2>
                     </div>
                     <div class="card-body">
@@ -165,7 +165,7 @@
                                 <div class="card">
 
                                     @foreach($projectsecuritygroup as $psg)
-                                        @if($psg->env ==$server->tiername->name)
+                                        @if($psg->env ==$server->tiername->name || $psg->env ==$server->envname->name|| $psg->env ==$server->envname->name.$server->tiername->name)
                                             {{$psg->slug}}
                                             <div class="table-responsive">
                                                 <table class="table table-hover">

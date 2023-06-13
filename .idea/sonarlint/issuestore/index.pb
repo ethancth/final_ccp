@@ -392,10 +392,6 @@ x
 Hdatabase/migrations/2022_08_12_054121_add_sa_service_to_server_table.php,4/2/421c1e0f83c2ac28920aac4e89acc78d454857bb
 i
 9database/migrations/2022_11_04_175100_add_field_on_do.php,6/d/6d71771dcf81eda6d874cc9de8fcf2c50d94bfba
-ƒ
-Sdatabase/migrations/2023_04_18_023130_add_project_server_provision_status_field.php,b/c/bc731a484181ba4c589bdbcb08d62e1e37f9047e
-S
-#app/Models/ProjectSecurityGroup.php,0/4/0477a2d1f9ae6ce9c89b3752aaa0035206ba23e8
 x
 Hresources/views/content/_partials/_modals/modal-add-permission.blade.php,4/5/45c35ccb478a938906244dd50809fa6f0aab908d
 r
@@ -450,8 +446,6 @@ N
 app/Models/ProjectFirewall.php,c/8/c8cd97ec8bf20b12f14850e4a29ee3e9c8167b05
 t
 Dresources/views/content/_partials/_modals/modal-add-new-cc.blade.php,a/6/a6cf3bd31eada19b8cf59b47c78bf4daf839467c
-F
-app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
 f
 6resources/views/content/project/project-home.blade.php,f/7/f703b193954b357df0171bfb3e2e6f40300e3394
 j

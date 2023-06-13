@@ -514,7 +514,7 @@ class ProjectController extends Controller
             ],
             [
                 'security_id' => $sid->sg->id,
-                'slug' => 'SG-'.str::slug($request->name),
+                'slug' => 'SG-'.$sid->slug.'-Custom-'.str::slug($request->name),
                 'env' => 'Custom',
                 'scope' => 'env',
                 'can_delete' => '1',
