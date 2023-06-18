@@ -229,7 +229,6 @@ class ProjectController extends Controller
     }
 
     public function get_display($param, $class){
-        print_r($class) ;
         $_new_array='';
         foreach(array_unique($param) as $array)
         {
@@ -239,14 +238,12 @@ class ProjectController extends Controller
             }
 
             if($class=='vm'){
-                $_array=VcVirtualMachine::where('id','=',$array)->get();
+                $_array=ProjectServer::where('id','=',$array)->get();
             }
 
             if($class=='sg'){
                 $_array=ProjectSecurityGroupEnv::where('id','=',$array)->get();
             }
-
-
 
 
             if(count($_array)>='1')
@@ -257,7 +254,7 @@ class ProjectController extends Controller
                 }
 
                 if($class=='vm'){
-                    $_new_array.=$_array[0]->vm_hostname.',';
+                    $_new_array.=$_array[0]->hostname.',';
                 }
                 if($class=='sg'){
                     $_new_array.=$_array[0]->slug.',';
@@ -292,6 +289,8 @@ class ProjectController extends Controller
             $_new_display_custom_vm='';
             $_new_display_custom_sg='';
 
+
+
             if($request->modalCustomIP){
                 $_source_ip = implode(',',array_unique($request->modalCustomIP));
             }
@@ -303,6 +302,15 @@ class ProjectController extends Controller
             if($request->modalCustomSecurityGroup){
                 $_new_display_custom_sg=$this->get_display($request->modalCustomSecurityGroup,'sg');
                 $_source_sg = $request->modalCustomSecurityGroup;
+            }
+
+            if(!isset($request->modalCustomIP) && !isset($request->modalCustomVm)  && !isset($request->modalCustomSecurityGroup) ){
+                $_source='ANY';
+                $_firewall_name='[ANY]';
+                $_source_type='ANY';
+                $_source_ip='';
+                $_new_display_custom_vm='';
+                $_new_display_custom_sg='';
             }
 
 

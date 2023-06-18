@@ -37,11 +37,10 @@ class ProjectServer extends Model
             return $this->hasOne(Environment::class,'id','tier');
     }
 
-    public function subscribeFirewall()
+
+    public function firewalls()
     {
-        return $this->belongsToMany(FirewallService::class, 'server_subscribe_firewall')
-            ->withTimestamps()
-            ->orderBy('server_subscribe_firewall.created_at', 'desc');
+        return $this->hasMany(ProjectServerFirewall::class,'server_id','id');
     }
 
     public function securitygroups()

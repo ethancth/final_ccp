@@ -165,7 +165,7 @@
                                             <td><a class="btn-edit-row " data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$fws->firewall_name}}</a></td>
                                             <td>
                                                 @if($fws->source=='Custom')
-                                                    [IP] {{$fws->display_source_custom_ip}} <br/>
+                                                        [IP] {{$fws->display_source_custom_ip}} <br/>
                                                         [VM]{{$fws->display_source_custom_vm}}<br/>
                                                         [SG]{{$fws->display_source_custom_sg}}
                                                     @else
@@ -343,14 +343,12 @@
 <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/nouislider.min.js')) }}"></script>
 
-<script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
 
 <script src="{{ asset(mix('js/scripts/pages/modal-share-project.js')) }}"></script>
 
 <script src="{{ asset(mix('vendors/js/editors/quill/katex.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/editors/quill/highlight.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/editors/quill/quill.min.js')) }}"></script>
-<script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
 
 <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>

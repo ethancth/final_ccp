@@ -140,6 +140,7 @@
     "/js/scripts/pages/modal-edit-cc.js": "/js/scripts/pages/modal-edit-cc.js?id=8f9d20857c11a849ef9d752808b5db4c",
     "/js/scripts/pages/modal-edit-permission.js": "/js/scripts/pages/modal-edit-permission.js?id=dcda2d93424bb3f2bb0889ccd03ab7b4",
     "/js/scripts/pages/modal-edit-user.js": "/js/scripts/pages/modal-edit-user.js?id=47912ce48af22388edfa414b72b0371b",
+    "/js/scripts/pages/modal-server-firewall.js": "/js/scripts/pages/modal-server-firewall.js?id=c39c8a15eb9a96186ae2845bed6aad1d",
     "/js/scripts/pages/modal-share-project.js": "/js/scripts/pages/modal-share-project.js?id=b1492c73f213be05d2442bb3618637c9",
     "/js/scripts/pages/modal-two-factor-auth.js": "/js/scripts/pages/modal-two-factor-auth.js?id=b08b80edad1ad901f2576feb2849bd03",
     "/js/scripts/pages/page-account-settings-account.js": "/js/scripts/pages/page-account-settings-account.js?id=c658c57aeffbd7636b32110945298a47",

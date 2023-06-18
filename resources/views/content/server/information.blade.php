@@ -2,6 +2,12 @@
 @extends('layouts/contentLayoutMaster')
 
 @section('title', 'Summary')
+@section('vendor-style')
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
+
+
+@endsection
 
 @section('content')
     <section class="form-control-repeater">
@@ -83,7 +89,7 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <h2>Firewall Rules (Inbound) <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$server->id}}" value="{{$server->id}}}"   data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">+ </button>
+                        <h2>Firewall Rules (Inbound) <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$server->id}}" value="{{$server->id}}}"   data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">+ </button>
                         </h2>
 {{--                        <div>--}}
 
@@ -115,13 +121,22 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($serverfirewallservice as $fws)
+                                            @foreach($server->firewalls()->get() as $fws)
                                             <tr>
-                                                <td><a class="btn-edit-row " data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$fws->type}}</a></td>
-                                                <td>
-                                                    {{$fws->source}}
-                                                </td>
-                                                <td> {{$fws->port}}</td>
+                                                <td><a class="btn-edit-row " data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$fws->firewall_name}}</a></td>
+                                                @if($fws->source_type=='Custom')
+                                                    <td>
+                                                        [IP] {{$fws->display_source_custom_ip}} <br/>
+                                                        [VM]{{$fws->display_source_custom_vm}}<br/>
+                                                        [SG]{{$fws->display_source_custom_sg}}
+                                                    </td>
+                                                @else
+                                                    <td>
+                                                        {{$fws->source}}
+                                                    </td>
+                                                @endif
+
+                                                <td> {{$fws->display_port}}</td>
                                                 <td>
                                                     <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
                                                         <i data-feather="more-vertical"></i>
@@ -230,16 +245,21 @@
 
         </div>
     </section>
-    @include('content/_partials/_modals/modal-add-edit-server-firewall')
+{{--    @include('content/_partials/_modals/modal-add-edit-server-firewall')--}}
+    @include('content/_partials/_modals/modal-server-firewall')
 @endsection
 
 @section('vendor-script')
     <!-- vendor files -->
+
+
+    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/repeater/jquery.repeater.min.js')) }}"></script>
 @endsection
 @section('page-script')
     <!-- Page js files -->
     <script src="{{ asset(mix('js/scripts/forms/form-repeater.js')) }}"></script>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         $('body').on('click', '.btn-add-server-firewall', function () {
@@ -267,7 +287,7 @@
 
                     event.preventDefault();
                     if (form.checkValidity() === true) {
-                        document.forms["envform"].submit();
+                        document.forms["addNewAnyForm"].submit();
                     }
 
                 });
@@ -275,38 +295,38 @@
             });
         }
 
-        $('body').on('click', '.btn-edit-row', function () {
-            var id = $(this).data('id');
+        {{--$('body').on('click', '.btn-edit-row', function () {--}}
+        {{--    var id = $(this).data('id');--}}
 
 
-            $.ajax({
-                type:"POST",
-                url: "{{ route('server.firewall.edit') }}",
-                data: { id: id },
-                dataType: 'json',
-                success: function(res){
+        {{--    $.ajax({--}}
+        {{--        type:"POST",--}}
+        {{--        url: "{{ route('server.firewall.edit') }}",--}}
+        {{--        data: { id: id },--}}
+        {{--        dataType: 'json',--}}
+        {{--        success: function(res){--}}
 
-                    console.log(res);
-                    $('#modalsslidein_rowform').trigger("reset");
-                    //
-                    //
-                    $('#form-label-row').text("Edit Record");
-                    $('#form_id').val(res.id);
-                    $('#server_id').val(res.server_id);
-                    $('#row_section_id').val(res.section_id);
-                    $('#rule-name').val(res.name);
-                    $('#source').val(res.source);
-                    $('#destination').val(res.destination);
-                    $('#basic-port-range').val(res.port);
-                    $('#select-rule-type').val(res.rule).change();
-                    $("#select-type").val(res.protocol).change();
-                    $("#row_select_status").val(res.status).change();
-                }
-            });
+        {{--            console.log(res);--}}
+        {{--            $('#modalsslidein_rowform').trigger("reset");--}}
+        {{--            //--}}
+        {{--            //--}}
+        {{--            $('#form-label-row').text("Edit Record");--}}
+        {{--            $('#form_id').val(res.id);--}}
+        {{--            $('#server_id').val(res.server_id);--}}
+        {{--            $('#row_section_id').val(res.section_id);--}}
+        {{--            $('#rule-name').val(res.name);--}}
+        {{--            $('#source').val(res.source);--}}
+        {{--            $('#destination').val(res.destination);--}}
+        {{--            $('#basic-port-range').val(res.port);--}}
+        {{--            $('#select-rule-type').val(res.rule).change();--}}
+        {{--            $("#select-type").val(res.protocol).change();--}}
+        {{--            $("#row_select_status").val(res.status).change();--}}
+        {{--        }--}}
+        {{--    });--}}
 
-            $('#row_section_id').val(this.id);
+        {{--    $('#row_section_id').val(this.id);--}}
 
-        });
+        {{--});--}}
 
             $('.btn-favor').click(function () {
                 var id = $(this).data('id');
@@ -335,4 +355,5 @@
 
         });
     </script>
+    <script src="{{ asset(mix('js/scripts/pages/modal-server-firewall.js')) }}"></script>
 @endsection

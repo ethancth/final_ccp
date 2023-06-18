@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectFirewall extends Model
+class ProjectServerFirewall extends Model
 {
+    use HasFactory;
     protected $fillable =[
-        'project_id',
+        'server_id',
         'firewall_name',
         'firewall_uuid',
         'source',
@@ -19,12 +20,12 @@ class ProjectFirewall extends Model
         'is_custom_port',
         'status',
 
-       'display_source_custom_vm',
-'display_source_custom_sg',
-'display_source_custom_ip',
-'display_destination',
-'display_port',
-'editable',
+        'display_source_custom_vm',
+        'display_source_custom_sg',
+        'display_source_custom_ip',
+        'display_destination',
+        'display_port',
+        'editable',
     ];
 
 
