@@ -26,6 +26,6 @@ class ServerFirewallRules extends Model
     }
 
     public function server(){
-        return $this->belongsTo(ProjectServer::class,'server_id','id');
+        return $this->belongsTo(ProjectFirewall::class,'server_id','id');
     }
 }

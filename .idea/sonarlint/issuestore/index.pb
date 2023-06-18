@@ -316,8 +316,6 @@ J
 app/Models/VmDatastore.php,4/4/44965a3a9872072017221bd08a511742fd2c9e3e
 F
 app/Models/VmTable.php,e/4/e46988368a51cd0ce9ad64a7fd9f5607c64752f3
-T
-$resources/views/auth/login.blade.php,f/b/fb3cbd7f4b7fd6fa26794a37d7b2f8f783688ff9
 {
 Kresources/views/content/forms/form-elements/form-date-time-picker.blade.php,f/c/fc6ac575e1a475f9b3b99539923844584f5754ea
 b
@@ -374,8 +372,6 @@ d
 Ldatabase/migrations/2023_04_20_053954_create_server_firewall_rules_table.php,e/4/e4736147b66b6c878ff4a0038b8b159e8bcfaa00
 s
 Cresources/views/content/management/firewallservices/index.blade.php,4/8/48a979376ba50d923727a57e740a0ac9b8bf35ba
-i
-9resources/views/content/project/project-sg-list.blade.php,0/a/0a8aad605019a9f63fbae92ccc28b3d222bc655e
 V
 &app/Providers/EventServiceProvider.php,6/d/6d80af2c8eccc15fa62a616067d4270df372f87d
 N
@@ -402,8 +398,6 @@ z
 Jresources/views/content/_partials/_modals/modal-project-activity.blade.php,a/4/a412959183e16f0234e242ff3a0e4ab5f1672a00
 z
 Jresources/views/content/_partials/_modals/modal-sa-add-edit-form.blade.php,1/1/1135ed5a0820926d7e079293394331b65c8a4060
-Å
-Qresources/views/content/_partials/_modals/modal-security-group-add-edit.blade.php,6/0/60821f9c07a6093d2967312125d5dc49ffac0cc5
 w
 Gresources/views/content/_partials/_modals/modal-share-project.blade.php,a/0/a01fb78ccee906b76925db7eead78a9622d7ebbf
 v
@@ -484,8 +478,6 @@ k
 ;database/migrations/2023_06_05_123736_add_field_on_vcvm.php,a/5/a54ae9cd77e7737d34dc0935838ab25585d88731
 r
 Bdatabase/migrations/2023_06_11_074912_project_server_add_field.php,2/9/2904d111a2c93cbb689b8d8cdf8c5f69ff1f2e3a
-V
-&app/Models/ProjectSecurityGroupEnv.php,1/e/1e1755fb2c076d113a3299beca7a78decedcf092
 Q
 !app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
 S

@@ -4,7 +4,8 @@
 
 @section('vendor-style')
     <!-- Vendor css files -->
-
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
 @endsection
 @section('page-style')
     <!-- Page css files -->
@@ -56,9 +57,8 @@
                                 <p>
                                 <div class="col-12">
                                     <div class = "content-header-title me-2 mb-2">
-                                        <button type="button" class="btn btn-outline-primary btn-add-firewall"  id="{{$section['id']}}" value="{{$section['id']}}"   data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{__('locale.Add Firewall')}} in {{$section['slug']}}</button>
-                                        <button type="button" class="btn btn-outline-primary btn-add-firewall-services"  id="{{$section['id']}}" value="{{$section['id']}}"   data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{__('locale.Add Firewall')}} Service in {{$section['slug']}}</button>
-                                    </div>
+                                        <button type="button" class="btn btn-outline-primary btn-add-firewall"  id="{{$section['id']}}" value="{{$section['id']}}"   data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">{{__('locale.Add Firewall')}} in {{$section['slug']}}</button>
+                                        </div>
 
 
                                     <div class="card">
@@ -66,12 +66,11 @@
                                             <table class="table table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <th>{{__('locale.Name')}}</th>
                                                     <th>{{__('locale.Source')}}</th>
                                                     <th>{{__('locale.Destination')}}</th>
                                                     <th>{{__('locale.Services/Port')}}</th>
-                                                    <th>{{__('locale.Status')}}</th>
-                                                    <th>{{__('locale.Actions')}}</th>
+{{--                                                    <th>{{__('locale.Status')}}</th>--}}
+{{--                                                    <th>{{__('locale.Actions')}}</th>--}}
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -79,26 +78,24 @@
 
                                                 @foreach($section['item'] as $row)
                                                     <tr>
-                                                        <td>
-                                                            <span class="fw-bold">{{$row['name']}}</span>
-                                                        </td>
-                                                        <td>{{$row['source']}}</td>
+
+                                                            <td>{{$row['source']}}</td>
                                                         <td>{{$row['destination']}}</td>
                                                         <td>{{$row['port']}}</td>
 
-                                                        @if($row['status']=='1')
-                                                            <td><span class="badge rounded-pill badge-light-success me-1">{{__('locale.Enable')}}</span></td>
-                                                        @else
-                                                            <td><span class="badge rounded-pill badge-light-warning me-1">{{__('locale.Disable')}}</span></td>
-                                                        @endif
+{{--                                                        @if($row['status']=='1')--}}
+{{--                                                            <td><span class="badge rounded-pill badge-light-success me-1">{{__('locale.Enable')}}</span></td>--}}
+{{--                                                        @else--}}
+{{--                                                            <td><span class="badge rounded-pill badge-light-warning me-1">{{__('locale.Disable')}}</span></td>--}}
+{{--                                                        @endif--}}
 
-                                                        <td>
-                                                            <a class="me-1 btn-edit-row" data-id="{{$row['id']}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">
-                                                                <i data-feather="edit" class="me-50"></i>
-                                                            </a>
+{{--                                                        <td>--}}
+{{--                                                            <a class="me-1 btn-edit-row" data-id="{{$row['id']}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">--}}
+{{--                                                                <i data-feather="edit" class="me-50"></i>--}}
+{{--                                                            </a>--}}
 
 
-                                                        </td>
+{{--                                                        </td>--}}
                                                     </tr>
                                                 @endforeach
 
@@ -119,13 +116,13 @@
             </div>
         </div>
     </section>
-{{--    @include('content/_partials/_modals/modal-farm-section-add-edit')--}}
-{{--    @include('content/_partials/_modals/modal-farm-row-add-edit')--}}
 
-    @include('content/_partials/_modals/modal-security-group-add-edit')
+    @include('content/_partials/_modals/modal-security-group-add-firewall')
 @endsection
 
 @section('vendor-script')
+    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/forms/repeater/jquery.repeater.min.js')) }}"></script>
 @endsection
 @section('page-script')
     <!-- Page js files -->
@@ -170,7 +167,7 @@
 
                     event.preventDefault();
                     if (form.checkValidity() === true) {
-                        document.forms["envform"].submit();
+                        document.forms["addNewAnyForm"].submit();
                     }
 
                 });
@@ -180,59 +177,19 @@
 
         $('body').on('click', '.btn-add-firewall', function () {
             var id = $(this).data('id');
-
+            $("#addNewAnyForm").trigger("reset");
             $('#security_env_id').val(this.id);
 
-        });
-        $('body').on('click', '.btn-edit-row', function () {
-            var id = $(this).data('id');
+            document.getElementById('div-ip').style.display ='none';
+            document.getElementById('div-sg').style.display ='none';
+            document.getElementById('div-vm').style.display ='none';
+            $('#modalDestination').select2(id);
+            $('#modalDestination').select2('val', id);
 
-
-            $.ajax({
-                type:"POST",
-                url: "{{ route('project.sg.env.firewall.store') }}",
-                data: { id: id },
-                dataType: 'json',
-                success: function(res){
-
-                    console.log(res);
-                    $('#modalsslidein_rowform').trigger("reset");
-                    //
-                    //
-                    $('#form-label-row').text("Edit Record");
-                    $('#form_id').val(res.id);
-                    $('#security_env_id').val(res.security_env_id);
-                    $('#row_section_id').val(res.section_id);
-                    $('#rule-name').val(res.name);
-                    $('#source').val(res.source);
-                    $('#destination').val(res.destination);
-                    $('#basic-port-range').val(res.port);
-                    $('#select-rule-type').val(res.rule).change();
-                    $("#select-type").val(res.protocol).change();
-                    $("#row_select_status").val(res.status).change();
-                }
-            });
-
-            $('#row_section_id').val(this.id);
 
         });
 
-        if (rowbootstrapForm.length) {
-            Array.prototype.filter.call(rowbootstrapForm, function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (form.checkValidity() === false) {
-                        form.classList.add('invalid');
-                    }
-                    form.classList.add('was-validated');
 
-                    event.preventDefault();
-                    if (form.checkValidity() === true) {
-                        document.forms["rowform"].submit();
-                    }
-
-                });
-
-            });
-        }
     </script>
+    <script src="{{ asset(mix('js/scripts/pages/modal-server-firewall.js')) }}"></script>
 @endsection

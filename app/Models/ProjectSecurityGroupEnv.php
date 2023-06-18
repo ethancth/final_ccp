@@ -13,12 +13,17 @@ class ProjectSecurityGroupEnv extends Model
 
     public function firewall()
     {
-        return $this->hasMany(ProjectSecurityGroupEnvFirewall::class,'security_env_id','id');
+        return $this->hasMany(ProjectSecurityGroupFirewall::class,'security_env_id','id');
     }
 
     public function servers()
     {
         return $this->belongsToMany(ProjectServer::class, 'security_group_members');
+    }
+
+    public function projectfirewall()
+    {
+        return $this->hasMany(ProjectFirewall::class,'destination_id','id');
     }
 
 }

@@ -10,6 +10,7 @@ use App\Models\ProjectFirewall;
 use App\Models\ProjectSecurityGroup;
 use App\Models\ProjectSecurityGroupEnv;
 use App\Models\ProjectSecurityGroupEnvFirewall;
+use App\Models\ProjectSecurityGroupFirewall;
 use App\Models\ProjectServer;
 use App\Models\Tier;
 use App\Models\User;
@@ -110,35 +111,45 @@ class ProjectController extends Controller
 
             foreach ($alltier as $field){
                 $query= ProjectSecurityGroupEnv::firstOrCreate(
-                ['security_id' =>  $projectsg[0]->id,
-                'env' => $field,
-                'slug' => $projectsg[0]->slug.'-'.$field]
+                    ['security_id' =>  $projectsg[0]->id,
+                    'env' => $field,
+                    'slug' => $projectsg[0]->slug.'-'.$field]
 
-            );
+                );
             }
-
-//            $query= ProjectSecurityGroup::firstOrCreate(
-//                ['project_id' =>  $project->id],
-//                ['slug' => "SG-".$project->slug]
-//            );
-
-//
             $query->save();
         }
 
         foreach ($_project_g as $project_sg_env) {
 
             foreach ($project_sg_env->firewall as $row) {
-                $_row_array[] = [
-                    'id' => $row->id,
-                    'security_env_id' => $row->security_env_id,
-                    'name' => $row->name,
-                    'source' => $row->source,
-                    'destination' => $row->destination,
-                    'port' => $row->port,
-                    'status'=>$row->status,
 
-                ];
+                if($row->source=='Custom'){
+
+                    $_row_array[] = [
+                        'id' => $row->id,
+                        'security_env_id' => $row->security_env_id,
+                        'name' => $row->name,
+                        'source' => '[IP]'.$row->display_source_custom_ip."   |   ".'[VM]'.$row->display_source_custom_vm.'   |   [SG]'.$row->display_source_custom_sg,
+                        'destination' => $row->destination_name,
+                        'port' => $row->display_port,
+                        'status'=>$row->status,
+
+                    ];
+
+                }else{
+                    $_row_array[] = [
+                        'id' => $row->id,
+                        'security_env_id' => $row->security_env_id,
+                        'name' => $row->name,
+                        'source' => $row->source,
+                        'destination' => $row->destination_name,
+                        'port' => $row->display_port,
+                        'status'=>$row->status,
+
+                    ];
+                }
+
 
             }
             if (!isset($_row_array)) {
@@ -168,14 +179,15 @@ class ProjectController extends Controller
 
       //  dd($_section_array);
         $pageConfigs = ['pageHeader' => false,];
+        $vcvm=ProjectServer::where('is_delete','=','0')->where('is_vm_provision','=','1')->get();
 
         return view('/content/project/project-sg-list', [
             'pageConfigs' => $pageConfigs,
-            //'sensors'=>$data,'crops'=>$datacrops,
             'pagetitle'=>$projectsg[0]->slug,
-            //'pagetitledescription'=>$formtxtdesc,
             'section_array'=>$_section_array,
-            //'plot_id'=>$_plot_id
+            'vcvms' =>$vcvm,
+            'projectsgs' => $_project_g
+
         ]);
 
 
@@ -383,6 +395,89 @@ class ProjectController extends Controller
 
 }
 
+    public function new_sg_store(Request $request){
+
+
+        $_new_display_port=$this->get_display_port($request->portserviceform,'display');
+        $_new_display_port_only=$this->get_display_port($request->portserviceform,'display1');
+
+
+        if($request->newSource=='custom'){
+
+            $_source='Custom';
+            $_firewall_name='[Custom]';
+            $_source_type='Custom';
+            $_source_ip='';
+            $_source_vm='';
+            $_source_sg='';
+            $_new_display_custom_vm='';
+            $_new_display_custom_sg='';
+
+
+
+            if($request->modalCustomIP){
+                $_source_ip = implode(',',array_unique($request->modalCustomIP));
+            }
+
+            if($request->modalCustomVm){
+                $_new_display_custom_vm=$this->get_display($request->modalCustomVm,'vm');
+                $_source_vm = $request->modalCustomVm;
+            }
+            if($request->modalCustomSecurityGroup){
+                $_new_display_custom_sg=$this->get_display($request->modalCustomSecurityGroup,'sg');
+                $_source_sg = $request->modalCustomSecurityGroup;
+            }
+
+            if(!isset($request->modalCustomIP) && !isset($request->modalCustomVm)  && !isset($request->modalCustomSecurityGroup) ){
+                $_source='ANY';
+                $_firewall_name='[ANY]';
+                $_source_type='ANY';
+                $_source_ip='';
+                $_new_display_custom_vm='';
+                $_new_display_custom_sg='';
+            }
+
+
+
+
+        }else{
+            $_source='ANY';
+            $_firewall_name='[ANY]';
+            $_source_type='ANY';
+            $_source_ip='';
+            $_new_display_custom_vm='';
+            $_new_display_custom_sg='';
+
+        }
+        $_destination =ProjectSecurityGroupEnv::find($request->security_env_id);
+//$_destination[0]->slug;
+
+        ProjectSecurityGroupFirewall::updateOrCreate(
+            [
+                'id' => $request->form_id,
+            ],
+            [
+                'security_env_id' => $request->security_env_id,
+                'firewall_name' => $_firewall_name,
+                'source' => $_source,
+                'source_type' => $_source,
+                'destination_id' => $_destination->id,
+                'display_destination' => $_destination->slug,
+                'destination_name' => $_destination->slug,
+                'port' => $_new_display_port_only,
+                'display_port' => $_new_display_port,
+                'display_source_custom_ip' => $_source_ip,
+                'display_source_custom_vm' => $_new_display_custom_vm,
+                'display_source_custom_sg' => $_new_display_custom_sg,
+
+            ]
+        );
+        return back()->with('success', 'Success！');
+        return back()->with('success', 'Success！');
+
+    }
+
+
     public function get_sg_env_firewall(Request $request){
 
         $where = array('id' => $request->id);
@@ -485,7 +580,7 @@ class ProjectController extends Controller
         //dd(Auth::user()->company->costprofile);
         $costprofile=Auth::user()->company->costprofile;
         $projectfirewall=$project->firewall;
-        $vcvm=ProjectServer::all();
+        $vcvm=ProjectServer::where('is_delete','=','0')->where('is_vm_provision','=','1')->get();
         $projectsg=$project->sg->env;
         if ($request->ajax()) {
             $data =$project->server;

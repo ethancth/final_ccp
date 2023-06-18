@@ -127,8 +127,8 @@
                                                 @if($fws->source_type=='Custom')
                                                     <td>
                                                         [IP] {{$fws->display_source_custom_ip}} <br/>
-                                                        [VM]{{$fws->display_source_custom_vm}}<br/>
-                                                        [SG]{{$fws->display_source_custom_sg}}
+                                                        [VM] {{$fws->display_source_custom_vm}}<br/>
+                                                        [SG] {{$fws->display_source_custom_sg}}
                                                     </td>
                                                 @else
                                                     <td>
@@ -179,60 +179,72 @@
                             <div class="col-12">
                                 <div class="card">
 
-                                    @foreach($projectsecuritygroup as $psg)
-                                        @if($psg->env ==$server->tiername->name || $psg->env ==$server->envname->name|| $psg->env ==$server->envname->name.$server->tiername->name)
-                                            {{$psg->slug}}
-                                            <div class="table-responsive">
-                                                <table class="table table-hover">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Source</th>
-                                                        <th>Ports/Predefined Service</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($psg->firewall as $fws)
-                                                        <tr>
-                                                            <td>{{$fws->name}}</td>
-                                                            <td>
-                                                                {{$fws->source}}
-                                                            </td>
-                                                            <td> {{$fws->port}}</td>
+{{--                                    @foreach($projectsecuritygroup as $psg)--}}
+{{--                                        @if($psg->env ==$server->tiername->name || $psg->env ==$server->envname->name|| $psg->env ==$server->envname->name.$server->tiername->name)--}}
+{{--                                            {{$psg->slug}}--}}
+{{--                                            <div class="table-responsive">--}}
+{{--                                                <table class="table table-hover">--}}
+{{--                                                    <thead>--}}
+{{--                                                    <tr>--}}
+{{--                                                        <th>Name</th>--}}
+{{--                                                        <th>Source</th>--}}
+{{--                                                        <th>Ports/Predefined Service</th>--}}
+{{--                                                    </tr>--}}
+{{--                                                    </thead>--}}
+{{--                                                    <tbody>--}}
+{{--                                                    @foreach($psg->firewall as $fws)--}}
+{{--                                                        <tr>--}}
+{{--                                                            <td>{{$fws->name}}</td>--}}
+{{--                                                            <td>--}}
+{{--                                                                {{$fws->source}}--}}
+{{--                                                            </td>--}}
+{{--                                                            <td> {{$fws->port}}</td>--}}
 
-                                                        </tr>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                        @foreach($server->securitygroups()->get() as $psg)
-                                                {{$psg->slug}}
+{{--                                                        </tr>--}}
+{{--                                                    @endforeach--}}
+{{--                                                    </tbody>--}}
+{{--                                                </table>--}}
+{{--                                            </div>--}}
+{{--                                        @endif--}}
+{{--                                    @endforeach--}}
+
+
                                                 <div class="table-responsive">
                                                     <table class="table table-hover">
                                                         <thead>
                                                         <tr>
-                                                            <th>Name</th>
+                                                            <th>Destination</th>
                                                             <th>Source</th>
                                                             <th>Ports/Predefined Service</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach($psg->firewall as $fws)
-                                                            <tr>
-                                                                <td>{{$fws->name}}</td>
-                                                                <td>
-                                                                    {{$fws->source}}
-                                                                </td>
-                                                                <td> {{$fws->port}}</td>
+                                                        @foreach($server->securitygroups()->get() as $psg)
+                                                            @foreach($psg->firewall as $fws)
+                                                                <tr>
+                                                                    <td>{{$fws->destination_name}}</td>
+                                                                    <td>
+                                                                        {{$fws->source}}
+                                                                    </td>
+                                                                    <td> {{$fws->port}}</td>
 
-                                                            </tr>
+                                                                </tr>
+                                                            @endforeach
+                                                            @foreach($psg->projectfirewall as $fwss)
+                                                                <tr>
+                                                                    <td>{{$fwss->destination_name}}</td>
+                                                                    <td>
+                                                                        {{$fwss->source}}
+                                                                    </td>
+                                                                    <td> {{$fwss->display_port}}</td>
+
+                                                                </tr>
+                                                            @endforeach
                                                         @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                        @endforeach
+
 
                                 </div>
                             </div>

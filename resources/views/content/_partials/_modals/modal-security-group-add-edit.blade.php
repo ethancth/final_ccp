@@ -10,7 +10,7 @@
                 <form class="needs-validation" novalidate id="envform" name="envform" action="{{route("project.sg.store")}}" method="POST" accept-charset="UTF-8">
                     <input class="hidden"  name="_token" value="{{ csrf_token() }}">
                     <input class="hidden" name="form_id" id="form_id" value="">
-                    <input class="hidden" name="security_env_id" id="security_env_id" value="">
+                    <input class="hidden" name="security_env_id_" id="security_env_id_" value="">
                     <div class="mb-1">
                         <label class="form-label" for="rule-name">Rule Name</label>
 

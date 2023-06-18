@@ -146,7 +146,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('server',[ServerController::class,'index'])->name('server');
 
         //ServerFirewall
-        Route::get('/server/{server}/firewall', [ServerController::class, 'firewall'])->name('server.firewall');
+        Route::get('/server/{server}/firewall', [ServerController::class, 'firewall'])->name('server.firewall.old');
 
 
         //ServerFirewall
@@ -170,6 +170,11 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/SG/{project}/', [ProjectController::class, 'sg'])->name('project.sg');
         Route::post('/SG/store', [ProjectController::class, 'sg_store'])->name('project.sg.store');
         Route::post('/SG/edit', [ProjectController::class, 'get_sg_env_firewall'])->name('project.sg.env.firewall.store');
+
+
+        Route::post('/asset-project/security-group/store', [ProjectController::class, 'new_sg_store'])->name('project.new.sg.store');
+
+
 
 
 

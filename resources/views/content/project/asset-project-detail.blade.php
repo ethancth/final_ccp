@@ -112,7 +112,6 @@
             <th class="text-truncate">Created Date</th>
             <th>Cost</th>
             <th>Invoice Status</th>
-            <th class="cell-fit">Actions</th>
           </tr>
         </thead>
       </table>
@@ -629,7 +628,6 @@
                     { data: 'total_storage' },
                     { data: 'environment' },
                     { data: 'environment' },
-                    { data: '' }
                 ],
                 columnDefs: [
                     {
@@ -645,7 +643,7 @@
                         render: function (data, type, full, meta) {
                             var $invoiceId = full['id'];
                             // Creates full output for row
-                            var $rowOutput = '<a class="fw-bold" href="' + invoicePreview + '"> #' + $invoiceId + '</a>';
+                            var $rowOutput = ' #' + $invoiceId;
                             return $rowOutput;
                         }
                     },
@@ -791,46 +789,47 @@
                     {
                         targets: 7,
                         visible: false
-                    },
-                    {
-                        // Actions
-                        targets: -1,
-                        title: 'Actions',
-                        width: '80px',
-                        orderable: false,
-                        render: function (data, type, full, meta) {
-                            var $id = full['id'];
-                            return (
-                                '<div class="d-flex align-items-center col-actions">' +
-                                '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
-                                feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                '</a>' +
-                                '<a class="me-25 delete" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Delete">' +
-                                feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                '</a>' +
-                                '<div class="dropdown">' +
-                                '<a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
-                                feather.icons['more-vertical'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                '</a>' +
-                                '<div class="dropdown-menu dropdown-menu-end">' +
-                                '<a href="#" class="dropdown-item">' +
-                                feather.icons['download'].toSvg({ class: 'font-small-4 me-50' }) +
-                                'Download</a>' +
-                                '<a href="#" class="dropdown-item edit" data-id="'+$id+'">' +
-                                feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
-                                'Edit</a>' +
-                                '<a href="#" class="dropdown-item">' +
-                                feather.icons['trash'].toSvg({ class: 'font-small-4 me-50' }) +
-                                'Delete</a>' +
-                                '<a href="#" class="dropdown-item">' +
-                                feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) +
-                                'Duplicate</a>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>'
-                            );
-                        }
                     }
+                    // ,
+                    // {
+                    //     // Actions
+                    //     targets: -1,
+                    //     title: 'Actions',
+                    //     width: '80px',
+                    //     orderable: false,
+                    //     render: function (data, type, full, meta) {
+                    //         var $id = full['id'];
+                    //         return (
+                    //             '<div class="d-flex align-items-center col-actions">' +
+                    //             '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
+                    //             feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                    //             '</a>' +
+                    //             '<a class="me-25 delete" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Delete">' +
+                    //             feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
+                    //             '</a>' +
+                    //             '<div class="dropdown">' +
+                    //             '<a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
+                    //             feather.icons['more-vertical'].toSvg({ class: 'font-medium-2 text-body' }) +
+                    //             '</a>' +
+                    //             '<div class="dropdown-menu dropdown-menu-end">' +
+                    //             '<a href="#" class="dropdown-item">' +
+                    //             feather.icons['download'].toSvg({ class: 'font-small-4 me-50' }) +
+                    //             'Download</a>' +
+                    //             '<a href="#" class="dropdown-item edit" data-id="'+$id+'">' +
+                    //             feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
+                    //             'Edit</a>' +
+                    //             '<a href="#" class="dropdown-item">' +
+                    //             feather.icons['trash'].toSvg({ class: 'font-small-4 me-50' }) +
+                    //             'Delete</a>' +
+                    //             '<a href="#" class="dropdown-item">' +
+                    //             feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) +
+                    //             'Duplicate</a>' +
+                    //             '</div>' +
+                    //             '</div>' +
+                    //             '</div>'
+                    //         );
+                    //     }
+                    // }
                 ],
                 order: [[1, 'desc']],
                 dom:
