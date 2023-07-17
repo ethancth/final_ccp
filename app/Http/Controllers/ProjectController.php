@@ -7,6 +7,7 @@ use App\Models\Environment;
 use App\Models\FirewallService;
 use App\Models\OperatingSystem;
 use App\Models\ProjectFirewall;
+use App\Models\ProjectFirewallPort;
 use App\Models\ProjectSecurityGroup;
 use App\Models\ProjectSecurityGroupEnv;
 use App\Models\ProjectSecurityGroupEnvFirewall;
@@ -280,6 +281,16 @@ class ProjectController extends Controller
         return substr($_new_array, 0, -1);
     }
 
+    //get get_project_firewall
+    public function get_project_firewall(Request $request){
+        $_firewall= \App\Models\ProjectFirewall::find($request->id);
+        dd($_firewall->firewallports);
+        return $_firewall->firewallports;
+    }
+
+    //打印三角形
+
+
     public function create_project_firewall(Request $request){
 
 
@@ -288,6 +299,7 @@ class ProjectController extends Controller
 
         $_new_display_port=$this->get_display_port($request->portserviceform,'display');
         $_new_display_port_only=$this->get_display_port($request->portserviceform,'display1');
+
 
 
         if($request->newSource=='custom'){
@@ -340,7 +352,7 @@ class ProjectController extends Controller
         $_destination =ProjectSecurityGroupEnv::find($request->modalDestination);
 //$_destination[0]->slug;
 
-        ProjectFirewall::updateOrCreate(
+        $_id=ProjectFirewall::updateOrCreate(
             [
                 'id' => $request->form_id,
             ],
@@ -360,6 +372,33 @@ class ProjectController extends Controller
 
             ]
         );
+        ProjectFirewallPort::where('project_firewall_id', '=', $_id->id)->delete();
+        foreach($request->portserviceform as $value){
+
+
+            if($value['portrange']==null){
+                $is_all_port='1';
+
+            }else{
+                $is_all_port='0';
+            }
+
+
+            ProjectFirewallPort::create(
+                [
+                    'project_firewall_id' => $_id->id,
+                    'port' => $value['portrange'],
+                    'is_all_port' => $is_all_port,
+                    'port_ref_id' =>  $_id->id,
+                    'display_port_type' =>$value['type'],
+                    'protocol' => $value['protocol'],
+
+                ]);
+
+
+        }
+
+
         return back()->with('success', 'Success！');
     }
 

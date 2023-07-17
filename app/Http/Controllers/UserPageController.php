@@ -76,7 +76,7 @@ class UserPageController extends Controller
             [
                 'name' => $request->user_fullname,
                 'email' => $request->user_email,
-                'password' => Hash::make('password'),
+                'password' => Hash::make($request->user_email),
                 'introduction' => $request->user_role,
                 'company_id' => User::find(Auth::id())->company_id,
                 'is_teamlead' => $_temp,

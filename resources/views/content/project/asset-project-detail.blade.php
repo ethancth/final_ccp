@@ -125,20 +125,6 @@
                 <h2>Firewall Rules (Inbound)
                     <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">+ </button>
                    </h2>
-{{--                <div>--}}
-
-{{--                    @foreach($firewallservice as $fs)--}}
-{{--                        <div class="d-flex justify-content-between align-items-center">--}}
-{{--                            <div class="form-check form-check-inline">--}}
-{{--                                <input class="form-check-input btn-favor" data-id="{{$fs->id}}" type="checkbox" id="{{$fs->id}}" value="checked" checked />--}}
-
-{{--                                <label class="form-check-label" for="inlineCheckbox1">{{$fs->type}}</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    @endforeach--}}
-
-
-{{--                </div>--}}
             </div>
 
             <div class="card-body">
@@ -161,7 +147,7 @@
                                     @foreach($projectfirewall as $fws)
 
                                         <tr>
-                                            <td><a class="btn-edit-row " data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$fws->firewall_name}}</a></td>
+                                            <td><a class="btn-edit-firewall-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">{{$fws->firewall_name}}</a></td>
                                             <td>
                                                 @if($fws->source=='Custom')
                                                         [IP] {{$fws->display_source_custom_ip}} <br/>
@@ -179,7 +165,7 @@
                                                         <i data-feather="more-vertical"></i>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item btn-edit-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">
+                                                        <a class="dropdown-item btn-edit-firewall-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">
                                                             <i data-feather="edit-2" class="me-50"></i>
                                                             <span>Edit</span>
                                                         </a>
@@ -224,7 +210,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><a class="btn-edit-row security_group_member" data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="">{{$project->sg ->slug}}</a></td>
+                                            <td><a class="security_group_member" data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="">{{$project->sg ->slug}}</a></td>
                                             <td>{{$project->server->count()}}</td>
                                             <td></td>
 
@@ -232,7 +218,7 @@
                                         </tr>
                                     @foreach($project->sg->env as $psg)
                                         <tr>
-                                            <td><a class="btn-edit-row security_group_member" data-id="{{$psg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#SecurityGroupMember">{{$psg->id}} - {{$psg->slug}}</a></td>
+                                            <td><a class="security_group_member" data-id="{{$psg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#SecurityGroupMember">{{$psg->id}} - {{$psg->slug}}</a></td>
 
                                             <td>{{$psg->servers()->count()}}</td>
                                            <td>
@@ -289,7 +275,7 @@
                                 <option value="{{$vcvc->id}}">{{$vcvc->hostname}}</option>
                             @endforeach
                         </select>
-                        <div class="form-check form-switch">
+                        <div class="form-check form-switch hidden">
                             <input type="checkbox" class="form-check-input" value="1" name="customSwitchOverwrite" id="customSwitchOverwrite" />
                             <label class="form-check-label" for="customSwitch1">Overwrite</label>
                         </div>
@@ -454,17 +440,25 @@
 
     });
 
-    function showany(){
-        document.getElementById('div-ip').style.display ='none';
-        document.getElementById('div-sg').style.display ='none';
-        document.getElementById('div-vm').style.display ='none';
-    }
-    function show(){
-        document.getElementById('div-ip').style.display = 'block';
 
-        document.getElementById('div-sg').style.display ='block';
-        document.getElementById('div-vm').style.display ='block';
-    }
+    $('body').on('click', '.btn-edit-firewall-row', function () {
+        var id = $(this).data('id');
+        $.ajax({
+                type:"GET",
+                url: "{{ route('project.firewall.edit') }}",
+                data: { id: id },
+                dataType: 'json',
+                success: function(res){
+                    console.log(res)
+                    $('#firewalltitle').text('Edit Firewall');
+
+                }
+            }
+        );
+
+
+
+    });
 
 
     $(function () {
@@ -506,43 +500,43 @@
             switch(selectedValue) {
                 case "ssh":
                     document.getElementsByName($new_protocol)[0].value='tcp';
-                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_protocol)[0].setAttribute('readonly',true);
                     document.getElementsByName($new_port_range)[0].value='22'
                     document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
                     break;
                 case "https":
                     document.getElementsByName($new_protocol)[0].value='tcp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_protocol)[0].setAttribute('readonly',true);
                     document.getElementsByName($new_port_range)[0].value='443'
                     document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
                     break;
                 case "http":
                     document.getElementsByName($new_protocol)[0].value='tcp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
                     document.getElementsByName($new_port_range)[0].value='80'
                     document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
                     break;
                 case "mysql":
                     document.getElementsByName($new_protocol)[0].value='tcp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
                     document.getElementsByName($new_port_range)[0].value='3306'
                     document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
                     break;
                 case "alltcp":
                     document.getElementsByName($new_protocol)[0].value='tcp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
                     document.getElementsByName($new_port_range)[0].value=''
                     document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
                     break;
                 case "alludp":
                     document.getElementsByName($new_protocol)[0].value='udp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('disabled','true');
+                    document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
                     document.getElementsByName($new_port_range)[0].value=''
                     document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
                     break;
                 default:
                     document.getElementsByName($new_port_range)[0].removeAttribute('readonly');
-                    document.getElementsByName($new_protocol)[0].removeAttribute('disabled');
+                    document.getElementsByName($new_protocol)[0].removeAttribute('readonly');
 
 
 

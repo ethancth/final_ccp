@@ -6,6 +6,7 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\FirewallServiceControler;
 use App\Http\Controllers\ProjectSecurityGroupController;
 use App\Http\Controllers\ServerController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
@@ -182,8 +183,10 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/asset-project', [ProjectController::class, 'asset'])->name('asset.project');
 
         Route::post('/api/asset/project/firewall/new', [ProjectController::class, 'create_project_firewall'])->name('project.firewall.new');
+        Route::get('/api/asset/project/firewall/edit', [ProjectController::class, 'get_project_firewall'])->name('project.firewall.edit');
 
 
+        Route::get('/api/test',[TestController::class,'test'])->name('test');
 
 //
 //        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);
@@ -215,3 +218,11 @@ Route::get('lang/{locale}', [LanguageController::class, 'swap']);
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
