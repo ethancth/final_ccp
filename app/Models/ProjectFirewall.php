@@ -25,6 +25,9 @@ class ProjectFirewall extends Model
 'display_destination',
 'display_port',
 'editable',
+        'source_source_custom_ip' ,
+        'source_source_custom_vm' ,
+        'source_source_custom_sg',
     ];
 
     //this have many firewallport

@@ -284,15 +284,21 @@ class ProjectController extends Controller
     //get get_project_firewall
     public function get_project_firewall(Request $request){
         $_firewall= \App\Models\ProjectFirewall::find($request->id);
-        dd($_firewall->firewallports);
-        return $_firewall->firewallports;
+        return $_firewall;
     }
 
-    //打印三角形
+    //
+    public function get_firewall_ports(Request $request)
+    {
+        $_firewall= \App\Models\ProjectFirewall::find($request->id);
+        return $_firewall->firewallports;
+    }
 
 
     public function create_project_firewall(Request $request){
 
+
+       // dd($request);
 
      //   $_new_display_port=$this->get_display($request->modalPort,'FirewallService');
        // $_new_display_port_only=implode(',',array_unique($request->portserviceform));
@@ -302,7 +308,7 @@ class ProjectController extends Controller
 
 
 
-        if($request->newSource=='custom'){
+       // if($request->newSource=='custom'){
 
             $_source='Custom';
             $_firewall_name='[Custom]';
@@ -321,11 +327,15 @@ class ProjectController extends Controller
 
             if($request->modalCustomVm){
                 $_new_display_custom_vm=$this->get_display($request->modalCustomVm,'vm');
-                $_source_vm = $request->modalCustomVm;
+                $_source_vm = implode(',',$request->modalCustomVm);
+            }else{
+
             }
             if($request->modalCustomSecurityGroup){
                 $_new_display_custom_sg=$this->get_display($request->modalCustomSecurityGroup,'sg');
-                $_source_sg = $request->modalCustomSecurityGroup;
+                $_source_sg = implode(',',$request->modalCustomSecurityGroup);
+            }else{
+
             }
 
             if(!isset($request->modalCustomIP) && !isset($request->modalCustomVm)  && !isset($request->modalCustomSecurityGroup) ){
@@ -340,15 +350,15 @@ class ProjectController extends Controller
 
 
 
-        }else{
-            $_source='ANY';
-            $_firewall_name='[ANY]';
-            $_source_type='ANY';
-            $_source_ip='';
-            $_new_display_custom_vm='';
-            $_new_display_custom_sg='';
-
-        }
+//        }else{
+//            $_source='ANY';
+//            $_firewall_name='[ANY]';
+//            $_source_type='ANY';
+//            $_source_ip='';
+//            $_new_display_custom_vm='';
+//            $_new_display_custom_sg='';
+//
+//        }
         $_destination =ProjectSecurityGroupEnv::find($request->modalDestination);
 //$_destination[0]->slug;
 
@@ -369,6 +379,9 @@ class ProjectController extends Controller
                 'display_source_custom_ip' => $_source_ip,
                 'display_source_custom_vm' => $_new_display_custom_vm,
                 'display_source_custom_sg' => $_new_display_custom_sg,
+                'source_source_custom_ip' => $_source_ip,
+                'source_source_custom_vm' => $_source_vm,
+                'source_source_custom_sg' => $_source_sg,
 
             ]
         );
@@ -615,12 +628,13 @@ class ProjectController extends Controller
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
         // dd(Auth::user()->company->id);
         $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
-        $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
+        //$firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
         //dd(Auth::user()->company->costprofile);
         $costprofile=Auth::user()->company->costprofile;
         $projectfirewall=$project->firewall;
         $vcvm=ProjectServer::where('is_delete','=','0')->where('is_vm_provision','=','1')->get();
         $projectsg=$project->sg->env;
+        $firewallservice=Auth::user()->company->firewallform;
         if ($request->ajax()) {
             $data =$project->server;
             //dd($data);
@@ -636,7 +650,7 @@ class ProjectController extends Controller
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
         ];
-        return view('content/project/asset-project-detail', ['projectsgs'=>$projectsg,'vcvms'=>$vcvm,'pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectfirewall' => $projectfirewall,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
+        return view('content/project/asset-project-detail', ['firewallservices'=>$firewallservice,'projectsgs'=>$projectsg,'vcvms'=>$vcvm,'pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectfirewall' => $projectfirewall,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
 
     public function destroy(Request $request)

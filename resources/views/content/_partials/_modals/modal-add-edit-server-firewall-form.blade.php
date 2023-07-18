@@ -63,6 +63,9 @@
                                                 <option value="mysql">Mysql</option>
                                                 <option value="alltcp">All TCP</option>
                                                 <option value="alludp">All UDP</option>
+                                                @foreach($firewallservices as $fws)
+                                                    <option value={{$fws->type}}>{{$fws->type}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

@@ -81,5 +81,10 @@ class Company extends Model
         return $this->hasMany(FormPolicy::class,'company_id','id');
     }
 
+    public function firewallform()
+    {
+        return $this->hasMany(FirewallService::class,'company_id','id');
+    }
+
 
 }

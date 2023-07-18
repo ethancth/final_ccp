@@ -441,6 +441,28 @@
     });
 
 
+
+    // edit firwall ports record
+    $(document).on('click', '.fw-edit-record', function () {
+        var user_id = $(this).data('id'),
+            dtrModal = $('.dtr-bs-modal.show');
+
+        // hide responsive modal in small screen
+        if (dtrModal.length) {
+            dtrModal.modal('hide');
+        }
+
+        // changing the title of offcanvas
+        $('#offcanvasAddUserLabel').html('Edit User');
+
+        // get data
+        $.get(`${baseUrl}user-list\/${user_id}\/edit`, function (data) {
+            $('#user_id').val(data.id);
+            $('#add-user-fullname').val(data.name);
+            $('#add-user-email').val(data.email);
+        });
+    });
+
     $('body').on('click', '.btn-edit-firewall-row', function () {
         var id = $(this).data('id');
         $.ajax({
@@ -449,8 +471,41 @@
                 data: { id: id },
                 dataType: 'json',
                 success: function(res){
-                    console.log(res)
+                    console.log(res.source_source_custom_vm)
                     $('#firewalltitle').text('Edit Firewall');
+
+                    $("#modalDestination").val(res.destination_id);
+                    $("#modalDestination").trigger('change');
+
+                    $("#modalCustomSecurityGroup").val(res.source_source_custom_sg);
+                    $("#modalCustomSecurityGroup").trigger('change');
+
+                    var str_array = res.display_source_custom_ip.split(',');
+                    for(var i = 0; i < str_array.length; i++) {
+                        // Trim the excess whitespace.
+                        str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+
+                        $("#modalCustomIP").append('<option value="'+str_array[i]+'">'+str_array[i]+'</option>');
+                    }
+                    //
+                    // var str_array = res.source_source_custom_sg.split(',');
+                    // for(var i = 0; i < str_array.length; i++) {
+                    //     // Trim the excess whitespace.
+                    //     str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+                    //
+                    //     $("#modalCustomSecurityGroup").val(str_array[i]);
+                    //     $("#modalCustomSecurityGroup").trigger('change');
+                    // }
+
+
+                    $('#modalCustomIP').val(res.display_source_custom_ip.split(',')).trigger("change");
+                    $('#modalCustomVm').val(res.source_source_custom_vm.split(',')).trigger("change");
+                    $('#modalCustomSecurityGroup').val(res.source_source_custom_sg.split(',')).trigger("change");
+
+
+
+
+
 
                 }
             }
@@ -463,8 +518,6 @@
 
     $(function () {
         'use strict';
-
-
 
 
         // ---form repeater use start ----- //
@@ -488,6 +541,9 @@
             }
         });
 
+
+
+
         $(document).on('change', '.hide-search', function() {
             var selectedValue = $(this).val();
             var $field2 = $(this).closest('div[data-repeater-item]').find('.hide-search');
@@ -495,6 +551,7 @@
             var $_protocol = str.slice(0, -5);
             var $new_protocol=$_protocol+'protocol]';
             var $new_port_range=$_protocol+'portrange]';
+
 
 
             switch(selectedValue) {

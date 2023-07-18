@@ -312,8 +312,6 @@ p
 @resources/views/content/management/service_application.blade.php,f/2/f26a6f2667c6356b7a1f646744c159fd5608d936
 x
 Hdatabase/migrations/2023_04_18_120047_create_firewall_services_table.php,0/d/0dd62701a5814bc4fa2e81d1e1b024ee901bfbe4
-N
-app/Models/FirewallService.php,c/9/c996bb2949a283a9bd981736382d251a5591a1c3
 p
 @resources/views/content/server/server-firewallservices.blade.php,e/0/e0f1a0af2aefe62c30652772a28e48a068b1d5b7
 Q
@@ -392,8 +390,6 @@ O
 .database/factories/VcVirtualMachineFactory.php,4/f/4f140e1b0378a8cd4d9f741b6e13d7d21c4d1a7a
 ˆ
 Xresources/views/content/_partials/_modals/modal-firewallservices-add-edit-form.blade.php,3/9/39d30f8b02905d3a20365e78b058dd722c3f4185
-h
-8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
 x
 Hresources/views/content/_partials/_modals/modal-create-project.blade.php,9/7/976f731ec074576ccf22c20f7b958e15f2218b1e
 ƒ
@@ -424,8 +420,6 @@ Y
 +app/Models/ProjectSecurityGroupFirewall.php,d/0/d02bc022f1a1d5429fd5027ab98c67b703a0a608
 i
 9resources/views/content/project/project-sg-list.blade.php,0/a/0a8aad605019a9f63fbae92ccc28b3d222bc655e
-i
-9database/migrations/2023_06_05_125230_add_field_on_vm.php,8/7/872894c2ab529de525a448178b8757f5e50528b7
 
 Odatabase/migrations/2023_06_17_032805_create_project_server_firewalls_table.php,9/e/9e4e06997824c4f1caf5a3f8d934ca63a7e1c8c0
 r
