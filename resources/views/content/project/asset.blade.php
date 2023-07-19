@@ -27,8 +27,8 @@
                     <th></th>
                     <th>ID</th>
                     <th>Project Name</th>
-                    <th>Power Status</th>
-                    <th>Security Group</th>
+                    <th>Total</th>
+                    <th>Resources</th>
                     <th>Cost</th>
                 </tr>
                 </thead>
@@ -135,6 +135,7 @@
                                 var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>';
                                 return $rowOutput;
                             }
+
                         },
                         {
                             // Project Status
@@ -157,10 +158,11 @@
                                 var $status = full['status'];
 
                                 return (
-                                    '<span class="badge rounded-pill ' +
-                                    statusObj[$status].class +
+                                    '<span class="badge rounded-pill badge-light-success' +
+
                                     '" text-capitalized>' +
-                                    statusObj[$status].title +
+                                    full['total_server']+
+                                    ' Server '+
                                     '</span>'
 
                                 );
@@ -172,14 +174,13 @@
                             orderable: false,
                             render: function (data, type, full, meta) {
 
-                                var $project_id = full['id'];
-                                return (
-
-
-                                    '<a class="btn btn-sm btn-icon" href="'+"SG/"+ $project_id+'">' +
-                                    feather.icons['shield'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</i></a> '
-                                );
+                                var $v_cpu = full['total_cpu'];
+                                var $v_memory = full['total_memory'];
+                                var $total_storage = full['total_storage'];
+                                var $total = full['price'];
+                                return '<span class="d-none">' + $total + '</span>' + $v_cpu + ' vCPU '+' <p style=" margin-bottom: 0px; ">'+$v_memory + ' GB vMemory '+'</p><p style=" margin-bottom: 0px; ">' +
+                                    $total_storage + ' GB Storage'+
+                                    '</p>' ;
                             }
                         },
                         // {

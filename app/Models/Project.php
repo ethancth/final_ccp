@@ -9,7 +9,8 @@ class Project extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title', 'owner','created_at', 'updated_at', 'slug'
+        'title', 'owner','created_at', 'updated_at', 'slug','price','total_cpu','total_memory','total_server','total_server_on','total_storage'
+
     ];
 
     protected $casts = [
@@ -17,7 +18,7 @@ class Project extends Model
     ];
     public function server()
     {
-        return $this->hasMany(ProjectServer::class,'project_id','id');
+        return $this->hasMany(ProjectServer::class,'project_id','id')->where('is_delete','=','0');
     }
 
     public function journey()

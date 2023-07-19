@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
 @endsection
 @section('page-style')
     <!-- Page css files -->
@@ -125,6 +126,8 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.buttons.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.bootstrap5.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
+
+    <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
 @endsection
 @section('page-script')
     <script src="{{ asset(mix('js/scripts/pages/modal-create-app.js')) }}"></script>
@@ -245,10 +248,7 @@
                                     '<a class="btn btn-sm btn-icon" href="'+projectHome+ $project_id+'">' +
                                     feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
                                     '</i></a>' +
-                                    '<a class="btn btn-sm btn-icon" href="'+"SG/"+ $project_id+'">' +
-                                    feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</i></a>' +
-                                    '<button class="btn btn-sm btn-icon delete-record">' +
+                                    '<button class="btn btn-sm btn-icon project-delete-record" data-id ='+$project_id+'>' +
                                     feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
                                     '</button>'
                                 );
@@ -348,9 +348,65 @@
                 });
             }
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+
             // Delete Record
-            $('.datatables-project-index tbody').on('click', '.delete-record', function () {
-                dt_project_index.row($(this).parents('tr')).remove().draw();
+            $('.datatables-project-index tbody').on('click', '.project-delete-record', function () {
+               var id= $(this).data('id')
+                // sweetalert for confirmation of delete
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    customClass: {
+                        confirmButton: 'btn btn-primary me-3',
+                        cancelButton: 'btn btn-label-secondary'
+                    },
+                    buttonsStyling: false
+                }).then(function (result) {
+                    if (result.value) {
+                        // delete the data
+                        var APP_URL = {!! json_encode(url('/')) !!};
+                        console.log(`${APP_URL}/project/${id}`);
+                        $.ajax({
+
+                            type: 'DELETE',
+                            url: `${APP_URL}/project/${id}`,
+                            success: function () {
+                                dt_user.draw();
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+
+                        // success sweetalert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted!',
+                            text: 'The Project has been deleted!',
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            }
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire({
+                            title: 'Cancelled',
+                            text: 'The action been cancel!',
+                            icon: 'error',
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            }
+                        });
+                    }
+                });
             });
 
             // Filter form control to default size

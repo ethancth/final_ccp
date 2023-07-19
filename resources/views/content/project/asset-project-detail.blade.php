@@ -463,6 +463,17 @@
         });
     });
 
+    $('body').on('click', '.btn-add-server-firewall', function () {
+        $('#firewalltitle').text('New Firewall');
+        $('#modalCustomIP').select2('data', null)
+        $('#modalCustomVm').val('').trigger('change');
+        $('#modalCustomIP').val('').trigger('change');
+        $('#modalCustomSecurityGroup').val('').trigger('change');
+        $('#form_id').val('');
+        $('#modalDestination').select2({
+            placeholder: "Select the Destination Security Group"
+        });
+    });
     $('body').on('click', '.btn-edit-firewall-row', function () {
         var id = $(this).data('id');
         $.ajax({
@@ -471,8 +482,9 @@
                 data: { id: id },
                 dataType: 'json',
                 success: function(res){
-                    console.log(res.source_source_custom_vm)
+
                     $('#firewalltitle').text('Edit Firewall');
+                    $('#form_id').val(id);
 
                     $("#modalDestination").val(res.destination_id);
                     $("#modalDestination").trigger('change');
@@ -483,9 +495,12 @@
                     var str_array = res.display_source_custom_ip.split(',');
                     for(var i = 0; i < str_array.length; i++) {
                         // Trim the excess whitespace.
-                        str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+                        if( str_array[i]!=''){
+                            str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
 
-                        $("#modalCustomIP").append('<option value="'+str_array[i]+'">'+str_array[i]+'</option>');
+                            $("#modalCustomIP").append('<option value="'+str_array[i]+'">'+str_array[i]+'</option>');
+                        }
+
                     }
                     //
                     // var str_array = res.source_source_custom_sg.split(',');
@@ -503,6 +518,40 @@
                     $('#modalCustomSecurityGroup').val(res.source_source_custom_sg.split(',')).trigger("change");
 
 
+
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('project.get.firewall.port') }}",
+                        data: {id: id},
+                        dataType: 'json',
+                        success: function (res) {
+
+                            let num=0;
+                            $('[data-repeater-list]').empty();
+                            res.forEach((record) => {
+
+                               $('.port-form').find('[data-repeater-create]').click();
+                                //portserviceform[0][portrange]
+                                let $_type = 'portserviceform['+num+'][type]';
+                                let $_protocol = 'portserviceform['+num+'][protocol]';
+                                let $_port = 'portserviceform['+num+'][portrange]';
+
+                                 document.getElementsByName($_type)[0].value=record.display_port_type;
+                                 document.getElementsByName($_protocol)[0].value=record.protocol;
+                                document.getElementsByName($_port)[0].value=record.port;
+
+                                document.getElementsByName($_protocol)[0].setAttribute('readonly',true);
+                                document.getElementsByName($_port)[0].setAttribute('readonly', true);
+
+
+                                num++;
+
+                            });
+
+
+
+                        }
+                    })
 
 
 
@@ -523,23 +572,22 @@
         // ---form repeater use start ----- //
 
         $('.port-form').repeater({
-            initEmpty: false,
+            initEmpty: true,
             show: function () {
                 $(this).slideDown();
-                // $('.hide-search').on('change', function () {
-                //     console.log('You selected: ', this.value);
-                // });
-                // Feather Icons
+
                 if (feather) {
                     feather.replace({ width: 14, height: 14 });
                 }
             },
+
             hide: function (deleteElement) {
                 if (confirm('Are you sure you want to delete this element?')) {
                     $(this).slideUp(deleteElement);
                 }
             }
         });
+
 
 
 
@@ -553,9 +601,10 @@
             var $new_port_range=$_protocol+'portrange]';
 
 
-
+            console.log($_protocol);
             switch(selectedValue) {
                 case "ssh":
+
                     document.getElementsByName($new_protocol)[0].value='tcp';
                     document.getElementsByName($new_protocol)[0].setAttribute('readonly',true);
                     document.getElementsByName($new_port_range)[0].value='22'

@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth', 'verified']],
 
         Route::get('/project', [ProjectController::class, 'index'])->name('project');
         Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
+        Route::delete('/project/{id}', [ProjectController::class, 'projectdestroy'])->name('project.destroy');
      //   Route::post('/project', [ProjectController::class, 'storeprojectsg'])->name('project.securitygroup.store');
         Route::post('/submitproject', [ProjectController::class, 'submitproject'])->name('project.submit');
         Route::post('/approveproject', [ProjectController::class, 'approveproject'])->name('project.approve');
@@ -184,6 +185,7 @@ Route::group(['middleware' => ['auth', 'verified']],
 
         Route::post('/api/asset/project/firewall/new', [ProjectController::class, 'create_project_firewall'])->name('project.firewall.new');
         Route::get('/api/asset/project/firewall/edit', [ProjectController::class, 'get_project_firewall'])->name('project.firewall.edit');
+        Route::get('/api/asset/project/firewall/get', [ProjectController::class, 'get_firewall_ports'])->name('project.get.firewall.port');
 
 
         Route::get('/api/test',[TestController::class,'test'])->name('test');

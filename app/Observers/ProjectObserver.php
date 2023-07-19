@@ -112,5 +112,15 @@ class ProjectObserver
 
         }
 
+
+        //update price
+//
+//        $project->total_cpu=$project->server->sum('v_cpu');
+//        $project->total_memory=$project->server->sum('v_cpu');
+//        $project->total_server=$project->server->count('v_cpu');
+//        $project->save();
+
+
+
     }
 }

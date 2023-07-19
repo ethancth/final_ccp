@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Models\Company;
 use App\Models\Project;
+use App\Models\ProjectServer;
 use App\Models\ServerFirewallRules;
 use App\Models\User;
 use App\Observers\CompanyObserver;
 use App\Observers\ProjectObserver;
+use App\Observers\ProjectServerObserver;
 use App\Observers\ServerFirewallRulesObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -38,6 +40,7 @@ class EventServiceProvider extends ServiceProvider
         //
         User::observe(UserObserver::class);
         Project::observe(ProjectObserver::class);
+        ProjectServer::observe(ProjectServerObserver::class);
         Company::observe(CompanyObserver::class);
         ServerFirewallRules::observe(ServerFirewallRulesObserver::class);
     }
