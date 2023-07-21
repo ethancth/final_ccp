@@ -213,8 +213,9 @@
                                                     <table class="table table-hover">
                                                         <thead>
                                                         <tr>
-                                                            <th>Destination</th>
+                                                            <th>Type</th>
                                                             <th>Source</th>
+                                                            <th>Destination</th>
                                                             <th>Ports/Predefined Service</th>
                                                         </tr>
                                                         </thead>
@@ -222,20 +223,34 @@
                                                         @foreach($server->securitygroups()->get() as $psg)
                                                             @foreach($psg->firewall as $fws)
                                                                 <tr>
-                                                                    <td>{{$fws->destination_name}}</td>
-                                                                    <td>
+                                                                    <td>{{$fws->firewall_name}}</td>
+                                                                <td>
+                                                                    @if($fws->source=='Custom')
+                                                                        [IP] {{$fws->display_source_custom_ip}} <br/>
+                                                                        [VM]{{$fws->display_source_custom_vm}}<br/>
+                                                                        [SG]{{$fws->display_source_custom_sg}}
+                                                                    @else
                                                                         {{$fws->source}}
+                                                                    @endif
                                                                     </td>
+                                                                    <td>{{$fws->destination_name}}</td>
                                                                     <td> {{$fws->port}}</td>
 
                                                                 </tr>
                                                             @endforeach
                                                             @foreach($psg->projectfirewall as $fwss)
                                                                 <tr>
-                                                                    <td>{{$fwss->destination_name}}</td>
+                                                                    <td>{{$fwss->firewall_name}}</td>
                                                                     <td>
-                                                                        {{$fwss->source}}
+                                                                        @if($fwss->source=='Custom')
+                                                                            [IP] {{$fwss->display_source_custom_ip}} <br/>
+                                                                            [VM]{{$fwss->display_source_custom_vm}}<br/>
+                                                                            [SG]{{$fwss->display_source_custom_sg}}
+                                                                        @else
+                                                                            {{$fws->source}}
+                                                                        @endif
                                                                     </td>
+                                                                    <td>{{$fwss->destination_name}}</td>
                                                                     <td> {{$fwss->display_port}}</td>
 
                                                                 </tr>

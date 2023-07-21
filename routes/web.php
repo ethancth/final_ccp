@@ -127,7 +127,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('asset/project/{project}/{slug?}', [ProjectController::class, 'assetshow'])->name('project.asset.show');
 
         Route::post('read_content', [DemoController::class, 'demo'])->name('demo');
-        Route::post('read_available_service', [DemoController::class, 'getservice'])->name('getservice');
+        Route::get('read_available_service', [DemoController::class, 'getservice'])->name('getservice');
 
 
         Route::post('get_security_group_member', [ProjectSecurityGroupController::class, 'getservice'])->name('get.psg.member');

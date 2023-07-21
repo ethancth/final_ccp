@@ -16,8 +16,10 @@ class DemoController extends Controller
 
     public function getservice(Request $request)
     {
-        dd($request);
-        dd(FirewallService::where('type', '=', 100)->firstOrFail());
+        //dd($request->value);
+
+        return FirewallService::where('type','=',$request->value)->firstOrFail();
+
     }
 
 }

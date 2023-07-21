@@ -136,7 +136,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Type</th>
                                         <th>Source</th>
                                         <th>Destination</th>
                                         <th>Ports/Predefined Service</th>
@@ -601,72 +601,62 @@
             var $new_port_range=$_protocol+'portrange]';
 
 
-            console.log($_protocol);
-            switch(selectedValue) {
-                case "ssh":
 
-                    document.getElementsByName($new_protocol)[0].value='tcp';
-                    document.getElementsByName($new_protocol)[0].setAttribute('readonly',true);
-                    document.getElementsByName($new_port_range)[0].value='22'
-                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
-                    break;
-                case "https":
-                    document.getElementsByName($new_protocol)[0].value='tcp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('readonly',true);
-                    document.getElementsByName($new_port_range)[0].value='443'
-                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
-                    break;
-                case "http":
-                    document.getElementsByName($new_protocol)[0].value='tcp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
-                    document.getElementsByName($new_port_range)[0].value='80'
-                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
-                    break;
-                case "mysql":
-                    document.getElementsByName($new_protocol)[0].value='tcp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
-                    document.getElementsByName($new_port_range)[0].value='3306'
-                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
-                    break;
-                case "alltcp":
-                    document.getElementsByName($new_protocol)[0].value='tcp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
-                    document.getElementsByName($new_port_range)[0].value=''
-                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
-                    break;
-                case "alludp":
-                    document.getElementsByName($new_protocol)[0].value='udp'
-                    document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
-                    document.getElementsByName($new_port_range)[0].value=''
-                    document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
-                    break;
-                default:
-                    document.getElementsByName($new_port_range)[0].removeAttribute('readonly');
-                    document.getElementsByName($new_protocol)[0].removeAttribute('readonly');
+
+            const field = [ 'custom', 'alltcp', 'alludp'];
+
+            if(field.includes(selectedValue)){
+                switch(selectedValue) {
+                    case "alltcp":
+                        document.getElementsByName($new_protocol)[0].value='tcp'
+                        document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
+                        document.getElementsByName($new_protocol)[0].setAttribute("style", "pointer-events: none;");
+
+                        document.getElementsByName($new_port_range)[0].value=''
+                        document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
+                        break;
+                    case "alludp":
+                        document.getElementsByName($new_protocol)[0].setAttribute("style", "pointer-events: none;");
+                        document.getElementsByName($new_protocol)[0].value='udp'
+                        document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
+                        document.getElementsByName($new_port_range)[0].value=''
+                        document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
+                        break;
+                    default:
+                        document.getElementsByName($new_port_range)[0].removeAttribute('readonly');
+                        document.getElementsByName($new_protocol)[0].removeAttribute('readonly');
+                        document.getElementsByName($new_protocol)[0].removeAttribute("style", "pointer-events: none;");
 
 
 
+                }
+            }else{
+                 $.ajax({
+                     type: 'GET',
+                     url: "{{route('getservice')}}",
+                     data: {'value': selectedValue},
+
+                     success: function (response) {
+                         console.log(response);
+                         let port ='';
+                         document.getElementsByName($new_protocol)[0].value=response.protocol.toLowerCase();
+                         document.getElementsByName($new_protocol)[0].setAttribute('readonly', true);
+                         document.getElementsByName($new_protocol)[0].setAttribute("style", "pointer-events: none;");
+                         if(response.port=='All ports')
+                         {port ='';
+
+                         }else{
+                             port =response.port;
+                         }
+                         document.getElementsByName($new_port_range)[0].value=port;
+                         document.getElementsByName($new_port_range)[0].setAttribute('readonly', true);
+                     }
+                 });
             }
 
 
 
-            // $.ajax({
-            //     type: 'GET',
-            //     url: "{{route('getservice')}}",
-            //     data: {'value': selectedValue},
-            //
-            //     success: function (response) {
-            //         console.log(response);
-            //         var options = JSON.parse(response);
-            //         var select = $field2;
-            //         select.empty();
-            //         select.append('<option value="">Select an option</option>');
-            //         for (var i = 0; i < options.length; i++) {
-            //             select.append('<option value="' + options[i].value + '">' + options[i].text + '</option>');
-            //         }
-            //         select.prop('disabled', false);
-            //     }
-            // });
+
         });
 
         //form repeater use end
