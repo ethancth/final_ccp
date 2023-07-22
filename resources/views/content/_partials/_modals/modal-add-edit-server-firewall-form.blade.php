@@ -15,7 +15,7 @@
 
                     <div class="col-12 col-md-4" id ="div-ip" >
                         <label class="form-label" for="modalCustomIP">Souce - IP</label>
-                        <select id="modalCustomIP" name="modalCustomIP[]" multiple="multiple" class="select2 form-select  js-select2-port">
+                        <select id="modalCustomIP" name="modalCustomIP[]" multiple="multiple" class="select2 form-select  js-select2-port ip-validation">
                             <option value="-" disabled="disabled">Use comma or enter to separate each IP</option>
                         </select>
                     </div>

@@ -302,6 +302,86 @@
         });
 
 
+
+        function chek_valid_ip(ip) {
+            if (ip.match('^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$') && ip.split('.').length == 4)
+                return true;
+            else
+                return false;
+        }
+
+        function Chek(Element) {
+            var status;
+            var item = Element
+            status = true;
+            if (item.indexOf('-') != -1) {
+                if (!chek_valid_diapazon(item)) {
+                    status = false;
+                    return status;
+                }
+            }
+            else if (item.indexOf('/') != -1) {
+                if (!chek_valid_mask(item)) {
+                    status = false;
+                    return status;
+                }
+            }
+            else
+            if (!chek_valid_ip(item)) {
+                status = false;
+                return status;
+            }
+
+
+        }
+
+        function chek_valid_diapazon(diapazon) {
+            var addreses = diapazon.split('-');
+            if (addreses.length != 2) {
+                return false;
+            }
+            if (!chek_valid_ip(addreses[0]) || !chek_valid_ip(addreses[1])) {
+                return false;
+            }
+            var begin = addreses[0].split('.');
+            var end = addreses[1].split('.');
+            X = begin[0] * Math.pow(256, 3) + begin[1] * Math.pow(256, 2) + begin[2] * Math.pow(256, 1) + begin[3] * Math.pow(256, 0);
+            Y = end[0] * Math.pow(256, 3) + end[1] * Math.pow(256, 2) + end[2] * Math.pow(256, 1) + end[3] * Math.pow(256, 0);
+            if (X < Y)
+                return true;
+            else
+                return false;
+        }
+        function chek_valid_mask(mask) {
+
+            var addreses = mask.split('/');
+            if (addreses.length != 2) return false;
+            if (!chek_valid_ip(addreses[0])) return false;
+            if (!addreses[1].match('^[2-9]$|^[1-2][0-9]$|^3[0-2]$')) return false;
+            return true;
+        }
+
+        $('#modalCustomIP').on('select2:select', function (e) {
+            // Do something
+
+            let arry =$(this).val();
+            arry.pop();
+            var data = e.params.data;
+            var result=Chek(data.text);
+            if (result === undefined) {
+
+            }else{
+
+                $('#modalCustomIP').val(arry);
+                $('#modalCustomIP').trigger('change');
+
+            }
+
+
+        });
+
+
+
         var bootstrapForm = $('.needs-validation');
 
         if (bootstrapForm.length) {

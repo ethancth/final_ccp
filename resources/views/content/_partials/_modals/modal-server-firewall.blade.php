@@ -95,12 +95,11 @@
                                             <label class="form-label" for="itemname">Type</label>
                                             <select required class="hide-search form-select select2-custom-port" name="type" id="select2-custom-port" >
                                                 <option selected value="custom">Custom</option>
-                                                <option value="ssh">SSH</option>
-                                                <option value="http">Http</option>
-                                                <option value="https">Https</option>
-                                                <option value="mysql">Mysql</option>
                                                 <option value="alltcp">All TCP</option>
                                                 <option value="alludp">All UDP</option>
+                                                @foreach($firewallservices as $fws)
+                                                    <option value={{$fws->type}}>{{$fws->type}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

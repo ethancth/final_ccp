@@ -7,8 +7,6 @@ d
 4resources/views/content/pages/page-profile.blade.php,f/6/f63f1f182d84b19d4633353de4c09f6b3c6a60e1
 >
 routes/api.php,b/3/b337d07ab0e7d54bf5547a0321a43ecafbd73ec1
-M
-resources/js/core/app-menu.js,0/0/001b9a8ef448319de198bb0fd11bef1f172fb7b5
 H
 public/mix-manifest.json,6/5/65c1246a6dfbed3b716c7faa70ffe886b9a1b787
 @
@@ -224,8 +222,6 @@ a
 1resources/views/content/management/tier.blade.php,5/1/51b8453d08875332bf72835a515e3fb5674d8f08
 h
 8resources/views/content/management/policy_home.blade.php,1/0/10de974978d070bdffa003ff3aa4d402d7f33e12
-I
-resources/js/bootstrap.js,2/a/2a602b14e912f494b7df1e17ce8d98958460f936
 <
 .styleci.yml,b/e/bef5ea44a7455cbdeddf8c96649dfae70da325af
 f
@@ -390,8 +386,6 @@ S
 composer.lock,c/3/c3262e2a0879195bd6a727e90f768bc85ad79ffd
 g
 7app/Http/Controllers/ProjectSecurityGroupController.php,9/5/95b3cd3fe865c733a47bf08a75e54d8b72a1e9fd
-a
-1resources/js/scripts/pages/modal-share-project.js,0/5/054a8a799a108232a72e5d284a41edfd438059a3
 x
 Hdatabase/migrations/2023_05_23_151203_add_field_on__project_firewall.php,f/a/fa0d50623ae4c44e9fbd705e9c8e05dea1cbdfb8
 ^
@@ -418,8 +412,6 @@ x
 Hdatabase/migrations/2023_05_16_033559_create_project_firewalls_table.php,3/1/31959c620e3acd34fab3a39096504c53fb446f4a
 ‡
 Wdatabase/migrations/2023_06_18_140738_create_project_security_group_firewalls_table.php,a/f/af021c19da540c61d4c86491999cdf879ae904e1
-c
-3resources/js/scripts/pages/modal-server-firewall.js,3/4/3405c42100646436e6f491b1f3a226f43ab09727
 }
 Mdatabase/migrations/2023_06_21_042557_create_project_firewall_ports_table.php,5/b/5bab9dd88d93ea3612ef0e7936f6e74b269a3bf2
 †
@@ -458,8 +450,6 @@ Mresources/views/content/_partials/_modals/modal-project-submit-form.blade.php,
 Nresources/views/content/_partials/_modals/modal-add-edit-policy-form.blade.php,9/3/93e6e393998711b9fa693af2595b0ebf710b9d02
 
 Qresources/views/content/_partials/_modals/modal-security-group-add-edit.blade.php,6/0/60821f9c07a6093d2967312125d5dc49ffac0cc5
-H
-resources/js/core/app.js,3/7/37799a890ccf2ba1ed696ae06a9f4725dffd92ac
 W
 'resources/views/panels/navbar.blade.php,b/6/b69f062d1d9a9b6cdcd8844af2776ec97ed6d2cb
 G
@@ -512,8 +502,6 @@ q
 Aresources/views/content/authentication/auth-login-cover.blade.php,2/5/25008f7f63b316ed86d391f9c661e1bb706506a5
 d
 4app/Http/Controllers/Auth/VerificationController.php,4/7/47908c6d61ac78a61e2bcb273e3187e50a1937cc
->
-webpack.mix.js,7/3/73a5f9e927f70e0292701d67f61dbff4fb17febc
 N
 app/Models/FirewallService.php,c/9/c996bb2949a283a9bd981736382d251a5591a1c3
 F
@@ -538,8 +526,6 @@ Q
 !app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
 V
 &app/Providers/EventServiceProvider.php,6/d/6d80af2c8eccc15fa62a616067d4270df372f87d
-y
-Iresources/views/content/_partials/_modals/modal-server-firewall.blade.php,3/c/3c55c30220d8b6311138d8d4693fe617e6ebe988
 F
 app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
 W

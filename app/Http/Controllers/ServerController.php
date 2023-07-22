@@ -84,7 +84,7 @@ class ServerController extends Controller
 
 
         $_all_available_vm=ProjectServer::where('is_delete','=','0')->where('is_vm_provision','=','1')->get();
-
+        $firewallservice=Auth::user()->company->firewallform;
         //get project security rule
 
         $_project_sercurity_group_env=$server->project->sg->env;
@@ -104,7 +104,7 @@ class ServerController extends Controller
         $breadcrumbs = [
            [ 'name' =>  'Server','link' => "/server"],[ 'name' =>  $server->hostname], ['name' => 'Server Information']
         ];
-        return view('content/server/information', ['vcvms'=>$_all_available_vm,'projectsgs'=>$_project_sercurity_group_env,'pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectsecuritygroup'=>$_project_sercurity_group_env,'serverfirewallservice'=>$_serverfirewall,'firewallservice'=>$firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('server','costprofile'));
+        return view('content/server/information', ['firewallservices' =>$firewallservice,'vcvms'=>$_all_available_vm,'projectsgs'=>$_project_sercurity_group_env,'pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectsecuritygroup'=>$_project_sercurity_group_env,'serverfirewallservice'=>$_serverfirewall,'firewallservice'=>$firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('server','costprofile'));
     }
 
     public function firewall_request(Request $request, ProjectServer $server)
