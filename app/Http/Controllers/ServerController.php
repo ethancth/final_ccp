@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\FirewallService;
 use App\Models\Project;
+use App\Models\ProjectFirewallPort;
 use App\Models\ProjectSecurityGroupEnv;
 use App\Models\ProjectServer;
 use App\Models\ProjectServerFirewall;
+use App\Models\ProjectServerFirewallPort;
 use App\Models\ServerFirewallRules;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -170,7 +172,6 @@ class ServerController extends Controller
         $_new_display_port_only=$this->get_display_port($request->portserviceform,'display1');
 
 
-        if($request->newSource=='custom'){
 
             $_source='Custom';
             $_firewall_name='[Custom]';
@@ -208,19 +209,10 @@ class ServerController extends Controller
 
 
 
-        }else{
-            $_source='ANY';
-            $_firewall_name='[ANY]';
-            $_source_type='ANY';
-            $_source_ip='';
-            $_new_display_custom_vm='';
-            $_new_display_custom_sg='';
-
-        }
         $_destination =$request->server_id;
 //$_destination[0]->slug;
 
-        ProjectServerFirewall::updateOrCreate(
+        $_id=ProjectServerFirewall::updateOrCreate(
             [
                 'id' => $request->form_id,
             ],
@@ -240,6 +232,32 @@ class ServerController extends Controller
 
             ]
         );
+
+        ProjectServerFirewallPort::where('project_server_firewall_id', '=', $_id->id)->delete();
+        foreach($request->portserviceform as $value){
+
+
+            if($value['portrange']==null){
+                $is_all_port='1';
+
+            }else{
+                $is_all_port='0';
+            }
+
+
+            ProjectServerFirewallPort::create(
+                [
+                    'project_server_firewall_id' => $_id->id,
+                    'port' => $value['portrange'],
+                    'is_all_port' => $is_all_port,
+                    'port_ref_id' =>  $_id->id,
+                    'display_port_type' =>$value['type'],
+                    'protocol' => $value['protocol'],
+
+                ]);
+
+
+        }
         return back()->with('success', 'Success！');
     }
 

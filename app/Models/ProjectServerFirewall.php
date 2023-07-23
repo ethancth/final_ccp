@@ -28,5 +28,8 @@ class ProjectServerFirewall extends Model
         'editable',
     ];
 
+    public function firewallports(){
+        return $this->hasMany(ProjectServerFirewallPort::class,'project_server_firewall_id','id');
+    }
 
 }

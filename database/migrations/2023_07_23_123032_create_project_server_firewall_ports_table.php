@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('project_firewall_ports', function (Blueprint $table) {
+        Schema::create('project_server_firewall_ports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('project_firewall_id')->unsigned();
+            $table->unsignedBigInteger('project_server_firewall_id')->unsigned();
             $table->string('port')->nullable();
             $table->string('is_all_port')->default(0);
             $table->string('port_ref_id');
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_firewall_ports');
+        Schema::dropIfExists('project_server_firewall_ports');
     }
 };

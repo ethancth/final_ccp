@@ -11,68 +11,28 @@
 
                 <form id="addNewAnyForm" class="needs-validation row gy-1 gx-2 " action="{{route("server.firewall", $server->id)}}" method="POST" accept-charset="UTF-8">
                     <input class="hidden"  name="_token" value="{{ csrf_token() }}">
-                    <input class="hidden" id="form_id" name="form_id" value="">z
+                    <input class="hidden" id="form_id" name="form_id" value="">
 
-                    <div class="col-12">
-                        <label class="form-label" for="modalCustomIP">Source</label>
-                        <div class="row custom-options-checkable">
-                            <div class="col-md-6 mb-md-0 mb-2">
-                                <input
-                                    class="custom-option-item-check"
-                                    id="SourceAnyRadio"
-                                    type="radio"
-                                    name="newSource"
-                                    value="Any"
-                                    checked
-                                    onclick="showany();"
-                                />
-                                <label for="SourceAnyRadio" class="custom-option-item px-2 py-1">
-                  <span class="d-flex align-items-center mb-50">
-                    <i data-feather="globe" class="font-medium-4 me-50"></i>
-                    <span class="custom-option-item-title h4 fw-bolder mb-0">Any</span>
-                  </span>
-                                    <span class="d-block">Source from any</span>
-                                </label>
-                            </div>
-                            <div class="col-md-6 mb-md-0 mb-2">
-                                <input
-                                    class="custom-option-item-check"
-                                    id="SourceCustomRadio"
-                                    type="radio"
-                                    name="newSource"
-                                    value="custom"
-                                    onclick="show();"
-                                />
-                                <label for="SourceCustomRadio" class="custom-option-item px-2 py-1">
-                  <span class="d-flex align-items-center mb-50">
-                    <i data-feather="list" class="font-medium-4 me-50"></i>
-                    <span class="custom-option-item-title h4 fw-bolder mb-0">Custom</span>
-                  </span>
-                                    <span class="d-block">Source from the list</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4" id ="div-ip" style="display:none">
+                    <div class="col-12 col-md-4" id ="div-ip" >
                         <label class="form-label" for="modalCustomIP">Souce - IP</label>
                         <select id="modalCustomIP" name="modalCustomIP[]" multiple="multiple" class="select2 form-select  js-select2-port">
-                            <option value="">Enter IP</option>
+                            <option value="-1">Enter IP</option>
                         </select>
                     </div>
-                    <div class="col-12 col-md-4" id ="div-vm" style="display:none">
+                    <div class="col-12 col-md-4" id ="div-vm" >
                         <label class="form-label" for="modalCustomVm">Source - Virtual Machine</label>
                         <select id="modalCustomVm" name="modalCustomVm[]" multiple="multiple" class="select2 form-select ">
-                            <option value="">Select a Virtual Machine</option>
+                            <option value="-1">Select a Virtual Machine</option>
                             @foreach($vcvms as $vcvc)
                                 <option value="{{$vcvc->id}}">{{$vcvc->hostname}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-12 col-md-4" id ="div-sg" style="display:none">
+                    <div class="col-12 col-md-4" id ="div-sg">
                         <label class="form-label" for="modalCustomSecurityGroup">Source - Security Group</label>
 
                         <select id="modalCustomSecurityGroup" name="modalCustomSecurityGroup[]" multiple="multiple" class="select2 form-select ">
-                            <option value="">Select a Security Group</option>
+                            <option value="-1">Select a Security Group</option>
                             @foreach($projectsgs as $value)
                                 <option value="{{$value->id}}">{{$value->slug}}</option>
                             @endforeach

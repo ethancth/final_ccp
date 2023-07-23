@@ -356,8 +356,6 @@ j
 :resources/vendors/js/forms/repeater/jquery.repeater.min.js,d/b/db25b6515f8488dbf8152883a4941213e1fdc80f
 c
 3resources/js/scripts/pages/app-user-view-account.js,9/8/98651714e744d99618aa262474536747f6b0bedc
-[
-+resources/js/scripts/forms/form-repeater.js,d/0/d04e2ef510eba666b2a18e1b50ea623266c364f9
 `
 0resources/views/content/management/env.blade.php,5/f/5fb1518bb9b595cb6cbc7ef2f3ed8ff53b47acf6
 [
@@ -404,16 +402,12 @@ R
 "app/Models/ServerFirewallRules.php,5/a/5a9672d4ce090ec208ee395478977b0a21a7cee0
 R
 "app/Models/SecurityGroupMember.php,7/c/7c683a5fc96702a12f56ce4566889eab4b5f38c7
-T
-$app/Models/ProjectServerFirewall.php,a/b/ab007e8a30d15e4bcb3289f83b5819f98aec067b
 ‚
 Rdatabase/migrations/2023_04_20_080909_create_project_security_group_envs_table.php,e/a/ead310786cad34997380baa31d026d1f69669bbf
 x
 Hdatabase/migrations/2023_05_16_033559_create_project_firewalls_table.php,3/1/31959c620e3acd34fab3a39096504c53fb446f4a
 ‡
 Wdatabase/migrations/2023_06_18_140738_create_project_security_group_firewalls_table.php,a/f/af021c19da540c61d4c86491999cdf879ae904e1
-}
-Mdatabase/migrations/2023_06_21_042557_create_project_firewall_ports_table.php,5/b/5bab9dd88d93ea3612ef0e7936f6e74b269a3bf2
 †
 Vresources/views/content/_partials/_modals/modal-assest-security-group-member.blade.php,e/0/e03b8076a264b6943d1cabcf948ae90103afb2ff
 l
@@ -430,8 +424,6 @@ R
 "database/factories/UserFactory.php,3/4/3401747fc769758d97931473eab6222bc2abf009
 
 Oresources/views/content/_partials/_modals/modal-security-group-member.blade.php,0/5/054d4760c2f809f4265848433a07eccf0d040888
-R
-"app/Models/ProjectFirewallPort.php,d/e/debe11e430e8f6ac65ad1e2ccb83d3b6fe90502c
 J
 app/Jobs/TranslateSlug.php,6/3/63e8452f73da1bbe2c378ef292c72e1c5e2edf81
 |
@@ -508,8 +500,6 @@ F
 app/Models/Company.php,3/e/3e88a62b724d7c8184e5b4a25a250f7fe64b823b
 i
 9database/migrations/2023_06_05_125230_add_field_on_vm.php,8/7/872894c2ab529de525a448178b8757f5e50528b7
-N
-app/Models/ProjectFirewall.php,c/8/c8cd97ec8bf20b12f14850e4a29ee3e9c8167b05
 w
 Gdatabase/migrations/2023_07_18_043310_add_field_on_project_firewall.php,2/8/28dd73daa22b8b1024d125cf0ebdc3e5b46d36c7
 t
@@ -520,8 +510,6 @@ N
 app/Observers/UserObserver.php,5/8/58b0ca3953943da94a198e58ca46b0403cbd13f3
 ]
 -app/Observers/ServerFirewallRulesObserver.php,0/a/0a7b9078602a3b749d5ae200ea823858848fb2b8
-L
-app/Models/ProjectServer.php,b/f/bf24152f8c8ae47e4f91c245099b44b022a27d0f
 Q
 !app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
 V
