@@ -362,14 +362,10 @@ c
 +resources/js/scripts/pages/app-user-list.js,f/8/f837a1d4ec94e990d8d636099469393acad427f4
 m
 =resources/views/content/server/server-firewall-list.blade.php,e/a/ea0db1783382ae1cca8167b3e2bcb397a9e4090a
-x
-Hresources/views/content/_partials/_modals/modal-asset-firewall.blade.php,3/3/33936a92d06cb9dac7c89c6a42c25d67a1f406f1
 O
 app/Models/VcVirtualMachine.php,2/0/208b22bf2dda1a777b26913974bfe7b538dfa5d4
 ^
 .database/factories/VcVirtualMachineFactory.php,4/f/4f140e1b0378a8cd4d9f741b6e13d7d21c4d1a7a
-ˆ
-Xresources/views/content/_partials/_modals/modal-firewallservices-add-edit-form.blade.php,3/9/39d30f8b02905d3a20365e78b058dd722c3f4185
 x
 Hresources/views/content/_partials/_modals/modal-create-project.blade.php,9/7/976f731ec074576ccf22c20f7b958e15f2218b1e
 ƒ
@@ -500,8 +496,6 @@ F
 app/Models/Company.php,3/e/3e88a62b724d7c8184e5b4a25a250f7fe64b823b
 i
 9database/migrations/2023_06_05_125230_add_field_on_vm.php,8/7/872894c2ab529de525a448178b8757f5e50528b7
-w
-Gdatabase/migrations/2023_07_18_043310_add_field_on_project_firewall.php,2/8/28dd73daa22b8b1024d125cf0ebdc3e5b46d36c7
 t
 Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6
 Q

@@ -23,6 +23,11 @@ class ProjectServerFirewall extends Model
         'display_source_custom_vm',
         'display_source_custom_sg',
         'display_source_custom_ip',
+
+        'source_source_custom_ip',
+        'source_source_custom_sg',
+        'source_source_custom_ip',
+
         'display_destination',
         'display_port',
         'editable',

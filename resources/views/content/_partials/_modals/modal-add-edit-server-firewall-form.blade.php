@@ -56,7 +56,8 @@
                                         <div class="mb-1">
                                             <label class="form-label" for="itemname">Type</label>
                                             <select required class="hide-search form-select select2-custom-port" name="type" id="select2-custom-port" >
-                                                <option selected value="custom">Custom</option>
+                                                <option disabled selected value> Select an option </option>
+                                                <option value="custom">Custom</option>
                                                 <option value="alltcp">All TCP</option>
                                                 <option value="alludp">All UDP</option>
                                                 @foreach($firewallservices as $fws)

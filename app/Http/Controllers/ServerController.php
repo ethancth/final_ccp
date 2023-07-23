@@ -144,10 +144,17 @@ class ServerController extends Controller
     public function firewall_request_edit(Request $request){
 
         $where = array('id' => $request->id);
-        $data  = ServerFirewallRules::where($where)->first();
+        $data  = ProjectServerFirewall::where($where)->first();
 
         return response()->json($data);
     }
+
+    public function firewall_request_get(Request $request)
+    {
+        $_firewall= \App\Models\ProjectServerFirewall::find($request->id);
+        return $_firewall->firewallports;
+    }
+
 
 
 

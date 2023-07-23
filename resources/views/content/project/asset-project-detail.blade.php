@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')}}">
 <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/extensions/dataTables.checkboxes.css')}}">
 <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/responsive.bootstrap5.min.css')}}">
-<link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/nouislider.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/editors/quill/katex.min.css')) }}">
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/editors/quill/monokai-sublime.min.css')) }}">
@@ -321,7 +320,6 @@
 
 
 
-<script src="{{ asset(mix('vendors/js/forms/wizard/bs-stepper.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/forms/cleave/cleave.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/forms/cleave/addons/cleave-phone.us.js')) }}"></script>
@@ -465,6 +463,7 @@
 
     $('body').on('click', '.btn-add-server-firewall', function () {
         $('#firewalltitle').text('New Firewall');
+        $('#modalCustomIP').empty();
         $('#modalCustomIP').select2('data', null)
         $('#modalCustomVm').val('').trigger('change');
         $('#modalCustomIP').val('').trigger('change');
@@ -476,6 +475,7 @@
     });
     $('body').on('click', '.btn-edit-firewall-row', function () {
         var id = $(this).data('id');
+
         $.ajax({
                 type:"GET",
                 url: "{{ route('project.firewall.edit') }}",
@@ -488,6 +488,8 @@
 
                     $("#modalDestination").val(res.destination_id);
                     $("#modalDestination").trigger('change');
+
+                    $('#modalCustomIP').empty();
 
                     $("#modalCustomSecurityGroup").val(res.source_source_custom_sg);
                     $("#modalCustomSecurityGroup").trigger('change');
@@ -650,7 +652,7 @@
         // ---form repeater use start ----- //
 
         $('.port-form').repeater({
-            initEmpty: true,
+            initEmpty: false,
             show: function () {
                 $(this).slideDown();
 
@@ -765,6 +767,12 @@
             tags: true,
             tokenSeparators: [',', ' ']
         })
+
+        $(".select2-sg").select2({
+            containerCssClass: function(e) {
+                return $(e).attr('required') ? 'required' : '';
+            }
+        });
 
 
 

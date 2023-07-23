@@ -16,7 +16,7 @@
                     <div class="col-12 col-md-4" id ="div-ip" >
                         <label class="form-label" for="modalCustomIP">Souce - IP</label>
                         <select id="modalCustomIP" name="modalCustomIP[]" multiple="multiple" class="select2 form-select  js-select2-port">
-                            <option value="-1">Enter IP</option>
+                            <option value="-1">Use comma or enter to separate each IP</option>
                         </select>
                     </div>
                     <div class="col-12 col-md-4" id ="div-vm" >
@@ -31,8 +31,8 @@
                     <div class="col-12 col-md-4" id ="div-sg">
                         <label class="form-label" for="modalCustomSecurityGroup">Source - Security Group</label>
 
-                        <select id="modalCustomSecurityGroup" name="modalCustomSecurityGroup[]" multiple="multiple" class="select2 form-select ">
-                            <option value="-1">Select a Security Group</option>
+                        <select id="modalCustomSecurityGroup" name="modalCustomSecurityGroup[]" multiple="multiple" class="select2 form-select select2-sg">
+                            <option disabled selected value> Select a Security Group </option>
                             @foreach($projectsgs as $value)
                                 <option value="{{$value->id}}">{{$value->slug}}</option>
                             @endforeach
@@ -54,7 +54,8 @@
                                         <div class="mb-1">
                                             <label class="form-label" for="itemname">Type</label>
                                             <select required class="hide-search form-select select2-custom-port" name="type" id="select2-custom-port" >
-                                                <option selected value="custom">Custom</option>
+                                                <option disabled selected value> Select an option </option>
+                                                <option value="custom">Custom</option>
                                                 <option value="alltcp">All TCP</option>
                                                 <option value="alludp">All UDP</option>
                                                 @foreach($firewallservices as $fws)

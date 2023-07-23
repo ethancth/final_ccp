@@ -123,7 +123,7 @@
                                             <tbody>
                                             @foreach($server->firewalls()->get() as $fws)
                                             <tr>
-                                                <td><a class="btn-edit-row " data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">{{$fws->firewall_name}}</a></td>
+                                                <td><a class="btn-edit-row btn-edit-firewall-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">{{$fws->firewall_name}}</a></td>
                                                 @if($fws->source_type=='Custom')
                                                     <td>
                                                         [IP] {{$fws->display_source_custom_ip}} <br/>
@@ -142,7 +142,7 @@
                                                         <i data-feather="more-vertical"></i>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item btn-edit-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">
+                                                        <a class="dropdown-item btn-edit-row btn-edit-firewall-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">
                                                             <i data-feather="edit-2" class="me-50"></i>
                                                             <span>Edit</span>
                                                         </a>
@@ -413,6 +413,7 @@
             var id = $(this).data('id');
 
             $('#firewalltitle').text('New Firewall');
+            $('#modalCustomIP').empty();
             $('#modalCustomIP').select2('data', null)
             $('#modalCustomVm').val('').trigger('change');
             $('#modalCustomIP').val('').trigger('change');
@@ -429,6 +430,109 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+
+        $('body').on('click', '.btn-edit-firewall-row', function () {
+
+            $('#modalCustomIP').select2('data', null)
+            var id = $(this).data('id');
+
+
+            $('#modalCustomIP').select2('data', null)
+            $('#modalCustomVm').val('').trigger('change');
+            $('#modalCustomIP').val('').trigger('change');
+            $('#modalCustomSecurityGroup').val('').trigger('change');
+            $('#form_id').val('');
+
+            $.ajax({
+                    type:"GET",
+                    url: "{{ route('server.firewall.edit') }}",
+                    data: { id: id },
+                    dataType: 'json',
+                    success: function(res){
+
+                        $('#firewalltitle').text('Edit Firewall');
+                        $('#form_id').val(id);
+
+
+                        $('#modalCustomIP').empty();
+                        $('#modalCustomIP').select2('data', null)
+                        $('#modalCustomIP').val('').trigger('change');
+
+                        $("#modalDestination").val(res.destination_id);
+                        $("#modalDestination").trigger('change');
+
+                        $("#modalCustomSecurityGroup").val(res.source_source_custom_sg);
+                        $("#modalCustomSecurityGroup").trigger('change');
+
+                        var str_array = res.display_source_custom_ip.split(',');
+                        for(var i = 0; i < str_array.length; i++) {
+                            // Trim the excess whitespace.
+                            if( str_array[i]!=''){
+                                str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+
+                                $("#modalCustomIP").append('<option value="'+str_array[i]+'">'+str_array[i]+'</option>');
+                            }
+
+                        }
+
+
+                        console.log(res);
+                        $('#modalCustomIP').val(res.display_source_custom_ip.split(',')).trigger("change");
+                        if(res.source_source_custom_vm!=null){
+                            $('#modalCustomVm').val(res.source_source_custom_vm.split(',')).trigger("change");
+                        }
+                        if(res.source_source_custom_sg!=null){
+                            $('#modalCustomSecurityGroup').val(res.source_source_custom_sg.split(',')).trigger("change");
+                        }
+
+
+
+
+
+                        $.ajax({
+                            type: "GET",
+                            url: "{{ route('server.get.firewall.port') }}",
+                            data: {id: id},
+                            dataType: 'json',
+                            success: function (res) {
+
+                                let num=0;
+                                $('[data-repeater-list]').empty();
+                                res.forEach((record) => {
+
+                                    $('.port-form').find('[data-repeater-create]').click();
+                                    //portserviceform[0][portrange]
+                                    let $_type = 'portserviceform['+num+'][type]';
+                                    let $_protocol = 'portserviceform['+num+'][protocol]';
+                                    let $_port = 'portserviceform['+num+'][portrange]';
+
+                                    document.getElementsByName($_type)[0].value=record.display_port_type;
+                                    document.getElementsByName($_protocol)[0].value=record.protocol;
+                                    document.getElementsByName($_port)[0].value=record.port;
+
+                                    document.getElementsByName($_protocol)[0].setAttribute('readonly',true);
+                                    document.getElementsByName($_port)[0].setAttribute('readonly', true);
+
+
+                                    num++;
+
+                                });
+
+
+
+                            }
+                        })
+
+
+
+
+                    }
+                }
+            );
+
+
+
         });
 
 

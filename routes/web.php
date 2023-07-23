@@ -157,7 +157,8 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/server/{server}/information', [ServerController::class, 'information'])->name('server.information');
 
         Route::post('/server/firewall/request/store', [ServerController::class, 'firewall_request'])->name('server.firewall.store');
-        Route::post('/server/firewall/request/edit', [ServerController::class, 'firewall_request_edit'])->name('server.firewall.edit');
+        Route::get('/server/firewall/request/edit', [ServerController::class, 'firewall_request_edit'])->name('server.firewall.edit');
+        Route::get('/server/firewall/request/get', [ServerController::class, 'firewall_request_get'])->name('server.get.firewall.port');
 
 
 
