@@ -157,18 +157,6 @@ class ServerController extends Controller
 
 
 
-
-    //////
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-    ///
-
     public function create_server_firewall(Request $request,ProjectServer $server){
 
 

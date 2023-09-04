@@ -15,6 +15,7 @@
       {"url":"","navheader":"Management","icon":""},
       {"url":"management-firewall-services","name":"Firewall Services", "icon":"grid","slug":"management_firewall_service"},
       {"url":"user-management","name":"User Management","icon":"grid","slug":"user"},
+      {"url":"management-department","name":"Department Management","icon":"grid","slug":"department"},
       {"url":"management-environment","name":"Env Form","icon":"grid","slug":"management_env"},
       {"url":"management-tier","name":"Tier Form","icon":"grid","slug":"management_tier"},
       {"url":"management-os","name":"OS Form","icon":"grid","slug":"management_os"},

@@ -54,9 +54,13 @@ class User extends Authenticatable
     public function department()
     {
         //return $this->hasOne('App\Models\Department','department_id');
-        return $this->hasone('App\Models\Department', 'id', 'department_id');
+     //   return $this->hasone('App\Models\Department', 'id', 'department_id');
+
+        return $this->belongsToMany(Department::class,'department_members','user_id','department_id');
 
     }
+
+
     public function project()
     {
         return $this->hasMany('App\Models\Project','owner','id')->where('is_delete', '=', '0');

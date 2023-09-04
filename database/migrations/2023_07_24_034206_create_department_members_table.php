@@ -13,17 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('department_members', function (Blueprint $table) {
             $table->id();
-            $table->string('department_name', 100);
-            $table->string('hod_id')->nullable();
             $table->timestamps();
-        });
-        Schema::table('users', function(Blueprint $table) {
-            $table->integer('department_id')->nullable();
-            $table->integer('company_id')->nullable();
-            $table->boolean('disabled')->default(0);
-
         });
     }
 
@@ -34,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('department_members');
     }
 };

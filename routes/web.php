@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompanyFormController;
 use App\Http\Controllers\CostProfileController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FirewallServiceControler;
 use App\Http\Controllers\ProjectSecurityGroupController;
 use App\Http\Controllers\ServerController;
@@ -57,6 +58,11 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/management-environment', [CompanyFormController::class, 'envform'])->name('management_env');
         Route::post('/management-environment', [CompanyFormController::class, 'env_request'])->name('management.env.store');
         Route::post('/management-environment-edit', [CompanyFormController::class, 'env_edit'])->name('management.env.edit');
+
+        //Department
+        Route::get('/management-department', [DepartmentController::class, 'show'])->name('department.show');
+        Route::post('/management-department',[DepartmentController::class,'store'])->name('department.store');
+        Route::post('/management-department-edit', [DepartmentController::class, 'edit'])->name('department.edit');
 
         //Tier
         Route::get('/management-tier', [CompanyFormController::class, 'tierform'])->name('management_tier');
@@ -205,6 +211,9 @@ Route::group(['middleware' => ['auth', 'verified']],
 //        //operating-system
 //        Route::resource('operating-system', 'OperatingSystemController', ['only' => ['create', 'update', 'edit', 'store']]);
 //        Route::get('/operating-system', 'OperatingSystemController@list')->name('operating-system');
+
+
+
 
 
     });
