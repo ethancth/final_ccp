@@ -89,7 +89,7 @@ class DepartmentController extends Controller
 
         $_department=Department::find($_id->id);
         $_department->member()->syncWithPivotValues($request->modalMember, ['type' => 'member']);
-        $_department->member()->attach($request->modalHod, ['type' => 'hod']);
+        $_department->member()->attach  ($request->modalHod, ['type' => 'hod']);
         return back()->with('success', 'Success！');
     }
 
