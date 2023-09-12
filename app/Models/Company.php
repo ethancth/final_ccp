@@ -27,6 +27,11 @@ class Company extends Model
         return '';
     }
 
+    public function infraconnector()
+    {
+        return $this->hasMany(InfraConnector::class,'company_id','id');
+    }
+
     public function department()
     {
         return $this->hasMany(Department::class,'company_id','id');

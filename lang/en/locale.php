@@ -1,6 +1,7 @@
 <?php
 
 return [
+    "Connector" => "Connector",
     "Status" => "Status",
     "Enable" => "Enable",
     "Disable" => "Disable",

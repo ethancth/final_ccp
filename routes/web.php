@@ -5,6 +5,7 @@ use App\Http\Controllers\CostProfileController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FirewallServiceControler;
+use App\Http\Controllers\InfraController;
 use App\Http\Controllers\ProjectSecurityGroupController;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\TestController;
@@ -196,6 +197,12 @@ Route::group(['middleware' => ['auth', 'verified']],
 
 
         Route::get('/api/test',[TestController::class,'test'])->name('test');
+
+
+        //Infrastructure
+        Route::get('management-infrastructure-connector', [InfraController::class, 'connector'])->name('infra.connector');
+        Route::post('management-infrastructure-connector', [InfraController::class, 'connector_store'])->name('infra.connector.store');
+        Route::post('management-infrastructure-connector-edit', [InfraController::class, 'connector_edit'])->name('infra.connector.edit');
 
 //
 //        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);
