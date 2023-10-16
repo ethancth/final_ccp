@@ -3,10 +3,12 @@
 namespace App\Observers;
 use App\Handlers\SlugHandler;
 use App\Jobs\TranslateSlug;
+use App\Mail\SubmitProject;
 use App\Models\Project;
 use App\Models\ProjectJourney;
 use App\Models\ProjectSecurityGroup;
 use App\Models\ProjectSecurityGroupEnv;
+use Illuminate\Support\Facades\Mail;
 
 
 // creating, created, updating, updated, saving,
@@ -28,8 +30,21 @@ class ProjectObserver
 
     public function updated(Project $project)
     {
+
+        $_old_field=$project->getDirty();
+        if( $project->status=='2')
+        {
+            //Submit
+            $name ='Reject';
+            Mail::to('testreceiver@gmail.com’')->send(new SubmitProject($name,$project));
+
+        }
         if($project->status=='3')
         {
+            //send Email
+
+
+
            //Project Create Security-Group
             $projectsg=$project->sg()->get();
             if($projectsg->isEmpty()){
