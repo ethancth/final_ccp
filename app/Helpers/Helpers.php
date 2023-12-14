@@ -23,7 +23,7 @@ class Helpers
             'horizontalMenuType' => 'floating',
             'verticalMenuNavbarType' => 'floating',
             'footerType' => 'static', //footer
-            'layoutWidth' => 'boxed',
+            'layoutWidth' => 'full',
             'showMenu' => true,
             'bodyClass' => '',
             'pageClass' => '',

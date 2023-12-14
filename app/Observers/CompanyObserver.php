@@ -16,6 +16,8 @@ class CompanyObserver
 
     public function created(Company $company)
     {
+       // dd($company);
+        $_companyid=$company->id;
         Environment::create([
                 'name' => "Production",
                 'display_name' => "Production",
@@ -75,7 +77,7 @@ class CompanyObserver
         CostProfile::create([
             'name' => "Default Cost Profile",
             'description' => "Default Cost Profile - System Generate",
-            'company_id'=>$company->id,
+            'company_id'=>$_companyid,
             'is_master' => 1,
             'status' => 1
 

@@ -85,7 +85,190 @@
 {{--                </div>--}}
 {{--            </div>--}}
 
+            <div class="col-12">
+                <div class="card">
 
+                    <div class="card-body">
+                        <h2>Firewall Rules (Inbound) <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$server->id}}" value="{{$server->id}}}"   data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">+ </button>
+                        </h2>
+{{--                        <div>--}}
+
+{{--                            @foreach($firewallservice as $fs)--}}
+{{--                                <div class="d-flex justify-content-between align-items-center">--}}
+{{--                                    <div class="form-check form-check-inline">--}}
+{{--                                        <input class="form-check-input btn-favor" data-id="{{$fs->id}}" type="checkbox" id="{{$fs->id}}" value="checked" checked />--}}
+{{--                                        <label class="form-check-label" for="inlineCheckbox1">{{$fs->type}}</label>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}f
+{{--                            @endforeach--}}
+
+
+{{--                        </div>--}}
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="table-hover-row">
+                            <div class="col-12">
+                                <div class="card">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Source</th>
+                                                <th>Ports/Predefined Service</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($server->firewalls()->get() as $fws)
+                                            <tr>
+                                                <td><a class="btn-edit-row btn-edit-firewall-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">{{$fws->firewall_name}}</a></td>
+                                                @if($fws->source_type=='Custom')
+                                                    <td>
+                                                        [IP] {{$fws->display_source_custom_ip}} <br/>
+                                                        [VM] {{$fws->display_source_custom_vm}}<br/>
+                                                        [SG] {{$fws->display_source_custom_sg}}
+                                                    </td>
+                                                @else
+                                                    <td>
+                                                        {{$fws->source}}
+                                                    </td>
+                                                @endif
+
+                                                <td> {{$fws->display_port}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
+                                                        <i data-feather="more-vertical"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item btn-edit-row btn-edit-firewall-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">
+                                                            <i data-feather="edit-2" class="me-50"></i>
+                                                            <span>Edit</span>
+                                                        </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i data-feather="trash" class="me-50"></i>
+                                                            <span>Delete</span>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="card-body">
+                        <h2>Firewall Rules (Project)
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="table-hover-row">
+                            <div class="col-12">
+                                <div class="card">
+
+{{--                                    @foreach($projectsecuritygroup as $psg)--}}
+{{--                                        @if($psg->env ==$server->tiername->name || $psg->env ==$server->envname->name|| $psg->env ==$server->envname->name.$server->tiername->name)--}}
+{{--                                            {{$psg->slug}}--}}
+{{--                                            <div class="table-responsive">--}}
+{{--                                                <table class="table table-hover">--}}
+{{--                                                    <thead>--}}
+{{--                                                    <tr>--}}
+{{--                                                        <th>Name</th>--}}
+{{--                                                        <th>Source</th>--}}
+{{--                                                        <th>Ports/Predefined Service</th>--}}
+{{--                                                    </tr>--}}
+{{--                                                    </thead>--}}
+{{--                                                    <tbody>--}}
+{{--                                                    @foreach($psg->firewall as $fws)--}}
+{{--                                                        <tr>--}}
+{{--                                                            <td>{{$fws->name}}</td>--}}
+{{--                                                            <td>--}}
+{{--                                                                {{$fws->source}}--}}
+{{--                                                            </td>--}}
+{{--                                                            <td> {{$fws->port}}</td>--}}
+
+{{--                                                        </tr>--}}
+{{--                                                    @endforeach--}}
+{{--                                                    </tbody>--}}
+{{--                                                </table>--}}
+{{--                                            </div>--}}
+{{--                                        @endif--}}
+{{--                                    @endforeach--}}
+
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Type</th>
+                                                            <th>Source</th>
+                                                            <th>Destination</th>
+                                                            <th>Ports/Predefined Service</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($server->securitygroups()->get() as $psg)
+                                                            @foreach($psg->firewall as $fws)
+                                                                <tr>
+                                                                    <td>{{$fws->firewall_name}}</td>
+                                                                <td>
+                                                                    @if($fws->source=='Custom')
+                                                                        [IP] {{$fws->display_source_custom_ip}} <br/>
+                                                                        [VM]{{$fws->display_source_custom_vm}}<br/>
+                                                                        [SG]{{$fws->display_source_custom_sg}}
+                                                                    @else
+                                                                        {{$fws->source}}
+                                                                    @endif
+                                                                    </td>
+                                                                    <td>{{$fws->destination_name}}</td>
+                                                                    <td> {{$fws->port}}</td>
+
+                                                                </tr>
+                                                            @endforeach
+                                                            @foreach($psg->projectfirewall as $fwss)
+                                                                <tr>
+                                                                    <td>{{$fwss->firewall_name}}</td>
+                                                                    <td>
+                                                                        @if($fwss->source=='Custom')
+                                                                            [IP] {{$fwss->display_source_custom_ip}} <br/>
+                                                                            [VM]{{$fwss->display_source_custom_vm}}<br/>
+                                                                            [SG]{{$fwss->display_source_custom_sg}}
+                                                                        @else
+                                                                            {{$fws->source}}
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>{{$fwss->destination_name}}</td>
+                                                                    <td> {{$fwss->display_port}}</td>
+
+                                                                </tr>
+                                                            @endforeach
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
 
         </div>
     </section>

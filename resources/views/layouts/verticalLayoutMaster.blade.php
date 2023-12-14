@@ -9,9 +9,21 @@ data-asset-path="{{ asset('/')}}">
   <!-- END: Header-->
 
   <!-- BEGIN: Main Menu-->
-  @if((isset($configData['showMenu']) && $configData['showMenu'] === true))
-  @include('panels.sidebar')
+
+  @php
+      $_newform=App\Models\Company::where('master_id','=',Auth()->user()->id);
+      dd($_newform)
+  @endphp
+
+  @if($_newform->is_new_company=='1')
+
+  @else
+
+      @if((isset($configData['showMenu']) && $configData['showMenu'] === true))
+          @include('panels.sidebar')
+      @endif
   @endif
+
   <!-- END: Main Menu-->
 
 
@@ -48,7 +60,7 @@ data-asset-path="{{ asset('/')}}">
       </div>
     </div>
     @else
-    <div class="content-wrapper {{ $configData['layoutWidth'] === 'boxed' ? 'container-xxl p-0' : '' }}">
+    <div class="content-wrapper {{ $configData['layoutWidth'] === 'boxed1' ? 'container-xxl p-0' : '' }}">
       {{-- Include Breadcrumb --}}
       @if($configData['pageHeader'] === true && isset($configData['pageHeader']))
       @include('panels.breadcrumb')

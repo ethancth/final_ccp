@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\CostProfile;
 use App\Models\Environment;
 use App\Models\FormPolicy;
@@ -12,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class CompanyFormController extends Controller
@@ -282,6 +284,23 @@ class CompanyFormController extends Controller
         return view('/content/management/form', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'pagetitle' =>'Form Configuration','data' => $data]);
     }
 
+    public function companyform_store(Request $request)
+    {
+        Company::updateOrCreate(
+            [
+                'id' => Auth()->user()->company_id,
+            ],
+            [
+                'name' => $request->company_name,
+                'domain' =>str::slug($request->company_domain,'-'),
+                'slug' =>str::slug($request->company_domain,'-'),
+                'default_password' => $request->default_password,
+                'mandatory_field' => $request->form_group_a,
+                'is_new_company' => '0'
+            ]);
+        return redirect()->route('project')->with('success', 'Success！');
+
+    }
     public function costform_store(Request $request)
     {
 

@@ -14,7 +14,9 @@ class Company extends Model
         'phone',
         'slug',
         'domain',
-        'master_id'
+        'master_id',
+        'is_new_company',
+        'default_password'
     ];
 
     public function user()

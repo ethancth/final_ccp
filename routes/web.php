@@ -6,6 +6,7 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FirewallServiceControler;
 use App\Http\Controllers\InfraController;
+use App\Http\Controllers\PageLayoutController;
 use App\Http\Controllers\ProjectSecurityGroupController;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\TestController;
@@ -36,6 +37,8 @@ Route::group(['middleware' => ['auth', 'verified']],
 // Route Dashboards
 
         Route::get('/', [ProjectController::class, 'index'])->name('dashboard');
+
+
 
 
 
@@ -88,6 +91,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         //Cost Form
         Route::get('/management-cost', [CompanyFormController::class, 'costform'])->name('management_cost');
         Route::post('/management-costform', [CompanyFormController::class, 'costform_store'])->name('management.costform.store');
+        Route::post('/management-company', [CompanyFormController::class, 'companyform_store'])->name('management.company.store');
 
         //policy Form
         Route::get('/management-policy-form', [CompanyFormController::class, 'policyform'])->name('management_policyform');
@@ -113,6 +117,10 @@ Route::group(['middleware' => ['auth', 'verified']],
 //        Route::resource('datastore-cost-profile', 'DatastoreCostProfileController', ['only' => ['create', 'update', 'edit', 'store']]);
 //        Route::get('/datastore-cost-profile', 'DatastoreCostProfileController@index')->name('datastore-cost-profile');
 //
+
+        //Search
+
+        Route::get('getCompanyDomain', [\App\Http\Controllers\SearchController::class, 'getCompanyDomain'])->name('getCompanyDomain');
 //        //Project
 
         Route::get('/project', [ProjectController::class, 'index'])->name('project');

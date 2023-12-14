@@ -120,11 +120,140 @@
     <div class="col-12">
         <div class="card">
 
+            <div class="card-body">
+                <h2>Firewall Rules (Inbound)
+                    <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-server-firewall"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">+ </button>
+                   </h2>
+            </div>
 
+            <div class="card-body">
+                <div class="row" id="table-hover-row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Source</th>
+                                        <th>Destination</th>
+                                        <th>Ports/Predefined Service</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($projectfirewall as $fws)
+
+                                        <tr>
+                                            <td><a class="btn-edit-firewall-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">{{$fws->firewall_name}}</a></td>
+                                            <td>
+                                                @if($fws->source=='Custom')
+                                                        [IP] {{$fws->display_source_custom_ip}} <br/>
+                                                        [VM]{{$fws->display_source_custom_vm}}<br/>
+                                                        [SG]{{$fws->display_source_custom_sg}}
+                                                    @else
+                                                        {{$fws->source}}
+                                                    @endif
+
+                                                </td>
+                                                <td> {{$fws->display_destination}}</td>
+                                                <td> {{$fws->display_port}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
+                                                        <i data-feather="more-vertical"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <a class="dropdown-item btn-edit-firewall-row" data-id="{{$fws->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#ServerFirewallForms">
+                                                            <i data-feather="edit-2" class="me-50"></i>
+                                                            <span>Edit</span>
+                                                        </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            <i data-feather="trash" class="me-50"></i>
+                                                            <span>Delete</span>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
+        <div class="col-12">
+            <div class="card">
 
+                <div class="card-body">
+                    <h2>Security Group <button type="button" class="btn btn-outline-primary btn-add-firewall btn-add-security-group"  id="{{$project->id}}" value="{{$project->id}}}"   data-bs-toggle="modal" data-bs-target="#createProjectSecurityGroupModal">+ </button>
+                </h2>
+            </div>
+            <div class="card-body">
+                <div class="row" id="table-hover-row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Member</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a class="security_group_member" data-id="{{$project->sg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="">{{$project->sg ->slug}}</a></td>
+                                            <td>{{$project->server->count()}}</td>
+                                            <td></td>
+
+
+                                        </tr>
+                                    @foreach($project->sg->env as $psg)
+                                        <tr>
+                                            <td><a class="security_group_member" data-id="{{$psg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#SecurityGroupMember">{{$psg->id}} - {{$psg->slug}}</a></td>
+
+                                            <td>{{$psg->servers()->count()}}</td>
+                                           <td>
+                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
+                                                    <i data-feather="more-vertical"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item btn-edit-row" data-id="{{$psg->id}}"  data-bs-placement="top" title="edit" data-bs-toggle="modal" data-bs-target="#modalsslidein_rowform">
+                                                        <i data-feather="edit-2" class="me-50"></i>
+                                                        <span>Edit</span>
+                                                    </a>
+                                                    @if($psg->can_delete)
+                                                    <a class="dropdown-item" href="#">
+                                                        <i data-feather="trash" class="me-50"></i>
+                                                        <span>Delete</span>
+                                                    </a>
+                                                    @endif
+                                                </div>
+                                            </td>
+
+
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
     <!-- share SecurityGroup modal -->
     <div class="modal fade" id="SecurityGroupMember" tabindex="-1" aria-labelledby="shareSecurityGroupTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">

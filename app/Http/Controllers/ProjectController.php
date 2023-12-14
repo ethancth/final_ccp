@@ -31,18 +31,23 @@ class ProjectController extends Controller
     public function index(Request $request,Project $project)
     {
 
-        //dd($request);
-        $pageConfigs = ['pageHeader' => false,];
+        if(Auth()->user()->company->is_new_company){
+            $pageConfigs = ['showMenu' => false];
+            $breadcrumbs = [['link' => "/", 'name' => "Home"], ['name' => "First Login Company Setting"]];
+            return view('/content/page-layouts/layout-without-menu', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+
+        }
+
+
+        $pageConfigs = ['pageHeader' =>true,'layoutWidth' => 'full'];
         //$project= User::find(Auth::id())->project;
         $project1=$project->withStatus($request->status)
-            ->where('owner',Auth::id())
             ->get();
 
         if ($request->ajax()) {
            // dd($request);
             //$data = User::find(Auth::id())->project;
             $data = $project->withStatus($request->status)
-                ->where('owner',Auth::id())
                 ->get();
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
@@ -52,6 +57,8 @@ class ProjectController extends Controller
 //                ->rawColumns(['action'])
                 ->make(true);
         }
+
+
 
         return view('/content/project/project-home', ['pageConfigs' => $pageConfigs,'project' => $project]);
     }
@@ -654,7 +661,7 @@ class ProjectController extends Controller
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
         ];
-        return view('content/project/asset-project-detail', ['firewallservices'=>$firewallservice,'projectsgs'=>$projectsg,'vcvms'=>$vcvm,'pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectfirewall' => $projectfirewall,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
+        return view('content/project/asset-project-detail-backup', ['firewallservices'=>$firewallservice,'projectsgs'=>$projectsg,'vcvms'=>$vcvm,'pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectfirewall' => $projectfirewall,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
 
     public function destroy(Request $request)

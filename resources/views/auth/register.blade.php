@@ -113,15 +113,15 @@
                         <span>Already have an account?</span>
                         <a href="{{ route('login') }}"><span>&nbsp;Sign in instead</span></a>
                     </p>
-                    <div class="divider my-2">
-                        <div class="divider-text">or</div>
-                    </div>
-                    <div class="auth-footer-btn d-flex justify-content-center">
-                        <a class="btn btn-facebook" href="#"><i data-feather="facebook"></i></a>
-                        <a class="btn btn-twitter white" href="#"><i data-feather="twitter"></i></a>
-                        <a class="btn btn-google" href="#"><i data-feather="mail"></i></a>
-                        <a class="btn btn-github" href="#"><i data-feather="github"></i></a>
-                    </div>
+{{--                    <div class="divider my-2">--}}
+{{--                        <div class="divider-text">or</div>--}}
+{{--                    </div>--}}
+{{--                    <div class="auth-footer-btn d-flex justify-content-center">--}}
+{{--                        <a class="btn btn-facebook" href="#"><i data-feather="facebook"></i></a>--}}
+{{--                        <a class="btn btn-twitter white" href="#"><i data-feather="twitter"></i></a>--}}
+{{--                        <a class="btn btn-google" href="#"><i data-feather="mail"></i></a>--}}
+{{--                        <a class="btn btn-github" href="#"><i data-feather="github"></i></a>--}}
+{{--                    </div>--}}
                 </div>
             </div>
             <!-- /Register-->
