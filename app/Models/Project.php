@@ -36,6 +36,8 @@ class Project extends Model
         return $this->hasMany(ProjectFirewall::class,'project_id','id');
     }
 
+
+
     public function sg()
     {
         return $this->hasone(ProjectSecurityGroup::class,'project_id','id');

@@ -11,11 +11,11 @@ data-asset-path="{{ asset('/')}}">
   <!-- BEGIN: Main Menu-->
 
   @php
-      $_newform=App\Models\Company::where('master_id','=',Auth()->user()->id);
-      dd($_newform)
+      $_newform=App\Models\Company::where('master_id','=',Auth()->user()->id)->get();
+
   @endphp
 
-  @if($_newform->is_new_company=='1')
+  @if($_newform[0]->is_new_company=='1')
 
   @else
 

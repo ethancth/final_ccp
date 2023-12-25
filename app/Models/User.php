@@ -61,6 +61,16 @@ class User extends Authenticatable
     }
 
 
+    public function tenant()
+    {
+        //return $this->hasOne('App\Models\Department','department_id');
+        //   return $this->hasone('App\Models\Department', 'id', 'department_id');
+
+        return $this->belongsToMany(Company::class,'tenants','user_id','company_id');
+
+    }
+
+
     public function project()
     {
         return $this->hasMany('App\Models\Project','owner','id')->where('is_delete', '=', '0');
