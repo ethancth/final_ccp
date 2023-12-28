@@ -140,6 +140,32 @@
           href="{{ Route::has('profile.show') ? route('profile.show') : 'javascript:void(0)' }}">
           <i class="me-50" data-feather="user"></i> Profile
         </a>
+
+          @foreach(Auth::User()->tenant as $tenants)
+
+
+                  @if(Auth::User()->company_id==$tenants->id)
+                  <a class="dropdown-item"
+
+                     href="{{ Route::has('profile.show') ? route('profile.show') : 'javascript:void(0)' }}">
+                      <i class="me-50" data-feather="type"></i>
+                      {{$tenants->name}}
+                      <i class="me-50 text-success" data-feather="check"></i>
+                  </a>
+                  @else
+                      <a class="dropdown-item" href="{{ route('switch.tenants') }}"
+                         onclick="event.preventDefault(); document.getElementById('tenant-form').submit();">
+                          <i class="me-50" data-feather="type"></i>  {{$tenants->name}}
+                      </a>
+                      <form method="POST" id="tenant-form" action="{{ route('switch.tenants') }}">
+                          @csrf
+                          <input value="{{$tenants->id}}" name="tenant_id" class="hidden" >
+                      </form>
+
+
+
+                  @endif
+              @endforeach
          {{--
 
 

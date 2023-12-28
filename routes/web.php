@@ -212,6 +212,13 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::post('management-infrastructure-connector', [InfraController::class, 'connector_store'])->name('infra.connector.store');
         Route::post('management-infrastructure-connector-edit', [InfraController::class, 'connector_edit'])->name('infra.connector.edit');
 
+
+
+        //Switch Tenants
+
+
+        Route::post('switch-tenants', [\App\Http\Controllers\TenantController::class, 'SwitchTenant'])->name('switch.tenants');
+
 //
 //        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);
 //        Route::get('/company-staff', 'CompanyController@allstaff')->name('company.staff');

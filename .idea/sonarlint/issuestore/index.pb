@@ -226,8 +226,6 @@ J
 app/Models/Environment.php,2/6/2653f4abaa2d1a215a1e55ff991e54f028ea4850
 I
 app/Models/FormPolicy.php,4/a/4a94f09436110f13696c37c6bd69877a4fd9e12b
-C
-app/Models/Host.php,8/8/882a4a6de7697cc4d80d54cceb603d3bab9eee78
 N
 app/Models/OperatingSystem.php,3/8/3895e68db23f576fb32b4172850271fc52c5ee56
 L
@@ -576,8 +574,6 @@ J
 app/Models/CostProfile.php,4/c/4c825133e10425733a28e82e197594d5efe262b5
 j
 :resources/views/content/page-layouts/layout-full.blade.php,e/4/e4ddcb66546451051204925a1db08ab886a89638
-W
-'resources/views/panels/navbar.blade.php,b/6/b69f062d1d9a9b6cdcd8844af2776ec97ed6d2cb
 X
 (resources/views/panels/submenu.blade.php,9/4/94b9ec4f2353de2295bb506738407618abb57730
 W

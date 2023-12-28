@@ -56,8 +56,17 @@ class User extends Authenticatable
         //return $this->hasOne('App\Models\Department','department_id');
      //   return $this->hasone('App\Models\Department', 'id', 'department_id');
 
-        return $this->belongsToMany(Department::class,'department_members','user_id','department_id');
+        return $this->belongsToMany(Department::class,'department_members','user_id','department_id')->where('department_members.company_id','=',$this->company_id);
 
+    }
+
+    public function c_dp()
+    {
+        //$ticketsToday = Booking::with(["users"])
+//        ->where("createdAt", ">=", Carbon::today())
+//        ->whereHas("users" => function($subQuery){
+//        $subQuery->where("usertype", "=", "agent");
+//    })->get();
     }
 
 
