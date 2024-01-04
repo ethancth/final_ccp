@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Department;
 use App\Models\DepartmentMember;
 use App\Models\User;
@@ -31,7 +32,7 @@ class DepartmentController extends Controller
                 ->make(true);
         }
 
-        $all_user=Auth::user()->company->user;
+        $all_user=company::find(User::find(Auth::id())->company_id)->tenantuser;
 
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "management-department", 'name' => "Department"]

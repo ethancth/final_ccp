@@ -31,12 +31,12 @@ class ProjectController extends Controller
     public function index(Request $request,Project $project)
     {
 
-        if(Auth()->user()->company->is_new_company){
-            $pageConfigs = ['showMenu' => false];
-            $breadcrumbs = [['link' => "/", 'name' => "Home"], ['name' => "First Login Company Setting"]];
-            return view('/content/page-layouts/layout-without-menu', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
-
-        }
+//        if(Auth()->user()->company->is_new_company){
+//            $pageConfigs = ['showMenu' => false];
+//            $breadcrumbs = [['link' => "/", 'name' => "Home"], ['name' => "First Login Company Setting"]];
+//            return view('/content/page-layouts/layout-without-menu', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+//
+//        }
 
 
         $pageConfigs = ['pageHeader' =>true,'layoutWidth' => 'full'];

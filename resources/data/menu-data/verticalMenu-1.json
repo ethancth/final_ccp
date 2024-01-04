@@ -23,6 +23,10 @@
     },
 
 
+            {"url":"","navheader":"Asset","icon":""},
+            {"url":"server","name":"Asset (VM)", "icon":"grid","slug":"server"},
+            {"url":"asset-project","name":"Asset (Project)", "icon":"grid","slug":"asset.project"},
+
       {"url":"","navheader":"Project","icon":""},
       {"url":"project","name":"Project", "icon":"grid","slug":"project"},
       {"url":"environment.index","name":"Environment " ,"icon":"grid","slug":"Environment"},

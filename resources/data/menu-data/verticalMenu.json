@@ -6,9 +6,6 @@
       {"url":"project","name":"New Project", "icon":"grid","slug":"project"},
 
 
-      {"url":"","navheader":"Asset","icon":""},
-      {"url":"server","name":"Asset (VM)", "icon":"grid","slug":"server"},
-      {"url":"asset-project","name":"Asset (Project)", "icon":"grid","slug":"asset.project"},
 
       {"url":"","navheader":"Management","icon":""},
       {"url":"management-firewall-services","name":"Firewall Services", "icon":"grid","slug":"management_firewall_service"},
@@ -19,10 +16,6 @@
       {"url":"management-os","name":"OS Form","icon":"grid","slug":"management_os"},
       {"url":"management-service-application","name":"SA Form","icon":"grid","slug":"management_sa"},
       {"url":"management-cost","name":"Cost Form","icon":"grid","slug":"management_cost"},
-      {"url":"management-policy-form","name":"Policy Form","icon":"grid","slug":"management_policyform"},
-
-      {"url":"","navheader":"Infrastructure","icon":""},
-
-      {"url":"management-infrastructure-connector","name":"Connector","icon":"grid","slug":"management_infra_connector"}
+      {"url":"management-policy-form","name":"Policy Form","icon":"grid","slug":"management_policyform"}
   ]
 }

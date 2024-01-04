@@ -80,6 +80,13 @@
                   </span>
                             @enderror
                         </div>
+
+                        <div class="mb-1">
+                            <label class="form-label" for="email">Tenant Name</label>
+                            <input class="form-control " id="tenant" type="text" name="tenant" placeholder="Tenant Name" required tabindex="2" />
+
+                        </div>
+
                         <div class="mb-1">
                             <label class="form-label" for="password">Password</label>
                             <div class="input-group input-group-merge form-password-toggle">

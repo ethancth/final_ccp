@@ -58,15 +58,14 @@ class UserPageController extends Controller
     public function index(User $user, Request $request)
     {
         $pageConfigs = ['pageHeader' => false];
-        //dd(User::find(Auth::id())->company_id);
 
         //return view('/content/apps/user/app-user-list', ['pageConfigs' => $pageConfigs]);
-        $totaluser=User::find(Auth::id())->company->user->count();
+        $totaluser=company::find(User::find(Auth::id())->company_id)->tenantuser->count();
 //        $data = company::find(User::find(Auth::id())->company_id)->user;
 //        dd($data);
         if ($request->ajax())
         {
-            $data = company::find(User::find(Auth::id())->company_id)->user;
+            $data = company::find(User::find(Auth::id())->company_id)->tenantuser;
 
             return Datatables::of($data)
 //                ->addColumn('action', function($row){

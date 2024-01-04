@@ -50,7 +50,7 @@ class CompanyObserver
             'name' => "Web",
             'display_name' => "Web",
             'display_description' => "Web - System Generate ",
-            'display_icon'=>"Web - System Generate ",
+            'display_icon'=>"layout",
             'display_icon_colour'=>"info",
             'company_id'=>$company->id,
             'status' => 1
@@ -60,7 +60,7 @@ class CompanyObserver
             'name' => "App",
             'display_name' => "App",
             'display_description' => "App - System Generate ",
-            'display_icon'=>"App - System Generate ",
+            'display_icon'=>"package",
             'display_icon_colour'=>"danger",
             'company_id'=>$company->id,
             'status' => 1
@@ -69,7 +69,7 @@ class CompanyObserver
             'name' => "Db",
             'display_name' => "Database",
             'display_description' => "Database - System Generate ",
-            'display_icon'=>"Database - System Generate ",
+            'display_icon'=>"database",
             'display_icon_colour'=>"success",
             'company_id'=>$company->id,
             'status' => 1

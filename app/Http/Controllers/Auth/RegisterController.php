@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\Tenant;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -64,10 +68,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        $newUser=User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $input = [
+            'name'                  => $data['tenant'],
+            'domain'                => str::slug($data['tenant'],'-').' '.Str::uuid(),
+            'slug'                  => str::slug($data['tenant'],'-').' '.Str::uuid(),
+            'default_password'      => NULL,
+            'is_new_company'        => '0',
+            'master_id'        =>$newUser->id,
+
+        ];
+
+        $newCompany=Company::Create($input);
+
+        $new_tenant_input=  Tenant::create([
+            'user_id' =>  $newUser->id,
+            'action' =>  'User '.$newUser->id .' Create this',
+            'company_id' => $newCompany->id
+        ]);
+        $newUser->company_id=$newCompany->id;
+        $newUser->save();
+        return $newUser;
     }
 }

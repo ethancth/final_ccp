@@ -24,6 +24,11 @@ class Company extends Model
        return $this->hasMany(User::class,'company_id','id');
     }
 
+    public function tenantuser()
+    {
+        return $this->hasManyThrough(User::class,tenant::class,'company_id','id','id','user_id');
+    }
+
     public function teamleader()
     {
         return '';
