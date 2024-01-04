@@ -36,8 +36,8 @@
                         <div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h6 class="text">Tier - <span class="badge badge-light-{{$server->tiername->display_icon_colour}} profile-badge">{{$server->tiername->name}}</span></span> </h6>
-                                    <h6 class="text">Environment -  <span class="badge badge-light-{{ $server->envname->display_icon_colour}} profile-badge">{{$server->display_env}}</span> </h6>
+                                    <h6 class="text">Tier - <span class="badge badge-light-{{$server->tiername->display_icon_colour?'info'}} profile-badge">{{$server->tiername->name}}</span></span> </h6>
+                                    <h6 class="text">Environment -  <span class="badge badge-light-{{ $server->envname->display_icon_colour?'info'}} profile-badge">{{$server->display_env}}</span> </h6>
 
                                 </div>
                                 <div>

@@ -42,12 +42,16 @@ class ProjectController extends Controller
         $pageConfigs = ['pageHeader' =>true,'layoutWidth' => 'full'];
         //$project= User::find(Auth::id())->project;
         $project1=$project->withStatus($request->status)
+            ->where('owner','=',Auth()->id())
+            ->where('company_id','=',Auth::user()->company_id)
             ->get();
 
         if ($request->ajax()) {
            // dd($request);
             //$data = User::find(Auth::id())->project;
             $data = $project->withStatus($request->status)
+                ->where('owner','=',Auth()->id())
+                ->where('company_id','=',Auth::user()->company_id)
                 ->get();
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
@@ -553,6 +557,7 @@ class ProjectController extends Controller
     {
         $project->fill($request->all());
         $project->owner = Auth::id();
+        $project->company_id = Auth::user()->company_id;
         $project->title = $request->modalProjectName;
         $project->status = 1;
         $project->save();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +82,7 @@ class UserPageController extends Controller
 
     public function store(Request $request)
     {
-       // dd($request);
+
         //TODO add relationship in table;
         $_temp='0';
         if($request->user_role=='teamlead'||$request->user_role=='Teamlead'){
@@ -89,17 +90,57 @@ class UserPageController extends Controller
 
         }
 
+        $_checKisExist=User::where('email','=',$request->user_email)->first();
+
+        if(!$_checKisExist){
+           $_new_user= User::updateOrCreate(
+                [
+                    'id' => $request->user_id,
+                ],
+                [
+                    'name' => $request->user_fullname,
+                    'email' => $request->user_email,
+//                'password' => Hash::make(Auth()->user()->company->default_password),
+                    'password' => Hash::make($request->user_email),
+                    'introduction' => $request->user_role,
+                    'company_id' => User::find(Auth::id())->company_id,
+                    'is_teamlead' => $_temp,
+                ]);
+
+        }else
+        {
+            $_new_user=$_checKisExist;
+        }
+
+        $_check_user_tenant_amount=$_new_user->tenant->count();
+
+        $_check_is_user_is_in_tenant_result= $_new_user->tenant->contains('id', Auth::user()->company_id);
+        if($_check_user_tenant_amount<3 && $_check_is_user_is_in_tenant_result==false){
+            $updatetenant=Tenant::create([
+                'user_id' =>  $_new_user->id,
+                'action' =>  'User '.Auth()->id() .' Create this user',
+                'company_id' => Auth::user()->company_id,
+            ]);
+            return redirect()->route('user')->with('success', 'Success！');
+        }
+        else
+        {
+            return redirect()->route('user')->with('warning', 'This User has more than 3 tenant');
+        }
+
+
+
+    }
+
+    public function update_credential(Request $request)
+    {
+
         User::updateOrCreate(
             [
-                'id' => $request->user_id,
+                'id' => Auth::User()->id,
             ],
             [
-                'name' => $request->user_fullname,
-                'email' => $request->user_email,
-                'password' => Hash::make(Auth()->user()->company->default_password),
-                'introduction' => $request->user_role,
-                'company_id' => User::find(Auth::id())->company_id,
-                'is_teamlead' => $_temp,
+                'password' => Hash::make($request->newPassword),
             ]);
         return redirect()->route('user')->with('success', 'Success！');
     }

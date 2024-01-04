@@ -58,8 +58,6 @@ C
 config/debugbar.php,7/c/7c41d982a1dc4ee9193740c3f789660923865c74
 w
 Gdatabase/migrations/2022_07_01_055835_create_project_journeys_table.php,2/a/2a8afe765df396366613b078a47acebc475e8fa3
-`
-0app/Http/Controllers/UserInterfaceController.php,1/1/11d2967f01c0b2ee16b133f406ac2fbf672be1bd
 v
 Fdatabase/migrations/2014_10_12_100000_create_password_resets_table.php,e/f/eff59cfca55470b5a81fdbeb82498e8bfe5c8174
 M
@@ -152,8 +150,6 @@ G
 config/view.php,e/6/e6430547e4595725fda00ce199f6a9e013a954a3
 ^
 .resources/js/scripts/pages/modal-create-app.js,a/d/ade85ed6e1ea3b257f436fd341e6f9098f78a68e
-?
-app/helpers.php,5/e/5e92ff15dd02e679a9c48c1fc7e1b005c24dee00
 q
 Adatabase/migrations/2022_06_06_132801_create_daily_cost_table.php,7/a/7a868255581d9102cda49d18207ab811315fd18d
 t
@@ -242,8 +238,6 @@ F
 Kresources/views/content/forms/form-elements/form-date-time-picker.blade.php,f/c/fc6ac575e1a475f9b3b99539923844584f5754ea
 b
 2resources/js/scripts/forms/pickers/form-pickers.js,2/4/24c0ea81e0f1920e67f4eec26b4c926c1c116e75
-[
-+resources/js/scripts/pages/app-user-view.js,d/8/d87a2589bfac7fae74965780bf3f61e02bb76fd6
 l
 <resources/views/content/apps/calendar/app-calendar.blade.php,6/7/677dc236697c9e6aad2ee3a7c0cdce53275c5c88
 q
@@ -368,8 +362,6 @@ q
 Aresources/views/content/authentication/auth-login-basic.blade.php,e/c/ec7099c6e155b4207e8a4bd7c4f9100e712681cb
 l
 <resources/vendors/js/forms/validation/jquery.validate.min.js,f/a/fa00465fc234b84638aeaf0123039b20002721dc
-Z
-*app/Http/Controllers/CompanyController.php,e/6/e6f4a50c52535d0b3065489bd6feb5e366a179dd
 `
 0app/Http/Controllers/Auth/RegisterController.php,a/0/a0ffa01331c31490401d3514217b1d5b3700fb49
 ^
@@ -380,8 +372,6 @@ i
 9database/migrations/2023_06_05_125230_add_field_on_vm.php,8/7/872894c2ab529de525a448178b8757f5e50528b7
 t
 Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6
-N
-app/Observers/UserObserver.php,5/8/58b0ca3953943da94a198e58ca46b0403cbd13f3
 ]
 -app/Observers/ServerFirewallRulesObserver.php,0/a/0a7b9078602a3b749d5ae200ea823858848fb2b8
 W
@@ -518,8 +508,6 @@ S
 +app/Models/ProjectSecurityGroupFirewall.php,d/0/d02bc022f1a1d5429fd5027ab98c67b703a0a608
 T
 $app/Models/ProjectServerFirewall.php,a/b/ab007e8a30d15e4bcb3289f83b5819f98aec067b
-`
-0resources/views/content/management/env.blade.php,5/f/5fb1518bb9b595cb6cbc7ef2f3ed8ff53b47acf6
 V
 &app/Models/ProjectSecurityGroupEnv.php,1/e/1e1755fb2c076d113a3299beca7a78decedcf092
 z
@@ -562,10 +550,6 @@ _
 /resources/views/content/project/asset.blade.php,3/1/311f5cf5c4307790acff31bab1bc6985e073580c
 g
 7resources/views/content/management/department.blade.php,f/3/f31570582fd5865fb912ba22f416ca1bf36eb4ac
-d
-4resources/views/content/server/information.blade.php,9/4/941255e86fa0d27e35129a01292b1f31da130d24
-k
-;resources/views/content/server/information-backup.blade.php,e/8/e834c5dfaaee9a4c6f3b4cd554792adfc8ac2cb2
 Q
 !app/Observers/CompanyObserver.php,7/b/7b588e884b72cd1b362f136adaa2cfa8a48423d2
 x
@@ -592,3 +576,11 @@ g
 7resources/views/content/forms/form-validation.blade.php,e/e/ee289e78ffbd61802b37fc9d1672b9b9d9f70c5f
 Y
 )app/Http/Controllers/SearchController.php,c/0/c0ff0a46bb2ec80e0fb00ebb2c39be7bccaa2596
+C
+app/Models/User.php,a/9/a90f2e50cb06863b54effced365aa5f1fe7d9c88
+r
+Bdatabase/migrations/2023_12_28_011209_create_tb_warnings_table.php,9/f/9f2a004b8b9203f7656f33ea1e13cf2f3e80463c
+C
+app/Models/Host.php,8/8/882a4a6de7697cc4d80d54cceb603d3bab9eee78
+n
+>database/migrations/2023_12_28_033435_add_field_on_project.php,9/6/9665ae5c7eaeae4839a8782afb20e8fdc4ba8776

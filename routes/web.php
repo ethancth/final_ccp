@@ -179,7 +179,6 @@ Route::group(['middleware' => ['auth', 'verified']],
 
 
 
-
         //ProjectServer subscribe firewall
 
         Route::post('server/firewall/{firewallService}/subscribe', [FirewallServiceControler::class, 'favor'])->name('firewall.subscribe');
@@ -218,6 +217,12 @@ Route::group(['middleware' => ['auth', 'verified']],
 
 
         Route::post('switch-tenants', [\App\Http\Controllers\TenantController::class, 'SwitchTenant'])->name('switch.tenants');
+        Route::get('tenants-profile', [\App\Http\Controllers\TenantController::class, 'TenantProfile'])->name('tenants.profile');
+        Route::post('create-tenants-profile', [\App\Http\Controllers\TenantController::class, 'CreateTenantProfile'])->name('tenant.create');
+
+
+        //user password
+        Route::post('update_credential', [\App\Http\Controllers\UserPageController::class, 'update_credential'])->name('change.user.password');
 
 //
 //        Route::resource('company', 'CompanyController', ['only' => ['list', 'update', 'edit']]);

@@ -296,7 +296,7 @@ class CompanyFormController extends Controller
                 'slug' =>str::slug($request->company_domain,'-'),
                 'default_password' => $request->default_password,
                 'mandatory_field' => $request->form_group_a,
-                'is_new_company' => '0'
+                'is_new_company' => '1'
             ]);
         return redirect()->route('project')->with('success', 'Success！');
 

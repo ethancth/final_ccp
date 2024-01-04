@@ -15,17 +15,18 @@ data-asset-path="{{ asset('/')}}">
 
   @endphp
 
-  @if($_newform[0]->is_new_company=='1')
 
-  @else
+{{--  @if($_newform[0]->is_new_company=='1')--}}
 
-      @if((isset($configData['showMenu']) && $configData['showMenu'] === true))
-          @include('panels.sidebar')
-      @endif
-  @endif
+{{--  @else--}}
+
+{{--      @if((isset($configData['showMenu']) && $configData['showMenu'] === true))--}}
+{{--          @include('panels.sidebar')--}}
+{{--      @endif--}}
+{{--  @endif--}}
 
   <!-- END: Main Menu-->
-
+  @include('panels.sidebar')
 
   <!-- BEGIN: Content-->
   <div class="app-content content {{ $configData['pageClass'] }}">
