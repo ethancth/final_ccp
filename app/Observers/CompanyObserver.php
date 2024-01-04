@@ -88,6 +88,7 @@ class CompanyObserver
             'description' => "System Generate",
             'company_id'=>$company->id,
             'os_type'=>'windows',
+            'display_icon'=>'windows',
             'cost'=>'10',
             'status' => 1
         ]);
@@ -97,6 +98,7 @@ class CompanyObserver
             'description' => "System Generate",
             'company_id'=>$company->id,
             'os_type'=>'rhel',
+            'display_icon'=>'rhel',
             'cost'=>'9',
             'status' => 1
         ]);
@@ -106,6 +108,7 @@ class CompanyObserver
             'description' => "System Generate",
             'company_id'=>$company->id,
             'os_type'=>'centos',
+            'display_icon'=>'centos',
             'cost'=>'5',
             'status' => 1
         ]);
