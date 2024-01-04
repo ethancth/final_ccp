@@ -442,8 +442,6 @@ a
 1resources/views/content/infra/connector.blade.php,b/3/b3a9d5107251dae362fa2664465d7054ca80fb3c
 ?
 config/mail.php,2/d/2d414a971ebe9a05bd929c2805b4c963e8b1ea8d
-h
-8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
 f
 6resources/views/layouts/mailfullLayoutMaster.blade.php,3/4/34146272de92e35964d54bccf4d31f61036fe4cd
 J
