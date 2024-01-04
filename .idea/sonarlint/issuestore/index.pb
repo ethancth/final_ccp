@@ -440,8 +440,6 @@ B
 lang/en/locale.php,7/c/7c46845a8dbe950db03fcc9491123661f82d7839
 a
 1resources/views/content/infra/connector.blade.php,b/3/b3a9d5107251dae362fa2664465d7054ca80fb3c
-=
-composer.json,3/9/3957b91a0d8450cea0115cfd5af69eac90d75897
 ?
 config/mail.php,2/d/2d414a971ebe9a05bd929c2805b4c963e8b1ea8d
 h
