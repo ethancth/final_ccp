@@ -17,7 +17,7 @@ class UserObserver
         if(!$user->company_id) {
             $company = Company::create([
                 'name' => $user->name . " Company",
-                'domain' => remove_spacing($user->name . "@local"),
+                'domain' =>preg_replace('/\s+/', '', $user->name . "@local"),
                 'slug' => app(SlugHandler::class)->translate($user->name . "@local"),
                 'master_id'=>$user->id,
                 'status' => 1

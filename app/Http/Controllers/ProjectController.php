@@ -708,7 +708,7 @@ class ProjectController extends Controller
             ],
             [
                 'project_id' => $request->project_id,
-                'hostname' => remove_spacing($request->hostname),
+                'hostname' => preg_replace('/\s+/', '', $request->hostname),
                 'environment' => $request->environment,
                 'tier' => $request->tier,
                 'price' => $request->cost,
