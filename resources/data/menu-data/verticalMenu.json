@@ -3,18 +3,17 @@
 
 
       {"url":"","navheader":"Project","icon":""},
-      {"url":"project","name":"New Project", "icon":"grid","slug":"project"},
+      {"url":"project","name":"My Project", "icon":"grid","slug":"project"},
 
 
 
       {"url":"","navheader":"Management","icon":""},
-      {"url":"management-firewall-services","name":"Firewall Services", "icon":"grid","slug":"management_firewall_service"},
-      {"url":"user-management","name":"User Management","icon":"grid","slug":"user"},
-      {"url":"management-department","name":"Department Management","icon":"grid","slug":"department"},
-      {"url":"management-environment","name":"Env Form","icon":"grid","slug":"management_env"},
-      {"url":"management-tier","name":"Tier Form","icon":"grid","slug":"management_tier"},
-      {"url":"management-os","name":"OS Form","icon":"grid","slug":"management_os"},
-      {"url":"management-service-application","name":"SA Form","icon":"grid","slug":"management_sa"},
+      {"url":"user-management","name":"User","icon":"grid","slug":"user"},
+      {"url":"management-department","name":"Department","icon":"grid","slug":"department"},
+      {"url":"management-environment","name":"Environments","icon":"grid","slug":"management_env"},
+      {"url":"management-tier","name":"Tiers","icon":"grid","slug":"management_tier"},
+      {"url":"management-os","name":"Operating System","icon":"grid","slug":"management_os"},
+      {"url":"management-service-application","name":"Application Services","icon":"grid","slug":"management_sa"},
       {"url":"management-cost","name":"Cost Form","icon":"grid","slug":"management_cost"},
       {"url":"management-policy-form","name":"Policy Form","icon":"grid","slug":"management_policyform"}
   ]

@@ -1,6 +1,11 @@
 <?php
 
 return [
+    "Application Services" => "Application Services",
+    "Tiers" => "Tiers",
+    "Environments" => "Environments",
+    "Department" => "Department",
+    "Users" => "Users",
     "Connector" => "Connector",
     "Status" => "Status",
     "Enable" => "Enable",
@@ -29,7 +34,7 @@ return [
     "Datastore" => "Datastore",
     "Datastore Cost Profile" => "Datastore Cost Profile",
     "Project" => "Project",
-    "New Project" => "New Project",
+    "My Project" => "My Project",
     "Environment" => "Environment",
     "Tier" => "Tier",
     "Env Form" => "Environment Form",

@@ -436,8 +436,6 @@ g
 7app/Http/Controllers/ProjectSecurityGroupController.php,9/5/95b3cd3fe865c733a47bf08a75e54d8b72a1e9fd
 W
 'app/Http/Middleware/VerifyCsrfToken.php,f/c/fce07bf022d9bda760f3fe7621ac87a257cbd9f4
-B
-lang/en/locale.php,7/c/7c46845a8dbe950db03fcc9491123661f82d7839
 a
 1resources/views/content/infra/connector.blade.php,b/3/b3a9d5107251dae362fa2664465d7054ca80fb3c
 ?
