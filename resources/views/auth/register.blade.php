@@ -73,7 +73,7 @@
                         </div>
                         <div class="mb-1">
                             <label class="form-label" for="email">Email</label>
-                            <input class="form-control @error('email') is-invalid @enderror" id="email" type="text" name="email" placeholder="username@example.com" required autocomplete="email" aria-describedby="register-email" tabindex="2" />
+                            <input class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" type="text" name="email" placeholder="username@example.com" required autocomplete="email" aria-describedby="register-email" tabindex="2" />
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
@@ -83,7 +83,7 @@
 
                         <div class="mb-1">
                             <label class="form-label" for="email">Tenant Name</label>
-                            <input class="form-control " id="tenant" type="text" name="tenant" placeholder="Tenant Name" required tabindex="2" />
+                            <input class="form-control " id="tenant" type="text" name="tenant"value="{{ old('tenant') }}" placeholder="Tenant Name" required tabindex="2" />
 
                         </div>
 
