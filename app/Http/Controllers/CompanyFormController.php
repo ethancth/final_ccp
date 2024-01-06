@@ -236,7 +236,6 @@ class CompanyFormController extends Controller
 
     public function sa_request(Request $request)
     {
-        //dd($request);
         if( $request->select_satype==1){
             $select_satype_one_time=1;
             $select_satype_cost_per_core=0;

@@ -109,6 +109,42 @@ Route::group(['middleware' => ['auth', 'verified']],
 //        Route::get('/department-cost-profile', 'ClusterCostProfileController@index')->name('department-cost-profile');
 //
 //
+        Route::get('/demos/{id}', function (string $id) {
+
+            $records = [
+                [
+                    "state"  => "IN",
+                    "city"   => "Indianapolis",
+                    "object" => "School bus"
+                ],
+                [
+                    "state"  => "IN",
+                    "city"   => "Indianapolis",
+                    "object" => "Manhole"
+                ],
+                [
+                    "state"  => "IN",
+                    "city"   => "Plainfield",
+                    "object" => "Basketball"
+                ],
+                [
+                    "state"  => "CA",
+                    "city"   => "San Diego",
+                    "object" => "Light bulb"
+                ],
+                [
+                    "state"  => "CA",
+                    "city"   => "Mountain View",
+                    "object" => "Space pen"
+                ]
+            ];
+            foreach ($records as $resule)
+            {
+                echo $resule['city'].'<br/>';
+            }
+            //return 'User '.$id;
+        });
+
 //
 //        //TODO datastore
 //        Route::get('/datastore', 'DatastoreController@table')->name('datastore');

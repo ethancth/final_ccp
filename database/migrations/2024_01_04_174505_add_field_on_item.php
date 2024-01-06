@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             //
-            $table->decimal('price','10',2)->default(0);
+            $table->decimal('price','10',5)->default(0);
         });
     }
 

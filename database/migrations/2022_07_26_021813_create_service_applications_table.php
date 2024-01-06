@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('display_description')->nullable();
             $table->boolean('status')->default(1);
             $table->integer('company_id');
-            $table->decimal('cost',10,2);
+            $table->decimal('cost',10,5);
             $table->integer('is_one_time_payment')->default('0');
             $table->integer('is_cost_per_core')->default('0');
             $table->integer('cpu_amount')->default('0');

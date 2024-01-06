@@ -6,7 +6,9 @@ use App\Models\Company;
 use App\Models\CostProfile;
 use App\Models\Environment;
 use App\Models\OperatingSystem;
+use App\Models\ServiceApplication;
 use App\Models\Tier;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyObserver
 {
@@ -112,6 +114,152 @@ class CompanyObserver
             'cost'=>'5',
             'status' => 1
         ]);
+
+
+
+        $records = [
+            [
+                "name"  => "SQL Server 2019",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],
+            [
+                "name"  => "Oracle Database 19c",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ], [
+                "name"  => "Dynamics 365",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ], [
+                "name"  => "Tableau Desktop 2021.x ",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ], [
+                "name"  => "Adobe Experience Manager 6.5",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ], [
+                "name"  => "Jira Software 8.x",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "Magento 2.x",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "WordPress 5.x",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "Moodle 3.x",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "Symantec Endpoint Protection 14.x",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "McAfee Endpoint Security 10.x",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "MySQL 8.0",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "PostgreSQL 13",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "MongoDB 4.x",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "MariaDB 10.5",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "Apache Cassandra 3.x",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ],[
+                "name"  => "Redis 6.x",
+                "description"   => "",
+                "onetime"   => "1",
+                "costpercore"   => "0",
+                "core"   => "0",
+                "cost" => "1"
+            ]
+
+
+        ];
+        foreach ($records as $result)
+        {
+
+            ServiceApplication::create(
+                [
+                    'name' => strtolower(preg_replace('/\s*/', '', $result['name'])),
+                    'display_name' => $result['name'],
+                    'cost' => $result['cost'],
+                    'display_description' => $result['name'],
+                    'company_id' => $company->id,
+                    'status' => 1,
+                    'is_one_time_payment' => $result['onetime'],
+                    'is_cost_per_core' => $result['costpercore'],
+                    'cpu_amount' =>$result['core'],
+                ]);
+        }
+
+
 
 
 
