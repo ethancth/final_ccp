@@ -23,13 +23,13 @@ return new class extends Migration
             $table->string('tier');
             $table->string('environment');
             $table->integer('v_cpu');
-            $table->decimal('cpu_price',10,2)->nullable();
+            $table->decimal('cpu_price',10,5)->nullable();
             $table->integer('v_memory');
-            $table->decimal('memory_price',10,2)->nullable();
+            $table->decimal('memory_price',10,5)->nullable();
             $table->integer('total_storage');
-            $table->decimal('storage_price',10,2)->nullable();
+            $table->decimal('storage_price',10,5)->nullable();
             $table->string('tag')->nullable();
-            $table->decimal('price',10,2)->nullable();
+            $table->decimal('price',10,5)->nullable();
             $table->boolean('is_delete')->default(0);
             $table->timestamps();
         });

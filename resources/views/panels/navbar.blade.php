@@ -91,7 +91,7 @@
     <li class="nav-item dropdown dropdown-notification me-25">
       <a class="nav-link" href="javascript:void(0);" data-bs-toggle="dropdown">
         <i class="ficon" data-feather="bell"></i>
-        <span class="badge rounded-pill bg-danger badge-up">5</span>
+{{--        <span class="badge rounded-pill bg-danger badge-up">5</span>--}}
       </a>
       <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
         <li class="dropdown-menu-header">

@@ -61,6 +61,7 @@ class UserPageController extends Controller
 
         //return view('/content/apps/user/app-user-list', ['pageConfigs' => $pageConfigs]);
         $totaluser=company::find(User::find(Auth::id())->company_id)->tenantuser->count();
+        $all_department=company::find(User::find(Auth::id())->company_id)->department;
 //        $data = company::find(User::find(Auth::id())->company_id)->user;
 //        dd($data);
         if ($request->ajax())
@@ -76,7 +77,7 @@ class UserPageController extends Controller
                 ->make(true);
         }
 
-        return view('/content/user/home', ['pageConfigs' => $pageConfigs,'user' => $user,'totaluser'=> $totaluser]);
+        return view('/content/user/home', ['pageConfigs' => $pageConfigs,'user' => $user,'totaluser'=> $totaluser,'departments'=>$all_department]);
     }
 
     public function store(Request $request)

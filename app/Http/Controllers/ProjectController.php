@@ -30,7 +30,11 @@ class ProjectController extends Controller
 
     public function index(Request $request,Project $project)
     {
+      //  dd(request()->path());
 
+        if(request()->path()=='/'){
+            return redirect('/project', 301);
+        }
 //        if(Auth()->user()->company->is_new_company){
 //            $pageConfigs = ['showMenu' => false];
 //            $breadcrumbs = [['link' => "/", 'name' => "Home"], ['name' => "First Login Company Setting"]];
@@ -702,6 +706,7 @@ class ProjectController extends Controller
         $find_tier=Tier::find($request->tier);
         $find_env=Environment::find($request->environment);
         //$find_tier=OperatingSystem::find($request->operating_system);
+       // dd($request);
         ProjectServer::updateOrCreate(
             [
                 'id' => $request->server_id

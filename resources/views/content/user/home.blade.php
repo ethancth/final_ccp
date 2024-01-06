@@ -129,13 +129,21 @@
                                     name="user_email"
                                 />
                             </div>
+                            <div class="mb-1">
+                                <label class="form-label" for="department">Department</label>
+                                <select name="department" id="department" class="select2 form-select">
+
+                                    @foreach($departments as $department)
+                                    <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                             <div class="mb-1">
                                 <label class="form-label" for="user-role">User Role</label>
                                 <select name="user_role" id="user_role" class="select2 form-select">
                                     <option selected value="User">User</option>
                                     <option value="Teamlead">Team Leader</option>
-                                    <option value="Admin">Admin</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary me-1">Submit</button>

@@ -14,9 +14,9 @@ class ProjectServerObserver
 
     public function created(ProjectServer $projectserver)
     {
-
         $project=$projectserver->project;
-        $project->price=$project->server->sum('price');
+        //dd($project->server->sum('price'));
+        $project->price=($project->server->sum('price')+$projectserver->price);
         $project->total_cpu=$project->server->sum('v_cpu');
         $project->total_memory=$project->server->sum('v_memory');
         $project->total_server=$project->server->count('v_cpu');

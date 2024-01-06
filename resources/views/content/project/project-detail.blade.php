@@ -53,7 +53,7 @@
                         </div>
 
                         <div>
-                            <h6 class="text">Cost -  <span class="badge badge-light-success profile-badge">RM {{$project->price}}</span> </h6>
+                            <h6 class="text">Daily Cost -  <span class="badge badge-light-success profile-badge">$ {{$project->price}}</span> </h6>
 
                         </div>
                     </div>
@@ -122,7 +122,6 @@
 
 @include('content/_partials/_modals/modal-create-app')
 @include('content/_partials/_modals/modal-project-activity')
-@include('content/_partials/_modals/modal-project-submit-form')
 @endsection
 
 @section('vendor-script')
@@ -288,7 +287,7 @@
         // --- create app  ----- //
         if (typeof modernVerticalWizard !== undefined && modernVerticalWizard !== null) {
             var modernVerticalStepper = new Stepper(modernVerticalWizard, {
-                    linear: false
+                    linear: true
                 }),
                 $form = $(createAppModal).find('form');
             $form.each(function () {

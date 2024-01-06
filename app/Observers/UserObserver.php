@@ -14,22 +14,22 @@ class UserObserver
     public function created(User $user)
     {
 
-        if(!$user->company_id) {
-            $company = Company::create([
-                'name' => $user->name . " Company",
-                'domain' =>preg_replace('/\s+/', '', $user->name . "@local"),
-                'slug' => app(SlugHandler::class)->translate($user->name . "@local"),
-                'master_id'=>$user->id,
-                'status' => 1
-            ]);
-            User::updateOrCreate(
-                [
-                    'id' => $user->id,
-                ],
-                [
-                    'company_id' => $company->id,
-                ]);
-        }
+//        if(!$user->company_id) {
+//            $company = Company::create([
+//                'name' => $user->name . " Company",
+//                'domain' =>preg_replace('/\s+/', '', $user->name . "@local"),
+//                'slug' => app(SlugHandler::class)->translate($user->name . "@local"),
+//                'master_id'=>$user->id,
+//                'status' => 1
+//            ]);
+//            User::updateOrCreate(
+//                [
+//                    'id' => $user->id,
+//                ],
+//                [
+//                    'company_id' => $company->id,
+//                ]);
+//        }
 
 //        $default_user = [
 //            [

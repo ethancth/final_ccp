@@ -66,7 +66,7 @@
                             class="form-control"
                             placeholder="$10"
                             min="1"
-                            pattern="^\d*(\.\d{0,2})?$"
+                            pattern="^\d*(\.\d{0,5})?$"
                             required
                         />
                         <small>This cost is Cost per day(temporary)</small>

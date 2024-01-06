@@ -553,10 +553,24 @@ class CompanyFormController extends Controller
 //            echo $services->name;
 
         }
-         $_total_cost_sam= number_format((float)$_total_cost_sam, 2, '.', '');
+        //
+//        $_cost_vcpu=($request->cpu/$company_cost_profile->vcpu)*$company_cost_profile->vcpu_price;
+//        $_cost_memory=($request->mem/$company_cost_profile->vmen)*$company_cost_profile->vmen_price;
+//        $_cost_storage=($request->storage  /$company_cost_profile->vstorage)*$company_cost_profile->vstorage_price;
+
+
+        $_formula_cpu="CPU = (".$request->cpu.'/'.$company_cost_profile->vcpu.')*'.$company_cost_profile->vcpu_price.'='.$_cost_vcpu.')';
+        $_formula_memory="Memory = (".$request->mem.'/'.$company_cost_profile->vmen.')*'.$company_cost_profile->vmen_price.'='.$_cost_memory.')';
+        $_formula_storage="Storage = (".$request->storage.'/'.$company_cost_profile->vstorage.')*'.$company_cost_profile->vstorage_price.'='.$_cost_storage.')';
+         $_total_cost_sam= number_format((float)$_total_cost_sam, 5, '.', '');
         $_total_cost_server=$_cost_vcpu+$_cost_memory+$_cost_storage+$_total_cost_sam;
         //return number_format((float)$_total_cost_server, 2, '.', '');
-        return $a=array('cost'=>number_format((float)$_total_cost_server, 2, '.', ''));
+        return $a=array(
+            'cost'=>number_format((float)$_total_cost_server, 5, '.', ''),
+            'CPU'=>$_formula_cpu,
+            'memory'=>$_formula_memory,
+            'storage'=>$_formula_storage,
+        );
 
 
     }
