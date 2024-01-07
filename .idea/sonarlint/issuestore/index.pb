@@ -512,8 +512,6 @@ c
 3resources/views/content/management/tenant.blade.php,d/d/dd535159dadf910bef0b5a52ed0dfa13d807efe4
 E
 app/Models/Tenant.php,1/0/1055246f044f62f7a0853b16bfc5df393e6a44c9
-`
-0resources/views/content/tenant/profile.blade.php,4/1/413ffdaecfac2cd76966777f8af124c72063ff95
 C
 app/Models/User.php,a/9/a90f2e50cb06863b54effced365aa5f1fe7d9c88
 F
@@ -538,8 +536,6 @@ t
 Dresources/views/content/authentication/auth-register-cover.blade.php,7/a/7af53b7377440500cdcf3d9ab0f092b013d3c7e1
 T
 $app/Providers/AppServiceProvider.php,4/8/48b8d8112e9bdd32ee7e25b1224d6739eece1e72
-Y
-)app/Http/Controllers/TenantController.php,4/3/43e866a2919d86dd6d9486bd7b5d81e52f49c8d0
 `
 0app/Http/Controllers/Auth/RegisterController.php,a/0/a0ffa01331c31490401d3514217b1d5b3700fb49
 \

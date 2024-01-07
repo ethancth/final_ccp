@@ -209,7 +209,7 @@
                     <form id="addNewTenantForm" class="row gy-1 gx-2" method="POST" action="{{ route('tenant.create') }}">
 
                         <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-                        <input name="_id" id="_id" type="" value=""/>
+                        <input name="_id" id="_id" type="hidden" value=""/>
                         <div class="col-12 col-md-12">
                             <label class="form-label" for="modalAddressFirstName">Tenant Name</label>
                             <input
