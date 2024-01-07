@@ -534,8 +534,6 @@ N
 +app/Models/ProjectSecurityGroupFirewall.php,d/0/d02bc022f1a1d5429fd5027ab98c67b703a0a608
 L
 app/Models/ProjectServer.php,b/f/bf24152f8c8ae47e4f91c245099b44b022a27d0f
-g
-7resources/views/content/management/department.blade.php,f/3/f31570582fd5865fb912ba22f416ca1bf36eb4ac
 t
 Dresources/views/content/authentication/auth-register-cover.blade.php,7/a/7af53b7377440500cdcf3d9ab0f092b013d3c7e1
 T
@@ -604,8 +602,6 @@ S
 #database/seeders/DatabaseSeeder.php,a/c/aca1efccd4101e0c9bdd34803577859ace08ef45
 k
 ;database/migrations/2024_01_04_174505_add_field_on_item.php,0/3/03ece42f465dc12f9d2771bfca6884cb6166ff4b
-]
--app/Http/Controllers/DepartmentController.php,c/1/c1e12f933f9a6f5cba9bc89db828849ad8378cae
 p
 @resources/views/content/management/service_application.blade.php,f/2/f26a6f2667c6356b7a1f646744c159fd5608d936
 Q
@@ -616,7 +612,5 @@ f
 6resources/views/content/pages/modal-examples.blade.php,c/e/ce2f3b6770d2d358dde6df9644af4ce4c5844da6
 }
 Mresources/views/content/_partials/_modals/modal-project-submit-form.blade.php,c/5/c53e7fa3a72ed5ce93640e24e7a97a8f46515182
-N
-app/Observers/UserObserver.php,5/8/58b0ca3953943da94a198e58ca46b0403cbd13f3
 W
 'app/Observers/ProjectServerObserver.php,7/4/74a477b8865521fa13d2c3a07caa39615ea37fc4

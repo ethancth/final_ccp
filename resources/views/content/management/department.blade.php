@@ -68,7 +68,7 @@
                         </div>
                         <div class="mb-1">
                             <label class="form-label" for="basic-default-display-name">HOD</label>
-                            <select required id="modalHod" name="modalHod[]" multiple="multiple" class="hod-select2 select2 form-select ">
+                            <select  id="modalHod" name="modalHod[]" multiple="multiple" class="hod-select2 select2 form-select ">
                                 @foreach($members as $value)
                                     <option value="{{$value->id}}">{{$value->name}}</option>
                                 @endforeach
@@ -78,7 +78,7 @@
                         </div>
                         <div class="mb-1">
                             <label class="form-label" for="basic-default-password1">Member</label>
-                            <select required id="modalMember" name="modalMember[]" multiple="multiple" class="select2 form-select">
+                            <select  id="modalMember" name="modalMember[]" multiple="multiple" class="select2 form-select">
                                 @foreach($members as $value)
                                     <option value="{{$value->id}}">{{$value->name}}</option>
                                 @endforeach
@@ -187,7 +187,7 @@
                     data: { id: id },
                     dataType: 'json',
                     success: function(res){
-                        console.log(res);
+
                         var color=res.display_icon_colour;
                         $('#modalsslideinform').modal('show');
                         $('#form-label').text("Edit Record");

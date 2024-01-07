@@ -194,6 +194,7 @@ Route::group(['middleware' => ['auth', 'verified']],
 //        //Company & user
         Route::get('/user-management', [UserPageController::class, 'index'])->name('user');
         Route::post('/user-management', [UserPageController::class, 'store'])->name('user.store');
+        Route::post('/user-management-edit', [UserPageController::class, 'edit'])->name('user.edit');
 
         //Server Object
         Route::get('server',[ServerController::class,'index'])->name('server');

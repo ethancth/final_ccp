@@ -96,7 +96,7 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
                         <div class="modal-header mb-1">
-                            <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                            <h5 class="modal-title" id="form-label">Add User</h5>
                         </div>
                         <div class="modal-body flex-grow-1">
                             <div class="hidden">
@@ -130,21 +130,25 @@
                                 />
                             </div>
                             <div class="mb-1">
-                                <label class="form-label" for="department">Department</label>
-                                <select name="department" id="department" class="select2 form-select">
-
+                                <label class="form-label" for="modalHod" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Assign This Department will be HOD">Department - HOD</label>
+                                <select  id="modalHod" name="modalHod[]" multiple="multiple" class="hod-select2 select2 form-select ">
                                     @foreach($departments as $department)
-                                    <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                        <option value="{{$department->id}}">{{$department->department_name}}</option>
+
                                     @endforeach
                                 </select>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Please enter a display name</div>
                             </div>
-
                             <div class="mb-1">
-                                <label class="form-label" for="user-role">User Role</label>
-                                <select name="user_role" id="user_role" class="select2 form-select">
-                                    <option selected value="User">User</option>
-                                    <option value="Teamlead">Team Leader</option>
+                                <label class="form-label" for="modalMember" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="This Department will be Member">Department - Member </label>
+                                <select  id="modalMember" name="modalMember[]" multiple="multiple" class="select2 form-select">
+                                    @foreach($departments as $department)
+                                        <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                    @endforeach
                                 </select>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Please enter your sentence.</div>
                             </div>
                             <button type="submit" class="btn btn-primary me-1">Submit</button>
                             <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -202,6 +206,39 @@
                assetPath = $('body').attr('data-asset-path');
                userView = assetPath + '';
            }
+           $.ajaxSetup({
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+           });
+
+           $('body').on('click', '.edit', function () {
+               var id = $(this).data('id');
+               $.ajax({
+                   type:"POST",
+                   url: "{{ route('user.edit') }}",
+                   data: { id: id },
+                   dataType: 'json',
+                   success: function(res){
+
+                       var color=res.display_icon_colour;
+                       $('#modals-slide-in').modal('show');
+                       $('#form-label').text("Edit Record");
+                       $('#user_id').val(res.id);
+                       $("#name").prop("readonly",true);
+                       $("#email").prop("readonly",true);
+                       $('#name').val(res.name);
+                       $('#email').val(res.email);
+
+                        $('#modalHod').val(res.department_hod.split(',')).trigger("change");
+                        $('#modalMember').val(res.department_member.split(',')).trigger("change");
+
+                       // $('#code').val(res.code);
+                       // $('#author').val(res.author);
+                   }
+               });
+
+           });
 
            select.each(function () {
                var $this = $(this);
@@ -321,22 +358,14 @@
                            title: 'Actions',
                            orderable: false,
                            render: function (data, type, full, meta) {
+
+                               var $id = full['id'];
                                return (
-                                   '<div class="btn-group">' +
-                                   '<a class="btn btn-sm dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
-                                   feather.icons['more-vertical'].toSvg({ class: 'font-small-4' }) +
-                                   '</a>' +
-                                   '<div class="dropdown-menu dropdown-menu-end">' +
-                                   '<a href="' +
-                                   userView +
-                                   '" class="dropdown-item">' +
-                                   feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) +
-                                   'Details</a>' +
-                                   '<a href="javascript:;" class="dropdown-item delete-record">' +
-                                   feather.icons['trash-2'].toSvg({ class: 'font-small-4 me-50' }) +
-                                   'Delete</a></div>' +
-                                   '</div>' +
-                                   '</div>'
+
+                                   '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit User">' +
+                                   feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                   '</a>' 
+
                                );
                            }
                        }
@@ -367,7 +396,17 @@
                            },
                            init: function (api, node, config) {
                                $(node).removeClass('btn-secondary');
-                           }
+                           },
+                           action: function (){
+                               $('#userform').trigger("reset");
+
+                               $('#form-label').text("New Record");
+                               $("#name").prop("readonly",false);
+                               $("#email").prop("readonly",false);
+
+                               $('#modalHod').val('').trigger("change");
+                               $('#modalMember').val('').trigger("change");
+                           },
                        }
                    ],
                    // For responsive popup
