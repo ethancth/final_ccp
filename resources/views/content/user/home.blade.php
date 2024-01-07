@@ -310,7 +310,7 @@
                                    '</div>' +
                                    '<div class="d-flex flex-column">' +
                                    '<a href="' +
-                                   userView +
+                                   '#' +
                                    '" class="user_name text-truncate text-body"><span class="fw-bolder">' +
                                    $name +
                                    '</span></a>' +
@@ -364,7 +364,7 @@
 
                                    '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit User">' +
                                    feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                   '</a>' 
+                                   '</a>'
 
                                );
                            }
