@@ -29,7 +29,8 @@ return new class extends Migration
             $table->integer('total_storage');
             $table->decimal('storage_price',10,5)->nullable();
             $table->string('tag')->nullable();
-            $table->decimal('price',10,5)->nullable();
+            $table->decimal('price',10,2)->nullable();
+            $table->decimal('price_actual',10,5)->nullable();
             $table->boolean('is_delete')->default(0);
             $table->timestamps();
         });

@@ -484,12 +484,8 @@ g
 7resources/views/content/forms/form-validation.blade.php,e/e/ee289e78ffbd61802b37fc9d1672b9b9d9f70c5f
 Y
 )app/Http/Controllers/SearchController.php,c/0/c0ff0a46bb2ec80e0fb00ebb2c39be7bccaa2596
-r
-Bdatabase/migrations/2023_12_28_011209_create_tb_warnings_table.php,9/f/9f2a004b8b9203f7656f33ea1e13cf2f3e80463c
 C
 app/Models/Host.php,8/8/882a4a6de7697cc4d80d54cceb603d3bab9eee78
-n
->database/migrations/2023_12_28_033435_add_field_on_project.php,9/6/9665ae5c7eaeae4839a8782afb20e8fdc4ba8776
 Y
 )app/Http/Controllers/ServerController.php,3/5/35d184f674aafc0a18b9b89bd636f8edef9700a2
 d
@@ -498,8 +494,6 @@ d
 0resources/views/content/management/env.blade.php,5/f/5fb1518bb9b595cb6cbc7ef2f3ed8ff53b47acf6
 k
 ;resources/views/content/server/information-backup.blade.php,e/8/e834c5dfaaee9a4c6f3b4cd554792adfc8ac2cb2
-x
-Hdatabase/migrations/2023_12_25_164153_add_field_on_department_member.php,f/b/fb308e59fb4cd6a466afed13fd11d8211bbe796a
 q
 Aresources/views/content/apps/user/app-user-view-billing.blade.php,8/f/8fac433a7813f6cb9485e1e7b26defcd096dafd8
 f
@@ -514,8 +508,6 @@ E
 app/Models/Tenant.php,1/0/1055246f044f62f7a0853b16bfc5df393e6a44c9
 C
 app/Models/User.php,a/9/a90f2e50cb06863b54effced365aa5f1fe7d9c88
-F
-app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
 V
 &app/Models/ProjectSecurityGroupEnv.php,1/e/1e1755fb2c076d113a3299beca7a78decedcf092
 S
@@ -530,8 +522,6 @@ N
 .app/Models/ProjectSecurityGroupEnvFirewall.php,f/1/f1746d2824a2f502dbd674031b759146fb0b31b2
 [
 +app/Models/ProjectSecurityGroupFirewall.php,d/0/d02bc022f1a1d5429fd5027ab98c67b703a0a608
-L
-app/Models/ProjectServer.php,b/f/bf24152f8c8ae47e4f91c245099b44b022a27d0f
 t
 Dresources/views/content/authentication/auth-register-cover.blade.php,7/a/7af53b7377440500cdcf3d9ab0f092b013d3c7e1
 T
@@ -558,8 +548,6 @@ B
 lang/en/locale.php,7/c/7c46845a8dbe950db03fcc9491123661f82d7839
 t
 Ddatabase/migrations/2022_06_06_132138_create_cost_profiles_table.php,d/e/de6dc4a3917b00c505f0728fa251702c68900b97
-u
-Edatabase/migrations/2024_01_06_042841_change_field_on_costprofile.php,6/4/644077559a079efc874b7c52f16dc2afce835378
 {
 Kdatabase/migrations/2022_07_26_021813_create_service_applications_table.php,9/8/98d48555259cb6dfd3f465d78c2d4749f20d8430
 <
@@ -596,17 +584,11 @@ x
 Hdatabase/migrations/2023_08_16_083944_add_field_on_departmen_members.php,7/f/7fe401061ab3173e1b288c1d586db0ea3767ed28
 S
 #database/seeders/DatabaseSeeder.php,a/c/aca1efccd4101e0c9bdd34803577859ace08ef45
-k
-;database/migrations/2024_01_04_174505_add_field_on_item.php,0/3/03ece42f465dc12f9d2771bfca6884cb6166ff4b
 p
 @resources/views/content/management/service_application.blade.php,f/2/f26a6f2667c6356b7a1f646744c159fd5608d936
-Q
-!app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
 t
 Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6
 f
 6resources/views/content/pages/modal-examples.blade.php,c/e/ce2f3b6770d2d358dde6df9644af4ce4c5844da6
 }
 Mresources/views/content/_partials/_modals/modal-project-submit-form.blade.php,c/5/c53e7fa3a72ed5ce93640e24e7a97a8f46515182
-W
-'app/Observers/ProjectServerObserver.php,7/4/74a477b8865521fa13d2c3a07caa39615ea37fc4

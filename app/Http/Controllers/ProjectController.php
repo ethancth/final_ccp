@@ -717,6 +717,7 @@ class ProjectController extends Controller
                 'environment' => $request->environment,
                 'tier' => $request->tier,
                 'price' => $request->cost,
+                'price_actual' => $request->cost,
                 'operating_system' => $request->operating_system,
                 'operating_system_option' => $find_os_icon->display_icon,
                 'display_env' => $find_env->display_name,
