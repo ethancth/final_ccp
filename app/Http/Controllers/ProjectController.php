@@ -544,7 +544,6 @@ class ProjectController extends Controller
             ]
         );
         return back()->with('success', 'Success！');
-        return back()->with('success', 'Success！');
 
     }
 

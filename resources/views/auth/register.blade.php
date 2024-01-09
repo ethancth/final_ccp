@@ -110,8 +110,9 @@
 
                         <div class="mb-1">
                             <div class="form-check">
-                                <input class="form-check-input" id="register-privacy-policy" type="checkbox" tabindex="5" />
+                                <input class="form-check-input" id="register-privacy-policy"required  name="register-privacy-policy" type="checkbox" tabindex="5" />
                                 <label class="form-check-label" for="register-privacy-policy">I agree to<a href="#">&nbsp;privacy policy & terms</a></label>
+                                <div class="invalid-feedback">You must agree before submitting.</div>
                             </div>
                         </div>
                         <button class="btn btn-primary w-100" tabindex="5">Sign up</button>

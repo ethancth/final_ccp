@@ -400,7 +400,7 @@
                            action: function (){
                                $('#userform').trigger("reset");
 
-                               $('#form-label').text("New Record");
+                               $('#form-label').text("Add User");
                                $("#name").prop("readonly",false);
                                $("#email").prop("readonly",false);
 
