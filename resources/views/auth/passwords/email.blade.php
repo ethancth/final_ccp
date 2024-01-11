@@ -60,11 +60,24 @@
                 <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
                     <h2 class="card-title fw-bold mb-1">Forgot Password? 🔒</h2>
                     <p class="card-text mb-2">Enter your email and we'll send you instructions to reset your password</p>
-                    <form class="auth-forgot-password-form mt-2" action="{{route("password.email")}}" method="GET">
+                    <form class="auth-forgot-password-form mt-2" action="{{route("password.email")}}" method="POST">
+                        @csrf
                         <div class="mb-1">
+
+
                             <label class="form-label" for="forgot-password-email">Email</label>
-                            <input class="form-control" id="forgot-password-email" type="text" name="forgot-password-email" placeholder="john@example.com" aria-describedby="forgot-password-email" autofocus="" tabindex="1" />
+                            <input class="form-control" id="forgot-password-email" type="email" name="email" placeholder="john@example.com" aria-describedby="forgot-password-email" required autofocus="" tabindex="1" />
                         </div>
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                         <button class="btn btn-primary w-100" tabindex="2">Send reset link</button>
                     </form>
                     <p class="text-center mt-2">

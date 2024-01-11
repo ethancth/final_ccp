@@ -3,7 +3,7 @@
 @endphp
 @extends('layouts/fullLayoutMaster')
 
-@section('title', 'Forgot Password')
+@section('title', 'Reset Password')
 
 @section('page-style')
     {{-- Page Css files --}}
@@ -39,7 +39,7 @@
                         </g>
                     </g>
                 </svg>
-                <h2 class="brand-text text-primary ms-1">Vuexy</h2>
+                <h2 class="brand-text text-primary ms-1">{{env('APP_NAME')}}</h2>
             </a>
             <!-- /Brand logo-->
 
@@ -47,34 +47,59 @@
             <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
                 <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
                     @if($configData['theme'] === 'dark')
-                        <img class="img-fluid" src="{{asset('images/pages/forgot-password-v2-dark.svg')}}" alt="Forgot password V2" />
+                        <img src="{{asset('images/pages/reset-password-v2-dark.svg')}}" class="img-fluid" alt="Register V2" />
                     @else
-                        <img class="img-fluid" src="{{asset('images/pages/forgot-password-v2.svg')}}" alt="Forgot password V2" />
+                        <img src="{{asset('images/pages/reset-password-v2.svg')}}" class="img-fluid" alt="Register V2" />
                     @endif
                 </div>
             </div>
             <!-- /Left Text-->
 
-            <!-- Forgot password-->
+            <!-- Reset password-->
             <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-                    <h2 class="card-title fw-bold mb-1">Forgot Password? 🔒</h2>
-                    <p class="card-text mb-2">Enter your email and we'll send you instructions to reset your password</p>
-                    <form class="auth-forgot-password-form mt-2" action="/auth/reset-password-cover" method="GET">
+                    <h2 class="card-title fw-bold mb-1">Reset Password 🔒</h2>
+{{--                    <p class="card-text mb-2">Your new password must be different from previously used passwords</p>--}}
+                    <form method="POST" class="auth-reset-password-form" action="{{ route('password.update') }}">
+                        @csrf
+
+                        <input type="hidden" name="token" value="{{ $token }}">
                         <div class="mb-1">
-                            <label class="form-label" for="forgot-password-email">Email</label>
-                            <input class="form-control" id="forgot-password-email" type="text" name="forgot-password-email" placeholder="john@example.com" aria-describedby="forgot-password-email" autofocus="" tabindex="1" />
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="email">Email</label>
+                            </div>
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" readonly autocomplete="email" autofocus>
+                            </div>
                         </div>
-                        <button class="btn btn-primary w-100" tabindex="2">Send reset link</button>
+                        <div class="mb-1">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="reset-password-new">New Password</label>
+                            </div>
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input class="form-control form-control-merge" id="password" type="password" name="password" placeholder="············"  autofocus="" tabindex="1" />
+                                <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                            </div>
+                        </div>
+                        <div class="mb-1">
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="password-confirm">Confirm Password</label>
+                            </div>
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input class="form-control form-control-merge" id="password-confirm" name="password_confirmation"  type="password" placeholder="············" tabindex="2" />
+                                <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100" tabindex="3">Set New Password</button>
                     </form>
                     <p class="text-center mt-2">
-                        <a href="{{url('auth/login-cover')}}">
+                        <a type="submit">
                             <i data-feather="chevron-left"></i> Back to login
                         </a>
                     </p>
                 </div>
             </div>
-            <!-- /Forgot password-->
+            <!-- /Reset password-->
         </div>
     </div>
 @endsection
@@ -84,5 +109,5 @@
 @endsection
 
 @section('page-script')
-    <script src="{{asset(mix('js/scripts/pages/auth-forgot-password.js'))}}"></script>
+    <script src="{{asset(mix('js/scripts/pages/auth-reset-password.js'))}}"></script>
 @endsection

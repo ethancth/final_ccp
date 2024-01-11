@@ -45,16 +45,21 @@
                             <label class="form-label" for="login-email">Email</label>
                             <input value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" id="email" type="text" name="email" placeholder="john@example.com" aria-describedby="login-email" autofocus="" tabindex="1" />
                         </div>
+
                         @error('email')
-                        <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                        </span>
+                        <div class="alert alert-danger" role="alert">
+                            {{ $errors->first('email') }}
+                        </div>
                         @enderror
+
                         @error('password')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                        <div class="alert alert-danger" role="alert">
+                            {{ $errors->first('password') }}
+                        </div>
                         @enderror
+
+
+
                         <div class="mb-1">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">Password</label>
@@ -71,8 +76,8 @@
                         </div>
                         <div class="mb-1">
                             <div class="form-check">
-                                <input class="form-check-input" id="remembercheck"{{ old('remember') ? 'checked' : '' }} type="checkbox" tabindex="3" />
-                                <label class="form-check-label" for="remember-me"> Remember Me</label>
+                                <input class="form-check-input" name="remember" id="remember"{{ old('remember') ? 'checked' : '' }} type="checkbox" tabindex="3" />
+                                <label class="form-check-label" for="remember"> Remember Me</label>
                             </div>
                         </div>
                         <button class="btn btn-primary w-100" tabindex="4">Sign in</button>
@@ -87,6 +92,7 @@
             <!-- /Login-->
         </div>
     </div>
+
 @endsection
 
 

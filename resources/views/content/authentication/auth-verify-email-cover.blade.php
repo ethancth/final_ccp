@@ -3,13 +3,24 @@ $configData = Helper::applClasses();
 @endphp
 @extends('layouts/fullLayoutMaster')
 
-@section('title', 'Verify Email Cover')
+@section('title', __('Verify Your Email Address'))
 
 @section('page-style')
   <link rel="stylesheet" href="{{ asset(mix('css/base/pages/authentication.css')) }}">
 @endsection
 
 @section('content')
+    @php
+        $arr = explode('@', Auth::user()->email);
+    $_getmail = $arr[1];
+
+    if($_getmail=='outlook.com')
+        {
+            $_mailProtocal='outlook.com';
+        }else{
+        $_mailProtocal='mail.'.$_getmail;
+        }
+    @endphp
 <div class="auth-wrapper auth-cover">
   <div class="auth-inner row m-0">
     <!-- Brand logo-->
@@ -56,11 +67,21 @@ $configData = Helper::applClasses();
     <!-- verify email cover-->
     <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
       <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+          @if (session('resent'))
+              <div class="alert alert-success" role="alert">
+                  {{ __('A fresh verification link has been sent to your email address.') }}
+              </div>
+          @endif
         <h2 class="card-title fw-bolder mb-1">Verify your email &#x2709;&#xFE0F;</h2>
-        <p class="card-text mb-2">Account activation link sent to your email address:<span class="fw-bolder"> hello@pixinvent.com</span> Please follow the link inside to continue.</p>
-        <a class="btn btn-primary w-100" href="{{asset('/')}}">Skip for now</a>
+        <p class="card-text mb-2">Account activation link sent to your email address:<span class="fw-bolder">{{Auth::user->email}}</span> Please follow the link inside to continue.</p>
+        <a class="btn btn-primary w-100" href="{{asset('/')}}">Verify Now</a>
         <p class="text-center mt-2"><span>Didn&apos;t receive an email?</span>
             <a href="Javascript:void(0)"><span>&nbsp;Resend</span></a>
+
+              <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                  @csrf
+                  <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+              </form>
         </p>
       </div>
     </div>

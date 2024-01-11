@@ -240,7 +240,6 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/api/asset/project/firewall/get', [ProjectController::class, 'get_firewall_ports'])->name('project.get.firewall.port');
 
 
-        Route::get('/api/test',[TestController::class,'test'])->name('test');
 
 
         //Infrastructure

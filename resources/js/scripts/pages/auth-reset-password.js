@@ -1,11 +1,4 @@
-/*=========================================================================================
-  File Name: auth-reset-password.js
-  Description: Auth reset password js file.
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: PIXINVENT
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
+
 
 $(function () {
   'use strict';
@@ -27,12 +20,14 @@ $(function () {
         $(element).valid();
       }, */
       rules: {
-        'reset-password-new': {
-          required: true
-        },
-        'reset-password-confirm': {
+        'password': {
           required: true,
-          equalTo: '#reset-password-new'
+            minlength:8,
+            maxlength:64
+        },
+        'password-confirm': {
+          required: true,
+          equalTo: '#password'
         }
       }
     });

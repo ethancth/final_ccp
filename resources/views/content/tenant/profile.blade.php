@@ -249,10 +249,6 @@
 
 @section('page-script')
     {{-- Page js files --}}
-    <script src="{{ asset(mix('js/scripts/pages/modal-add-new-cc.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/pages/modal-edit-cc.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/pages/modal-add-new-address.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/pages/app-user-view-billing.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/pages/app-user-view.js')) }}"></script>
 
     <script>
