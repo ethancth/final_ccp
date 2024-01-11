@@ -2,9 +2,9 @@
 	File Name: auth-two-steps.js
 	Description: Two Steps verification.
 	----------------------------------------------------------------------------------------
-	Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-	Author: PIXINVENT
-	Author URL: http://www.themeforest.net/user/pixinvent
+
+
+
 ==========================================================================================*/
 
 var inputContainer = document.querySelector('.auth-input-wrapper');

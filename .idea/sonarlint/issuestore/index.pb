@@ -140,8 +140,6 @@ t
 Ddatabase/migrations/2022_08_02_173446_create_form_policies_table.php,2/c/2ca99c09e4a681b912e2e4678448744546adf1eb
 }
 Mdatabase/migrations/2019_12_14_000001_create_personal_access_tokens_table.php,9/6/968051ae9d34530937eafe0273bc01c45c4755bd
-X
-(app/Http/Controllers/PagesController.php,8/8/888e91e0a0d2729f5e90c192c8f9d5767c6ed267
 t
 Dresources/views/pages-old/costprofile/cost_department_edit.blade.php,3/2/326ca9cd2c50c0c38cccc55247efaa7b7588af8b
 k
@@ -170,8 +168,6 @@ g
 7resources/js/scripts/extensions/ext-component-swiper.js,7/3/73526e98575c3f4bbdf5ecf401cba5b7014310bb
 q
 Aresources/views/content/extensions/ext-component-swiper.blade.php,1/2/1292fec94333e38b1df5ec9980dd5aa4a214ef44
-U
-%app/Http/Controllers/VMController.php,3/5/357e5241ffb88cc456255e1f3028d2f561012bd7
 F
 app/Models/Cluster.php,e/3/e3ae378ec3865e5b44e47d058445be91effbc719
 K
@@ -216,8 +212,6 @@ x
 Hdatabase/migrations/2023_04_18_120047_create_firewall_services_table.php,0/d/0dd62701a5814bc4fa2e81d1e1b024ee901bfbe4
 p
 @resources/views/content/server/server-firewallservices.blade.php,e/0/e0f1a0af2aefe62c30652772a28e48a068b1d5b7
-X
-(app/Http/Controllers/AssetController.php,a/7/a73d3b3f15d9343358623956546c534444264ecc
 ‹
 [database/migrations/2023_05_01_150724_create_project_security_group_env_firewalls_table.php,d/e/de7a22a474880eba64b14160252137dd62621c48
 ~
@@ -286,8 +280,6 @@ g
 7app/Http/Controllers/Auth/ConfirmPasswordController.php,c/d/cd58eb24fd68193dd4c247512ce1c00ed4eace99
 X
 (resources/js/scripts/pages/auth-login.js,c/f/cf1a7a2b5e788c0408d71a767b096866786aeeb1
-e
-5app/Http/Controllers/Auth/ResetPasswordController.php,d/5/d500142e89c27e57dd9348c574786c4ae3ae5a2a
 q
 Aresources/views/content/authentication/auth-login-basic.blade.php,e/c/ec7099c6e155b4207e8a4bd7c4f9100e712681cb
 l
@@ -302,8 +294,6 @@ A
 package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47
 H
 resources/js/core/app.js,3/7/37799a890ccf2ba1ed696ae06a9f4725dffd92ac
-M
-resources/js/core/app-menu.js,0/0/001b9a8ef448319de198bb0fd11bef1f172fb7b5
 R
 "resources/js/scripts/customizer.js,5/5/55a8af61f0d444765a75d7ee384f57ff301706fa
 U
@@ -348,18 +338,10 @@ a
 1resources/views/content/management/tier.blade.php,5/1/51b8453d08875332bf72835a515e3fb5674d8f08
 }
 Mdatabase/migrations/2023_06_05_130435_create_security_group_members_table.php,5/f/5f9f3181b8c3db0db6c50e17d907bfdba353d6bb
-X
-(app/Http/Controllers/FormsController.php,f/f/ff82f62ba3c885fe8925a1f94f75794eb3c56fdf
-^
-.app/Http/Controllers/CostProfileController.php,5/8/58393cc602516354250354f888382088de17c7b9
-\
-,app/Http/Controllers/DashboardController.php,9/7/976d53d2f21f3d8814f2725bba3b5822961f7cc1
 g
 7app/Http/Controllers/DatastoreCostProfileController.php,b/3/b36babd0f847fb97bdbe842983b7d619b5fa910b
 r
 Bdatabase/migrations/2022_06_06_125913_create_departments_table.php,0/7/07843b6830825c51e2f4fd19e4ff64e4cabde786
-g
-7app/Http/Controllers/ProjectSecurityGroupController.php,9/5/95b3cd3fe865c733a47bf08a75e54d8b72a1e9fd
 W
 'app/Http/Middleware/VerifyCsrfToken.php,f/c/fce07bf022d9bda760f3fe7621ac87a257cbd9f4
 a
@@ -372,8 +354,6 @@ J
 app/Mail/SubmitProject.php,9/5/9588393c346ba5b91a9b6d28185c37955cba6319
 \
 ,resources/views/mail/submitproject.blade.php,b/1/b118b9d89f4749a34657e1ec7c001626c4d128d3
-N
-resources/views/home.blade.php,a/2/a2a516abb04bf3dd73ba4b569b16cc453e3ac2bb
 r
 Bdatabase/migrations/2023_09_04_034800_create_permission_tables.php,4/e/4ec90d337c56cf91d0aa2412f6a751c74c71d49c
 u
@@ -392,8 +372,6 @@ V
 &app/Providers/RouteServiceProvider.php,d/4/d4febfd545b5694c9448dd8d6de9bf0531b0db61
 U
 %app/Providers/AuthServiceProvider.php,a/5/a526ceaeed37cec3622903d924e7bbaf01d42971
-W
-'app/Http/Controllers/AppsController.php,b/7/b71d9f5035e83670ad5aa2c278925ce1dc1dc356
 d
 4app/Http/Controllers/Auth/VerificationController.php,4/7/47908c6d61ac78a61e2bcb273e3187e50a1937cc
 q
@@ -412,8 +390,6 @@ Kresources/views/content/_partials/_modals/modal-env-add-edit-form.blade.php,4/
 Lresources/views/content/_partials/_modals/modal-tier-add-edit-form.blade.php,d/5/d56dbbd073fda58fd221f1ed14ae5f9850c2a935
 w
 Gresources/views/content/apps/user/app-user-view-notifications.blade.php,9/f/9f03c4b65c0a66ca6269e7cd74ddbc7049f72c13
-\
-,resources/data/menu-data/horizontalMenu.json,1/a/1a9c4f390dd1ccedb10ba0e87038fe8aeb442891
 J
 resources/data/search.json,3/c/3ccccb1a706d43261c12b0c1c18129e27c3ee995
 P
@@ -422,8 +398,6 @@ Q
 !resources/data/projects-list.json,5/0/507a0864e9412b025d6d030948374b612a65780e
 S
 #resources/data/table-datatable.json,a/9/a9bad12c815aeb9d4b3bb38dfb0c74727c39745d
-W
-'app/Http/Controllers/DemoController.php,8/6/8629423328693fb9949d29196f3c33431d64464e
 B
 docker-compose.yml,3/5/35b8c13cf2eb2a194eada000eb310d65aed53b2a
 _
@@ -440,18 +414,12 @@ X
 (resources/views/panels/sidebar.blade.php,e/e/eec4b42a60f7fb97f0f70c09abdd6e81e4c3347b
 A
 config/custom.php,4/f/4febccf8f1240f3ffc060d2fa1e863cdbb3c0f27
-]
--app/Http/Controllers/PageLayoutController.php,4/6/4605f2eadf695357b0f41d333f61b463e06faa1d
 G
 app/Helpers/Helpers.php,0/2/024693ae683d7be35f29d493127faaab72ab2618
 ]
 -resources/js/scripts/forms/form-validation.js,1/d/1dd17be787c41c21aff51de67a8b4307d50a52e4
-Y
-)app/Http/Controllers/SearchController.php,c/0/c0ff0a46bb2ec80e0fb00ebb2c39be7bccaa2596
 C
 app/Models/Host.php,8/8/882a4a6de7697cc4d80d54cceb603d3bab9eee78
-Y
-)app/Http/Controllers/ServerController.php,3/5/35d184f674aafc0a18b9b89bd636f8edef9700a2
 d
 4resources/views/content/server/information.blade.php,9/4/941255e86fa0d27e35129a01292b1f31da130d24
 `
@@ -462,8 +430,6 @@ q
 Aresources/views/content/apps/user/app-user-view-billing.blade.php,8/f/8fac433a7813f6cb9485e1e7b26defcd096dafd8
 f
 6resources/views/layouts/verticalLayoutMaster.blade.php,1/1/1189befd8b922030fa384e58c71e5e6f55579bb1
-`
-0app/Http/Controllers/UserInterfaceController.php,1/1/11d2967f01c0b2ee16b133f406ac2fbf672be1bd
 c
 3resources/views/content/management/tenant.blade.php,d/d/dd535159dadf910bef0b5a52ed0dfa13d807efe4
 E
@@ -492,8 +458,6 @@ $app/Providers/AppServiceProvider.php,4/8/48b8d8112e9bdd32ee7e25b1224d6739eece1
 config/app.php,7/3/734f7be25e8008acc7129e73cd116d5de913e6fd
 C
 config/debugbar.php,7/c/7c41d982a1dc4ee9193740c3f789660923865c74
-X
-(app/Http/Controllers/TableController.php,c/7/c75921c17f8fa5aba23dae17e2c266970f8d27f5
 ?
 app/helpers.php,5/e/5e92ff15dd02e679a9c48c1fc7e1b005c24dee00
 Z
@@ -556,14 +520,10 @@ J
 app/Models/CostProfile.php,4/c/4c825133e10425733a28e82e197594d5efe262b5
 h
 8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
-^
-.app/Http/Controllers/CompanyFormController.php,3/b/3bd21cdab2387994b74de14bf936e4e563133f65
 F
 app/Models/Company.php,3/e/3e88a62b724d7c8184e5b4a25a250f7fe64b823b
 Q
 !app/Observers/CompanyObserver.php,7/b/7b588e884b72cd1b362f136adaa2cfa8a48423d2
-]
--app/Http/Controllers/DepartmentController.php,c/1/c1e12f933f9a6f5cba9bc89db828849ad8378cae
 g
 7resources/views/content/management/department.blade.php,f/3/f31570582fd5865fb912ba22f416ca1bf36eb4ac
 u
@@ -582,5 +542,3 @@ v
 Fdatabase/migrations/2022_06_22_062316_create_project_servers_table.php,1/2/120092a0843c56707d089a95a096e21664d019d7
 L
 app/Models/ProjectServer.php,b/f/bf24152f8c8ae47e4f91c245099b44b022a27d0f
-W
-'app/Http/Controllers/HomeController.php,9/c/9c8530715f6b05b710e3fa767bada1e4d0297e47

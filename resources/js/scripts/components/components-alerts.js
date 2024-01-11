@@ -1,9 +1,9 @@
 /*=========================================================================================
     File Name: components-alert.js
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: Pixinvent
-    Author URL: hhttp://www.themeforest.net/user/pixinvent
+
+
+
 ==========================================================================================*/
 (function (window, document, $) {
   'use strict';

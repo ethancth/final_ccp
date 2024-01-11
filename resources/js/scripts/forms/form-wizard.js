@@ -2,9 +2,9 @@
     File Name: form-wizard.js
     Description: wizard steps page specific js
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+
+
+
 ==========================================================================================*/
 
 $(function () {
