@@ -9,7 +9,6 @@
             rules: {
                 newPassword: {
                     required: true,
-                    required: true,
                     minlength: 8
                 },
                 confirmPassword: {

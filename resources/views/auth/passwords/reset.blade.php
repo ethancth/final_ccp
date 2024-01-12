@@ -83,10 +83,10 @@
                         </div>
                         <div class="mb-1">
                             <div class="d-flex justify-content-between">
-                                <label class="form-label" for="password-confirm">Confirm Password</label>
+                                <label class="form-label" for="password_confirmation">Confirm Password</label>
                             </div>
                             <div class="input-group input-group-merge form-password-toggle">
-                                <input class="form-control form-control-merge" id="password-confirm" name="password_confirmation"  type="password" placeholder="············" tabindex="2" />
+                                <input class="form-control form-control-merge" id="password_confirmation" name="password_confirmation"  type="password" placeholder="············" tabindex="2" />
                                 <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                             </div>
                         </div>
@@ -109,5 +109,55 @@
 @endsection
 
 @section('page-script')
-    <script src="{{asset(mix('js/scripts/pages/auth-reset-password.js'))}}"></script>
+    <script>
+
+
+
+        $(function () {
+            'use strict';
+
+            var pageResetPasswordForm = $('.auth-reset-password-form');
+
+            // jQuery Validation
+            // --------------------------------------------------------------------
+            if (pageResetPasswordForm.length) {
+                pageResetPasswordForm.validate({
+                    /*
+                    * ? To enable validation onkeyup
+                    onkeyup: function (element) {
+                      $(element).valid();
+                    },*/
+                    /*
+                    * ? To enable validation on focusout
+                    onfocusout: function (element) {
+                      $(element).valid();
+                    }, */
+                    rules: {
+                        'password': {
+                            required: true,
+                            minlength:8,
+                            maxlength:64
+                        },
+                        'password_confirmation': {
+                            required: true,
+                            minlength: 8,
+                            equalTo: '#password'
+                        }
+                    },
+                    messages: {
+                        password: {
+                            required: 'Enter new password',
+                            minlength: 'Enter at least 8 characters'
+                        },
+                        password_confirmation: {
+                            required: 'Please confirm new password',
+                            minlength: 'Enter at least 8 characters',
+                            equalTo: 'Password mismatch'
+                        }
+                    }
+                });
+            }
+        });
+
+    </script>
 @endsection

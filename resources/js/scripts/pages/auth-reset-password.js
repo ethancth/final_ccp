@@ -25,7 +25,7 @@ $(function () {
             minlength:8,
             maxlength:64
         },
-        'password-confirm': {
+        ' ': {
           required: true,
           equalTo: '#password'
         }

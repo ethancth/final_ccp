@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\DepartmentMember;
 use App\Models\Tenant;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -124,6 +125,7 @@ class UserPageController extends Controller
                     'introduction' => 'User',
                     'company_id' => User::find(Auth::id())->company_id,
                 ]);
+            $_new_user-> sendEmailVerificationNotification();
 
         }else
         {
