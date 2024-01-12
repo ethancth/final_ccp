@@ -73,7 +73,6 @@
 
                     <h2 class="card-title fw-bolder mb-1">Verify your email &#x2709;&#xFE0F;</h2>
                     <p class="card-text mb-2">Account activation link sent to your email address:<span class="fw-bolder">{{Auth::user()->email}}</span> Please follow the link inside to continue.</p>
-                    <a class="btn btn-primary w-100" href="https://{{$_mailProtocal}}" target="_blank">Verify Now</a>
 
                     <p class="text-center mt-2">  @if (session('resent'))
                         <div class="alert alert-success" role="alert">
