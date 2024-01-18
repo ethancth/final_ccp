@@ -6,14 +6,12 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FirewallServiceControler;
 use App\Http\Controllers\InfraController;
-use App\Http\Controllers\PageLayoutController;
 use App\Http\Controllers\ProjectSecurityGroupController;
 use App\Http\Controllers\ServerController;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\TenantController;
 use App\Http\Controllers\UserPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\ProjectController;
 /*
 |--------------------------------------------------------------------------
@@ -195,6 +193,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/user-management', [UserPageController::class, 'index'])->name('user');
         Route::post('/user-management', [UserPageController::class, 'store'])->name('user.store');
         Route::post('/user-management-edit', [UserPageController::class, 'edit'])->name('user.edit');
+        Route::post('/user-management-remove-user', [UserPageController::class, 'remove_member'])->name('user.remove');
 
         //Server Object
         Route::get('server',[ServerController::class,'index'])->name('server');
@@ -252,9 +251,9 @@ Route::group(['middleware' => ['auth', 'verified']],
         //Switch Tenants
 
 
-        Route::post('switch-tenants', [\App\Http\Controllers\TenantController::class, 'SwitchTenant'])->name('switch.tenants');
-        Route::get('tenants-profile', [\App\Http\Controllers\TenantController::class, 'TenantProfile'])->name('tenants.profile');
-        Route::post('create-tenants-profile', [\App\Http\Controllers\TenantController::class, 'CreateTenantProfile'])->name('tenant.create');
+        Route::post('switch-tenants', [TenantController::class, 'SwitchTenant'])->name('switch.tenants');
+        Route::get('tenants-profile', [TenantController::class, 'TenantProfile'])->name('tenants.profile');
+        Route::post('create-tenants-profile', [TenantController::class, 'CreateTenantProfile'])->name('tenant.create');
 
 
         //user password

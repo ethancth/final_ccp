@@ -104,7 +104,21 @@
                             </div>
 
                             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                            <div class="mb-2 col-md-6 form-password-toggle">
+                                <label class="form-label" for="Username">Username</label>
+                                <div class="input-group input-group-merge">
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        placeholder="Username"
+                                        value="{{Auth::User()->name}}"
+                                    />
+                                </div>
+                            </div>
                             <div class="row">
+
                                 <div class="mb-2 col-md-6 form-password-toggle">
                                     <label class="form-label" for="newPassword">New Password</label>
                                     <div class="input-group input-group-merge form-password-toggle">
@@ -249,9 +263,37 @@
 
 @section('page-script')
     {{-- Page js files --}}
-    <script src="{{ asset(mix('js/scripts/pages/app-user-view.js')) }}"></script>
 
     <script>
+
+        var formChangePassword = $('#formChangePassword');
+
+        if (formChangePassword.length) {
+            formChangePassword.validate({
+                rules: {
+                    newPassword: {
+                        required: false,
+                        minlength: 8
+                    },
+                    confirmPassword: {
+                        required: false,
+                        minlength: 8,
+                        equalTo: '#newPassword'
+                    }
+                },
+                messages: {
+                    newPassword: {
+                        required: 'Enter new password',
+                        minlength: 'Enter at least 8 characters'
+                    },
+                    confirmPassword: {
+                        required: 'Please confirm new password',
+                        minlength: 'Enter at least 8 characters',
+                        equalTo: 'Password mismatch'
+                    }
+                }
+            });
+        }
         $(document).on('click', '.btn-edit-tenant', function() {
             $('#_id').val($(this).data("id"));
             $('#tenant_name').val($(this).data("name"));

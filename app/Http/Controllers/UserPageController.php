@@ -74,12 +74,28 @@ class UserPageController extends Controller
 
         return response()->json($data);
     }
+
+    public function company_policy(){
+        $_company=company::find(User::find(Auth::user()->company_id))->first();
+
+        if($_company->master_id===Auth::id()){
+
+        }else{
+            abort(403,"You don't have permission to access / on this server.");
+        }
+    }
     public function index(User $user, Request $request)
     {
+       $this->company_policy();
         $pageConfigs = ['pageHeader' => false];
+
 
         //return view('/content/apps/user/app-user-list', ['pageConfigs' => $pageConfigs]);
         $totaluser=company::find(User::find(Auth::id())->company_id)->tenantuser->count();
+        $master_id=company::find(User::find(Auth::id())->company_id)->master_id;
+        $totalinactiveuser=company::find(User::find(Auth::id())->company_id)->tenantuser->where('email_verified_at','!=',NULL)->count();
+        $totalactiveuser=company::find(User::find(Auth::id())->company_id)->tenantuser->where('email_verified_at','=',NULL)->count();
+
         $all_department=company::find(User::find(Auth::id())->company_id)->department;
 //        $data = company::find(User::find(Auth::id())->company_id)->user;
 //        dd($data);
@@ -96,11 +112,12 @@ class UserPageController extends Controller
                 ->make(true);
         }
 
-        return view('/content/user/home', ['pageConfigs' => $pageConfigs,'user' => $user,'totaluser'=> $totaluser,'departments'=>$all_department]);
+        return view('/content/user/home', ['pageConfigs' => $pageConfigs,'mid' => $master_id,'user' => $user,'totaluser'=> $totaluser,'departments'=>$all_department,'active_user'=>$totalactiveuser,'in_active_user'=>$totalinactiveuser]);
     }
 
     public function store(Request $request)
     {
+        $this->company_policy();
 
 
 
@@ -149,7 +166,7 @@ class UserPageController extends Controller
             //
             $updatetenant=Tenant::create([
                 'user_id' =>  $_new_user->id,
-                'action' =>  'User '.Auth()->id() .' Create this user',
+                'action' =>  'User id['.Auth()->id().'] - '.Auth()->user()->name .' Create this user',
                 'company_id' => Auth::user()->company_id,
             ]);
 
@@ -262,17 +279,41 @@ class UserPageController extends Controller
 
 }
 
+    public function remove_member(Request $request)
+    {
+        $this->company_policy();
+        $result=DepartmentMember::where('user_id','=',$request->id)->where('company_id','=',$this->get_current_company())->delete();
+        $result=Tenant::where('user_id','=',$request->id)->where('company_id','=',$this->get_current_company())->delete();
+
+        return true;
+    }
+    public function get_current_company()
+    {
+        return Auth::user()->company_id;
+    }
     public function update_credential(Request $request)
     {
 
-        User::updateOrCreate(
-            [
-                'id' => Auth::User()->id,
-            ],
-            [
-                'password' => Hash::make($request->newPassword),
-            ]);
-        return redirect()->route('user')->with('success', 'Success！');
+       if($request->confirmPassword!=null){
+           User::updateOrCreate(
+               [
+                   'id' => Auth::User()->id,
+               ],
+               [
+                   'name'=>$request->username,
+                   'password' => Hash::make($request->newPassword),
+               ]);
+       }else{
+           User::updateOrCreate(
+               [
+                   'id' => Auth::User()->id,
+               ],
+               [
+                   'name'=>$request->username,
+               ]);
+       }
+
+        return redirect()->route('tenants.profile')->with('success', 'Success！');
     }
 
 }

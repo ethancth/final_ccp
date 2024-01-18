@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css')) }}">
+
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
 @endsection
 
 @section('page-style')
@@ -40,7 +42,7 @@
                 <div class="card">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
-                            <h3 class="fw-bolder mb-75">{{$totaluser}}</h3>
+                            <h3 class="fw-bolder mb-75">{{$active_user}}</h3>
                             <span>Active Users</span>
                         </div>
                         <div class="avatar bg-light-success p-50">
@@ -55,7 +57,7 @@
                 <div class="card">
                     <div class="card-body d-flex align-items-center justify-content-between">
                         <div>
-                            <h3 class="fw-bolder mb-75">0</h3>
+                            <h3 class="fw-bolder mb-75">{{$active_user}}</h3>
                             <span>Pending Users</span>
                         </div>
                         <div class="avatar bg-light-warning p-50">
@@ -73,7 +75,6 @@
                 <h4 class="card-title">Search & Filter</h4>
                 <div class="row">
                     <div class="col-md-4 user_role"></div>
-                    <div class="col-md-4 user_status"></div>
                 </div>
             </div>
             <div class="card-datatable table-responsive pt-0">
@@ -169,8 +170,9 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.bootstrap5.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
-    <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.js')) }}"></script>
+
     <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.buttons.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/jszip.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/pdfmake.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/vfs_fonts.js')) }}"></script>
@@ -180,6 +182,8 @@
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/cleave/cleave.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/cleave/addons/cleave-phone.us.js')) }}"></script>
+
+    <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
 @endsection
 
 @section('page-script')
@@ -212,6 +216,60 @@
                }
            });
 
+           $('body').on('click', '.remove-member', function () {
+               var id = $(this).data('id');
+               console.log(id);
+
+               Swal.fire({
+                   title: 'Are you sure?',
+                   text: "You won't be able to revert this!",
+                   icon: 'warning',
+                   showCancelButton: true,
+                   confirmButtonText: 'Yes, remove it!',
+                   customClass: {
+                       confirmButton: 'btn btn-primary me-3',
+                       cancelButton: 'btn btn-label-secondary'
+                   },
+                   buttonsStyling: false
+               }).then(function (result) {
+                   if (result.value) {
+                       $.ajax({
+
+                           type:"POST",
+                           url: "{{ route('user.remove') }}",
+                           data: { id: id },
+                           dataType: 'json',
+                           success: function () {
+
+
+                               window.setTimeout( window.location.reload(), 3000 );
+                           },
+                           error: function (error) {
+                               console.log(error);
+                           }
+                       });
+
+                       // success sweetalert
+                       Swal.fire({
+                           icon: 'success',
+                           title: 'Deleted!',
+                           text: 'The User has been remove from this tenant!',
+                           customClass: {
+                               confirmButton: 'btn btn-success'
+                           }
+                       });
+                   } else if (result.dismiss === Swal.DismissReason.cancel) {
+                       Swal.fire({
+                           title: 'Cancelled',
+                           text: 'The action been cancel!',
+                           icon: 'error',
+                           customClass: {
+                               confirmButton: 'btn btn-success'
+                           }
+                       });
+                   }
+               });
+           });
            $('body').on('click', '.edit', function () {
                var id = $(this).data('id');
                $.ajax({
@@ -341,7 +399,12 @@
                            targets: 3,
                            render: function (data, type, full, meta) {
                                //var $status = full['company_id'];
-                               var $status = 2;
+                               if(full['email_verified_at']==null){
+                                   var $status = 1;
+                               }else{
+                                   var $status = 2;
+                               }
+
 
                                return (
                                    '<span class="badge rounded-pill ' +
@@ -360,13 +423,30 @@
                            render: function (data, type, full, meta) {
 
                                var $id = full['id'];
-                               return (
 
-                                   '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit User">' +
-                                   feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                   '</a>'
+                               if(full['id'] === {!!json_encode($mid)!!}){
+                                   return (
 
-                               );
+                                       '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit User">' +
+                                       feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                       '</a>'
+
+                                   );
+                               }else{
+                                   return (
+
+                                       '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit User">' +
+                                       feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                       '</a>' +
+                                       '<a class="me-1 remove-member" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Remove User">' +
+                                       feather.icons['user-x'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                       '</a>'
+
+                                   );
+                               }
+
+
+
                            }
                        }
                    ],
@@ -496,34 +576,7 @@
                        //             });
                        //     });
                        // Adding status filter once table initialized
-                       this.api()
-                           .columns(5)
-                           .every(function () {
-                               var column = this;
-                               var label = $('<label class="form-label" for="FilterTransaction">Status</label>').appendTo('.user_status');
-                               var select = $(
-                                   '<select id="FilterTransaction" class="form-select text-capitalize mb-md-0 mb-2xx"><option value=""> Select Status </option></select>'
-                               )
-                                   .appendTo('.user_status')
-                                   .on('change', function () {
-                                       var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                                       column.search(val ? '^' + val + '$' : '', true, false).draw();
-                                   });
-
-                               column
-                                   .data()
-                                   .unique()
-                                   .sort()
-                                   .each(function (d, j) {
-                                       select.append(
-                                           '<option value="' +
-                                           statusObj[d].title +
-                                           '" class="text-capitalize">' +
-                                           statusObj[d].title +
-                                           '</option>'
-                                       );
-                                   });
-                           });
+                       //
                    }
                });
            }

@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'New Project')
+@section('title', 'My Project')
 
 @section('vendor-style')
     <!-- Vendor css files -->
@@ -379,7 +379,9 @@
                             type: 'DELETE',
                             url: `${APP_URL}/project/${id}`,
                             success: function () {
-                                dt_user.draw();
+
+
+                                window.setTimeout( window.location.reload(), 3000 );
                             },
                             error: function (error) {
                                 console.log(error);

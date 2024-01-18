@@ -19,13 +19,23 @@ class TenantController extends Controller
         if($request->_id)
         {
             //update
+            Company::updateOrCreate(
+                [
+                    'id' => $request->_id,
+                ],
+                [
+                    'name' => $request->tenant_name,
+                    'domain'                => str::slug($request->tenant_name,'-').Str::uuid(),
+                    'slug'                  => Str::uuid(),
+                ]);
+
 
             return redirect()->back()->with('success', 'Success！');
         }else{
             $input = [
                 'name'                  => $request->tenant_name,
                 'domain'                => str::slug($request->tenant_name,'-').Str::uuid(),
-                'slug'                  => str::slug($request->tenant_name,'-').Str::uuid(),
+                'slug'                  => Str::uuid(),
                 'default_password'      => NULL,
                 'is_new_company'        => '0',
                 'master_id'        => Auth::id(),
@@ -89,4 +99,5 @@ class TenantController extends Controller
             'breadcrumbs' => $breadcrumbs
         ]);
     }
+
 }

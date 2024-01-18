@@ -573,8 +573,8 @@
                     data: { id: id },
                     dataType: 'json',
                     success: function(res){
+                        window.setTimeout( window.location.reload(), 3000 );
 
-                        window.location.reload();
                     }
                 });
             }
