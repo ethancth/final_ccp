@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
+
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
 @endsection
 @section('page-style')
     <!-- Page css files -->
@@ -108,6 +110,8 @@
     <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.buttons.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.bootstrap5.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
+
+    <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
 
 @endsection
 @section('page-script')
@@ -284,16 +288,26 @@
                             render: function (data, type, full, meta) {
 
                                 var $id = full['id'];
-                                return (
+                                if(full['is_default']){
+                                    return (
 
-                                    '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
-                                    feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</a>' +
+                                        '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
+                                        feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                        '</a>'
+                                    );
+                                }else{
+                                    return (
 
-                                    '<button class="btn btn-sm btn-icon delete-record">' +
-                                    feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</button>'
-                                );
+                                        '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
+                                        feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                        '</a>' +
+
+                                        '<button class="btn btn-sm btn-icon delete-record" data-id="'+$id+'">' +
+                                        feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                        '</button>'
+                                    );
+                                }
+
                             }
                         }
                     ],
@@ -396,7 +410,57 @@
 
             // Delete Record
             $('.datatables-project-index tbody').on('click', '.delete-record', function () {
-                dt_project_index.row($(this).parents('tr')).remove().draw();
+                var id = $(this).data('id');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    customClass: {
+                        confirmButton: 'btn btn-primary me-3',
+                        cancelButton: 'btn btn-label-secondary'
+                    },
+                    buttonsStyling: false
+                }).then(function (result) {
+                    if (result.value) {
+                        $.ajax({
+
+                            type:"POST",
+                            url: "{{ route('department.delete') }}",
+                            data: { id: id },
+                            dataType: 'json',
+                            success: function () {
+                              // //  console.log( dt_project_index.row($(this).parents('tr')).remove().draw());
+                              //   dt_project_index.row($(this).parents('tr')).remove().draw();
+                                 window.setTimeout( window.location.reload(), 3000 );
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+
+                        // success sweetalert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted!',
+                            text: 'The Department has been delete!',
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            }
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire({
+                            title: 'Cancelled',
+                            text: 'The action been cancel!',
+                            icon: 'error',
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            }
+                        });
+                    }
+                });
+
             });
 
             // Filter form control to default size

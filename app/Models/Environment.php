@@ -12,7 +12,7 @@ class Environment extends Model
         'created_at' => 'date:d-m-Y',
     ];
 
-    protected $fillable=['name','display_name','company_id','display_description','status','display_icon','display_icon_colour'];
+    protected $fillable=['name','display_name','company_id','display_description','status','display_icon','display_icon_colour','is_default'];
 
     public function company()
     {

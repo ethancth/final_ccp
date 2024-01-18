@@ -216,9 +216,8 @@
                }
            });
 
-           $('body').on('click', '.remove-member', function () {
+           $('tbody').on('click', '.remove-member', function () {
                var id = $(this).data('id');
-               console.log(id);
 
                Swal.fire({
                    title: 'Are you sure?',
@@ -241,7 +240,7 @@
                            dataType: 'json',
                            success: function () {
 
-
+                           //    dtUserTable.row($(this).parents('tr')).remove().draw();
                                window.setTimeout( window.location.reload(), 3000 );
                            },
                            error: function (error) {

@@ -60,26 +60,31 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/management-environment', [CompanyFormController::class, 'envform'])->name('management_env');
         Route::post('/management-environment', [CompanyFormController::class, 'env_request'])->name('management.env.store');
         Route::post('/management-environment-edit', [CompanyFormController::class, 'env_edit'])->name('management.env.edit');
+        Route::post('/management-environment-delete', [CompanyFormController::class, 'env_delete'])->name('management.env.delete');
 
         //Department
         Route::get('/management-department', [DepartmentController::class, 'show'])->name('department.show');
         Route::post('/management-department',[DepartmentController::class,'store'])->name('department.store');
         Route::post('/management-department-edit', [DepartmentController::class, 'edit'])->name('department.edit');
+        Route::post('/management-department-delete', [DepartmentController::class, 'delete_department'])->name('department.delete');
 
         //Tier
         Route::get('/management-tier', [CompanyFormController::class, 'tierform'])->name('management_tier');
         Route::post('/management-tier', [CompanyFormController::class, 'tier_request'])->name('management.tier.store');
         Route::post('/management-tier-edit', [CompanyFormController::class, 'tier_edit'])->name('management.tier.edit');
+        Route::post('/management-tier-delete', [CompanyFormController::class, 'tier_delete'])->name('management.tier.delete');
 
         //Operating System
         Route::get('/management-os', [CompanyFormController::class, 'osform'])->name('management_os');
         Route::post('/management-os', [CompanyFormController::class, 'os_request'])->name('management.os.store');
         Route::post('/management-os-edit', [CompanyFormController::class, 'os_edit'])->name('management.os.edit');
+        Route::post('/management-os-delete', [CompanyFormController::class, 'os_delete'])->name('management.os.delete');
 
         //Service Application
         Route::get('/management-service-application', [CompanyFormController::class, 'saform'])->name('management_sa');
         Route::post('/management-sa', [CompanyFormController::class, 'sa_request'])->name('management.sa.store');
         Route::post('/management-sa-edit', [CompanyFormController::class, 'sa_edit'])->name('management.sa.edit');
+        Route::post('/management-sa-delete', [CompanyFormController::class, 'sa_delete'])->name('management.sa.delete');
 
         //Firewall Service
         Route::get('/management-firewall-services', [FirewallServiceControler::class, 'index'])->name('management_firewall_service');

@@ -66,8 +66,6 @@ F
 Oresources/views/content/table/table-datatable/table-datatable-advance.blade.php,b/f/bfecf0da88475034c6a1449b3c808e5b5754f412
 h
 8resources/js/scripts/tables/table-datatables-advanced.js,6/c/6c82063de8da7b845b17d55201af8af94c5a69cf
-p
-@database/migrations/2022_06_06_045340_create_vm_tables_table.php,1/f/1f86f728388503efc503c7fbd88faf2029e71052
 v
 Fdatabase/migrations/2022_06_06_090810_create_cost_categories_table.php,b/e/be5cbe3e1c7cd4c0aa243ccc3ca1f6f6b12887f5
 }
@@ -138,16 +136,10 @@ N
 app/Models/CostTypeProfile.php,f/1/f153e1b30a46f988d0ca851f4f8130d5b6f82962
 S
 #app/Models/DatastoreCostProfile.php,7/a/7a9951d61d5982b677e014cfe08773569161c257
-J
-app/Models/Environment.php,2/6/2653f4abaa2d1a215a1e55ff991e54f028ea4850
 I
 app/Models/FormPolicy.php,4/a/4a94f09436110f13696c37c6bd69877a4fd9e12b
-N
-app/Models/OperatingSystem.php,3/8/3895e68db23f576fb32b4172850271fc52c5ee56
 L
 app/Models/OperationCost.php,5/8/588ce7565521a676dfdda4ff4b1d1249aba2c734
-C
-app/Models/Tier.php,5/0/50b5366e7f0164cf10b20f0b464e18a1b65dd23e
 X
 (resources/images/pages/login-v2-dark.svg,3/3/33e1667f2d95a503764ecf89f9ec8dfdacead2bb
 J
@@ -284,8 +276,6 @@ r
 Bdatabase/migrations/2023_06_11_074912_project_server_add_field.php,2/9/2904d111a2c93cbb689b8d8cdf8c5f69ff1f2e3a
 
 Odatabase/migrations/2023_07_23_155559_add_field_on_project_server_firewalls.php,a/d/ad49dbc4345b207e6cb18291678da04253dca262
-a
-1resources/views/content/management/tier.blade.php,5/1/51b8453d08875332bf72835a515e3fb5674d8f08
 }
 Mdatabase/migrations/2023_06_05_130435_create_security_group_members_table.php,5/f/5f9f3181b8c3db0db6c50e17d907bfdba353d6bb
 g
@@ -310,8 +300,6 @@ u
 Edatabase/migrations/2023_09_02_060026_add_field_on_department_uid.php,3/a/3aa106761770934c1bfc32e3efdf0834896f7209
 q
 Adatabase/migrations/2023_08_02_074123_add_field_on_department.php,5/8/58b0b190cd15d2ab1132fca26f5aa2c773ec3800
-I
-app/Models/Department.php,f/f/ffb2f6753f91fe4e31376b28a602878c1af8c38d
 Z
 *app/Providers/BroadcastServiceProvider.php,4/8/487aabf55f4492fef38a2c2590a539cbea0535ca
 X
@@ -364,8 +352,6 @@ C
 app/Models/Host.php,8/8/882a4a6de7697cc4d80d54cceb603d3bab9eee78
 d
 4resources/views/content/server/information.blade.php,9/4/941255e86fa0d27e35129a01292b1f31da130d24
-`
-0resources/views/content/management/env.blade.php,5/f/5fb1518bb9b595cb6cbc7ef2f3ed8ff53b47acf6
 k
 ;resources/views/content/server/information-backup.blade.php,e/8/e834c5dfaaee9a4c6f3b4cd554792adfc8ac2cb2
 c
@@ -432,8 +418,6 @@ x
 Hdatabase/migrations/2023_08_16_083944_add_field_on_departmen_members.php,7/f/7fe401061ab3173e1b288c1d586db0ea3767ed28
 S
 #database/seeders/DatabaseSeeder.php,a/c/aca1efccd4101e0c9bdd34803577859ace08ef45
-p
-@resources/views/content/management/service_application.blade.php,f/2/f26a6f2667c6356b7a1f646744c159fd5608d936
 t
 Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6
 }
@@ -446,18 +430,8 @@ x
 Hresources/views/content/_partials/_modals/modal-create-project.blade.php,9/7/976f731ec074576ccf22c20f7b958e15f2218b1e
 J
 app/Models/CostProfile.php,4/c/4c825133e10425733a28e82e197594d5efe262b5
-g
-7resources/views/content/management/department.blade.php,f/3/f31570582fd5865fb912ba22f416ca1bf36eb4ac
-u
-Edatabase/migrations/2024_01_06_042841_change_field_on_costprofile.php,6/4/644077559a079efc874b7c52f16dc2afce835378
-r
-Bdatabase/migrations/2023_12_28_011209_create_tb_warnings_table.php,9/f/9f2a004b8b9203f7656f33ea1e13cf2f3e80463c
-x
-Hdatabase/migrations/2023_12_25_164153_add_field_on_department_member.php,f/b/fb308e59fb4cd6a466afed13fd11d8211bbe796a
 n
 >database/migrations/2023_12_28_033435_add_field_on_project.php,9/6/9665ae5c7eaeae4839a8782afb20e8fdc4ba8776
-k
-;database/migrations/2024_01_04_174505_add_field_on_item.php,0/3/03ece42f465dc12f9d2771bfca6884cb6166ff4b
 n
 >database/migrations/2023_12_25_142107_create_tenants_table.php,a/2/a2c0c157675ab21726df793a34d2d91c09930817
 v
@@ -468,8 +442,6 @@ Q
 !app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
 W
 'app/Observers/ProjectServerObserver.php,7/4/74a477b8865521fa13d2c3a07caa39615ea37fc4
-o
-?database/migrations/2024_01_06_044642_create_sessions_table.php,2/0/20449c7545d694a514ed6b14192e11732079885a
 F
 app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
 [
@@ -562,8 +534,6 @@ S
 #app/Http/Controllers/Controller.php,2/e/2ed23e1749f02eb8e561f0a531d07863e7cf9fb9
 W
 'app/Http/Controllers/DemoController.php,8/6/8629423328693fb9949d29196f3c33431d64464e
-]
--app/Http/Controllers/DepartmentController.php,c/1/c1e12f933f9a6f5cba9bc89db828849ad8378cae
 X
 (app/Http/Controllers/InfraController.php,9/a/9a79ac8a9f531e7cd24588ca100ce0e8cf6b6740
 [

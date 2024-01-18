@@ -9,7 +9,7 @@ class Department extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'department_name', 'hod','company_id','slug','total_member','total_hod','display_hod','all_uid','hod_id'
+        'department_name', 'hod','company_id','slug','total_member','total_hod','display_hod','all_uid','hod_id','is_default'
     ];
     protected $hidden = [
         'created_at', 'updated_at',

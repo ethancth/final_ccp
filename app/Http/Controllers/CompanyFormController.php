@@ -69,7 +69,20 @@ class CompanyFormController extends Controller
     }
     public function env_delete(Request $request)
     {
-        return "";
+        $this->company_policy();
+        $result=Environment::where('id','=',$request->id)->where('company_id','=',Auth::user()->company_id)->delete();
+
+        return true;
+    }
+
+    public function company_policy(){
+        $_company=company::find(User::find(Auth::user()->company_id))->first();
+
+        if($_company->master_id===Auth::id()){
+
+        }else{
+            abort(403,"You don't have permission to access / on this server.");
+        }
     }
 
     //tier
@@ -126,7 +139,10 @@ class CompanyFormController extends Controller
     }
     public function tier_delete(Request $request)
     {
-        return "";
+        $this->company_policy();
+        $result=Tier::where('id','=',$request->id)->where('company_id','=',Auth::user()->company_id)->delete();
+
+        return true;
     }
 
     //Operating System
@@ -206,7 +222,10 @@ class CompanyFormController extends Controller
     }
     public function os_delete(Request $request)
     {
-        return "";
+        $this->company_policy();
+        $result=OperatingSystem::where('id','=',$request->id)->where('company_id','=',Auth::user()->company_id)->delete();
+
+        return true;
     }
 
     //Service Application
@@ -269,6 +288,14 @@ class CompanyFormController extends Controller
         $env  = ServiceApplication::where($where)->first();
 
         return response()->json($env);
+    }
+
+    public function sa_delete(Request $request)
+    {
+        $this->company_policy();
+        $result=ServiceApplication::where('id','=',$request->id)->where('company_id','=',Auth::user()->company_id)->delete();
+
+        return true;
     }
 
 

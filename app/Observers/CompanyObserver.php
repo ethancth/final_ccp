@@ -34,6 +34,7 @@ class CompanyObserver
                 'display_icon'=>"briefcase",
                 'display_icon_colour'=>"info",
                 'company_id'=>$company->id,
+                'is_default'=>1,
                 'status' => 1
             ]);
         Environment::create([
@@ -43,6 +44,7 @@ class CompanyObserver
             'display_icon'=>"layers",
             'display_icon_colour'=>"success",
             'company_id'=>$company->id,
+            'is_default'=>1,
             'status' => 1
         ]);
         Environment::create([
@@ -52,6 +54,7 @@ class CompanyObserver
             'display_icon'=>"chevrons-up",
             'display_icon_colour'=>"danger",
             'company_id'=>$company->id,
+            'is_default'=>1,
             'status' => 1
         ]);
 
@@ -62,6 +65,7 @@ class CompanyObserver
             'display_icon'=>"layout",
             'display_icon_colour'=>"info",
             'company_id'=>$company->id,
+            'is_default'=>1,
             'status' => 1
         ]);
 
@@ -72,6 +76,7 @@ class CompanyObserver
             'display_icon'=>"package",
             'display_icon_colour'=>"danger",
             'company_id'=>$company->id,
+            'is_default'=>1,
             'status' => 1
         ]);
         Tier::create([
@@ -81,6 +86,7 @@ class CompanyObserver
             'display_icon'=>"database",
             'display_icon_colour'=>"success",
             'company_id'=>$company->id,
+            'is_default'=>1,
             'status' => 1
         ]);
         CostProfile::create([
@@ -100,6 +106,7 @@ class CompanyObserver
             'os_type'=>'windows',
             'display_icon'=>'windows',
             'cost'=>'10',
+            'is_default'=>1,
             'status' => 1
         ]);
         OperatingSystem::create([
@@ -110,6 +117,7 @@ class CompanyObserver
             'os_type'=>'rhel',
             'display_icon'=>'rhel',
             'cost'=>'9',
+            'is_default'=>1,
             'status' => 1
         ]);
         OperatingSystem::create([
@@ -120,6 +128,7 @@ class CompanyObserver
             'os_type'=>'centos',
             'display_icon'=>'centos',
             'cost'=>'5',
+            'is_default'=>1,
             'status' => 1
         ]);
 
@@ -310,6 +319,7 @@ class CompanyObserver
                     'is_one_time_payment' => $result['onetime'],
                     'is_cost_per_core' => $result['costpercore'],
                     'cpu_amount' =>$result['core'],
+                    'is_default'=>1
                 ]);
         }
 
@@ -326,6 +336,7 @@ class CompanyObserver
                     'display_hod' => '',
                     'hod_id' => '',
                     'all_uid' =>'',
+                    'is_default' =>1,
                 ]);
         }
 

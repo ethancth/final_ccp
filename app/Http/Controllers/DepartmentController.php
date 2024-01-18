@@ -60,6 +60,24 @@ class DepartmentController extends Controller
         return response()->json($data);
     }
 
+    public function company_policy(){
+        $_company=company::find(User::find(Auth::user()->company_id))->first();
+
+        if($_company->master_id===Auth::id()){
+
+        }else{
+            abort(403,"You don't have permission to access / on this server.");
+        }
+    }
+    public function delete_department(Request $request)
+    {
+        $this->company_policy();
+        $result=DepartmentMember::where('department_id','=',$request->id)->where('company_id','=',Auth::user()->company_id)->delete();
+        $result=Department::where('id','=',$request->id)->where('company_id','=',Auth::user()->company_id)->where('is_default','=',0)->delete();
+
+        return true;
+
+    }
     public function store(Request $request)
     {
 
@@ -74,13 +92,20 @@ class DepartmentController extends Controller
                $_display_hod.=$u->name.',';
                $_hod_id.=$value.',';
            }
-           $_display_hod= substr($_display_hod, 0,-1);
+
            $_hod_id= substr($_hod_id, 0,-1);
 
            //merge hod&member and remove duplicate
            $_all_member=array_unique(array_merge($request->modalHod,$request->modalMember), SORT_REGULAR);
            $_all_memberid=implode(',',$request->modalMember);
            //array_unique(array_merge($array1,$array2), SORT_REGULAR);
+
+           if(count($_all_member)==null){
+               $d_all_member=0;
+           }else{
+               $d_all_member=count($_all_member);
+           }
+           $_display_hod= substr($_display_hod, 0,-1)??'';
            $_id=Department::updateOrCreate(
                [
                    'id' => $request->form_id,
@@ -89,7 +114,7 @@ class DepartmentController extends Controller
                    'department_name' => $request->basic_addon_name,
                    'company_id' => Auth::user()->company_id,
                    'slug' =>  Str::slug($request->basic_addon_name),
-                   'total_member' => count($_all_member),
+                   'total_member' =>$d_all_member ,
                    'total_hod' => count($request->modalHod),
                    'display_hod' => $_display_hod,
                    'hod_id' => $_hod_id,
@@ -124,6 +149,14 @@ class DepartmentController extends Controller
             $_all_member=array_unique(array_merge($request->modalHod), SORT_REGULAR);
             $_all_memberid='';
             //array_unique(array_merge($array1,$array2), SORT_REGULAR);
+
+            if(count($_all_member)==null){
+                $d_all_member=0;
+            }else{
+                $d_all_member=count($_all_member);
+            }
+            $_display_hod= substr($_display_hod, 0,-1)??'';
+
             $_id=Department::updateOrCreate(
                 [
                     'id' => $request->form_id,
@@ -132,7 +165,7 @@ class DepartmentController extends Controller
                     'department_name' => $request->basic_addon_name,
                     'company_id' => Auth::user()->company_id,
                     'slug' =>  Str::slug($request->basic_addon_name),
-                    'total_member' => count($_all_member),
+                    'total_member' =>$d_all_member,
                     'total_hod' => count($request->modalHod),
                     'display_hod' => $_display_hod,
                     'hod_id' => $_hod_id,
@@ -160,6 +193,14 @@ class DepartmentController extends Controller
             $_all_member=array_unique(array_merge($request->modalMember), SORT_REGULAR);
             $_all_memberid=implode(',',$request->modalMember);
             //array_unique(array_merge($array1,$array2), SORT_REGULAR);
+
+
+            if(count($_all_member)==null){
+                $d_all_member=0;
+            }else{
+                $d_all_member=count($_all_member);
+            }
+            $_display_hod= substr($_display_hod, 0,-1)??'';
             $_id=Department::updateOrCreate(
                 [
                     'id' => $request->form_id,
@@ -168,7 +209,7 @@ class DepartmentController extends Controller
                     'department_name' => $request->basic_addon_name,
                     'company_id' => Auth::user()->company_id,
                     'slug' =>  Str::slug($request->basic_addon_name),
-                    'total_member' => count($_all_member),
+                    'total_member' => $d_all_member,
                     'total_hod' => 0,
                     'display_hod' => $_display_hod,
                     'hod_id' => $_hod_id,
@@ -185,6 +226,12 @@ class DepartmentController extends Controller
             return back()->with('success', 'Success！');
         }
         if(empty($request->modalHod) && empty($request->modalMember)){
+
+
+
+
+
+
             $_id=Department::updateOrCreate(
                 [
                     'id' => $request->form_id,
@@ -192,7 +239,9 @@ class DepartmentController extends Controller
                 [
                     'department_name' => $request->basic_addon_name,
                     'company_id' => Auth::user()->company_id,
-                    'slug' =>  Str::slug($request->basic_addon_name)
+                    'slug' =>  Str::slug($request->basic_addon_name),
+                    'display_hod' => '',
+                    'total_member' => 0,
 
                 ]
             );
