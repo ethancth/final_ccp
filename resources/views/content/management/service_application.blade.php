@@ -15,8 +15,6 @@
 @endsection
 
 @section('content')
-    <h3>Service Application</h3>
-    <p>Service Application description.</p>
 
     <!-- Permission Table -->
     <div class="card">

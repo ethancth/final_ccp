@@ -15,8 +15,6 @@
 @endsection
 
 @section('content')
-    <h3>Environment</h3>
-    <p>Environment description.</p>
 
     <!-- Permission Table -->
     <div class="card">

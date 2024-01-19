@@ -35,10 +35,10 @@ class CompanyFormController extends Controller
                 ->make(true);
         }
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "management-environment", 'name' => "Environment Form"]
+            ['link' => "/", 'name' => "Home"], ['link' => "management-environment", 'name' => "Environments"]
         ];
 
-        return view('/content/management/env', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Form Configuration']);
+        return view('/content/management/env', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Environments']);
     }
 
     public function env_request(Request $request)
@@ -105,10 +105,10 @@ class CompanyFormController extends Controller
         }
 
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "management-tier", 'name' => "Tier Form"]
+            ['link' => "/", 'name' => "Home"], ['link' => "management-tier", 'name' => "Tiers"]
         ];
 
-        return view('/content/management/tier', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Form Configuration']);
+        return view('/content/management/tier', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Tiers']);
     }
 
     public function tier_request(Request $request)
@@ -164,10 +164,10 @@ class CompanyFormController extends Controller
                 ->make(true);
         }
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "management-os", 'name' => "Operating System Form"]
+            ['link' => "/", 'name' => "Home"], ['link' => "management-os", 'name' => "Operating Systems"]
         ];
 
-        return view('/content/management/os', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'formtxt' => $formtxt ,'pagetitle' =>'Form Configuration']);
+        return view('/content/management/os', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs, 'formtxt' => $formtxt ,'pagetitle' =>'Operating System']);
     }
 
     public function os_request(Request $request)
@@ -247,10 +247,10 @@ class CompanyFormController extends Controller
                 ->make(true);
         }
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "management-sa", 'name' => "Service Application Form"]
+            ['link' => "/", 'name' => "Home"], ['link' => "management-service-application", 'name' => "Service Applications"]
         ];
 
-        return view('/content/management/service_application', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Form Configuration']);
+        return view('/content/management/service_application', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Service Application']);
     }
 
     public function sa_request(Request $request)
@@ -305,9 +305,9 @@ class CompanyFormController extends Controller
         $pageConfigs = ['pageHeader' => false,];
         $data= Auth::user()->company->costprofile->first();
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "management-tier", 'name' => "Cost Form"]
+            ['link' => "/", 'name' => "Home"], ['link' => "management-cost", 'name' => "Cost Profile"]
         ];
-        return view('/content/management/form', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'pagetitle' =>'Form Configuration','data' => $data]);
+        return view('/content/management/form', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'pagetitle' =>'Cost Profile','data' => $data]);
     }
 
     public function companyform_store(Request $request)
@@ -382,8 +382,11 @@ class CompanyFormController extends Controller
                 })
                 ->make(true);
         }
+        $breadcrumbs = [
+            ['link' => "/", 'name' => "Home"], ['link' => "management-policy-form", 'name' => "Policy"]
+        ];
 
-        return view('/content/management/policy_home', ['pageConfigs' => $pageConfigs,'policyform' => $policyform,'envforms'=>$envform,'tierforms'=>$tierform,'osforms'=>$osform,'saforms'=>$saform]);
+        return view('/content/management/policy_home', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'policyform' => $policyform,'envforms'=>$envform,'tierforms'=>$tierform,'osforms'=>$osform,'saforms'=>$saform]);
     }
 
     public function policyform_store(Request $request)

@@ -112,7 +112,11 @@ class UserPageController extends Controller
                 ->make(true);
         }
 
-        return view('/content/user/home', ['pageConfigs' => $pageConfigs,'mid' => $master_id,'user' => $user,'totaluser'=> $totaluser,'departments'=>$all_department,'active_user'=>$totalactiveuser,'in_active_user'=>$totalinactiveuser]);
+        $breadcrumbs = [
+            ['link' => "/", 'name' => "Home"], ['link' => "user-management", 'name' => "Users"]
+        ];
+
+        return view('/content/user/home', ['pageConfigs' => $pageConfigs,'pagetitle' =>'Users','breadcrumbs'=>$breadcrumbs,'mid' => $master_id,'user' => $user,'totaluser'=> $totaluser,'departments'=>$all_department,'active_user'=>$totalactiveuser,'in_active_user'=>$totalinactiveuser]);
     }
 
     public function store(Request $request)

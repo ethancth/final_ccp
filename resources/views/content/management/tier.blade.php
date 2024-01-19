@@ -15,8 +15,6 @@
 @endsection
 
 @section('content')
-    <h3>Tier</h3>
-    <p>Tier description.</p>
 
     <!-- Permission Table -->
     <div class="card">

@@ -17,8 +17,7 @@
 @endsection
 
 @section('content')
-    <h3>Department</h3>
-    <p>Department description.</p>
+{{--    <p>Department description.</p>--}}
 
     <!-- Permission Table -->
     <div class="card">

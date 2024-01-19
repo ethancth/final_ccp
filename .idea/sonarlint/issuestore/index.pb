@@ -118,8 +118,6 @@ o
 +database/factories/ProjectServerFactory.php,2/4/246641724b999aa28e23c4724bbb17b48da7e50b
 s
 Cdatabase/migrations/2022_07_24_143830_create_environments_table.php,8/e/8ec67777f569ed209231511e3b99af5fad579a39
-h
-8resources/views/content/management/policy_home.blade.php,1/0/10de974978d070bdffa003ff3aa4d402d7f33e12
 <
 .styleci.yml,b/e/bef5ea44a7455cbdeddf8c96649dfae70da325af
 L
@@ -354,8 +352,6 @@ d
 4resources/views/content/server/information.blade.php,9/4/941255e86fa0d27e35129a01292b1f31da130d24
 k
 ;resources/views/content/server/information-backup.blade.php,e/8/e834c5dfaaee9a4c6f3b4cd554792adfc8ac2cb2
-c
-3resources/views/content/management/tenant.blade.php,d/d/dd535159dadf910bef0b5a52ed0dfa13d807efe4
 V
 &app/Models/ProjectSecurityGroupEnv.php,1/e/1e1755fb2c076d113a3299beca7a78decedcf092
 S
@@ -378,10 +374,6 @@ C
 config/debugbar.php,7/c/7c41d982a1dc4ee9193740c3f789660923865c74
 ?
 app/helpers.php,5/e/5e92ff15dd02e679a9c48c1fc7e1b005c24dee00
-Z
-*resources/data/menu-data/verticalMenu.json,d/4/d48f38ab8df80d77e0df39ed4252c436f360f285
-B
-lang/en/locale.php,7/c/7c46845a8dbe950db03fcc9491123661f82d7839
 t
 Ddatabase/migrations/2022_06_06_132138_create_cost_profiles_table.php,d/e/de6dc4a3917b00c505f0728fa251702c68900b97
 {

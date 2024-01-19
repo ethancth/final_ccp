@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'User List')
+@section('title', $pagetitle)
 
 @section('vendor-style')
     {{-- Page Css files --}}

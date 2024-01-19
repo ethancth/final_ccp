@@ -40,7 +40,7 @@ class DepartmentController extends Controller
             ['link' => "/", 'name' => "Home"], ['link' => "management-department", 'name' => "Department"]
         ];
 
-        return view('/content/management/department', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Management','members'=>$all_user]);
+        return view('/content/management/department', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Departments','members'=>$all_user]);
     }
 
     public function edit(Request $request)

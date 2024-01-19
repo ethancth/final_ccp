@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Policy')
+@section('title', "Policy")
 
 @section('vendor-style')
     <!-- Vendor css files -->
@@ -17,8 +17,6 @@
 @endsection
 
 @section('content')
-    <h3>Form Policy</h3>
-    <p>Project Form Policy.</p>
 
     <!-- Permission Table -->
     <div class="card">

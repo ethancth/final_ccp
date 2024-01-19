@@ -15,8 +15,6 @@
 @endsection
 
 @section('content')
-    <h3>Operating System</h3>
-    <p>OS description.</p>
 
     <!-- Permission Table -->
     <div class="card">
