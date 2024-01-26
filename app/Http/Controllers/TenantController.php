@@ -16,22 +16,15 @@ class TenantController extends Controller
 
     public function CreateTenantProfile(Request $request)
     {
-        if($request->_id)
+
+        $result=Company::where('name','=',$request->tenant_name)->first();
+        if(Auth::User()->tenant->count()>'3'){
+            return response()->json(['message' => "Maximum Tenants Profile Create."], 422);
+        }
+
+
+        if(!$result)
         {
-            //update
-            Company::updateOrCreate(
-                [
-                    'id' => $request->_id,
-                ],
-                [
-                    'name' => $request->tenant_name,
-                    'domain'                => str::slug($request->tenant_name,'-').Str::uuid(),
-                    'slug'                  => Str::uuid(),
-                ]);
-
-
-            return redirect()->back()->with('success', 'Success！');
-        }else{
             $input = [
                 'name'                  => $request->tenant_name,
                 'domain'                => str::slug($request->tenant_name,'-').Str::uuid(),
@@ -50,9 +43,10 @@ class TenantController extends Controller
                 'company_id' => $new->id
             ]);
 
-
-
             return redirect()->back()->with('success', 'Success！');
+        }else{
+            return response()->json(['message' => "This tenant name Unavailable, Please use another name"], 422);
+
         }
 
 

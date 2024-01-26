@@ -95,7 +95,7 @@
             <!-- User Content -->
             <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
                 <div class="card">
-                    <h4 class="card-header">Change Password</h4>
+                    <h4 class="card-header">Profile</h4>
                     <div class="card-body">
                         <form id="formChangePassword" method="POST" action="{{ route('change.user.password') }}">
                             <div class="alert alert-warning mb-2" role="alert">
@@ -149,7 +149,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary me-2">Change Password</button>
+                                    <button type="submit" class="btn btn-primary me-2">Update Profile</button>
                                 </div>
                             </div>
                         </form>
@@ -157,7 +157,7 @@
                 </div>
 
                 <!-- payment methods -->
-                <div class="card">
+                <div class="card" id="tenantcard">
                     <div class="card-header">
                         <h4 class="card-title mb-50">Tenants</h4>
                         @if(Auth::User()->tenant->count()<'3')
@@ -188,9 +188,7 @@
                                         </div>
                                         <div class="d-flex flex-column text-start text-lg-end">
                                             <div class="d-flex order-sm-0 order-1 mt-1 mt-sm-0">
-                                                <button class="btn btn-outline-primary me-75 btn-edit-tenant" data-bs-toggle="modal" data-id="{{$tenants->id}}" data-name="{{$tenants->name}}" data-bs-target="#addNewCard">
-                                                    Edit
-                                                </button>
+
 {{--                                                <button class="btn btn-outline-secondary">Delete</button>--}}
                                             </div>
 {{--                                            <span class="mt-2">Card expires at 12/24</span>--}}
@@ -233,7 +231,9 @@
                                 class="form-control"
                                 placeholder="Display Name"
                                 data-msg="Please enter tenant name"
+                                required
                             />
+                            <strong style="color: #ea6666;" class="error-tenant"></strong>
                         </div>
 
                         <div class="col-12 text-center">
@@ -294,14 +294,40 @@
                 }
             });
         }
-        $(document).on('click', '.btn-edit-tenant', function() {
-            $('#_id').val($(this).data("id"));
-            $('#tenant_name').val($(this).data("name"));
-
-        });
+        // $(document).on('click', '.btn-edit-tenant', function() {
+        //     $('#_id').val($(this).data("id"));
+        //     $('#tenant_name').val($(this).data("name"));
+        //
+        // });
         $(document).on('click', '.create-new-tenant', function() {
             $('#_id').val('');
 
+        });
+
+        const toastAnimationExample = document.querySelector('.toast-ex');
+        let selectedType, selectedAnimation, selectedPlacement, toast, toastAnimation, toastPlacement;
+        selectedType = 'text-danger';
+        selectedAnimation = 'animate__pulse';
+        toastAnimationExample.classList.add(selectedAnimation);
+        toastAnimationExample.querySelector('.ti').classList.add(selectedType);
+        toastAnimation = new bootstrap.Toast(toastAnimationExample);
+
+
+        $('#addNewTenantForm').on('submit', function (event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '/create-tenants-profile',
+                data: formData,
+                success: function (res) {
+                    toastAnimation.show();
+                    $('#tenantcard').load(document.URL +  ' #tenantcard');
+                },
+                error: function (data) {
+                    $('.error-tenant').text(data.responseJSON['message']);
+                }
+            });
         });
     </script>
 @endsection

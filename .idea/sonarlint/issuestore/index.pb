@@ -166,8 +166,6 @@ d
 Ldatabase/migrations/2023_04_20_053954_create_server_firewall_rules_table.php,e/4/e4736147b66b6c878ff4a0038b8b159e8bcfaa00
 s
 Cresources/views/content/management/firewallservices/index.blade.php,4/8/48a979376ba50d923727a57e740a0ac9b8bf35ba
-a
-1app/Http/Controllers/FirewallServiceControler.php,7/c/7c84e05f3b1416513c21e6ac97e79a2d9727b157
 x
 Hdatabase/migrations/2022_08_12_054121_add_sa_service_to_server_table.php,4/2/421c1e0f83c2ac28920aac4e89acc78d454857bb
 i
@@ -530,10 +528,6 @@ M
 app/Policies/TenantPolicy.php,a/a/aac112f613ab256e8a733b07b42ad481b1b243d8
 E
 app/Models/Tenant.php,1/0/1055246f044f62f7a0853b16bfc5df393e6a44c9
-`
-0resources/views/content/tenant/profile.blade.php,4/1/413ffdaecfac2cd76966777f8af124c72063ff95
-Y
-)app/Http/Controllers/TenantController.php,4/3/43e866a2919d86dd6d9486bd7b5d81e52f49c8d0
 O
 app/Models/DepartmentMember.php,0/9/0919c09dec78335a2af7b4ffe3f65169741dcda8
 U
