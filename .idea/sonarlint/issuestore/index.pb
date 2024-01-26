@@ -442,8 +442,6 @@ f
 +resources/js/scripts/pages/modal-edit-cc.js,0/6/06d2d6d7ecc47e0c474306eae1805aebd2366bc2
 c
 3resources/js/scripts/pages/modal-add-new-address.js,9/6/96cfa686ef27df692a5d95b93e8619312eb05747
-^
-.resources/views/auth/passwords/email.blade.php,f/a/fa11836edffee21a82bdf8f3e8c0265b661a6626
 b
 2resources/js/scripts/pages/auth-forgot-password.js,b/9/b9c4a7a58f9b40aeee7f0f348e08e35aa5c33937
 c
@@ -522,14 +520,8 @@ U
 %app/Http/Controllers/VMController.php,3/5/357e5241ffb88cc456255e1f3028d2f561012bd7
 a
 1resources/js/scripts/pages/auth-reset-password.js,1/2/1210dd3243c49296ae692b5134084af766610342
-U
-%resources/views/auth/verify.blade.php,3/c/3c1e8253bfb790727f336438ffc80c2848f35a84
-W
-'resources/views/auth/register.blade.php,8/6/8600e63b1d771a3b86abef40d1ef23e1ffb21feb
 ^
 .resources/views/auth/passwords/reset.blade.php,3/9/393ec4c42846877e96602d009593e575b6e75202
-T
-$resources/views/auth/login.blade.php,f/b/fb3cbd7f4b7fd6fa26794a37d7b2f8f783688ff9
 Z
 *resources/js/scripts/pages/project-home.js,4/b/4b1aee153968ffb11849fae50355a92e5e359d36
 U
@@ -596,5 +588,3 @@ B
 lang/fr/locale.php,0/8/08c8c59a75a771b14662ca9cbb09c6b2027daed8
 [
 +resources/views/panels/breadcrumb.blade.php,c/c/ccbdf9efa2b4a88aba34d45edbaf5415d24d4146
-[
-+resources/views/content/user/home.blade.php,5/e/5e014ad44d980814dd6f9ff5775865704240c60a

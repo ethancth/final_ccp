@@ -235,7 +235,7 @@ class CompanyFormController extends Controller
 
         $pageConfigs = ['pageHeader' => false,];
         $data= Auth::user()->company->saform;
-        $formtxt='Service Application';
+        $formtxt='Application Services';
         if ($request->ajax()) {
             $data = Auth::user()->company->saform;
             return Datatables::of($data)
@@ -247,10 +247,10 @@ class CompanyFormController extends Controller
                 ->make(true);
         }
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "management-service-application", 'name' => "Service Applications"]
+            ['link' => "/", 'name' => "Home"], ['link' => "management-service-application", 'name' => "Application Services"]
         ];
 
-        return view('/content/management/service_application', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Service Application']);
+        return view('/content/management/service_application', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Application Services']);
     }
 
     public function sa_request(Request $request)
@@ -383,7 +383,7 @@ class CompanyFormController extends Controller
                 ->make(true);
         }
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "management-policy-form", 'name' => "Policy"]
+            ['link' => "/", 'name' => "Home"], ['link' => "management-policy-form", 'name' => "Policies"]
         ];
 
         return view('/content/management/policy_home', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'policyform' => $policyform,'envforms'=>$envform,'tierforms'=>$tierform,'osforms'=>$osform,'saforms'=>$saform]);

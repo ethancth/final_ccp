@@ -27,7 +27,7 @@
     <div class="auth-wrapper auth-cover">
         <div class="auth-inner row m-0">
             <!-- Brand logo-->
-            <a class="brand-logo" href="#">
+            <a class="brand-logo" href="/">
                 <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
                     <defs>
                         <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
@@ -83,6 +83,14 @@
 
                     <form  method="POST" id='verification_resend' action="{{ route('verification.resend') }}">
                         @csrf
+                    </form>
+
+                    <form method="POST" action="{{route('logout')}}">
+                        @csrf
+
+                        <button type="submit" class="w-100 btn btn-danger">
+                            Log Out
+                        </button>
                     </form>
                     </p>
                 </div>

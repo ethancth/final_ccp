@@ -130,27 +130,27 @@
                                     name="user_email"
                                 />
                             </div>
-                            <div class="mb-1">
-                                <label class="form-label" for="modalHod" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Assign This Department will be HOD">Department - HOD</label>
-                                <select  id="modalHod" name="modalHod[]" multiple="multiple" class="hod-select2 select2 form-select ">
-                                    @foreach($departments as $department)
-                                        <option value="{{$department->id}}">{{$department->department_name}}</option>
+{{--                            <div class="mb-1">--}}
+{{--                                <label class="form-label" for="modalHod" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Assign This Department will be HOD">Department - HOD</label>--}}
+{{--                                <select  id="modalHod" name="modalHod[]" multiple="multiple" class="hod-select2 select2 form-select ">--}}
+{{--                                    @foreach($departments as $department)--}}
+{{--                                        <option value="{{$department->id}}">{{$department->department_name}}</option>--}}
 
-                                    @endforeach
-                                </select>
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Please enter a display name</div>
-                            </div>
-                            <div class="mb-1">
-                                <label class="form-label" for="modalMember" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="This Department will be Member">Department - Member </label>
-                                <select  id="modalMember" name="modalMember[]" multiple="multiple" class="select2 form-select">
-                                    @foreach($departments as $department)
-                                        <option value="{{$department->id}}">{{$department->department_name}}</option>
-                                    @endforeach
-                                </select>
-                                <div class="valid-feedback">Looks good!</div>
-                                <div class="invalid-feedback">Please enter your sentence.</div>
-                            </div>
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                                <div class="valid-feedback">Looks good!</div>--}}
+{{--                                <div class="invalid-feedback">Please enter a display name</div>--}}
+{{--                            </div>--}}
+{{--                            <div class="mb-1">--}}
+{{--                                <label class="form-label" for="modalMember" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="This Department will be Member">Department - Member </label>--}}
+{{--                                <select  id="modalMember" name="modalMember[]" multiple="multiple" class="select2 form-select">--}}
+{{--                                    @foreach($departments as $department)--}}
+{{--                                        <option value="{{$department->id}}">{{$department->department_name}}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                                <div class="valid-feedback">Looks good!</div>--}}
+{{--                                <div class="invalid-feedback">Please enter your sentence.</div>--}}
+{{--                            </div>--}}
                             <button type="submit" class="btn btn-primary me-1">Submit</button>
                             <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>

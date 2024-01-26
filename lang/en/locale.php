@@ -42,7 +42,7 @@ return [
     "OS Form" => "Operating System Form",
     "SA Form" => "Service Application Form",
     "Cost Form" => "Cost Profiles",
-    "Policy Form" => "Policys",
+    "Policy Form" => "Policies",
     "Operating System" => "Operating Systems",
     "Infrastructure" => "Infrastructure",
     "Apps & Pages" => "Apps & Pages",
