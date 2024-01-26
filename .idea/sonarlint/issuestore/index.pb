@@ -302,8 +302,6 @@ U
 %app/Providers/MenuServiceProvider.php,2/a/2aad50f973032198d5335f9c49b6c7abafc6865f
 V
 &app/Providers/RouteServiceProvider.php,d/4/d4febfd545b5694c9448dd8d6de9bf0531b0db61
-d
-4app/Http/Controllers/Auth/VerificationController.php,4/7/47908c6d61ac78a61e2bcb273e3187e50a1937cc
 T
 $app/Models/ProjectServerFirewall.php,a/b/ab007e8a30d15e4bcb3289f83b5819f98aec067b
 J
@@ -420,8 +418,6 @@ F
 app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
 [
 +resources/js/scripts/pages/auth-register.js,d/7/d7e2c61e442b0818ccedb3f1eedb7ccfc1a39766
-`
-0app/Http/Controllers/Auth/RegisterController.php,a/0/a0ffa01331c31490401d3514217b1d5b3700fb49
 N
 app/Observers/UserObserver.php,5/8/58b0ca3953943da94a198e58ca46b0403cbd13f3
 ]
@@ -488,8 +484,6 @@ V
 &app/Providers/EventServiceProvider.php,6/d/6d80af2c8eccc15fa62a616067d4270df372f87d
 O
 app/Listeners/EmailVerified.php,7/6/760dc25bce545074b1267c88b3088faa13056592
-e
-5app/Http/Controllers/Auth/ResetPasswordController.php,d/5/d500142e89c27e57dd9348c574786c4ae3ae5a2a
 M
 resources/js/core/app-menu.js,0/0/001b9a8ef448319de198bb0fd11bef1f172fb7b5
 s
@@ -530,8 +524,6 @@ E
 app/Models/Tenant.php,1/0/1055246f044f62f7a0853b16bfc5df393e6a44c9
 O
 app/Models/DepartmentMember.php,0/9/0919c09dec78335a2af7b4ffe3f65169741dcda8
-U
-%app/Providers/AuthServiceProvider.php,a/5/a526ceaeed37cec3622903d924e7bbaf01d42971
 h
 8resources/views/content/project/project-detail.blade.php,9/d/9d1778c17e972d58056c1d43d9d2041c63112d66
 F

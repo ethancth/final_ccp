@@ -114,6 +114,7 @@
                                         name="username"
                                         placeholder="Username"
                                         value="{{Auth::User()->name}}"
+                                        maxlength="16"
                                         required
                                     />
                                 </div>

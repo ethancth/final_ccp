@@ -83,8 +83,12 @@
 
                         <div class="mb-1">
                             <label class="form-label" for="email">Tenant Name</label>
-                            <input class="form-control " id="tenant" type="text" name="tenant"value="{{ old('tenant') }}" placeholder="Tenant Name" required tabindex="2" />
-
+                            <input class="form-control @error('tenant') is-invalid @enderror" id="tenant" type="text" name="tenant"value="{{ old('tenant') }}" placeholder="Tenant Name" required tabindex="2" />
+                            @error('tenant')
+                            <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+                            @enderror
                         </div>
 
                         <div class="mb-1">
