@@ -45,7 +45,7 @@ $(function () {
                 },
                 {
                     targets: 1,
-                    visible: true
+                    visible: hide
                 },
 
                 {

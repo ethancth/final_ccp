@@ -102,7 +102,7 @@
                 <thead class="table-light">
                 <tr>
                     <th></th>
-                    <th>ID</th>
+                    <th></th>
                     <th>Name</th>
                     <th>status</th>
                     <th>Created Date</th>
@@ -202,7 +202,7 @@
                         },
                         {
                             targets: 1,
-                            visible: true
+                            visible: false
                         },
 
                         {

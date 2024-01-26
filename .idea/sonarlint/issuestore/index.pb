@@ -520,8 +520,6 @@ a
 1resources/js/scripts/pages/auth-reset-password.js,1/2/1210dd3243c49296ae692b5134084af766610342
 ^
 .resources/views/auth/passwords/reset.blade.php,3/9/393ec4c42846877e96602d009593e575b6e75202
-Z
-*resources/js/scripts/pages/project-home.js,4/b/4b1aee153968ffb11849fae50355a92e5e359d36
 U
 %resources/views/layouts/app.blade.php,4/e/4e52e2a63befd1dc69600001e78b80ebece1ac9b
 f
@@ -534,10 +532,6 @@ E
 app/Models/Tenant.php,1/0/1055246f044f62f7a0853b16bfc5df393e6a44c9
 `
 0resources/views/content/tenant/profile.blade.php,4/1/413ffdaecfac2cd76966777f8af124c72063ff95
-f
-6resources/views/content/project/project-home.blade.php,f/7/f703b193954b357df0171bfb3e2e6f40300e3394
-Z
-*app/Http/Controllers/ProjectController.php,c/7/c7cfd2fcdf694f3ec04aa2e536539ff1606b6bc6
 Y
 )app/Http/Controllers/TenantController.php,4/3/43e866a2919d86dd6d9486bd7b5d81e52f49c8d0
 O
