@@ -492,8 +492,6 @@ O
 app/Listeners/EmailVerified.php,7/6/760dc25bce545074b1267c88b3088faa13056592
 e
 5app/Http/Controllers/Auth/ResetPasswordController.php,d/5/d500142e89c27e57dd9348c574786c4ae3ae5a2a
-W
-'resources/views/panels/navbar.blade.php,b/6/b69f062d1d9a9b6cdcd8844af2776ec97ed6d2cb
 M
 resources/js/core/app-menu.js,0/0/001b9a8ef448319de198bb0fd11bef1f172fb7b5
 s
