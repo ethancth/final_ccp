@@ -114,6 +114,7 @@
                                         name="username"
                                         placeholder="Username"
                                         value="{{Auth::User()->name}}"
+                                        required
                                     />
                                 </div>
                             </div>
