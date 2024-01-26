@@ -135,6 +135,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php83" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/vendor/mcaskill/php-array-group-by" />
+      <path value="$PROJECT_DIR$/vendor/laraveldaily/laravel-permission-ui" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0">

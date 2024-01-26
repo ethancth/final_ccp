@@ -17,6 +17,7 @@
     "laravel/sanctum": "^2.14",
     "laravel/tinker": "^2.7",
     "laravel/ui": "^4.3",
+    "laraveldaily/laravel-permission-ui": "^0.1.4",
     "laravolt/avatar": "^4.1",
     "mcaskill/php-array-group-by": "^1.0",
     "overtrue/pinyin": "~4.0",

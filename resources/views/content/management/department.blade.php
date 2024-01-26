@@ -26,7 +26,7 @@
                 <thead class="table-light">
                 <tr>
                     <th></th>
-                    <th>ID</th>
+                    <th></th>
                     <th>Department</th>
                     <th>HOD</th>
                     <th>Member</th>
@@ -235,7 +235,7 @@
                         {
                             targets: 1,
                             width: '54px',
-                            visible: true
+                            visible: false
                         },
 
                         {

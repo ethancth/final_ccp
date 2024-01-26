@@ -23,11 +23,11 @@
                 <thead class="table-light">
                 <tr>
                     <th></th>
-                    <th>ID</th>
+                    <th></th>
                     <th>Value</th>
                     <th>Display Name</th>
                     <th>Cost</th>
-                    <th>Status</th>
+                    <th>Publish</th>
                     <th>Created Date</th>
                     <th>Actions</th>
                 </tr>
@@ -155,7 +155,7 @@
                         {
                             //id
                             targets: 1,
-                            visible: true
+                            visible: false
                         },
 
                         {

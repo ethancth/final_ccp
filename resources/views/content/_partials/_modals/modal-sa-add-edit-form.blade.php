@@ -101,10 +101,10 @@
                         <div class="invalid-feedback">Please enter core number per license.</div>
                     </div>
                     <div class="mb-1">
-                        <label class="form-label" for="select-status">Status</label>
+                        <label class="form-label" for="select-status">Publish</label>
                         <select class="form-select" id="select-status" name="select_status" required>
-                            <option value="1">Enable</option>
-                            <option value="0">Disable</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                         </select>
                         <div class="valid-feedback">Looks good!</div>
                         <div class="invalid-feedback">Please select Status label</div>

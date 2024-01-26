@@ -24,7 +24,7 @@
                 <thead class="table-light">
                 <tr>
                     <th></th>
-                    <th>ID</th>
+                    <th></th>
                     <th>Value</th>
                     <th>Display Name</th>
                     <th>status</th>
@@ -150,7 +150,7 @@
                         },
                         {
                             targets: 1,
-                            visible: true
+                            visible: false
                         },
 
                         {

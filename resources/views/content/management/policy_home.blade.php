@@ -25,13 +25,13 @@
                 <thead class="table-light">
                 <tr>
                     <th></th>
-                    <th>ID</th>
+                    <th></th>
                     <th>Environment</th>
                     <th>Tier</th>
                     <th>OS</th>
                     <th>Mandatory</th>
                     <th>Optional</th>
-                    <th>status</th>
+                    <th>Publish</th>
                     <th>Created Date</th>
                     <th>Actions</th>
                 </tr>
@@ -109,7 +109,7 @@
                         },
                         {
                             targets: 1,
-                            visible: true
+                            visible: false
                         },
 
                         {
