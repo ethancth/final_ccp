@@ -44,26 +44,6 @@
                                 </div>
                             </div>
                         </div>
-{{--                        <div class="d-flex justify-content-around my-2 pt-75">--}}
-{{--                            <div class="d-flex align-items-start me-2">--}}
-{{--              <span class="badge bg-light-primary p-75 rounded">--}}
-{{--                <i data-feather="check" class="font-medium-2"></i>--}}
-{{--              </span>--}}
-{{--                                <div class="ms-75">--}}
-{{--                                    <h4 class="mb-0"></h4>--}}
-{{--                                    <small>Project Create</small>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="d-flex align-items-start">--}}
-{{--              <span class="badge bg-light-primary p-75 rounded">--}}
-{{--                <i data-feather="briefcase" class="font-medium-2"></i>--}}
-{{--              </span>--}}
-{{--                                <div class="ms-75">--}}
-{{--                                    <h4 class="mb-0">568</h4>--}}
-{{--                                    <small>Projects Done</small>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                         <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4>
                         <div class="info-container">
                             <ul class="list-unstyled">
@@ -89,6 +69,8 @@
                     </div>
                 </div>
 
+
+
             </div>
             <!--/ User Sidebar -->
 
@@ -96,6 +78,37 @@
             <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
                 <div class="card">
                     <h4 class="card-header">Profile</h4>
+                    <div class="card-body">
+                        <form id="formChangePassword" method="POST" action="{{ route('change.user.password') }}">
+                            <div class="alert alert-warning mb-2" role="alert">
+
+                            </div>
+
+                            <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+                            <div class="mb-2 col-md-6 form-password-toggle">
+                                <label class="form-label" for="Username">Username</label>
+                                <div class="input-group input-group-merge">
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        placeholder="Username"
+                                        value="{{Auth::User()->name}}"
+                                        maxlength="16"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary me-2">Update Profile</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4 class="card-header">Password</h4>
                     <div class="card-body">
                         <form id="formChangePassword" method="POST" action="{{ route('change.user.password') }}">
                             <div class="alert alert-warning mb-2" role="alert">
@@ -151,7 +164,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary me-2">Update Profile</button>
+                                    <button type="submit" class="btn btn-primary me-2">Change Password</button>
                                 </div>
                             </div>
                         </form>
@@ -306,13 +319,6 @@
 
         });
 
-        const toastAnimationExample = document.querySelector('.toast-ex');
-        let selectedType, selectedAnimation, selectedPlacement, toast, toastAnimation, toastPlacement;
-        selectedType = 'text-danger';
-        selectedAnimation = 'animate__pulse';
-        toastAnimationExample.classList.add(selectedAnimation);
-        toastAnimationExample.querySelector('.ti').classList.add(selectedType);
-        toastAnimation = new bootstrap.Toast(toastAnimationExample);
 
 
         $('#addNewTenantForm').on('submit', function (event) {
@@ -327,6 +333,7 @@
                     $('#tenantcard').load(document.URL +  ' #tenantcard');
                 },
                 error: function (data) {
+                    console.log(data);
                     $('.error-tenant').text(data.responseJSON['message']);
                 }
             });
