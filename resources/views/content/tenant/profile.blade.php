@@ -117,7 +117,7 @@
                             </div>
 
                             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-                            <div class="mb-2 col-md-6 form-password-toggle">
+                            <div class="mb-2 col-md-6 form-password-toggle hidden" >
                                 <label class="form-label" for="Username">Name</label>
                                 <div class="input-group input-group-merge">
                                     <input
