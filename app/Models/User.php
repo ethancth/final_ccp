@@ -94,7 +94,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = strtolower($value);
+        $this->attributes['name'] = ($value);
     }
     public function server()
     {

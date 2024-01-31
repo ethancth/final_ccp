@@ -298,7 +298,7 @@ class UserPageController extends Controller
     public function update_credential(Request $request)
     {
 
-        dd($request);
+       // dd($request);
        if($request->confirmPassword!=null){
            User::updateOrCreate(
                [
