@@ -76,7 +76,7 @@ class UserPageController extends Controller
     }
 
     public function company_policy(){
-        $_company=company::find(User::find(Auth::user()->company_id))->first();
+        $_company=company::where('id','=',Auth::user()->company_id)->first();
 
         if($_company->master_id===Auth::id()){
 
@@ -298,6 +298,7 @@ class UserPageController extends Controller
     public function update_credential(Request $request)
     {
 
+        dd($request);
        if($request->confirmPassword!=null){
            User::updateOrCreate(
                [

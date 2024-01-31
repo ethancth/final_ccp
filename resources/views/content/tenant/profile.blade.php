@@ -86,7 +86,7 @@
 
                             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
                             <div class="mb-2 col-md-6 form-password-toggle">
-                                <label class="form-label" for="Username">Username</label>
+                                <label class="form-label" for="Username">Name</label>
                                 <div class="input-group input-group-merge">
                                     <input
                                         class="form-control"
@@ -118,7 +118,7 @@
 
                             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
                             <div class="mb-2 col-md-6 form-password-toggle">
-                                <label class="form-label" for="Username">Username</label>
+                                <label class="form-label" for="Username">Name</label>
                                 <div class="input-group input-group-merge">
                                     <input
                                         class="form-control"
