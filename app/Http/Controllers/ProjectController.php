@@ -30,17 +30,11 @@ class ProjectController extends Controller
 
     public function index(Request $request,Project $project)
     {
-      //  dd(request()->path());
 
         if(request()->path()=='/'){
             return redirect('/project', 301);
         }
-//        if(Auth()->user()->company->is_new_company){
-//            $pageConfigs = ['showMenu' => false];
-//            $breadcrumbs = [['link' => "/", 'name' => "Home"], ['name' => "First Login Company Setting"]];
-//            return view('/content/page-layouts/layout-without-menu', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
-//
-//        }
+
 
 
         $pageConfigs = ['pageHeader' =>true,'layoutWidth' => 'full'];
@@ -51,18 +45,12 @@ class ProjectController extends Controller
             ->get();
 
         if ($request->ajax()) {
-           // dd($request);
-            //$data = User::find(Auth::id())->project;
             $data = $project->withStatus($request->status)
                 ->where('owner','=',Auth()->id())
                 ->where('company_id','=',Auth::user()->company_id)
                 ->get();
             return Datatables::of($data)
-//                ->addColumn('action', function($row){
-//                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
-//                    return $btn;
-//                })
-//                ->rawColumns(['action'])
+
                 ->make(true);
         }
 

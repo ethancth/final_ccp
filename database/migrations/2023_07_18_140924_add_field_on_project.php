@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::table('projects', function (Blueprint $table) {
             //
             $table->string('total_cpu')->nullable()->default('0');
-            $table->string('total_memory')->nullable()->default('0');;
-            $table->string('total_storage')->nullable()->default('0');;
-            $table->string('total_server')->nullable()->default('0');;
-            $table->string('total_server_on')->nullable()->default('0');;
+            $table->string('total_memory')->nullable()->default('0');
+            $table->string('total_storage')->nullable()->default('0');
+            $table->string('total_server')->nullable()->default('0');
+            $table->string('total_server_on')->nullable()->default('0');
         });
     }
 

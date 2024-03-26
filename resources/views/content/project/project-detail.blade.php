@@ -573,7 +573,8 @@
                     data: { id: id },
                     dataType: 'json',
                     success: function(res){
-                        window.setTimeout( window.location.reload(), 3000 );
+                        dtInvoice.draw();
+                       // window.setTimeout( window.location.reload(), 3000 );
 
                     }
                 });
@@ -585,6 +586,7 @@
         // datatable
         if (dtInvoiceTable.length) {
             var dtInvoice = dtInvoiceTable.DataTable({
+                    processing: true,
                 //ajax: assetPath + 'data/invoice-list.json', // JSON file to add data
                 ajax:'{{ route('project.show',$project->id) }}',
                 autoWidth: false,
@@ -777,25 +779,25 @@
                                 '<a class="me-25 delete" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Delete">' +
                                 feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
                                 '</a>' +
-                                '<div class="dropdown">' +
-                                '<a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
-                                feather.icons['more-vertical'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                '</a>' +
-                                '<div class="dropdown-menu dropdown-menu-end">' +
-                                '<a href="#" class="dropdown-item">' +
-                                feather.icons['download'].toSvg({ class: 'font-small-4 me-50' }) +
-                                'Download</a>' +
-                                '<a href="#" class="dropdown-item edit" data-id="'+$id+'">' +
-                                feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
-                                'Edit</a>' +
-                                '<a href="#" class="dropdown-item">' +
-                                feather.icons['trash'].toSvg({ class: 'font-small-4 me-50' }) +
-                                'Delete</a>' +
-                                '<a href="#" class="dropdown-item">' +
-                                feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) +
-                                'Duplicate</a>' +
-                                '</div>' +
-                                '</div>' +
+                                // '<div class="dropdown">' +
+                                // '<a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
+                                // feather.icons['more-vertical'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                // '</a>' +
+                                // '<div class="dropdown-menu dropdown-menu-end">' +
+                                // '<a href="#" class="dropdown-item">' +
+                                // feather.icons['download'].toSvg({ class: 'font-small-4 me-50' }) +
+                                // 'Download</a>' +
+                                // '<a href="#" class="dropdown-item edit" data-id="'+$id+'">' +
+                                // feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
+                                // 'Edit</a>' +
+                                // '<a href="#" class="dropdown-item">' +
+                                // feather.icons['trash'].toSvg({ class: 'font-small-4 me-50' }) +
+                                // 'Delete</a>' +
+                                // '<a href="#" class="dropdown-item">' +
+                                // feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) +
+                                // 'Duplicate</a>' +
+                                // '</div>' +
+                                // '</div>' +
                                 '</div>'
                             );
                         }
@@ -861,42 +863,57 @@
                             // 'data-bs-target': '#project-submit-modal',
                              'style':'margin-top:10px'
                         },
-                        action: function (){
-                            Swal.fire({
-                                title: 'Are you sure?',
-                                text: "Submit this project and get review!",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonText: 'Yes, Submit it!',
-                                customClass: {
-                                    confirmButton: 'btn btn-primary',
-                                    cancelButton: 'btn btn-outline-danger ms-1'
-                                },
-                                buttonsStyling: false
-                            }).then(function (result) {
-                                if (result.value) {
-                                    var $projectid={{$project->id}};
-                                    $.ajax({
-                                        type:"POST",
-                                        url: "{{ route('project.submit') }}",
-                                        data: { id: $projectid },
-                                        dataType: 'json',
-                                        success: function(res){
-                                            Swal.fire({
+                        action: function () {
 
-                                                icon: 'success',
-                                                title: 'Submitted!',
-                                                text: 'Your Project has been Submitted.',
-                                                customClass: {
-                                                    confirmButton: 'btn btn-success'
-                                                }
-                                            })
-                                            window.location.reload();
-                                        }
-                                    })
+                            if ({{(count($project->server))}} > 0){
+                                Swal.fire({
+                                    title: 'Are you sure? {{(count($project->server))}}',
+                                    text: "Submit this project and get review!",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Yes, Submit it!',
+                                    customClass: {
+                                        confirmButton: 'btn btn-primary',
+                                        cancelButton: 'btn btn-outline-danger ms-1'
+                                    },
+                                    buttonsStyling: false
+                                }).then(function (result) {
+                                    if (result.value) {
+                                        var $projectid = {{$project->id}};
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "{{ route('project.submit') }}",
+                                            data: {id: $projectid},
+                                            dataType: 'json',
+                                            success: function (res) {
+                                                Swal.fire({
 
-                                }
-                            });
+                                                    icon: 'success',
+                                                    title: 'Submitted!',
+                                                    text: 'Your Project has been Submitted.',
+                                                    customClass: {
+                                                        confirmButton: 'btn btn-success'
+                                                    }
+                                                })
+                                                window.location.reload();
+                                            }
+                                        })
+
+                                    }
+                                });
+                        }else{
+                                Swal.fire({
+                                    title: '',
+                                    text: "Please create one server before submit",
+                                    icon: 'warning',
+                                    confirmButtonText: 'Ok, i got it!',
+                                    customClass: {
+                                        confirmButton: 'btn btn-primary',
+                                        cancelButton: 'btn btn-outline-danger ms-1'
+                                    },
+                                    buttonsStyling: false
+                                })
+                            }
                         }
                         //$('#addEditBookForm').trigger("reset");
                     },

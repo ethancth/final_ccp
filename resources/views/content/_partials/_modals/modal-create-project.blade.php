@@ -21,6 +21,7 @@
                             class="form-control"
                             placeholder="Project Name"
                             autofocus
+                            required
                             data-msg="Please enter Project name"
                         />
                     </div>

@@ -79,7 +79,7 @@
                 <div class="card">
                     <h4 class="card-header">Profile</h4>
                     <div class="card-body">
-                        <form id="formChangePassword" method="POST" action="{{ route('change.user.password') }}">
+                        <form id="" method="POST" action="{{ route('change.user.password') }}">
                             <div class="alert alert-warning mb-2" role="alert">
 
                             </div>
@@ -142,6 +142,7 @@
                                             type="password"
                                             id="newPassword"
                                             name="newPassword"
+                                            required
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         />
                                         <span class="input-group-text cursor-pointer">
@@ -158,6 +159,7 @@
                                             type="password"
                                             name="confirmPassword"
                                             id="confirmPassword"
+                                            required
                                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         />
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
@@ -204,7 +206,7 @@
                                         <div class="d-flex flex-column text-start text-lg-end">
                                             <div class="d-flex order-sm-0 order-1 mt-1 mt-sm-0">
 
-{{--                                                <button class="btn btn-outline-secondary">Delete</button>--}}
+                                                <button class="btn btn-outline-secondary">Delete</button>
                                             </div>
 {{--                                            <span class="mt-2">Card expires at 12/24</span>--}}
                                         </div>

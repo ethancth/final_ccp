@@ -17,8 +17,10 @@ class TenantController extends Controller
     public function CreateTenantProfile(Request $request)
     {
 
+        $_set_max_tenant=3;
         $result=Company::where('name','=',$request->tenant_name)->first();
-        if(Auth::User()->tenant->count()>'3'){
+        $_check_user_max_tenant=Company::where('master_id','=',Auth::id())->count();
+        if($_check_user_max_tenant>$_set_max_tenant){
             return response()->json(['message' => "Maximum Tenants Profile Create."], 422);
         }
 
