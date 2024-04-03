@@ -42,6 +42,21 @@ Route::group(['middleware' => ['role:Admin']], function () {
 });
 
 
+Route::group(['middleware' => ['permission:approver_reject_level_1']], function () {
+    // Routes accessible only to users with the 'admin' role
+
+    Route::post('/approveproject', [ProjectController::class, 'approveproject'])->name('project.approve');
+    Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
+});
+
+
+Route::group(['middleware' => ['permission:approver_reject_level_2']], function () {
+    // Routes accessible only to users with the 'admin' role
+
+    Route::post('/approveprojectl2', [ProjectController::class, 'approveprojectl2'])->name('project.approve.lv2');
+    Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
+});
+
 Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth', 'verified']],
     function () {
@@ -148,8 +163,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::delete('/project/{id}', [ProjectController::class, 'projectdestroy'])->name('project.destroy');
      //   Route::post('/project', [ProjectController::class, 'storeprojectsg'])->name('project.securitygroup.store');
         Route::post('/submitproject', [ProjectController::class, 'submitproject'])->name('project.submit');
-        Route::post('/approveproject', [ProjectController::class, 'approveproject'])->name('project.approve');
-        Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
+
 
         Route::post('/projectsg/security-group/store', [ProjectController::class, 'storeprojectsg'])->name('project.securitygroup.store');
         Route::get('/project/{project}/{slug?}', [ProjectController::class, 'show'])->name('project.show');

@@ -402,8 +402,6 @@ Y
 )resources/js/scripts/pages/app-invoice.js,7/0/7015ddec67bc6c08c5c3514ced039e51dab6403a
 ^
 .resources/js/scripts/pages/app-file-manager.js,9/c/9c2eb8f7ddfb3d4d1af3117abeb9409c7ec30cee
-O
-app/Listeners/EmailVerified.php,7/6/760dc25bce545074b1267c88b3088faa13056592
 M
 resources/js/core/app-menu.js,0/0/001b9a8ef448319de198bb0fd11bef1f172fb7b5
 s
@@ -432,8 +430,6 @@ a
 .resources/views/auth/passwords/reset.blade.php,3/9/393ec4c42846877e96602d009593e575b6e75202
 M
 app/Policies/TenantPolicy.php,a/a/aac112f613ab256e8a733b07b42ad481b1b243d8
-E
-app/Models/Tenant.php,1/0/1055246f044f62f7a0853b16bfc5df393e6a44c9
 O
 app/Models/DepartmentMember.php,0/9/0919c09dec78335a2af7b4ffe3f65169741dcda8
 u
@@ -576,16 +572,10 @@ t
 Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6
 I
 app/Models/FormPolicy.php,4/a/4a94f09436110f13696c37c6bd69877a4fd9e12b
-f
-6resources/views/content/project/project-home.blade.php,f/7/f703b193954b357df0171bfb3e2e6f40300e3394
 h
 8resources/views/content/management/policy_home.blade.php,1/0/10de974978d070bdffa003ff3aa4d402d7f33e12
 M
 app/Models/ProjectJourney.php,3/7/37bba03f016441b0463e69dd4b3b5f2ddfe2b33f
-F
-app/Models/Project.php,a/2/a2515e333fabbdff995a0c20be413e6a999612f5
-Q
-!app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
 W
 'app/Observers/ProjectServerObserver.php,7/4/74a477b8865521fa13d2c3a07caa39615ea37fc4
 w

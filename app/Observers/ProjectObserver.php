@@ -31,16 +31,16 @@ class ProjectObserver
     public function updated(Project $project)
     {
 
-        $_old_field=$project->getDirty();
-        if( $project->status=='2')
-        {
-            //Submit
-            $name ='Reject';
-            Mail::to('testreceiver@gmail.com’')->send(new SubmitProject($name,$project));
-
-        }
-        if($project->status=='3')
-        {
+//        $_old_field=$project->getDirty();
+//        if( $project->status=='2')
+//        {
+//            //Submit
+//            $name ='Reject';
+//            Mail::to('testreceiver@gmail.com’')->send(new SubmitProject($name,$project));
+//
+//        }
+//        if($project->status=='3')
+//        {
             //send Email
 
 
@@ -116,16 +116,16 @@ class ProjectObserver
 //
 //            }
 
-            foreach ( $project->server()->get() as $data){
-                $data->is_vm_provision =1;
-                $data->save();
-            }
-            $project->status='5';
-            $project->save();
+//            foreach ( $project->server()->get() as $data){
+//                $data->is_vm_provision =1;
+//                $data->save();
+//            }
+//            $project->status='5';
+//            $project->save();
 
 
 
-        }
+      //  }
 
 
         //update price

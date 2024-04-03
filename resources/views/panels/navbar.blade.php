@@ -67,7 +67,9 @@
         </a>
       </div>
     </li>
-      <li class="nav-item d-none d-lg-block"><a class="nav-link"><span class="user-name fw-bolder">You are in tenant  - {{Auth::User()->tenant[0]['name'] }}</span></a></li>
+      <li class="nav-item d-none d-lg-block"><a class="nav-link"><span class="user-name fw-bolder">You are in tenant  -
+                  {{Auth::User()->tenant[0]['name'] }}
+              </span></a></li>
     <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon"
           data-feather="{{ $configData['theme'] === 'dark' ? 'sun' : 'moon' }}"></i></a></li>
     <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon"

@@ -151,12 +151,13 @@ class UserPageController extends Controller
                 'email' => $request->user_email,
 //                'password' => Hash::make(Auth()->user()->company->default_password),
                 'password' => Hash::make($request->user_email),
-                'introduction' => 'User',
+                'introduction' => '',
                 'company_id' => User::find(Auth::id())->company_id,
             ]);
 
         $_position=Roles::find($request->role);
         $_new_user->syncRoles($_position->name);
+
         if (!$_checKisExist) {
 
             $_new_user->sendEmailVerificationNotification();
@@ -173,9 +174,6 @@ class UserPageController extends Controller
 
         }
 
-
-        return redirect()->route('user')->with('success', 'Success！');
-        if (env('APP_TENANT_ENABLE')) {
             $_check_user_tenant_amount = $_new_user->tenant->count();
 
             $_check_is_user_is_in_tenant_result = $_new_user->tenant->contains('id', Auth::user()->company_id);
@@ -204,10 +202,7 @@ class UserPageController extends Controller
             }
 
 
-        } else {
 
-
-        }
 
 
     }

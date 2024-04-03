@@ -26,9 +26,9 @@ class Project extends Model
         return $this->hasMany(ProjectJourney::class,'project_id','id');
     }
 
-    public function owner()
+    public function ownername()
     {
-        return $this->hasone(User::class,'owner','id');
+        return $this->hasone(User::class,'id','owner');
     }
 
     public function firewall()

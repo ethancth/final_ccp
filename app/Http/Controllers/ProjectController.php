@@ -45,12 +45,22 @@ class ProjectController extends Controller
             ->get();
 
         if ($request->ajax()) {
-            $data = $project->withStatus($request->status)
-                ->where('owner','=',Auth()->id())
-                ->where('company_id','=',Auth::user()->company_id)
-                ->get();
-            return Datatables::of($data)
 
+            if (Auth::user()->hasPermissionTo('approver_reject_level_1' )||Auth::user()->hasPermissionTo('approver_reject_level_2' ) ) {
+                $data = $project->withStatus($request->status)
+                    ->where('company_id','=',Auth::user()->company_id)
+                    ->get();
+            }else{
+                $data = $project->withStatus($request->status)
+                    ->where('owner','=',Auth()->id())
+                    ->where('company_id','=',Auth::user()->company_id)
+                    ->get();
+            }
+
+            return Datatables::of($data)
+                ->addColumn('owner_name', function(Project $project) {
+                    return  $project->ownername->name;
+                })
                 ->make(true);
         }
 
@@ -88,6 +98,7 @@ class ProjectController extends Controller
                 ->where('owner',Auth::id())
                 ->get();
             return Datatables::of($data)
+
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
 //                    return $btn;
@@ -596,6 +607,18 @@ class ProjectController extends Controller
         }
         return redirect()->to($project->link())->with('success', 'Project Approved！');
 
+
+    }
+
+    public function approveprojectl2(Request $request)
+    {
+
+            $project = Project::find($request->id);
+            if ($project->status == '3') {
+                $project->status = 4;
+                $project->save();
+            }
+            return redirect()->to($project->link())->with('success', 'Project Approved！');
 
     }
 

@@ -43,7 +43,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h1>{{$project->title}} </h1>
+                <h1>{{$project->projectstatus}} - {{$project->title}}  </h1>
+                <h6>created by  {{$project->ownername->name}}</h6>
                 <hr class="mb-2" />
                 <div>
                     <div class="d-flex justify-content-between align-items-center">
@@ -536,8 +537,11 @@
                     // $('#select_sa_optional').val(res.optional_sa_field);
                     // $('#select_sa_optional').select2();
 
-                    $('#select_sa_optional').val(res.optional_sa_field.split(',')).trigger("change");
-                    $('#select_sa_optional').trigger('change');
+                    if(res.optional_sa_field.length>0){
+                        $('#select_sa_optional').val(res.optional_sa_field.split(',')).trigger("change");
+                        $('#select_sa_optional').trigger('change');
+                    }
+
                     $("#createApp"+uppercaseWords(res.environment)).prop("checked", true);
                     $("#createTier"+uppercaseWords(res.tier)).prop("checked", true);
                     //$("#createApp"+uppercaseWords(res.operating_system_option)).prop("checked", true);
@@ -856,7 +860,7 @@
                 dom:
                     '<"row d-flex justify-content-between align-items-center m-1"' +
                     '<"col-lg-6 d-flex align-items-center"l<"dt-action-buttons_new text-xl-end text-lg-start text-lg-end text-start " B>>' +
-                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f<" ms-sm-2 width-200 "><"submit_button mt-50 width-200 me-1">>' +
+                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f<" ms-sm-2 width-10 "><"submit_button mt-50 width-2 me-1">>' +
                     '>t' +
                     '<"d-flex justify-content-between mx-2 row"' +
                     '<"col-sm-12 col-md-6"i>' +
@@ -875,7 +879,7 @@
                 },
                 // Buttons with Dropdown
                 buttons: [
-                        @if($project->status==1)
+                        @if($project->status==1 && $project->owner==Auth::id())
                         {
                         text: 'Add Server',
                         //className: 'btn btn-primary btn-add-record ms-2',
@@ -895,7 +899,9 @@
                             $('#create-app-page4').trigger("reset");
                         }
                         //$('#addEditBookForm').trigger("reset");
-                    },{
+                    },
+
+                    {
                         text: 'Submit Project',
                         //className: 'btn btn-primary btn-add-record ms-2',
                         className: 'btn btn-success waves-effect waves-float waves-light',
@@ -968,28 +974,10 @@
                     },
                     @endif
 
-                        @if($project->status==2&&Auth::user()->is_teamlead==1)
-                    {
 
-                        text: 'Add Record',
-                        //className: 'btn btn-primary btn-add-record ms-2',
-                        className: 'btn btn-primary waves-effect waves-float waves-light',
-                        // action: function (e, dt, button, config) {
-                        //     window.location = invoiceAdd;
-                        // }
-                        attr: {
-                            'data-bs-toggle': 'modal',
-                            'data-bs-target': '#createAppModal',
-                            'style':'margin-top:10px'
-                        },
-                        action: function (){
-                            $('#create-app-page1').trigger("reset");
-                            $('#create-app-page2').trigger("reset");
-                            $('#create-app-page3').trigger("reset");
-                            $('#create-app-page4').trigger("reset");
-                        }
-                        //$('#addEditBookForm').trigger("reset");
-                    },{
+                        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_reject_level_1'))
+
+                    {
                         text: 'Approve Project',
                         //className: 'btn btn-primary btn-add-record ms-2',
                         className: 'btn btn-success waves-effect waves-float waves-light',
@@ -1101,6 +1089,121 @@
                         //$('#addEditBookForm').trigger("reset");
                     },
                         @endif
+
+                        @if($project->status==3&&Auth::user()->hasPermissionTo('approver_reject_level_2'))
+
+                    {
+                        text: 'Approve Project',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-success waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        style: {
+
+                        },
+
+                        attr: {
+                            'id':'confirm-text',
+                            // 'data-bs-toggle': 'modal',
+                            // 'data-bs-target': '#project-submit-modal',
+                            'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "Approve this project!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Approve it!',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary',
+                                    cancelButton: 'btn btn-outline-danger ms-1'
+                                },
+                                buttonsStyling: false
+                            }).then(function (result) {
+                                if (result.value) {
+                                    var $projectid={{$project->id}};
+                                    $.ajax({
+                                        type:"POST",
+                                        url: "{{ route('project.approve.lv2') }}",
+                                        data: { id: $projectid },
+                                        dataType: 'json',
+                                        success: function(res){
+                                            Swal.fire({
+
+                                                icon: 'success',
+                                                title: 'Approved!',
+                                                text: 'This Project has been Approved!.',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },{
+                        text: 'Reject Project',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-warning waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        style: {
+
+                        },
+
+                        attr: {
+                            'id':'confirm-text',
+                            // 'data-bs-toggle': 'modal',
+                            // 'data-bs-target': '#project-submit-modal',
+                            'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "Reject this project!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Reject it!',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary',
+                                    cancelButton: 'btn btn-outline-danger ms-1'
+                                },
+                                buttonsStyling: false
+                            }).then(function (result) {
+                                if (result.value) {
+                                    var $projectid={{$project->id}};
+                                    $.ajax({
+                                        type:"POST",
+                                        url: "{{ route('project.reject') }}",
+                                        data: { id: $projectid },
+                                        dataType: 'json',
+                                        success: function(res){
+                                            Swal.fire({
+
+                                                icon: 'success',
+                                                title: 'Reject!',
+                                                text: 'This Project has been Reject!.',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },
+                    @endif
 
 
                 ],

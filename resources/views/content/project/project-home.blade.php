@@ -103,8 +103,9 @@
                 <tr>
                     <th></th>
                     <th></th>
+                    <th>Status</th>
                     <th>Name</th>
-                    <th>status</th>
+                    <th>Created by</th>
                     <th>Created Date</th>
                     <th>Actions</th>
                 </tr>
@@ -185,6 +186,7 @@
                         { data: '' },
                         { data: 'id' },
                         { data: 'title' },
+                        { data: 'owner' },
                         { data: 'status' },
                         { data: 'created_at' },
                         { data: '' }
@@ -210,18 +212,6 @@
                             targets: 2,
                             width: '46px',
                             render: function (data, type, full, meta) {
-                                var $status = full['id'];
-                                var $status_title = full['title'];
-                                // Creates full output for row
-                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>';
-                                return $rowOutput;
-                            }
-                        },
-                        {
-                            // Project Status
-                            targets: 3,
-                            orderable: false,
-                            render: function (data, type, full, meta) {
 
                                 var $status = full['status'];
 
@@ -234,6 +224,31 @@
                                 );
                             }
                         },
+                        {
+                            // Project Status
+                            targets: 3,
+                            render: function (data, type, full, meta) {
+                                var $status = full['id'];
+                                var $status_title = full['title'];
+                                // Creates full output for row
+                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>';
+                                return $rowOutput;
+                            }
+
+                        },
+                        {
+                            // Project Owner
+                            targets: 4,
+                            render: function (data, type, full, meta) {
+                                var $status = full['id'];
+                                var $status_title = full['owner_name'];
+                                // Creates full output for row
+                                var $rowOutput = '   ' + $status_title + '</a>';
+                                return $rowOutput;
+                            }
+
+                        },
+
                         {
                             // Actions
                             targets: -1,
@@ -258,7 +273,7 @@
                     dom:
                         '<"d-flex justify-content-between align-items-center header-actions text-nowrap mx-1 row mt-75"' +
                         '<"col-sm-12 col-lg-4 d-flex justify-content-center justify-content-lg-start" l>' +
-                        '<"col-sm-12 col-lg-8"<"dt-action-buttons d-flex align-items-center justify-content-lg-end justify-content-center flex-md-nowrap flex-wrap"<"me-1"f><"user_role mt-50 width-200 me-1">B>>' +
+                        '<"col-sm-12 col-lg-8"<"dt-action-buttons d-flex align-items-center justify-content-lg-end justify-content-center flex-md-nowrap flex-wrap"<"me-1"f><"mt-50 width-200 me-1">B>>' +
                         '><"text-nowrap" t>' +
                         '<"d-flex justify-content-between mx-2 row mb-1"' +
                         '<"col-sm-12 col-md-6"i>' +
@@ -330,7 +345,6 @@
                                 var column = this;
                                 var select = $(
                                     '<select id="UserRole" class="form-select text-capitalize">' +
-                                    '<option value=""> Select Status </option>' +
                                     '<option value="Draft" class="text-capitalize">Draft</option>' +
                                     '<option value="Review" class="text-capitalize">Review</option>' +
                                     '<option value="Approve" class="text-capitalize">Approve</option>' +
