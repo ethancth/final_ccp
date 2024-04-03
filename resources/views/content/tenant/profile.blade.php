@@ -173,6 +173,7 @@
                     </div>
                 </div>
 
+                @if (env('APP_TENANT_ENABLE')) {
                 <!-- payment methods -->
                 <div class="card" id="tenantcard">
                     <div class="card-header">
@@ -218,6 +219,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
 
             </div>
 

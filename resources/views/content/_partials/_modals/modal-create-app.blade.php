@@ -9,7 +9,7 @@
                 <h1 class="text-center mb-1" id="createAppTitle">Create Server</h1>
                 <p class="text-center mb-2">Provide application data with this form</p>
                 <div class="bs-stepper vertical wizard-modern create-app-wizard">
-                    <div class="bs-stepper-header" role="tablist">
+                    <div class="bs-stepper-header d-none d-md-block d-lg-block" role="tablist">
                         <div class="step" data-target="#create-app-details" role="tab" id="create-app-details-trigger">
                             <button type="button" class="step-trigger py-75">
                                 <span class="bs-stepper-box">

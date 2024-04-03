@@ -10,6 +10,7 @@ use App\Http\Controllers\ProjectSecurityGroupController;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\UserPageController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProjectController;
@@ -29,10 +30,24 @@ use App\Http\Controllers\ProjectController;
 
 /* Route Dashboards */
 
+
+
+Route::group(['middleware' => ['role:Admin']], function () {
+    // Routes accessible only to users with the 'admin' role
+
+    Route::get('/management-environment', [CompanyFormController::class, 'envform'])->name('management_env');
+    Route::post('/management-environment', [CompanyFormController::class, 'env_request'])->name('management.env.store');
+    Route::post('/management-environment-edit', [CompanyFormController::class, 'env_edit'])->name('management.env.edit');
+    Route::post('/management-environment-delete', [CompanyFormController::class, 'env_delete'])->name('management.env.delete');
+});
+
+
 Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth', 'verified']],
     function () {
 // Route Dashboards
+
+
 
         Route::get('/', [ProjectController::class, 'index'])->name('dashboard');
 
@@ -57,10 +72,10 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('/cost-profile', [CostProfileController::class,'index'])->name('cost-profile');
 //
         //Environment
-        Route::get('/management-environment', [CompanyFormController::class, 'envform'])->name('management_env');
-        Route::post('/management-environment', [CompanyFormController::class, 'env_request'])->name('management.env.store');
-        Route::post('/management-environment-edit', [CompanyFormController::class, 'env_edit'])->name('management.env.edit');
-        Route::post('/management-environment-delete', [CompanyFormController::class, 'env_delete'])->name('management.env.delete');
+//        Route::get('/management-environment', [CompanyFormController::class, 'envform'])->name('management_env');
+//        Route::post('/management-environment', [CompanyFormController::class, 'env_request'])->name('management.env.store');
+//        Route::post('/management-environment-edit', [CompanyFormController::class, 'env_edit'])->name('management.env.edit');
+//        Route::post('/management-environment-delete', [CompanyFormController::class, 'env_delete'])->name('management.env.delete');
 
         //Department
         Route::get('/management-department', [DepartmentController::class, 'show'])->name('department.show');
@@ -99,6 +114,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         //policy Form
         Route::get('/management-policy-form', [CompanyFormController::class, 'policyform'])->name('management_policyform');
         Route::post('/management-policy-form', [CompanyFormController::class, 'policyform_store'])->name('management_policyform.store');
+        Route::delete('/management-policy-form', [CompanyFormController::class, 'policyform_destroy'])->name('management_policyform.destroy');
 
         //filter Policy
         Route::get('/filter-policy-form', [CompanyFormController::class, 'getMandatoryService'])->name('filter_policy');
@@ -112,41 +128,6 @@ Route::group(['middleware' => ['auth', 'verified']],
 //        Route::get('/department-cost-profile', 'ClusterCostProfileController@index')->name('department-cost-profile');
 //
 //
-        Route::get('/demos/{id}', function (string $id) {
-
-            $records = [
-                [
-                    "state"  => "IN",
-                    "city"   => "Indianapolis",
-                    "object" => "School bus"
-                ],
-                [
-                    "state"  => "IN",
-                    "city"   => "Indianapolis",
-                    "object" => "Manhole"
-                ],
-                [
-                    "state"  => "IN",
-                    "city"   => "Plainfield",
-                    "object" => "Basketball"
-                ],
-                [
-                    "state"  => "CA",
-                    "city"   => "San Diego",
-                    "object" => "Light bulb"
-                ],
-                [
-                    "state"  => "CA",
-                    "city"   => "Mountain View",
-                    "object" => "Space pen"
-                ]
-            ];
-            foreach ($records as $resule)
-            {
-                echo $resule['city'].'<br/>';
-            }
-            //return 'User '.$id;
-        });
 
 //
 //        //TODO datastore

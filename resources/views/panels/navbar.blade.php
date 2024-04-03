@@ -112,12 +112,7 @@
             @endif
           </span>
           <span class="user-status">
-              @if (Auth::user()->is_teamlead )
-
-                 Team Lead
-              @else
-                  User
-              @endif
+              {{Auth::user()->role_name}}
           </span>
         </div>
         <span class="avatar">

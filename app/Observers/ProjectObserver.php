@@ -36,7 +36,7 @@ class ProjectObserver
         {
             //Submit
             $name ='Reject';
-           // Mail::to('testreceiver@gmail.com’')->send(new SubmitProject($name,$project));
+            Mail::to('testreceiver@gmail.com’')->send(new SubmitProject($name,$project));
 
         }
         if($project->status=='3')

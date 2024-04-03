@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class FormPolicy extends Model
 {
     use HasFactory;
-    protected $fillable=['env_field','tier_field','os_field','mandatory_field','optional_field','company_id'];
+    protected $fillable=['env_field','tier_field','os_field','mandatory_field','optional_field','company_id','display_mandatory','display_optional'];
 
     protected $casts = [
         'created_at' => 'date:d-m-Y',

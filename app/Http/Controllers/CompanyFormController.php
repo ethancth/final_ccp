@@ -380,6 +380,7 @@ class CompanyFormController extends Controller
                 ->addColumn('osname', function(FormPolicy $formpolicy) {
                     return  $formpolicy->osname->display_name;
                 })
+
                 ->make(true);
         }
         $breadcrumbs = [
@@ -389,6 +390,16 @@ class CompanyFormController extends Controller
         return view('/content/management/policy_home', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'policyform' => $policyform,'envforms'=>$envform,'tierforms'=>$tierform,'osforms'=>$osform,'saforms'=>$saform]);
     }
 
+    public function policyform_destroy(Request $request)
+    {
+
+        $record=FormPolicy::find($request->value);
+
+        if ($record) {
+            $record->delete();
+
+        }
+    }
     public function policyform_store(Request $request)
     {
         //dd($request);
@@ -401,6 +412,27 @@ class CompanyFormController extends Controller
             ->Where('os_field', '=', "$request->modalFormOs")
             ->get();
 
+        $Array_mandatory = explode(',', $request->form_group_a);
+
+        $sas = DB::table('service_applications')->whereIn('id', $Array_mandatory)->get();
+        $_new_name='';
+        foreach($sas as $sa){
+            $_new_name.=$sa->display_name.", ";
+        }
+        $display_mandatory=substr($_new_name, 0, -2);
+
+
+        $Array_optional = explode(',', $request->form_group_b);
+
+        $sas = DB::table('service_applications')->whereIn('id', $Array_optional)->get();
+        $_new_name='';
+        foreach($sas as $sa){
+            $_new_name.=$sa->display_name.", ";
+        }
+        $display_optional=substr($_new_name, 0, -2);
+
+
+
         if($demo->isEmpty()){
             FormPolicy::updateOrCreate(
                 [
@@ -412,6 +444,8 @@ class CompanyFormController extends Controller
                     'os_field' => $request->modalFormOs,
                     'mandatory_field' => $request->form_group_a,
                     'optional_field' => $request->form_group_b,
+                    'display_optional' => $display_optional,
+                    'display_mandatory' => $display_mandatory,
                     'company_id' => Auth::user()->company_id,
                 ]);
             return redirect()->route('management_policyform')->with('success', 'Success！');

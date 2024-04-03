@@ -71,12 +71,12 @@
         </div>
         <!-- list and filter start -->
         <div class="card">
-            <div class="card-body border-bottom">
-                <h4 class="card-title">Search & Filter</h4>
-                <div class="row">
-                    <div class="col-md-4 user_role"></div>
-                </div>
-            </div>
+{{--            <div class="card-body border-bottom">--}}
+{{--                <h4 class="card-title">Search & Filter</h4>--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col-md-4 user_role"></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="card-datatable table-responsive pt-0">
                 <table class="user-list-table table">
                     <thead class="table-light">
@@ -129,6 +129,20 @@
                                     placeholder="username@example.com"
                                     name="user_email"
                                 />
+                            </div>
+                            <div class="mb-1">
+                                <label class="form-label" for="modalHod" data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       data-bs-original-title="">Role</label>
+                                <select id="role" name="role"
+                                        class="hod-select2 select2 form-select ">
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+
+                                    @endforeach
+                                </select>
+                                <div class="valid-feedback">Looks good!</div>
+                                <div class="invalid-feedback">Please enter a display name</div>
                             </div>
 {{--                            <div class="mb-1">--}}
 {{--                                <label class="form-label" for="modalHod" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Assign This Department will be HOD">Department - HOD</label>--}}
@@ -383,11 +397,11 @@
                            // User Role
                            targets: 2,
                            render: function (data, type, full, meta) {
-                               var $role = full['introduction'];
+                               var $role = full['role_name'];
                                var roleBadgeObj = {
-                                   User: feather.icons['user'].toSvg({ class: 'font-medium-3 text-primary me-50' }),
-                                   teamlead: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
-                                   Teamlead: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
+                                   Requester: feather.icons['user'].toSvg({ class: 'font-medium-3 text-primary me-50' }),
+                                   Approver_lv_1: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
+                                   Approver_lv_2: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
                                    Admin: feather.icons['slack'].toSvg({ class: 'font-medium-3 text-danger me-50' })
                                };
                                return "<span class='text-truncate align-middle'>" + roleBadgeObj[$role] + $role + '</span>';
@@ -532,24 +546,24 @@
                        this.api()
                            .columns(2)
                            .every(function () {
-                               var column = this;
-                               var label = $('<label class="form-label" for="UserRole">Role</label>').appendTo('.user_role');
-                               var select = $(
-                                   '<select id="UserRole" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Role </option></select>'
-                               )
-                                   .appendTo('.user_role')
-                                   .on('change', function () {
-                                       var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                                       column.search(val ? '^' + val + '$' : '', true, false).draw();
-                                   });
-
-                               column
-                                   .data()
-                                   .unique()
-                                   .sort()
-                                   .each(function (d, j) {
-                                       select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
-                                   });
+                               // var column = this;
+                               // var label = $('<label class="form-label" for="UserRole">Role</label>').appendTo('.user_role');
+                               // var select = $(
+                               //     '<select id="UserRole" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Role </option></select>'
+                               // )
+                               //     .appendTo('.user_role')
+                               //     .on('change', function () {
+                               //         var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                               //         column.search(val ? '^' + val + '$' : '', true, false).draw();
+                               //     });
+                               //
+                               // column
+                               //     .data()
+                               //     .unique()
+                               //     .sort()
+                               //     .each(function (d, j) {
+                               //         select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
+                               //     });
                            });
                        // Adding plan filter once table initialized
                        // this.api()

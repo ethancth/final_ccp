@@ -356,6 +356,7 @@
 
             // Delete Record
             $('.datatables-project-index tbody').on('click', '.project-delete-record', function () {
+
                var id= $(this).data('id')
                 // sweetalert for confirmation of delete
                 Swal.fire({
@@ -365,23 +366,23 @@
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete it!',
                     customClass: {
-                        confirmButton: 'btn btn-primary me-3',
-                        cancelButton: 'btn btn-label-secondary'
+                        confirmButton: 'btn btn-primary',
+                        cancelButton: 'btn btn-outline-danger ms-1'
+
                     },
                     buttonsStyling: false
                 }).then(function (result) {
                     if (result.value) {
                         // delete the data
                         var APP_URL = {!! json_encode(url('/')) !!};
-                        console.log(`${APP_URL}/project/${id}`);
+                        // console.log(`${APP_URL}/project/${id}`);
                         $.ajax({
 
                             type: 'DELETE',
                             url: `${APP_URL}/project/${id}`,
                             success: function () {
 
-
-                                window.setTimeout( window.location.reload(), 3000 );
+                                $('#memListTable').DataTable().ajax.reload();
                             },
                             error: function (error) {
                                 console.log(error);

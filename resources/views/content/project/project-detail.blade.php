@@ -100,7 +100,7 @@
     </div>
 <section class="invoice-list-wrapper">
   <div class="card">
-    <div class="card-datatable table-responsive">
+    <div class="card-datatable table-responsive" id="ListTable">
       <table class="invoice-list-table table">
         <thead>
           <tr>
@@ -387,15 +387,7 @@
             }
 
 
-            //
-            // document.getElementById("hostname").value = $("input[name=servername]").val();
-            // document.getElementById("environement").value = get_radio_environment;
-            // document.getElementById("tier").value = get_radio_tier;
-            // document.getElementById("operating_system").value = $('#operatingsystem').val();
-            // //document.getElementById("operating_system_option").value = get_radio_os;
-            // document.getElementById("v_cpu").value = pipsRangevCPU.noUiSlider.get();
-            // document.getElementById("v_memory").value = pipsRangevMemory.noUiSlider.get();
-            // document.getElementById("total_storage").value = pipsRangevstorage.noUiSlider.get();
+
             function ajax_getCost(){
                 $.ajax({
                     type:"get",
@@ -440,7 +432,7 @@
             // Range
             noUiSlider.create(pipsRangevCPU, {
                 start: 4,
-                step: 1,
+                step: 2,
                 range: {
                     min: {{$costprofile[0]->form_vcpu_min}},
                     max: {{$costprofile[0]->form_vcpu_max}}
@@ -463,7 +455,7 @@
             // Range
             noUiSlider.create(pipsRangevMemory, {
                 start: 2,
-                step: 1,
+                step: 4,
                 range: {
                     min: {{$costprofile[0]->form_vmen_min}},
                     max: {{$costprofile[0]->form_vmen_max}}
@@ -563,22 +555,78 @@
 
         $('body').on('click', '.delete', function () {
 
-            if (confirm("Delete Record?") == true) {
-                var id = $(this).data('id');
 
-                // ajax
-                $.ajax({
-                    type:"POST",
-                    url: "{{ route('project.delete') }}",
-                    data: { id: id },
-                    dataType: 'json',
-                    success: function(res){
-                        dtInvoice.draw();
-                       // window.setTimeout( window.location.reload(), 3000 );
+            var dt_field=$(this).parents('tr');
+            var id= $(this).data('id')
+            // sweetalert for confirmation of delete
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-outline-danger ms-1'
 
-                    }
-                });
-            }
+                },
+                buttonsStyling: false
+            }).then(function (result) {
+                if (result.value) {
+                    // delete the data
+                    var APP_URL = {!! json_encode(url('/')) !!};
+                    // console.log(`${APP_URL}/project/${id}`);
+                    $.ajax({
+
+                        type: 'POST',
+                        url: "{{ route('project.delete') }}",
+                        data: { id: id },
+                        success: function () {
+                            dtInvoice.row(dt_field).remove().draw();
+
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+
+                    // success sweetalert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted!',
+                        text: 'The Project has been deleted!',
+                        customClass: {
+                            confirmButton: 'btn btn-success'
+                        }
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire({
+                        title: 'Cancelled',
+                        text: 'The action been cancel!',
+                        icon: 'error',
+                        customClass: {
+                            confirmButton: 'btn btn-success'
+                        }
+                    });
+                }
+            });
+
+            {{--if (confirm("Delete Record?") == true) {--}}
+            {{--    var id = $(this).data('id');--}}
+
+            {{--    // ajax--}}
+            {{--    $.ajax({--}}
+            {{--        type:"POST",--}}
+            {{--        url: "{{ route('project.delete') }}",--}}
+            {{--        data: { id: id },--}}
+            {{--        dataType: 'json',--}}
+            {{--        success: function(res){--}}
+            {{--            dtInvoice.draw();--}}
+            {{--           // window.setTimeout( window.location.reload(), 3000 );--}}
+
+            {{--        }--}}
+            {{--    });--}}
+            {{--}--}}
 
         });
 
@@ -613,6 +661,7 @@
                         // Project ID
                         targets: 1,
                         width: '46px',
+                        visible:false,
                         render: function (data, type, full, meta) {
                             var $invoiceId = full['id'];
                             // Creates full output for row
@@ -807,7 +856,7 @@
                 dom:
                     '<"row d-flex justify-content-between align-items-center m-1"' +
                     '<"col-lg-6 d-flex align-items-center"l<"dt-action-buttons_new text-xl-end text-lg-start text-lg-end text-start " B>>' +
-                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f<"environment_status ms-sm-2 width-200 "><"submit_button mt-50 width-200 me-1">>' +
+                    '<"col-lg-6 d-flex align-items-center justify-content-lg-end flex-lg-nowrap flex-wrap pe-lg-1 p-0"f<" ms-sm-2 width-200 "><"submit_button mt-50 width-200 me-1">>' +
                     '>t' +
                     '<"d-flex justify-content-between mx-2 row"' +
                     '<"col-sm-12 col-md-6"i>' +
@@ -867,7 +916,7 @@
 
                             if ({{(count($project->server))}} > 0){
                                 Swal.fire({
-                                    title: 'Are you sure? {{(count($project->server))}}',
+                                    title: 'Are you sure? ',
                                     text: "Submit this project and get review!",
                                     icon: 'warning',
                                     showCancelButton: true,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\Roles;
 use App\Models\Tenant;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -80,6 +81,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        $_position=Roles::find(4);
+        $newUser->syncRoles($_position->name);
         $input = [
             'name'                  => $data['tenant'],
             'domain'                => str::slug($data['tenant'],'-').' '.Str::uuid(),

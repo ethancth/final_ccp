@@ -560,12 +560,17 @@ class ProjectController extends Controller
     }
     public function submitproject(Request $request)
     {
+
         $project=Project::find($request->id);
-        if($project->status=='1'){
+        if($project->status=='1' && $project->server->count()>0){
             $project->status = 2;
             $project->save();
+            return redirect()->to($project->link())->with('success', 'Project Submited！');
+        }else{
+
+            return redirect()->to($project->link())->with('warning', 'Project Submited unsuccessful！');
         }
-        return redirect()->to($project->link())->with('success', 'Project Submited！');
+
 
 
     }

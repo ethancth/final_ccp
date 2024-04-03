@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -69,6 +70,12 @@ class User extends Authenticatable implements MustVerifyEmail
 //        ->whereHas("users" => function($subQuery){
 //        $subQuery->where("usertype", "=", "agent");
 //    })->get();
+    }
+
+    public function getRoleNameAttribute()
+    {
+
+        return $this->roles->pluck('name')[0] ;
     }
 
 

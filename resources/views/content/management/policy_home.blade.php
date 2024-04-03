@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/dragula.min.css')) }}">
     <link rel='stylesheet' href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
+    <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/sweetalert2.min.css')) }}">
 @endsection
 @section('page-style')
     <!-- Page css files -->
@@ -55,6 +56,7 @@
     <script src="{{ asset(mix('vendors/js/forms/validation/jquery.validate.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/extensions/dragula.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
 @endsection
 @section('page-script')
     <!-- Page js files -->
@@ -149,7 +151,7 @@
                             orderable: false,
                             render: function (data, type, full, meta) {
 
-                                return full['mandatory_field'];
+                                return full['display_mandatory'];
 
                             }
                         },{
@@ -158,7 +160,7 @@
                             orderable: false,
                             render: function (data, type, full, meta) {
 
-                                return full['optional_field'];
+                                return full['display_optional'];
 
                             }
                         },
@@ -188,10 +190,12 @@
                                 var $project_id = full['id'];
                                 return (
 
-                                    '<a class="btn btn-sm btn-icon" href="'+projectHome+ $project_id+'">' +
-                                    feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                    '</i></a>' +
-                                    '<button class="btn btn-sm btn-icon delete-record">' +
+                                    // '<a class="btn btn-sm btn-icon" href="'+projectHome+ $project_id+'">' +
+                                    // feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                    // '</i></a>' +
+
+
+                                    '<button class="btn btn-sm btn-icon delete-record" data-id="'+$project_id+'">' +
                                     feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
                                     '</button>'
                                 );
@@ -292,7 +296,74 @@
 
             // Delete Record
             $('.datatables-project-index tbody').on('click', '.delete-record', function () {
-                dt_project_index.row($(this).parents('tr')).remove().draw();
+
+
+                var _id = $(this).data('id');
+                let check_delete=false,
+                dt_field=$(this).parents('tr');
+                // sweetalert for confirmation of delete
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    customClass: {
+                        confirmButton: 'btn btn-primary',
+                        cancelButton: 'btn btn-outline-danger'
+                    },
+                    buttonsStyling: false
+                }).then(function (result) {
+
+                    if (result.value) {
+
+                        // delete the data
+                        $.ajax({
+                            type: 'DELETE',
+                            data: {'value': _id},
+                            url: "{{ route('management_policyform.destroy') }}",
+
+                            success: function () {
+                                dt_project_index.row(dt_field).remove().draw();
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+
+                        // success sweetalert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Deleted!',
+                            text: 'This Item has been deleted!',
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            }
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire({
+                            title: 'Cancelled',
+                            text: 'This Item is not deleted!',
+                            icon: 'error',
+                            customClass: {
+                                confirmButton: 'btn btn-success'
+                            }
+                        });
+                    }
+                });
+
+
+                // dt_project_index.row($(this).parents('tr')).remove().draw();
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $(document).on('click', '.delete-record', function () {
+
             });
 
             // Filter form control to default size

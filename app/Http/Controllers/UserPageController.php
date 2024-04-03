@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Department;
 use App\Models\DepartmentMember;
+use App\Models\Position;
+use App\Models\Roles;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\Facades\DataTables;
 use function PHPUnit\Framework\assertDirectoryDoesNotExist;
 
@@ -18,92 +21,101 @@ class UserPageController extends Controller
 {
     //
     //TODO user custom form
-    public function demo(){
+    public function demo()
+    {
         return [
 
-                'mainLayoutType' => 'vertical', // Options[String]: vertical(default), horizontal
-                'theme' => 'semi-dark', // options[String]: 'light'(default), 'dark', 'bordered', 'semi-dark'
-                'sidebarCollapsed' => false, // options[Boolean]: true, false(default) (warning:this option only applies to the vertical theme.)
-                'navbarColor' => '', // options[String]: bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark (default: '' for #fff)
-                'horizontalMenuType' => 'floating', // options[String]: floating(default) / static /sticky (Warning:this option only applies to the Horizontal theme.)
-                'verticalMenuNavbarType' => 'floating', // options[String]: floating(default) / static / sticky / hidden (Warning:this option only applies to the vertical theme)
-                'footerType' => 'static', // options[String]: static(default) / sticky / hidden
-                'layoutWidth' => 'full', // options[String]: full / boxed(default),
-                'showMenu' => true, // options[Boolean]: true(default), false //show / hide main menu (Warning: if set to false it will hide the main menu)
-                'bodyClass' => '', // add custom class
-                'pageHeader' => true, // options[Boolean]: true(default), false (Page Header for Breadcrumbs)
-                'contentLayout' => 'default', // options[String]: default, content-left-sidebar, content-right-sidebar, content-detached-left-sidebar, content-detached-right-sidebar (warning:use this option if your whole project with sidenav Otherwise override this option as page level )
-                'defaultLanguage' => 'en',    //en(default)/de/pt/fr here are four optional language provided in theme
-                'blankPage' => false, // options[Boolean]: true, false(default) (warning:only make true if your whole project without navabr and sidebar otherwise override option page wise)
-                'direction' => env('MIX_CONTENT_DIRECTION', 'ltr'), // Options[String]: ltr(default), rtl
+            'mainLayoutType' => 'vertical', // Options[String]: vertical(default), horizontal
+            'theme' => 'semi-dark', // options[String]: 'light'(default), 'dark', 'bordered', 'semi-dark'
+            'sidebarCollapsed' => false, // options[Boolean]: true, false(default) (warning:this option only applies to the vertical theme.)
+            'navbarColor' => '', // options[String]: bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark (default: '' for #fff)
+            'horizontalMenuType' => 'floating', // options[String]: floating(default) / static /sticky (Warning:this option only applies to the Horizontal theme.)
+            'verticalMenuNavbarType' => 'floating', // options[String]: floating(default) / static / sticky / hidden (Warning:this option only applies to the vertical theme)
+            'footerType' => 'static', // options[String]: static(default) / sticky / hidden
+            'layoutWidth' => 'full', // options[String]: full / boxed(default),
+            'showMenu' => true, // options[Boolean]: true(default), false //show / hide main menu (Warning: if set to false it will hide the main menu)
+            'bodyClass' => '', // add custom class
+            'pageHeader' => true, // options[Boolean]: true(default), false (Page Header for Breadcrumbs)
+            'contentLayout' => 'default', // options[String]: default, content-left-sidebar, content-right-sidebar, content-detached-left-sidebar, content-detached-right-sidebar (warning:use this option if your whole project with sidenav Otherwise override this option as page level )
+            'defaultLanguage' => 'en',    //en(default)/de/pt/fr here are four optional language provided in theme
+            'blankPage' => false, // options[Boolean]: true, false(default) (warning:only make true if your whole project without navabr and sidebar otherwise override option page wise)
+            'direction' => env('MIX_CONTENT_DIRECTION', 'ltr'), // Options[String]: ltr(default), rtl
         ];
     }
-    public function first_login(){
+
+    public function first_login()
+    {
         return [
 
-                'mainLayoutType' => 'vertical', // Options[String]: vertical(default), horizontal
-                'theme' => 'semi-dark', // options[String]: 'light'(default), 'dark', 'bordered', 'semi-dark'
-                'sidebarCollapsed' => false, // options[Boolean]: true, false(default) (warning:this option only applies to the vertical theme.)
-                'navbarColor' => '', // options[String]: bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark (default: '' for #fff)
-                'horizontalMenuType' => 'floating', // options[String]: floating(default) / static /sticky (Warning:this option only applies to the Horizontal theme.)
-                'verticalMenuNavbarType' => 'floating', // options[String]: floating(default) / static / sticky / hidden (Warning:this option only applies to the vertical theme)
-                'footerType' => 'static', // options[String]: static(default) / sticky / hidden
-                'layoutWidth' => 'full', // options[String]: full / boxed(default),
-                'showMenu' => false, // options[Boolean]: true(default), false //show / hide main menu (Warning: if set to false it will hide the main menu)
-                'bodyClass' => '', // add custom class
-                'pageHeader' => true, // options[Boolean]: true(default), false (Page Header for Breadcrumbs)
-                'contentLayout' => 'default', // options[String]: default, content-left-sidebar, content-right-sidebar, content-detached-left-sidebar, content-detached-right-sidebar (warning:use this option if your whole project with sidenav Otherwise override this option as page level )
-                'defaultLanguage' => 'en',    //en(default)/de/pt/fr here are four optional language provided in theme
-                'blankPage' => false, // options[Boolean]: true, false(default) (warning:only make true if your whole project without navabr and sidebar otherwise override option page wise)
-                'direction' => env('MIX_CONTENT_DIRECTION', 'ltr'), // Options[String]: ltr(default), rtl
+            'mainLayoutType' => 'vertical', // Options[String]: vertical(default), horizontal
+            'theme' => 'semi-dark', // options[String]: 'light'(default), 'dark', 'bordered', 'semi-dark'
+            'sidebarCollapsed' => false, // options[Boolean]: true, false(default) (warning:this option only applies to the vertical theme.)
+            'navbarColor' => '', // options[String]: bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark (default: '' for #fff)
+            'horizontalMenuType' => 'floating', // options[String]: floating(default) / static /sticky (Warning:this option only applies to the Horizontal theme.)
+            'verticalMenuNavbarType' => 'floating', // options[String]: floating(default) / static / sticky / hidden (Warning:this option only applies to the vertical theme)
+            'footerType' => 'static', // options[String]: static(default) / sticky / hidden
+            'layoutWidth' => 'full', // options[String]: full / boxed(default),
+            'showMenu' => false, // options[Boolean]: true(default), false //show / hide main menu (Warning: if set to false it will hide the main menu)
+            'bodyClass' => '', // add custom class
+            'pageHeader' => true, // options[Boolean]: true(default), false (Page Header for Breadcrumbs)
+            'contentLayout' => 'default', // options[String]: default, content-left-sidebar, content-right-sidebar, content-detached-left-sidebar, content-detached-right-sidebar (warning:use this option if your whole project with sidenav Otherwise override this option as page level )
+            'defaultLanguage' => 'en',    //en(default)/de/pt/fr here are four optional language provided in theme
+            'blankPage' => false, // options[Boolean]: true, false(default) (warning:only make true if your whole project without navabr and sidebar otherwise override option page wise)
+            'direction' => env('MIX_CONTENT_DIRECTION', 'ltr'), // Options[String]: ltr(default), rtl
         ];
     }
 
     public function edit(Request $request)
     {
         $where = array('id' => $request->id);
-        $result  = User::where($where)->first();
-        $_find_department=DepartmentMember::where('user_id','=',$request->id)->where('company_id','=',Auth::user()->company_id)->where('type','=','hod')->pluck('department_id')->toArray();
-        $all_uid=DepartmentMember::where('user_id','=',$request->id)->where('company_id','=',Auth::user()->company_id)->where('type','=','member')->pluck('department_id')->toArray();
-        $data['id']=$request->id;
-        $data['name']=$result->name;
-        $data['email']=$result->email;
-        $data['department_hod']=implode(',',$_find_department);
-        $data['department_member']=implode(',',$all_uid);
+        $result = User::where($where)->first();
+        $_find_department = DepartmentMember::where('user_id', '=', $request->id)->where('company_id', '=', Auth::user()->company_id)->where('type', '=', 'hod')->pluck('department_id')->toArray();
+        $all_uid = DepartmentMember::where('user_id', '=', $request->id)->where('company_id', '=', Auth::user()->company_id)->where('type', '=', 'member')->pluck('department_id')->toArray();
+        $data['id'] = $request->id;
+        $data['name'] = $result->name;
+        $data['email'] = $result->email;
+        $data['department_hod'] = implode(',', $_find_department);
+        $data['department_member'] = implode(',', $all_uid);
 
 
         return response()->json($data);
     }
 
-    public function company_policy(){
-        $_company=company::where('id','=',Auth::user()->company_id)->first();
+    public function company_policy()
+    {
+        $_company = company::where('id', '=', Auth::user()->company_id)->first();
 
-        if($_company->master_id===Auth::id()){
+        if ($_company->master_id === Auth::id()) {
 
-        }else{
-            abort(403,"You don't have permission to access / on this server.");
+        } else {
+            abort(403, "You don't have permission to access / on this server.");
         }
     }
+
     public function index(User $user, Request $request)
     {
-       $this->company_policy();
+        $this->company_policy();
         $pageConfigs = ['pageHeader' => false];
 
 
         //return view('/content/apps/user/app-user-list', ['pageConfigs' => $pageConfigs]);
-        $totaluser=company::find(User::find(Auth::id())->company_id)->tenantuser->count();
-        $master_id=company::find(User::find(Auth::id())->company_id)->master_id;
-        $totalinactiveuser=company::find(User::find(Auth::id())->company_id)->tenantuser->where('email_verified_at','!=',NULL)->count();
-        $totalactiveuser=company::find(User::find(Auth::id())->company_id)->tenantuser->where('email_verified_at','=',NULL)->count();
+        $totaluser = company::find(User::find(Auth::id())->company_id)->tenantuser->count();
+        $master_id = company::find(User::find(Auth::id())->company_id)->master_id;
+        $totalinactiveuser = company::find(User::find(Auth::id())->company_id)->tenantuser->where('email_verified_at', '!=', NULL)->count();
+        $totalactiveuser = company::find(User::find(Auth::id())->company_id)->tenantuser->where('email_verified_at', '=', NULL)->count();
 
-        $all_department=company::find(User::find(Auth::id())->company_id)->department;
+        $all_department = company::find(User::find(Auth::id())->company_id)->department;
+
+        $data = company::find(User::find(Auth::id())->company_id)->user;
 //        $data = company::find(User::find(Auth::id())->company_id)->user;
 //        dd($data);
-        if ($request->ajax())
-        {
-            $data = company::find(User::find(Auth::id())->company_id)->tenantuser;
+        if ($request->ajax()) {
+            $data = company::find(User::find(Auth::id())->company_id)->user;
 
             return Datatables::of($data)
+                ->addColumn('role_name', function(User $user) {
+                    return  $user->role_name;
+                })
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
 //                    return $btn;
@@ -112,83 +124,94 @@ class UserPageController extends Controller
                 ->make(true);
         }
 
+
+        $roles = Role::all();
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "user-management", 'name' => "Users"]
         ];
 
-        return view('/content/user/home', ['pageConfigs' => $pageConfigs,'pagetitle' =>'Users','breadcrumbs'=>$breadcrumbs,'mid' => $master_id,'user' => $user,'totaluser'=> $totaluser,'departments'=>$all_department,'active_user'=>$totalactiveuser,'in_active_user'=>$totalinactiveuser]);
+        return view('/content/user/home', ['roles' => $roles, 'pageConfigs' => $pageConfigs, 'pagetitle' => 'Users', 'breadcrumbs' => $breadcrumbs, 'mid' => $master_id, 'user' => $user, 'totaluser' => $totaluser, 'departments' => $all_department, 'active_user' => $totalactiveuser, 'in_active_user' => $totalinactiveuser]);
     }
 
     public function store(Request $request)
     {
+
         $this->company_policy();
 
 
 
-        $_temp='0';
-        if($request->user_role=='teamlead'||$request->user_role=='Teamlead'){
-            $_temp='1';
+        $_checKisExist = User::where('email', '=', $request->user_email)->first();
 
-        }
-
-        $_checKisExist=User::where('email','=',$request->user_email)->first();
-
-        if(!$_checKisExist){
-           $_new_user= User::updateOrCreate(
-                [
-                    'id' => $request->user_id,
-                ],
-                [
-                    'name' => $request->user_fullname,
-                    'email' => $request->user_email,
+        $_new_user = User::updateOrCreate(
+            [
+                'id' => $request->user_id,
+            ],
+            [
+                'name' => $request->user_fullname,
+                'email' => $request->user_email,
 //                'password' => Hash::make(Auth()->user()->company->default_password),
-                    'password' => Hash::make($request->user_email),
-                    'introduction' => 'User',
-                    'company_id' => User::find(Auth::id())->company_id,
-                ]);
-            $_new_user-> sendEmailVerificationNotification();
-
-        }else
-        {
-            $_new_user=$_checKisExist;
-        }
-
-
-
-        $_check_user_tenant_amount=$_new_user->tenant->count();
-
-        $_check_is_user_is_in_tenant_result= $_new_user->tenant->contains('id', Auth::user()->company_id);
-
-
-        if($_check_is_user_is_in_tenant_result==true){
-            $this->join_department($request,$_new_user);
-
-        }
-
-
-        if($_check_user_tenant_amount<3 && $_check_is_user_is_in_tenant_result==false){
-            //
-            $updatetenant=Tenant::create([
-                'user_id' =>  $_new_user->id,
-                'action' =>  'User id['.Auth()->id().'] - '.Auth()->user()->name .' Create this user',
-                'company_id' => Auth::user()->company_id,
+                'password' => Hash::make($request->user_email),
+                'introduction' => 'User',
+                'company_id' => User::find(Auth::id())->company_id,
             ]);
 
-            $this->join_department($request,$_new_user);
+        $_position=Roles::find($request->role);
+        $_new_user->syncRoles($_position->name);
+        if (!$_checKisExist) {
 
+            $_new_user->sendEmailVerificationNotification();
 
-
-
-            return redirect()->route('user')->with('success', 'Success！');
         }
-        else
-        {
-            return redirect()->route('user')->with('warning', 'This User has more than 3 tenant');
+        $_check_user_tenant_amount = $_new_user->tenant->count();
+
+        $_check_is_user_is_in_tenant_result = $_new_user->tenant->contains('id', Auth::user()->company_id);
+
+
+
+        if ($_check_is_user_is_in_tenant_result == true) {
+            $this->join_department($request, $_new_user);
+
         }
 
+
+        return redirect()->route('user')->with('success', 'Success！');
+        if (env('APP_TENANT_ENABLE')) {
+            $_check_user_tenant_amount = $_new_user->tenant->count();
+
+            $_check_is_user_is_in_tenant_result = $_new_user->tenant->contains('id', Auth::user()->company_id);
+
+
+            if ($_check_is_user_is_in_tenant_result == true) {
+                $this->join_department($request, $_new_user);
+
+            }
+
+
+            if ($_check_user_tenant_amount < 3 && $_check_is_user_is_in_tenant_result == false) {
+                //
+                $updatetenant = Tenant::create([
+                    'user_id' => $_new_user->id,
+                    'action' => 'User id[' . Auth()->id() . '] - ' . Auth()->user()->name . ' Create this user',
+                    'company_id' => Auth::user()->company_id,
+                ]);
+
+                $this->join_department($request, $_new_user);
+
+
+                return redirect()->route('user')->with('success', 'Success！');
+            } else {
+                return redirect()->route('user')->with('warning', 'This User has more than 3 tenant');
+            }
+
+
+        } else {
+
+
+        }
 
 
     }
+
 
     public function join_department($request,User $user){
 
