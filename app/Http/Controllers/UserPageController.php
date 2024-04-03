@@ -94,7 +94,7 @@ class UserPageController extends Controller
 
     public function index(User $user, Request $request)
     {
-        $this->company_policy();
+//        $this->company_policy();
         $pageConfigs = ['pageHeader' => false];
 
 
