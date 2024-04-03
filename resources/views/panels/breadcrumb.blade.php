@@ -19,14 +19,6 @@
             <i class="me-1" data-feather="compass"></i>
             <span class="align-middle">Project Journey</span>
           </a>
-          <a class="dropdown-item" href="#">
-            <i class="me-1" data-feather="message-square"></i>
-            <span class="align-middle">Project Discussion</span>
-          </a>
-          <a class="dropdown-item" href="#">
-            <i class="me-1" data-feather="folder-plus"></i>
-            <span class="align-middle">Project Uploaded Document</span>
-          </a>
         </div>
       </div>
     </div>

@@ -88,12 +88,6 @@ s
 Cresources/scss/base/plugins/extensions/ext-component-drag-drop.scss,3/f/3f9716aa5323f2cef299015aba8d7e72d13ba211
 j
 :resources/js/scripts/extensions/ext-component-drag-drop.js,1/c/1c2b0049f623687ead5fcace099c5d1fd9527215
-b
-2resources/views/panels/horizontalSubmenu.blade.php,f/0/f04e20d0f2288a6156043214489d9fe5881044aa
-X
-(resources/views/panels/scripts.blade.php,7/c/7c51469823010b85b918c1617827673fbc960eb2
-_
-/resources/views/panels/horizontalMenu.blade.php,a/c/ac70db115e3f74d932b2d7f837f70780b31c72fe
 G
 resources/data/ajax.php,0/7/07ed09b2ec539bc7bae9d999009e37c503b878be
 ?
@@ -188,8 +182,6 @@ J
 Uresources/views/content/_partials/_modals/modal-security-group-add-firewall.blade.php,2/2/2213be6908626459055949befb4da2e58265531f
 Å
 Qresources/views/content/_partials/_modals/modal-security-group-add-edit.blade.php,6/0/60821f9c07a6093d2967312125d5dc49ffac0cc5
-f
-6resources/views/layouts/detachedLayoutMaster.blade.php,e/d/ed2c8fb24e08ae3c37e4b96f3a65664d475e76ba
 ]
 -resources/scss/base/pages/authentication.scss,e/b/ebe126dca824739633401258c0c4201d3daf3576
 f
@@ -274,8 +266,6 @@ x
 Hdatabase/migrations/2023_09_04_061209_add_field_on_departmen_members.php,b/6/b68b5535e8268464046c94fefd884a53d2c59f30
 j
 :resources/views/content/page-layouts/layout-full.blade.php,e/4/e4ddcb66546451051204925a1db08ab886a89638
-X
-(resources/views/panels/sidebar.blade.php,e/e/eec4b42a60f7fb97f0f70c09abdd6e81e4c3347b
 G
 app/Helpers/Helpers.php,0/2/024693ae683d7be35f29d493127faaab72ab2618
 ]
@@ -298,8 +288,6 @@ N
 .app/Models/ProjectSecurityGroupEnvFirewall.php,f/1/f1746d2824a2f502dbd674031b759146fb0b31b2
 [
 +app/Models/ProjectSecurityGroupFirewall.php,d/0/d02bc022f1a1d5429fd5027ab98c67b703a0a608
-\
-,resources/data/menu-data/verticalMenu-1.json,5/7/571ad206b988bfd370646acb126dceec2ac37b8b
 C
 config/debugbar.php,7/c/7c41d982a1dc4ee9193740c3f789660923865c74
 ?
@@ -489,8 +477,6 @@ c
 A
 config/custom.php,4/f/4febccf8f1240f3ffc060d2fa1e863cdbb3c0f27
 W
-'resources/views/panels/footer.blade.php,f/a/fa53fb554aa648ac0a3ac37de28010f6d1e49fd0
-W
 'resources/views/auth/register.blade.php,8/6/8600e63b1d771a3b86abef40d1ef23e1ffb21feb
 o
 ?database/migrations/2024_01_06_044642_create_sessions_table.php,2/0/20449c7545d694a514ed6b14192e11732079885a
@@ -518,12 +504,6 @@ I
 app/Models/Department.php,f/f/ffb2f6753f91fe4e31376b28a602878c1af8c38d
 b
 2resources/js/scripts/pages/modal-create-project.js,5/e/5e9e78c00aaa92acf44612ebbc880897acd09599
-b
-2resources/views/layouts/fullLayoutMaster.blade.php,f/1/f100334653d289aaf4ce9a31db2598b982ab0a09
-f
-6resources/views/layouts/verticalLayoutMaster.blade.php,1/1/1189befd8b922030fa384e58c71e5e6f55579bb1
-[
-+resources/views/panels/breadcrumb.blade.php,c/c/ccbdf9efa2b4a88aba34d45edbaf5415d24d4146
 ]
 -app/Http/Controllers/DepartmentController.php,c/1/c1e12f933f9a6f5cba9bc89db828849ad8378cae
 L
@@ -542,8 +522,6 @@ x
 Hdatabase/migrations/2022_07_24_160757_create_operating_systems_table.php,c/c/cc08d629d4e6e1feab24e36adf626867397538b7
 z
 Jresources/views/content/_partials/_modals/modal-os-add-edit-form.blade.php,4/a/4af6d07a06564d11be29773ab3adc1df92dd5e93
-f
-6resources/views/layouts/mailfullLayoutMaster.blade.php,3/4/34146272de92e35964d54bccf4d31f61036fe4cd
 _
 /resources/views/content/management/os.blade.php,7/2/7220abbb958406f638d1961d7c4334c1bc1c74a4
 K

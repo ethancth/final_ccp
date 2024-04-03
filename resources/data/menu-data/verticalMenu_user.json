@@ -1,0 +1,8 @@
+{
+    "menu": [
+
+
+        {"url":"","navheader":"Project","icon":""},
+        {"url":"project","name":"My Project", "icon":"grid","slug":"project"}
+    ]
+}

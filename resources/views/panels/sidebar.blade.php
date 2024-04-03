@@ -58,7 +58,17 @@ $configData = Helper::applClasses();
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
       {{-- Foreach menu item starts --}}
       @if (isset($menuData[0]))
-        @foreach ($menuData[0]->menu as $menu)
+          @php
+              if(Auth::user()->haspermissionto('management')){
+                   $_menu=$menuData[0];
+              }else{
+                   $_menu=$menuData[2];
+              }
+
+
+          @endphp
+
+        @foreach ($_menu->menu as $menu)
           @if (isset($menu->navheader))
             <li class="navigation-header">
               <span>{{ __('locale.' . $menu->navheader) }}</span>
