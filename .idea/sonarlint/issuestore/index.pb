@@ -204,8 +204,6 @@ i
 9database/migrations/2023_06_05_125230_add_field_on_vm.php,8/7/872894c2ab529de525a448178b8757f5e50528b7
 ]
 -app/Observers/ServerFirewallRulesObserver.php,0/a/0a7b9078602a3b749d5ae200ea823858848fb2b8
-A
-package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47
 H
 resources/js/core/app.js,3/7/37799a890ccf2ba1ed696ae06a9f4725dffd92ac
 R
