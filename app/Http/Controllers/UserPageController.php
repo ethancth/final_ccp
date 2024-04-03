@@ -182,10 +182,7 @@ class UserPageController extends Controller
             if ($_check_is_user_is_in_tenant_result == true) {
                 $this->join_department($request, $_new_user);
 
-            }
-
-
-            if ($_check_user_tenant_amount < 3 && $_check_is_user_is_in_tenant_result == false) {
+            }else if ($_check_user_tenant_amount < 3 && $_check_is_user_is_in_tenant_result == false) {
                 //
                 $updatetenant = Tenant::create([
                     'user_id' => $_new_user->id,
