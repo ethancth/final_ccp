@@ -39,10 +39,7 @@ class ProjectController extends Controller
 
         $pageConfigs = ['pageHeader' =>true,'layoutWidth' => 'full'];
         //$project= User::find(Auth::id())->project;
-        $project1=$project->withStatus($request->status)
-            ->where('owner','=',Auth()->id())
-            ->where('company_id','=',Auth::user()->company_id)
-            ->get();
+
 
         if ($request->ajax()) {
 
@@ -632,7 +629,7 @@ class ProjectController extends Controller
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
        // dd(Auth::user()->company->id);
        $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
-        $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
+      //  $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
        //dd(Auth::user()->company->costprofile);
        $costprofile=Auth::user()->company->costprofile;
         if ($request->ajax()) {
@@ -650,7 +647,7 @@ class ProjectController extends Controller
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
         ];
-        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
+        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
 
     public function assetshow(Request $request,Project $project)
@@ -718,10 +715,48 @@ class ProjectController extends Controller
     {
         //TODO price can be modify from client side
         $find_os_icon=OperatingSystem::find($request->operating_system);
-        $find_tier=Tier::find($request->tier);
-        $find_env=Environment::find($request->environment);
         //$find_tier=OperatingSystem::find($request->operating_system);
        // dd($request);
+        if($request->server_id)
+        {
+            $_check_server=ProjectServer::find($request->server_id);
+            if($_check_server->env == 1){
+                $find_tier=Tier::find(1);
+                $find_env=Environment::find(1);
+                $request->tier=1;
+                $request->environment=1;
+            }else{
+                $find_tier=Tier::find($_check_server->tier);
+                $find_env=Environment::find($_check_server->environment);
+                $request->tier=$_check_server->tier;
+                $request->environment=$_check_server->tier;
+            }
+        }else{
+            $find_tier=Tier::find(1);
+            $find_env=Environment::find(1);
+            $request->tier=1;
+            $request->environment=1;
+        }
+
+        $Array_mandatory = explode(',', $request->sa_m);
+
+        $sas = DB::table('service_applications')->whereIn('id', $Array_mandatory)->get();
+        $_new_name='';
+        foreach($sas as $sa){
+            $_new_name.=$sa->display_name.", ";
+        }
+        $display_mandatory=substr($_new_name, 0, -2);
+
+
+        $Array_optional = explode(',', $request->sa_o);
+
+        $sas = DB::table('service_applications')->whereIn('id', $Array_optional)->get();
+        $_new_name='';
+        foreach($sas as $sa){
+            $_new_name.=$sa->display_name.", ";
+        }
+        $display_optional=substr($_new_name, 0, -2);
+
         ProjectServer::updateOrCreate(
             [
                 'id' => $request->server_id
@@ -742,7 +777,9 @@ class ProjectController extends Controller
                 'v_memory' => $request -> v_memory,
                 'total_storage' => $request->total_storage,
                 'mandatory_sa_field' => $request->sa_m,
+                'display_mandatory_sa' => $display_mandatory,
                 'optional_sa_field' => $request->sa_o,
+                'display_optional_sa' => $display_optional,
                 'owner' => Auth::id(),
             ]);
         return redirect()->route('project.show', $request->project_id)->with('success', 'Success！');

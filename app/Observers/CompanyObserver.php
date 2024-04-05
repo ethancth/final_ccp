@@ -28,19 +28,29 @@ class CompanyObserver
         $u->introduction='Admin';
         $u->save();
         Environment::create([
-                'name' => "Production",
-                'display_name' => "Production",
-                'display_description' => "Production - System Generate ",
-                'display_icon'=>"briefcase",
-                'display_icon_colour'=>"info",
+                'name' => "Default",
+                'display_name' => "Default",
+                'display_description' => "Default ",
+                'display_icon'=>"danger",
+                'display_icon_colour'=>"danger",
                 'company_id'=>$company->id,
                 'is_default'=>1,
                 'status' => 1
             ]);
         Environment::create([
-            'name' => "Development",
-            'display_name' => "Development",
-            'display_description' => "Development - System Generate ",
+            'name' => "Production",
+            'display_name' => "Production",
+            'display_description' => "Bangi ",
+            'display_icon'=>"briefcase",
+            'display_icon_colour'=>"info",
+            'company_id'=>$company->id,
+            'is_default'=>1,
+            'status' => 1
+        ]);
+        Environment::create([
+            'name' => "Dsu",
+            'display_name' => "Dsu",
+            'display_description' => "Dsu - Starteq ",
             'display_icon'=>"layers",
             'display_icon_colour'=>"success",
             'company_id'=>$company->id,
@@ -48,9 +58,9 @@ class CompanyObserver
             'status' => 1
         ]);
         Environment::create([
-            'name' => "Staging",
-            'display_name' => "Staging",
-            'display_description' => "Staging - System Generate ",
+            'name' => "Dr",
+            'display_name' => "Dr",
+            'display_description' => "Dr - Starteq ",
             'display_icon'=>"chevrons-up",
             'display_icon_colour'=>"danger",
             'company_id'=>$company->id,
@@ -58,6 +68,16 @@ class CompanyObserver
             'status' => 1
         ]);
 
+        Tier::create([
+            'name' => "Default",
+            'display_name' => "Default",
+            'display_description' => "Default ",
+            'display_icon'=>"danger",
+            'display_icon_colour'=>"danger",
+            'company_id'=>$company->id,
+            'is_default'=>1,
+            'status' => 1
+        ]);
         Tier::create([
             'name' => "Web",
             'display_name' => "Web",
@@ -93,44 +113,43 @@ class CompanyObserver
             'name' => "Default Cost Profile",
             'description' => "Default Cost Profile - System Generatenew",
             'company_id'=>$_companyid,
-            'vstorage'=>100,
+            'vstorage'=>1,
             'is_master' => 1,
+            'vcpu_price' => '12.95',
+            'vmen_price' => '9.72',
+            'vstorage_price' => '0.08',
+            'form_vcpu_min' =>'2',
+            'form_vcpu_max' =>'32',
+            'form_vmen_min' =>'4',
+            'form_vmen_max' =>'64',
+            'form_vstorage_min' =>'150',
+
             'status' => 1
 
         ]);
         OperatingSystem::create([
-            'name' => "window2022",
-            'display_name' => "Microsoft Window 2022 RC",
+            'name' => "window",
+            'display_name' => "Window Server",
             'display_description' => "System Generate",
             'company_id'=>$company->id,
             'os_type'=>'windows',
             'display_icon'=>'windows',
-            'cost'=>'10',
+            'cost'=>'206.82',
             'is_default'=>1,
             'status' => 1
         ]);
         OperatingSystem::create([
-            'name' => "RHEL7",
-            'display_name' => "RHEL 7.4 build 3.10.0-693 ",
+            'name' => "RHEL",
+            'display_name' => "Rhel Server ",
             'display_description' => "System Generate",
             'company_id'=>$company->id,
             'os_type'=>'rhel',
             'display_icon'=>'rhel',
-            'cost'=>'9',
+            'cost'=>'213.55',
             'is_default'=>1,
             'status' => 1
         ]);
-        OperatingSystem::create([
-            'name' => "Centos8",
-            'display_name' => "Centos 8.5-2111",
-            'display_description' => "System Generate",
-            'company_id'=>$company->id,
-            'os_type'=>'centos',
-            'display_icon'=>'centos',
-            'cost'=>'5',
-            'is_default'=>1,
-            'status' => 1
-        ]);
+
 
 
         $records_department = [
@@ -182,125 +201,34 @@ class CompanyObserver
 
         $records = [
             [
-                "name"  => "SQL Server 2019",
+                "name"  => "SQL Server Developer Edition",
                 "description"   => "",
                 "onetime"   => "1",
                 "costpercore"   => "0",
                 "core"   => "0",
-                "cost" => "1"
+                "cost" => "0"
             ],
             [
-                "name"  => "Oracle Database 19c",
+                "name"  => "SQL Server Standard Edition",
                 "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
+                "onetime"   => "0",
+                "costpercore"   => "1",
+                "core"   => "1",
+                "cost" => "180.77"
             ], [
-                "name"  => "Dynamics 365",
+                "name"  => "SQL Server Enterprise Edition",
                 "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
+                "onetime"   => "0",
+                "costpercore"   => "1",
+                "core"   => "1",
+                "cost" => "693.29"
             ], [
-                "name"  => "Tableau Desktop 2021.x ",
+                "name"  => "Red Hat OpenShift Platform Plus, Premium",
                 "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ], [
-                "name"  => "Adobe Experience Manager 6.5",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ], [
-                "name"  => "Jira Software 8.x",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "Magento 2.x",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "WordPress 5.x",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "Moodle 3.x",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "Symantec Endpoint Protection 14.x",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "McAfee Endpoint Security 10.x",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "MySQL 8.0",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "PostgreSQL 13",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "MongoDB 4.x",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "MariaDB 10.5",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "Apache Cassandra 3.x",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
-            ],[
-                "name"  => "Redis 6.x",
-                "description"   => "",
-                "onetime"   => "1",
-                "costpercore"   => "0",
-                "core"   => "0",
-                "cost" => "1"
+                "onetime"   => "0",
+                "costpercore"   => "1",
+                "core"   => "1",
+                "cost" => "373.31"
             ]
 
 
@@ -323,22 +251,22 @@ class CompanyObserver
                 ]);
         }
 
-        foreach ($records_department as $result)
-        {
-
-            Department::create(
-                [
-                    'department_name' => $result['name'],
-                    'company_id' => $company->id,
-                    'slug' =>  Str::slug($result['name']),
-                    'total_member' => 0,
-                    'total_hod' => 0,
-                    'display_hod' => '',
-                    'hod_id' => '',
-                    'all_uid' =>'',
-                    'is_default' =>1,
-                ]);
-        }
+//        foreach ($records_department as $result)
+//        {
+//
+//            Department::create(
+//                [
+//                    'department_name' => $result['name'],
+//                    'company_id' => $company->id,
+//                    'slug' =>  Str::slug($result['name']),
+//                    'total_member' => 0,
+//                    'total_hod' => 0,
+//                    'display_hod' => '',
+//                    'hod_id' => '',
+//                    'all_uid' =>'',
+//                    'is_default' =>1,
+//                ]);
+//        }
 
 
 

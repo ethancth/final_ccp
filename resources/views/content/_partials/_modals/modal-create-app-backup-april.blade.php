@@ -1,6 +1,6 @@
 <!-- create app modal -->
 <div class="modal fade" id="createAppModal" tabindex="-1" aria-labelledby="createAppTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg ">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-transparent">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -17,7 +17,18 @@
                                 </span>
                                 <span class="bs-stepper-label">
                                     <span class="bs-stepper-title">Details</span>
-                                    <span class="bs-stepper-subtitle">Server HostName & OS</span>
+                                    <span class="bs-stepper-subtitle">Enter Server Name</span>
+                                </span>
+                            </button>
+                        </div>
+                        <div class="step" data-target="#create-app-tier" role="tab" id="create-app-tier-trigger">
+                            <button type="button" class="step-trigger py-75">
+                                <span class="bs-stepper-box">
+                                    <i data-feather="package" class="font-medium-3"></i>
+                                </span>
+                                <span class="bs-stepper-label">
+                                    <span class="bs-stepper-title">Tier</span>
+                                    <span class="bs-stepper-subtitle">Enter Information</span>
                                 </span>
                             </button>
                         </div>
@@ -40,12 +51,11 @@
                                     <i data-feather="server" class="font-medium-3"></i>
                                 </span>
                                 <span class="bs-stepper-label">
-                                    <span class="bs-stepper-title">Storage Component</span>
+                                    <span class="bs-stepper-title">Service Application</span>
                                     <span class="bs-stepper-subtitle">Apps</span>
                                 </span>
                             </button>
                         </div>
-
                         <div class="step" data-target="#create-app-review" role="tab" id="create-app-review-trigger">
                             <button type="button" class="step-trigger py-75">
                                 <span class="bs-stepper-box">
@@ -79,34 +89,54 @@
                                 <h5>Server Name</h5>
                                 <input class="form-control" type="text" placeholder="Server Name" value=""
                                        id="servername" name="servername"/>
-                                <h5 class="mt-2">Operating System Name </h5>
+                                <h5 class="mt-2 pt-1">Environment</h5>
+                                <div class="modal-dialog-scrollable">
+                                    <div class="overflow-auto p-0 bg-light"
+                                         style="max-width: 100%; max-height: 280px;">
+                                        <ul class="list-group list-group-flush " name="EnvGroup">
 
-                                <select class="select2 form-select" name="operatingsystem" id="operatingsystem">
-                                    <option value="">Select Operating System</option>
-                                    @foreach($forms as $form)
+                                            @foreach($forms as $form)
+                                                <?php
+                                                $_temp_num=1;
+                                                ?>
+                                                @foreach($form->envform as $envforms)
+                                                    @if($envforms->status===1)
 
-                                        @foreach($form->osform as $osforms)
-                                            @if($osforms->status===1)
-                                                <option value="{{$osforms->id}}">{{$osforms->display_name}}</option>
-                                            @endif
-                                        @endforeach
-                                    @endforeach
+                                                        <li class="list-group-item border-0 px-0">
+                                                            <label for="createApp{{$envforms->id}}" class="d-flex cursor-pointer">
+                                            <span class="avatar avatar-tag bg-light-{{$envforms->display_icon_colour}} me-1">
+                                                <i data-feather="{{$envforms->display_icon}}" class="font-medium-5"></i>
+                                            </span>
+                                                                <span class="d-flex align-items-center justify-content-between flex-grow-1">
+                                                <span class="me-1">
+                                                    <span class="h5 d-block fw-bolder">{{$envforms->display_name}}</span>
+                                                    <span>{{$envforms->display_description}}</span>
+                                                </span>
+                                                <span>
+                                                    <input class="form-check-input radioEnv" id="createApp{{$envforms->id}}"
+                                                           type="radio" text="{{$envforms->name}}" name="categoryEnvironment" <?php
+                                                           if($_temp_num==1){echo "checked";}
+                                                           ?>
+                                                           value="{{$envforms->id}}"
+{{--                                                     {{ $product_attribute->meterial == 'production' ? 'checked' : '' }} --}}
+                                                    />
+                                                </span>
+                                            </span>
+                                                            </label>
+                                                        </li>
+                                                    @endif
+                                                    <?php
+                                                    $_temp_num++;
+                                                    ?>
 
-                                </select>
+                                                @endforeach
 
-                                <h5 class="mt-2 pt-1">Optional Service Application</h5>
-                                <select class="select2-data-array-optional form-select" id="select_sa_optional" name="select_sa_optional" multiple>
-                                    @foreach($forms as $form)
-                                        <?php
-                                        $_temp_num=1;
-                                        ?>
-                                        @foreach($form->saform as $saforms)
-                                            @if($saforms->status===1)
-                                                <option value="{{$saforms->id}}">{{$saforms->display_name}}</option>
-                                            @endif
-                                        @endforeach
-                                    @endforeach
-                                </select>
+                                            @endforeach
+
+                                        </ul>
+                                    </div>
+
+                                </div>
                             </form>
                             <div class="d-flex justify-content-between mt-2">
                                 <button class="btn btn-outline-secondary btn-prev" disabled>
@@ -121,76 +151,100 @@
                         </div>
 
 
+                        <div id="create-app-tier" class="content" role="tabpanel"
+                             aria-labelledby="create-app-tier-trigger">
+                            <form id="create-app-page2">
+
+                                <h5>Operating System Name </h5>
+
+                                <select class="select2 form-select" name="operatingsystem" id="operatingsystem">
+                                    <option value="">Select Operating System</option>
+                                    @foreach($forms as $form)
+
+                                        @foreach($form->osform as $osforms)
+                                            @if($osforms->status===1)
+                                                <option value="{{$osforms->id}}">{{$osforms->display_name}}</option>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+
+                                </select>
+
+                                <h5 class="mt-2 pt-1">Select Tier</h5>
+                                <ul class="list-group list-group-flush">
+
+                                    @foreach($forms as $form)
+                                        <?php
+                                        $_temp_num_tier=1;
+                                        ?>
+                                        @foreach($form->tierform as $tierforms)
+                                            @if($tierforms->status===1)
+                                                <li class="list-group-item border-0 px-0">
+                                                    <label for="createTier{{$tierforms->id}}" class="d-flex cursor-pointer">
+                                                        <span class="avatar avatar-tag bg-light-{{$tierforms->display_icon_colour}} me-1">
+                                                            <i data-feather="{{$tierforms->display_icon}}" class="font-medium-5"></i>
+                                                        </span>
+                                                        <span class="d-flex align-items-center justify-content-between flex-grow-1">
+                                                            <span class="me-1">
+                                                                <span class="h5 d-block fw-bolder">{{$tierforms->display_name}}</span>
+                                                                <span>{{$tierforms->display_description}}</span>
+                                                            </span>
+                                                            <span>
+                                                                <input class="form-check-input radioTier" value="{{$tierforms->id}}"
+                                                                       <?php
+                                                                       if($_temp_num_tier==1){echo "checked";}
+                                                                       ?> id="createTier{{$tierforms->id}}" type="radio"
+                                                                       text="{{$tierforms->name}}"
+                                                                       name="tierRadio" />
+                                                            </span>
+                                                        </span>
+                                                    </label>
+                                                </li>
+                                            @endif
+                                            <?php
+                                            $_temp_num_tier++;
+                                            ?>
+                                        @endforeach
+
+                                    @endforeach
+                                </ul>
+                            </form>
+                            <div class="d-flex justify-content-between mt-2">
+                                <button class="btn btn-primary btn-prev">
+                                    <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
+                                    <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                                </button>
+                                <button class="btn btn-primary btn-next ">
+                                    <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                    <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
+                                </button>
+                            </div>
+
+                        </div>
 
                         <div id="create-app-apps" class="content" role="tabpanel"
                              aria-labelledby="create-app-apps-trigger">
-
                             <form id="create-app-page3">
-                                <h5 id="title_storage">Storage</h5>
-
+                                <h5>Default Service Application (Mandatory)</h5>
                                 <p class="form-control-static" id="input_sam_1"></p>
                                 {{--                                <select class="select2-data-array-mandatory form-select" id="select2-array-mandatory" name="select_sa_mandatory" multiple></select>--}}
 
-                                <div class="storage-repeater">
-                                    <div class="row">
-                                        <div class="col-12 mb-2">
-                                            <button class="btn btn-icon btn-primary" type="button" data-repeater-create>
-                                                <i data-feather="plus" class="me-25"></i>
-                                                <span>Add New Storage </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="overflow-auto p-0 "
-                                         style="max-width: 100%; max-height: 300px;">
-                                    <div data-repeater-list="storage">
-
-                                        <div data-repeater-item>
-                                            <div class="row d-flex align-items-end">
-                                                <div class="col-md-3 col-12">
-                                                    <div class="mb-0">
-                                                        <label class="form-label" for="storage_size">Size</label>
-                                                        <input
-                                                            type="number"
-                                                            class="form-control"
-                                                            id="storage_size"
-                                                            name="storage_size[]"
-                                                            aria-describedby="itemname"
-                                                            placeholder="Storage Size (GB)"
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 col-12">
-                                                    <div class="mb-0">
-                                                        <label class="form-label" for="storage_description">Description</label>
-                                                        <input
-                                                            type="text"
-                                                            class="form-control"
-                                                            id="storage_desc"
-                                                            aria-describedby="storage_description"
-                                                            placeholder="Path or Drive"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2 col-12 mb-55 ">
-                                                    <div class="mb-0">
-                                                        <button class="btn btn-outline-danger text-nowrap  px-1" data-repeater-delete type="button">
-                                                            <i data-feather="x" class="me-25"></i>
-                                                            <span></span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr style="margin-top: 10px;margin-bottom: 10px; ">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                </div>
                                 <input class="hidden" id="o_server_os" name="o_server_os" value="">
                                 <input class="hidden" id="o_server_env" name="o_server_env" value="">
                                 <input class="hidden" id="o_server_tier" name="o_server_tier" value="">
-
+                                <h5 class="mt-2 pt-1">Optional Service Application</h5>
+                                <select class="select2-data-array-optional form-select" id="select_sa_optional" name="select_sa_optional" multiple>
+                                    @foreach($forms as $form)
+                                        <?php
+                                        $_temp_num=1;
+                                        ?>
+                                        @foreach($form->saform as $saforms)
+                                            @if($saforms->status===1)
+                                                <option value="{{$saforms->id}}">{{$saforms->display_name}}</option>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                </select>
 
                             </form>
                             <div class="d-flex justify-content-between mt-2">
@@ -232,7 +286,7 @@
                                     <div class="card-header" style="
     padding-left: 0px;
     padding-bottom: 0px; padding-top: 0px;">
-                                        <h5>OS vStorage (GB) </h5>
+                                        <h5>vStorage (GB)</h5>
                                     </div>
                                     <div class="card-body">
                                         <div id="pips-range-vstorage" class="mt-1 mb-3"></div>
@@ -265,29 +319,28 @@
                                             <p class="form-control-static" id="input_hostname">Production</p>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-4">
-                                            <label class="form-label" for="disabledInput">Operating System</label>
-                                            <p class="form-control-static" id="input_prefer_os">WEB</p>
-                                        </div>
-                                        <div class="col-xl-4 col-md-4 col-4">
                                             <label class="form-label" for="disabledInput">Cost</label>
                                             <p class="form-control-static" id="input_cost">$123</p>
                                         </div>
                                     </div>
-                                    <hr style="margin-top: 5px;margin-bottom: 5px; " class="hidden">
+                                    <hr style="margin-top: 5px;margin-bottom: 5px;">
                                     <div class="row">
 
-                                        <div class="col-xl-4 col-md-4 col-4 hidden">
+                                        <div class="col-xl-4 col-md-4 col-4">
                                             <label class="form-label" for="disabledInput">Environment</label>
                                             <p class="form-control-static" id="input_environment">Production</p>
                                         </div>
-                                        <div class="col-xl-4 col-md-4 col-4 hidden">
+                                        <div class="col-xl-4 col-md-4 col-4">
                                             <label class="form-label" for="disabledInput">Tier</label>
                                             <p class="form-control-static" id="input_tier">WEB</p>
                                         </div>
-
+                                        <div class="col-xl-4 col-md-4 col-4">
+                                            <label class="form-label" for="disabledInput">Operating System</label>
+                                            <p class="form-control-static" id="input_prefer_os">WEB</p>
+                                        </div>
                                     </div>
 
-                                    <hr style="margin-top: 3px;margin-bottom: 3px;">
+                                    <hr style="margin-top: 5px;margin-bottom: 5px;">
                                     <div class="row">
                                         <div class="col-xl-4 col-md-4 col-4">
                                             <label class="form-label" for="disabledInput">vCPU</label>
@@ -303,7 +356,7 @@
                                         </div>
                                     </div>
                                     <hr style="margin-top: 5px;margin-bottom: 5px;">
-                                    <div class="col-xl-12 col-md-12 col-12 hidden">
+                                    <div class="col-xl-12 col-md-12 col-12">
                                         <label class="form-label" for="disabledInput">Mandatory Service Application</label>
                                         <p class="form-control-static" id="input_sam">WEB</p>
                                     </div>
@@ -340,7 +393,7 @@
                                         <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                     </button>
                                     <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                        <span class="align-middle d-sm-inline-block d-none">Submit</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
                                 </div>

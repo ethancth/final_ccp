@@ -54,7 +54,7 @@
                         </div>
 
                         <div>
-                            <h6 class="text">Daily Cost -  <span class="badge badge-light-success profile-badge">$ {{$project->total_cost()}}</span> </h6>
+                            <h6 class="text">Daily Cost -  <span class="badge badge-light-success profile-badge">$ {{$project->price}}</span> </h6>
 
                         </div>
                     </div>
@@ -110,7 +110,7 @@
             <th><i data-feather="trending-up"></i></th>
             <th>Server </th>
             <th>Compute</th>
-            <th class="text-truncate">Service Application</th>
+            <th class="text-truncate">Created Date</th>
             <th>Cost</th>
             <th>Invoice Status</th>
             <th class="cell-fit">Actions</th>
@@ -155,7 +155,6 @@
 {{--sweetalert--}}
 <script src="{{ asset(mix('vendors/js/extensions/sweetalert2.all.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/extensions/polyfill.min.js')) }}"></script>
-<script src="{{ asset(mix('vendors/js/forms/repeater/jquery.repeater.min.js')) }}"></script>
 @endsection
 
 @section('page-script')
@@ -252,7 +251,7 @@
         }
 
         function ajax_getSAM(){
-          //  checksa()
+            checksa()
             $.ajax({
                 type:"get",
                 url: "{{ route('filter_policy') }}",
@@ -274,21 +273,6 @@
             });
         }
 
-        $('.storage-repeater').repeater({
-            show: function () {
-                $(this).slideDown();
-                // Feather Icons
-                if (feather) {
-                    feather.replace({ width: 14, height: 14 });
-                }
-            },
-            hide: function (deleteElement) {
-                if (confirm('Are you sure you want to delete this element?')) {
-                    $(this).slideUp(deleteElement);
-                }
-            }
-        });
-
 
         var modernVerticalWizard = document.querySelector('.create-app-wizard'),
             createAppModal = document.getElementById('createAppModal'),
@@ -304,7 +288,7 @@
         // --- create app  ----- //
         if (typeof modernVerticalWizard !== undefined && modernVerticalWizard !== null) {
             var modernVerticalStepper = new Stepper(modernVerticalWizard, {
-                    linear: false
+                    linear: true
                 }),
                 $form = $(createAppModal).find('form');
             $form.each(function () {
@@ -377,7 +361,6 @@
                 .on('click', function () {
                     let $data;
                     $data=$("#select_sa_optional").select2('val');
-                    console.log($data);
                     $('#sa_o').val($data);
                     ajax_getSAName();
                     ajax_getCost();
@@ -403,8 +386,6 @@
                     }
                 });
             }
-
-
 
 
 
@@ -448,24 +429,6 @@
             });
         }
 
-        function ajax_os_server_disk(){
-            $.ajax({
-                type:"get",
-                url: "{{ route('server_os_disk') }}",
-                data: {
-                    os:$('#operatingsystem').val(),
-                    mem:pipsRangevMemory.noUiSlider.get(),
-                },
-                dataType: 'json',
-                success: function(res){
-                    console.log(res);
-                    //input_sao.innerText = res.name;
-                    pipsRangevstorage.noUiSlider.set(res.disk);
-
-                }
-            });
-        }
-
         if (typeof pipsRangevCPU !== undefined && pipsRangevCPU !== null) {
             // Range
             noUiSlider.create(pipsRangevCPU, {
@@ -487,41 +450,35 @@
                     from: (v) => parseFloat(v).toFixed(0)
                 }
             });
-
         }
-        pipsRangevCPU.noUiSlider.on('change', function() {
-            ajax_os_server_disk();
-        });
-
 
         if (typeof pipsRangevMemory !== undefined && pipsRangevMemory !== null) {
             // Range
             noUiSlider.create(pipsRangevMemory, {
                 start: 2,
-                step: 2,
+                step: 4,
                 range: {
                     min: {{$costprofile[0]->form_vmen_min}},
                     max: {{$costprofile[0]->form_vmen_max}}
                 },
                 tooltips: true,
                 direction: direction,
-
-                format: {
+                pips: {
+                    mode: 'steps',
+                    stepped: false,
+                    density: 5
+                },format: {
                     to: (v) => parseFloat(v).toFixed(0),
                     from: (v) => parseFloat(v).toFixed(0)
                 }
             });
         }
 
-        pipsRangevMemory.noUiSlider.on('change', function() {
-            ajax_os_server_disk();
-        });
-
         if (typeof pipsRangevstorage !== undefined && pipsRangevstorage !== null) {
             // Range
             noUiSlider.create(pipsRangevstorage, {
                 start: 100,
-                step: 10,
+                step: 50,
                 range: {
                     min: {{$costprofile[0]->form_vstorage_min}},
                     max: {{$costprofile[0]->form_vstorage_max}}
@@ -533,7 +490,6 @@
                 }
             });
         }
-
 
 
         const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
@@ -725,7 +681,7 @@
                             var $invoiceStatus = full['environment'],
                              $field_environment = full['display_env'],
                                 $field_tier = full['display_tier'],
-                                created_at = full['created_at'],
+                                $dueDate = full['created_at'],
                                 $balance = full['price'],
                                 roleObj = {
                                     @foreach($forms as $form)
@@ -744,7 +700,6 @@
                                 "<span data-bs-toggle='tooltip' data-bs-html='true' title='<span>Detail: " +
                                 '<br> <span class="fw-bold">Environment:</span> ' +$field_environment+
                                 '<br> <span class="fw-bold">Tier:</span> ' +$field_tier+
-
                                 "</span>'>" +
                                 '<div class="avatar avatar-status ' +
                                 roleObj[$invoiceStatus].class +
@@ -823,18 +778,15 @@
                         targets: 5,
                         width: '130px',
                         render: function (data, type, full, meta) {
-                             var $value = full['display_optional_sa'];
-                            // var $dueDate = new Date(full['created_at']);
-                            // // Creates full output for row
-                            // var $rowOutput =
-                            //     '<span class="d-none">' +
-                            //     moment($dueDate).format('YYYYMMDD') +
-                            //     '</span>' +
-                            //     moment($dueDate).format('DD MMM YYYY');
-                            // $dueDate;
-                        
-
-                            return $value;
+                            var $dueDate = new Date(full['created_at']);
+                            // Creates full output for row
+                            var $rowOutput =
+                                '<span class="d-none">' +
+                                moment($dueDate).format('YYYYMMDD') +
+                                '</span>' +
+                                moment($dueDate).format('DD MMM YYYY');
+                            $dueDate;
+                            return $rowOutput;
                         }
                     },{
                         // Total Invoice Amount

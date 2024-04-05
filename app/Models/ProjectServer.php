@@ -15,7 +15,7 @@ class ProjectServer extends Model
         'hostname', 'owner','created_at', 'updated_at',
         'total_storage','operating_system_option','optional_sa_field','mandatory_sa_field',
         'display_os','display_tier','display_env','price','is_vm_provision',
-        'is_asset_vm','price_actual'
+        'is_asset_vm','price_actual','display_optional_sa','display_mandatory_sa'
     ];
 
     public function project()

@@ -9,7 +9,6 @@
 
       {"url":"","navheader":"Management","icon":""},
       {"url":"user-management","name":"User","icon":"grid","slug":"user"},
-      {"url":"management-department","name":"Department","icon":"grid","slug":"department.show"},
       {"url":"management-environment","name":"Environments","icon":"grid","slug":"management_env"},
       {"url":"management-tier","name":"Tiers","icon":"grid","slug":"management_tier"},
       {"url":"management-os","name":"Operating System","icon":"grid","slug":"management_os"},

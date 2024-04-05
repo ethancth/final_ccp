@@ -167,7 +167,7 @@
                             <hr>
                             <div class="row">
                                 <div class="mb-1 col-md-6 col-6">
-                                <label class="form-label" for="basic-default-vstorage-price">vStorage Price (100 GB)</label>
+                                <label class="form-label" for="basic-default-vstorage-price">vStorage Price ({{$data->vstorage}} GB)</label>
                                 <input
                                     type="decimal"
                                     id="basic-default-vstorage-price"

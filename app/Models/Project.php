@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Project extends Model
 {
@@ -37,6 +38,11 @@ class Project extends Model
     }
 
 
+    public function service_application()
+    {
+        return $user = DB::table('service_applications')->whereIn('id', $this->optional_sa_field)->first();
+
+    }
 
     public function sg()
     {
@@ -69,6 +75,12 @@ class Project extends Model
             return 'Complete';
         }
 
+    }
+
+    public function total_cost()
+    {
+       $value=  $this->server->sum('price');
+        return number_format((float)$value, 2, '.', '');
     }
 
 

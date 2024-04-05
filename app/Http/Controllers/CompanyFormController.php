@@ -554,13 +554,33 @@ class CompanyFormController extends Controller
 
 
     }
+    public function get_os_disk(Request $request)
+    {
+       // dump($request);
+        $_get_os_type=OperatingSystem::find($request->os);
+        if($_get_os_type->os_type=='windows'){
 
+            if($request->mem<=24){
+                $va = 150;
+            }else{
+                $va=  round($request->mem +4,-1)+150;
+
+            }
+
+        }else{
+
+            if($request->mem<=32){
+                $va =  170;
+            }else{
+                $va =   round($request->mem +4,-1)+170;
+            }
+        }
+        return array('disk'=>$va);
+
+    }
     //project server cost
 
     public function getCost(Request $request){
-
-       // dd($request);
-
 
         $company_id=Auth::user()->company->id;
         $company_cost_profile=Auth::user()->company->costprofile->first();
@@ -569,6 +589,8 @@ class CompanyFormController extends Controller
         $_cost_vcpu=($request->cpu/$company_cost_profile->vcpu)*$company_cost_profile->vcpu_price;
         $_cost_memory=($request->mem/$company_cost_profile->vmen)*$company_cost_profile->vmen_price;
         $_cost_storage=($request->storage  /$company_cost_profile->vstorage)*$company_cost_profile->vstorage_price;
+        $_cost_os=OperatingSystem::find($request->os);
+
 
 
 
@@ -597,7 +619,9 @@ class CompanyFormController extends Controller
         $resuleB= DB::table('service_applications')
             ->whereIn('id',explode(',', $sam))
             ->get();
+       // dump($resuleB);
         $_total_cost_sam=0;
+        $_formula_sa='Formula '."<br/>";
         foreach($resuleB as $services){
 
             if($services->is_one_time_payment){
@@ -606,8 +630,10 @@ class CompanyFormController extends Controller
 
                 if($request->cpu % $services->cpu_amount==0){
                     $_cost_sam= ($request->cpu / $services->cpu_amount)*$services->cost;
+                    $_formula_sa.='('.$request->cpu.'/'.$services->cpu_amount.')*'.$services->cost;
                 }else{
                     $_cost_sam= floor($request->cpu / $services->cpu_amount+1)*$services->cost;
+                    $_formula_sa.='('.$request->cpu.'/'.($services->cpu_amount+1).')*'.$services->cost;
                 }
                 $_total_cost_sam=$_total_cost_sam+$_cost_sam;
 
@@ -626,14 +652,19 @@ class CompanyFormController extends Controller
         $_formula_cpu="CPU = (".$request->cpu.'/'.$company_cost_profile->vcpu.')*'.$company_cost_profile->vcpu_price.'='.$_cost_vcpu.')';
         $_formula_memory="Memory = (".$request->mem.'/'.$company_cost_profile->vmen.')*'.$company_cost_profile->vmen_price.'='.$_cost_memory.')';
         $_formula_storage="Storage = (".$request->storage.'/'.$company_cost_profile->vstorage.')*'.$company_cost_profile->vstorage_price.'='.$_cost_storage.')';
+
          $_total_cost_sam= number_format((float)$_total_cost_sam, 5, '.', '');
-        $_total_cost_server=$_cost_vcpu+$_cost_memory+$_cost_storage+$_total_cost_sam;
+
+         $_formula_os=
+        $_total_cost_server=$_cost_vcpu+$_cost_memory+$_cost_storage+$_total_cost_sam+$_cost_os->cost;
+      //  dump($_cost_vcpu,$_cost_memory,$_cost_storage,$_total_cost_server);
         //return number_format((float)$_total_cost_server, 2, '.', '');
         return $a=array(
-            'cost'=>number_format((float)$_total_cost_server, 5, '.', ''),
+            'cost'=>number_format((float)$_total_cost_server, 2, '.', ''),
             'CPU'=>$_formula_cpu,
             'memory'=>$_formula_memory,
             'storage'=>$_formula_storage,
+            'fomula_sa'=>$_formula_sa,
         );
 
 

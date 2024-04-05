@@ -137,6 +137,7 @@ Route::group(['middleware' => ['auth', 'verified']],
 
         //server Cost
         Route::get('/get-cost', [CompanyFormController::class, 'getCost'])->name('server_cost');
+        Route::get('/get-os_disk', [CompanyFormController::class, 'get_os_disk'])->name('server_os_disk');
 
 //        //Department Cost Profile
 //        Route::resource('department-cost-profile', 'ClusterCostProfileController', ['only' => ['update', 'edit', 'store']]);
