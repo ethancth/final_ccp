@@ -27,16 +27,7 @@ class CompanyObserver
         $u=User::find($_company_master_id);
         $u->introduction='Admin';
         $u->save();
-        Environment::create([
-                'name' => "Default",
-                'display_name' => "Default",
-                'display_description' => "Default ",
-                'display_icon'=>"danger",
-                'display_icon_colour'=>"danger",
-                'company_id'=>$company->id,
-                'is_default'=>1,
-                'status' => 1
-            ]);
+
         Environment::create([
             'name' => "Production",
             'display_name' => "Production",
@@ -68,7 +59,7 @@ class CompanyObserver
             'status' => 1
         ]);
 
-        Tier::create([
+        Environment::create([
             'name' => "Default",
             'display_name' => "Default",
             'display_description' => "Default ",
@@ -105,6 +96,16 @@ class CompanyObserver
             'display_description' => "Database - System Generate ",
             'display_icon'=>"database",
             'display_icon_colour'=>"success",
+            'company_id'=>$company->id,
+            'is_default'=>1,
+            'status' => 1
+        ]);
+        Tier::create([
+            'name' => "Default",
+            'display_name' => "Default",
+            'display_description' => "Default ",
+            'display_icon'=>"danger",
+            'display_icon_colour'=>"danger",
             'company_id'=>$company->id,
             'is_default'=>1,
             'status' => 1

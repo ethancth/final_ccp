@@ -29,8 +29,7 @@ return new class extends Migration
     {
         Schema::table('project_security_groups', function (Blueprint $table) {
             //
-            $table->dropColumn('scope');
-            $table->dropColumn('can_delete');
+
         });
     }
 };

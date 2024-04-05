@@ -632,6 +632,8 @@ class ProjectController extends Controller
       //  $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
        //dd(Auth::user()->company->costprofile);
        $costprofile=Auth::user()->company->costprofile;
+        $data =$project->server;
+       // dump($data);
         if ($request->ajax()) {
             $data =$project->server;
             //dd($data);
