@@ -22,22 +22,22 @@ class PermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::firstOrCreate(['name' => 'project.update']);
-        Permission::firstOrCreate(['name' => 'approver_reject_level_1']);
-        Permission::firstOrCreate(['name' => 'approver_reject_level_2']);
-        Permission::firstOrCreate(['name' => 'management']);
+        Permission::create(['name' => 'project.update']);
+        Permission::create(['name' => 'approver_reject_level_1']);
+        Permission::create(['name' => 'approver_reject_level_2']);
+        Permission::create(['name' => 'management']);
 
         // create roles and assign existing permissions
-        $role1 = Role::firstOrCreate(['name' => 'Requester']);
+        $role1 = Role::create(['name' => 'Requester']);
         $role1->givePermissionTo('project.update');
 
-        $role2 = Role::firstOrCreate(['name' => 'Approver_lv_1']);
+        $role2 = Role::create(['name' => 'Approver_lv_1']);
         $role2->givePermissionTo('approver_reject_level_1');
 
-        $role3 = Role::firstOrCreate(['name' => 'Approver_lv_2']);
+        $role3 = Role::create(['name' => 'Approver_lv_2']);
         $role3->givePermissionTo('approver_reject_level_2');
 
-        $role4 = Role::firstOrCreate(['name' => 'Admin']);
+        $role4 = Role::create(['name' => 'Admin']);
         $role4->givePermissionTo('management');
     }
 }
