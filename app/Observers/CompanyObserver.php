@@ -29,6 +29,17 @@ class CompanyObserver
         $u->save();
 
         Environment::create([
+            'name' => "Default",
+            'display_name' => "Default",
+            'display_description' => "Default ",
+            'display_icon'=>"alert-triangle",
+            'display_icon_colour'=>"danger",
+            'company_id'=>$company->id,
+            'is_default'=>1,
+            'status' => 1
+        ]);
+
+        Environment::create([
             'name' => "Production",
             'display_name' => "Production",
             'display_description' => "Bangi ",
@@ -59,7 +70,8 @@ class CompanyObserver
             'status' => 1
         ]);
 
-        Environment::create([
+
+        Tier::create([
             'name' => "Default",
             'display_name' => "Default",
             'display_description' => "Default ",
@@ -100,16 +112,7 @@ class CompanyObserver
             'is_default'=>1,
             'status' => 1
         ]);
-        Tier::create([
-            'name' => "Default",
-            'display_name' => "Default",
-            'display_description' => "Default ",
-            'display_icon'=>"alert-triangle",
-            'display_icon_colour'=>"danger",
-            'company_id'=>$company->id,
-            'is_default'=>1,
-            'status' => 1
-        ]);
+
         CostProfile::create([
             'name' => "Default Cost Profile",
             'description' => "Default Cost Profile - System Generatenew",

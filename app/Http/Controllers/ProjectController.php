@@ -722,24 +722,19 @@ class ProjectController extends Controller
         if($request->server_id)
         {
             $_check_server=ProjectServer::find($request->server_id);
-            if($_check_server->env == 1){
-                $find_tier=Tier::find(1);
-                $find_env=Environment::find(1);
-                $request->tier=1;
-                $request->environment=1;
-            }else{
+
                 $find_tier=Tier::find($_check_server->tier);
                 $find_env=Environment::find($_check_server->environment);
                 $request->tier=$_check_server->tier;
                 $request->environment=$_check_server->tier;
-            }
-        }else{
-            $find_tier=Tier::find(1);
-            $find_env=Environment::find(1);
-            $request->tier=1;
-            $request->environment=1;
-        }
 
+        }else{
+            $find_tier=Tier::where('name','=','Default')->where('company_id','=',Auth::user()->company_id)->first();
+            $find_env=Environment::where('name','=','Default')->where('company_id','=',Auth::user()->company_id)->first();
+            $request->tier=$find_tier->id;
+            $request->environment=$find_env->id;
+        }
+        
         $Array_mandatory = explode(',', $request->sa_m);
 
         $sas = DB::table('service_applications')->whereIn('id', $Array_mandatory)->get();
