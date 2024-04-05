@@ -22,14 +22,14 @@ class PermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'project.*']);
+        Permission::create(['name' => 'project.update']);
         Permission::create(['name' => 'approver_reject_level_1']);
         Permission::create(['name' => 'approver_reject_level_2']);
         Permission::create(['name' => 'management']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'Requester']);
-        $role1->givePermissionTo('project.*');
+        $role1->givePermissionTo('project.update');
 
         $role2 = Role::create(['name' => 'Approver_lv_1']);
         $role2->givePermissionTo('approver_reject_level_1');
