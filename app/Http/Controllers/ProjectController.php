@@ -734,7 +734,7 @@ class ProjectController extends Controller
             $request->tier=$find_tier->id;
             $request->environment=$find_env->id;
         }
-        
+
         $Array_mandatory = explode(',', $request->sa_m);
 
         $sas = DB::table('service_applications')->whereIn('id', $Array_mandatory)->get();

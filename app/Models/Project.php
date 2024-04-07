@@ -10,7 +10,7 @@ class Project extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title', 'owner','created_at', 'updated_at', 'slug','price','total_cpu','total_memory','total_server','total_server_on','total_storage','company_id','price_actual'
+        'project_type', 'title', 'owner','created_at', 'updated_at', 'slug','price','total_cpu','total_memory','total_server','total_server_on','total_storage','company_id','price_actual'
 
     ];
 

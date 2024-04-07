@@ -19,6 +19,7 @@
     "laravel/ui": "^4.3",
     "laraveldaily/laravel-permission-ui": "^0.1.4",
     "laravolt/avatar": "^4.1",
+    "livewire/livewire": "^3.0",
     "mcaskill/php-array-group-by": "^1.0",
     "overtrue/pinyin": "~4.0",
     "predis/predis": "~1.1",

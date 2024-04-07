@@ -115,7 +115,8 @@
     </div>
     <!--/ Permission Table -->
 
-    @include('content/_partials/_modals/modal-create-project')
+    @livewire('create-project');
+{{--    @include('content/_partials/_modals/modal-create-project')--}}
 @endsection
 
 @section('vendor-script')
@@ -133,6 +134,21 @@
 @section('page-script')
     <!-- Page js files -->
     <script>
+
+        window.addEventListener('swal:modal',event=>{
+
+            console.log(event);
+            Swal.fire({
+                icon: 'success',
+                title: event.detail[0].title,
+                text: 'Project Created Successfully.',
+                customClass: {
+                    confirmButton: 'btn btn-success'
+                }
+            }).then(function() {
+                window.location = event.detail[0].url;
+            });
+        });
 
         $(function () {
 
@@ -157,6 +173,8 @@
                     3: { title: 'Approve', class: 'badge-light-primary' },
                     4: { title: 'In-Provisioning', class: 'badge-light-info' },
                     5: { title: 'Complete', class: 'badge-light-success' },
+                    'bau': { title: 'Bau', class: 'bg-primary' },
+                    'new': { title: 'New', class: 'bg-primary' },
                 },
                 projectHome='project/';
 
@@ -188,7 +206,7 @@
                         { data: 'title' },
                         { data: 'owner' },
                         { data: 'status' },
-                        { data: 'created_at' },
+                        { data: 'price' },
                         { data: '' }
                     ],
                     columnDefs: [
@@ -215,6 +233,7 @@
 
                                 var $status = full['status'];
 
+
                                 return (
                                     '<span class="badge rounded-pill ' +
                                     statusObj[$status].class +
@@ -230,8 +249,13 @@
                             render: function (data, type, full, meta) {
                                 var $status = full['id'];
                                 var $status_title = full['title'];
+                                var $type = full['project_type'];
                                 // Creates full output for row
-                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>';
+                                var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>  - '+   '<span class="badge rounded-pill ' +
+                                    statusObj[$type].class +
+                                    '" text-capitalized>' +
+                                    statusObj[$type].title +
+                                    '</span>';
                                 return $rowOutput;
                             }
 
@@ -240,10 +264,10 @@
                             // Project Owner
                             targets: 4,
                             render: function (data, type, full, meta) {
-                                var $status = full['id'];
+                                var $status = full['created_at'];
                                 var $status_title = full['owner_name'];
                                 // Creates full output for row
-                                var $rowOutput = '   ' + $status_title + '</a>';
+                                var $rowOutput =  '<div class="d-flex flex-column">'  + $status_title + '</a>' +'<small class="emp_post text-muted"> '+$status+'<small></div>';
                                 return $rowOutput;
                             }
 
@@ -292,7 +316,7 @@
                     // Buttons with Dropdown
                     buttons: [
                         {
-                            text: 'Create New Project',
+                            text: 'Create Project',
                             className: 'add-new btn btn-primary mt-50',
                             attr: {
                                 'data-bs-toggle': 'modal',

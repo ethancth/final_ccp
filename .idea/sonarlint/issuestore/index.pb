@@ -454,8 +454,6 @@ e
 5app/Http/Controllers/Auth/ResetPasswordController.php,d/5/d500142e89c27e57dd9348c574786c4ae3ae5a2a
 c
 3resources/views/content/management/tenant.blade.php,d/d/dd535159dadf910bef0b5a52ed0dfa13d807efe4
->
-config/app.php,7/3/734f7be25e8008acc7129e73cd116d5de913e6fd
 A
 config/custom.php,4/f/4febccf8f1240f3ffc060d2fa1e863cdbb3c0f27
 W

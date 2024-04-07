@@ -154,13 +154,16 @@ Route::group(['middleware' => ['auth', 'verified']],
 //        Route::get('/datastore-cost-profile', 'DatastoreCostProfileController@index')->name('datastore-cost-profile');
 //
 
+        //Livewire
+
+
         //Search
 
         Route::get('getCompanyDomain', [\App\Http\Controllers\SearchController::class, 'getCompanyDomain'])->name('getCompanyDomain');
 //        //Project
 
         Route::get('/project', [ProjectController::class, 'index'])->name('project');
-        Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
+     //   Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
         Route::delete('/project/{id}', [ProjectController::class, 'projectdestroy'])->name('project.destroy');
      //   Route::post('/project', [ProjectController::class, 'storeprojectsg'])->name('project.securitygroup.store');
         Route::post('/submitproject', [ProjectController::class, 'submitproject'])->name('project.submit');
