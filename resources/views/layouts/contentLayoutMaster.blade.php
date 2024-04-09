@@ -33,7 +33,6 @@ $configData = Helper::applClasses();
 
 
 </head>
-
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->

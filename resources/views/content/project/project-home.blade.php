@@ -47,18 +47,18 @@
             ><i data-feather="loader"></i> Review</a
             >
         </li>
-        <li class="nav-item">
-            <a
-                class="nav-link"
-                id="approve-tab"
-                data-bs-toggle="tab"
-                href="#"
-                aria-controls="approve"
-                role="tab"
-                aria-selected="false"
-            ><i data-feather="user"></i> Approve</a
-            >
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a--}}
+{{--                class="nav-link"--}}
+{{--                id="approve-tab"--}}
+{{--                data-bs-toggle="tab"--}}
+{{--                href="#"--}}
+{{--                aria-controls="approve"--}}
+{{--                role="tab"--}}
+{{--                aria-selected="false"--}}
+{{--            ><i data-feather="user"></i> Approve</a--}}
+{{--            >--}}
+{{--        </li>--}}
         <li class="nav-item">
             <a
                 class="nav-link"
@@ -106,7 +106,7 @@
                     <th>Status</th>
                     <th>Name</th>
                     <th>Created by</th>
-                    <th>Created Date</th>
+                    <th>Price</th>
                     <th>Actions</th>
                 </tr>
                 </thead>

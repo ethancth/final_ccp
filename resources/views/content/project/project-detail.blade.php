@@ -43,7 +43,25 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h1>{{$project->projectstatus}} - {{$project->title}}  </h1>
+                <h1> {{$project->title}}
+                    @if($project->status==2  )
+                       -  Pending for Infra SA Team Approve
+
+                    @else
+                        @if($project->status==3 ||$project->status==4)
+                            @if($project->project_type =='new' && $project->status==3 )
+                                -  Pending for SA Head Approve
+                            @endif
+                                @if($project->project_type =='new' && $project->status==4 )
+                                    -  Pending for SE Team Approve
+                                @endif
+
+                                @if($project->project_type =='bau' && $project->status==3 )
+                                    -  Pending for BAU Team Approve
+                                @endif
+                         @endif
+                    @endif
+                </h1>
                 <h6>created by  {{$project->ownername->name}}</h6>
                 <hr class="mb-2" />
                 <div>
@@ -102,17 +120,17 @@
 <section class="invoice-list-wrapper">
   <div class="card">
     <div class="card-datatable table-responsive" id="ListTable">
-      <table class="invoice-list-table table">
+      <table class="project-server-table table" id="project-server-table">
         <thead>
           <tr>
-            <th></th>
+              <th class="cell-fit"><input type="checkbox"></th>
             <th>#</th>
+            <th><i data-feather="trending-up"></i></th>
             <th><i data-feather="trending-up"></i></th>
             <th>Server </th>
             <th>Compute</th>
             <th class="text-truncate">Service Application</th>
             <th>Cost</th>
-            <th>Invoice Status</th>
             <th class="cell-fit">Actions</th>
           </tr>
         </thead>
@@ -121,8 +139,11 @@
   </div>
 </section>
 
-@include('content/_partials/_modals/modal-create-app')
+{{--@include('content/_partials/_modals/modal-create-app')--}}
+    @livewire('create-server-modal', ['project' => $project]);
+{{--    @livewire('assign-infra', ['project' => $project]);--}}
 @include('content/_partials/_modals/modal-project-activity')
+@include('content/_partials/_modals/modal-project-assign-infra')
 @endsection
 
 @section('vendor-script')
@@ -144,7 +165,6 @@
 <script src="{{ asset(mix('vendors/js/extensions/nouislider.min.js')) }}"></script>
 
 <script src="{{ asset(mix('vendors/js/editors/quill/katex.min.js')) }}"></script>
-<script src="{{ asset(mix('vendors/js/editors/quill/highlight.min.js')) }}"></script>
 <script src="{{ asset(mix('vendors/js/editors/quill/quill.min.js')) }}"></script>
 
 <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
@@ -160,8 +180,46 @@
 
 @section('page-script')
 <script>
+
+
+
     $(function () {
         'use strict';
+
+
+        $(document).on('change', '.dt-checkboxes', function () {
+            var check_selected_value = [];
+            $('table#project-server-table tbody input[type="checkbox"].checkbox:checked').each(function () {
+                check_selected_value.push($(this).val());
+            });
+            if(check_selected_value.length){
+                $('.btn-assign-infra').prop('disabled', false);
+            }else{
+                $('.btn-assign-infra').prop('disabled', true);
+            }
+        });
+
+        $(document).on('change', '.swal-input', function () {
+
+            var checkbox_1 = document.getElementById("swal-input-1");
+            var checkbox_2 = document.getElementById("swal-input-2");
+
+            if (checkbox_1.checked && checkbox_2.checked) {
+                console.log('1z');
+
+
+                for(var elements = document.getElementsByClassName('swal2-confirm btn btn-primary btn-wal-confirm disabled'), i = 0, l = elements.length; l > i; i++) {
+                    elements[0].classList.remove("disabled");
+                }
+
+            }else{
+                for(var elements = document.getElementsByClassName('swal2-confirm btn btn-primary btn-wal-confirm'), i = 0, l = elements.length; l > i; i++) {
+                    elements[0].classList.add("disabled");
+                }
+            }
+
+        });
+
 
         var direction = 'ltr';
         if ($('html').data('textdirection') == 'rtl') {
@@ -537,7 +595,7 @@
 
 
         const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
-        var dtInvoiceTable = $('.invoice-list-table'),
+        var dtProjectServerTable = $('.project-server-table'),
             assetPath = '../../../app-assets/',
             invoicePreview = '/project',
             invoiceAdd = '/project',
@@ -679,10 +737,21 @@
         });
 
 
+        var isvisible=false;
+
+        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_reject_level_1'))
+            isvisible=true;
+        @endif
+
+
+
+
+
         // datatable
-        if (dtInvoiceTable.length) {
-            var dtInvoice = dtInvoiceTable.DataTable({
+        if (dtProjectServerTable.length) {
+            var dtInvoice = dtProjectServerTable.DataTable({
                     processing: true,
+                    select: true,
                 //ajax: assetPath + 'data/invoice-list.json', // JSON file to add data
                 ajax:'{{ route('project.show',$project->id) }}',
                 autoWidth: false,
@@ -702,13 +771,39 @@
                     {
                         // For Responsive
                         className: 'control',
-                        responsivePriority: 2,
-                        targets: 0
+                        responsivePriority: 0,
+                        visible:false,
+                        targets: 0,
+
                     },
                     {
-                        // Project ID
+                        // For Checkboxes
                         targets: 1,
+                        orderable: false,
+
+                        visible:isvisible,
                         width: '46px',
+                        responsivePriority: 3,
+                        render: function (data, type, full, meta) {
+
+                            return (
+                                '<div class="form-check "> <input class="form-check-input dt-checkboxes checkbox" type="checkbox" value='+full['id']+' id="checkbox' +
+                                data +
+                                '" /><label class="form-check-label" for="checkbox' +
+                                full['id'] +
+                                '"></label></div>'
+                            );
+                        },
+                        checkboxes: {
+                            selectAllRender:
+                                '<div class="form-check"> <input class="form-check-input dt-checkboxes" type="checkbox" value="" id="checkboxSelectAll" /><label class="form-check-label" for="checkboxSelectAll"></label></div>'
+                        }
+                    },
+
+                    {
+                        // Project ID
+                        targets: 2,
+
                         visible:false,
                         render: function (data, type, full, meta) {
                             var $invoiceId = full['id'];
@@ -719,7 +814,7 @@
                     },
                     {
                         // environment
-                        targets: 2,
+                        targets: 3,
                         width: '42px',
                         render: function (data, type, full, meta) {
                             var $invoiceStatus = full['environment'],
@@ -759,7 +854,7 @@
                     },
                     {
                         // Client name and Service
-                        targets: 3,
+                        targets: 4,
                         responsivePriority: 4,
                         width: '130px',
                         render: function (data, type, full, meta) {
@@ -806,7 +901,7 @@
                     },
                     {
                         // Total Invoice Amount
-                        targets: 4,
+                        targets: 5,
                         width: '120px',
                         render: function (data, type, full, meta) {
                             var $v_cpu = full['v_cpu'];
@@ -820,7 +915,7 @@
                     },
                     {
                         // Due Date
-                        targets: 5,
+                        targets: 6,
                         width: '130px',
                         render: function (data, type, full, meta) {
                              var $value = full['display_optional_sa'];
@@ -832,13 +927,13 @@
                             //     '</span>' +
                             //     moment($dueDate).format('DD MMM YYYY');
                             // $dueDate;
-                        
+
 
                             return $value;
                         }
                     },{
                         // Total Invoice Amount
-                        targets: 6,
+                        targets: 7,
                         width: '73px',
                         render: function (data, type, full, meta) {
                             var $total = full['price'];
@@ -860,10 +955,7 @@
                     //     }
                     // },
 
-                    {
-                        targets: 7,
-                        visible: false
-                    },
+
                     {
                         // Actions
                         targets: -1,
@@ -904,6 +996,10 @@
                         }
                     }
                 ],
+            select: {
+                style: 'os',
+                    selector: 'td:first-child'
+            },
                 order: [[1, 'desc']],
                 dom:
                     '<"row d-flex justify-content-between align-items-center m-1"' +
@@ -948,6 +1044,9 @@
                         }
                         //$('#addEditBookForm').trigger("reset");
                     },
+
+
+
 
                     {
                         text: 'Submit Project',
@@ -1026,6 +1125,36 @@
                         @if($project->status==2&&Auth::user()->hasPermissionTo('approver_reject_level_1'))
 
                     {
+                        text: 'Assign Infra',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-warning waves-effect waves-float waves-light btn-assign-infra ',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        attr: {
+                            'data-bs-toggle': 'modal',
+                            'data-bs-target': '#addNewInfra',
+                            'style':'margin-top:10px',
+                            'disabled':''
+                        },
+                        action: function (){
+                            var selectedValues = [];
+                            $('table#project-server-table tbody input[type="checkbox"].checkbox:checked').each(function () {
+                                selectedValues.push($(this).val());
+                            });
+                            console.log(selectedValues.length);
+                            if(selectedValues.length){
+                                document.getElementById("text_select_server").value = selectedValues;
+                            }
+
+
+
+
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },
+
+                    {
                         text: 'Approve Project',
                         //className: 'btn btn-primary btn-add-record ms-2',
                         className: 'btn btn-success waves-effect waves-float waves-light',
@@ -1043,47 +1172,84 @@
                             'style':'margin-top:10px'
                         },
                         action: function (){
-                            Swal.fire({
-                                title: 'Are you sure?',
-                                text: "Approve this project!",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonText: 'Yes, Approve it!',
-                                customClass: {
-                                    confirmButton: 'btn btn-primary',
-                                    cancelButton: 'btn btn-outline-danger ms-1'
-                                },
-                                buttonsStyling: false
-                            }).then(function (result) {
-                                if (result.value) {
-                                    var $projectid={{$project->id}};
-                                    $.ajax({
-                                        type:"POST",
-                                        url: "{{ route('project.approve') }}",
-                                        data: { id: $projectid },
-                                        dataType: 'json',
-                                        success: function(res){
-                                            Swal.fire({
 
-                                                icon: 'success',
-                                                title: 'Approved!',
-                                                text: 'This Project has been Approved!.',
-                                                customClass: {
-                                                    confirmButton: 'btn btn-success'
-                                                }
-                                            })
-                                            window.location.reload();
-                                        }
-                                    })
 
-                                }
-                            });
+
+                            var $projectid={{$project->id}};
+                                $.ajax({
+                                    type:"post",
+                                    url: "{{ route('project.check.status') }}",
+                                    data: { id: $projectid },
+                                    dataType: 'json',
+                                    success: function(res){
+
+                                       var project_status=res;
+
+
+
+                            if(project_status==0) {
+
+                                Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: "Approve this project!",
+                                    icon: 'warning',
+                                    html:
+                                        '<input type="checkbox" id="swal-input-1"  class="swal-input" name="workordercheck" value="1"> <label  class="ml-2" for="swal-input1"> Work Order</label><br/>' +
+                                        '<input type="checkbox" id="swal-input-2" class="swal-input"  name="licensecheck" value="1"> <label  class="ml-2" for="swal-input2"> License</label>',
+
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Yes, Approve it!',
+                                    customClass: {
+                                        confirmButton: 'btn btn-primary btn-wal-confirm disabled',
+                                        cancelButton: 'btn btn-outline-danger ms-1'
+                                    },
+                                    buttonsStyling: false,
+                                }).then(function (result) {
+                                    if (result.value) {
+                                        var $projectid = {{$project->id}};
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "{{ route('project.approve') }}",
+                                            data: {id: $projectid},
+                                            dataType: 'json',
+                                            success: function (res) {
+                                                Swal.fire({
+
+                                                    icon: 'success',
+                                                    title: 'Approved!',
+                                                    text: 'This Project has been Approved!.',
+                                                    customClass: {
+                                                        confirmButton: 'btn btn-success'
+                                                    }
+                                                })
+                                                window.location.reload();
+                                            }
+                                        })
+
+                                    }
+                                });
+                            }else{
+                                Swal.fire({
+
+                                    icon: 'warning',
+                                    title: 'Review Server Infra',
+                                    text: 'Assign env/tier before approve it',
+                                    customClass: {
+                                        confirmButton: 'btn btn-success'
+                                    }
+                                })
+                            }
+
+
+                        }
+                    })
+
                         }
                         //$('#addEditBookForm').trigger("reset");
                     },{
                         text: 'Reject Project',
                         //className: 'btn btn-primary btn-add-record ms-2',
-                        className: 'btn btn-warning waves-effect waves-float waves-light',
+                        className: 'btn btn-danger waves-effect waves-float waves-light',
                         // action: function (e, dt, button, config) {
                         //     window.location = invoiceAdd;
                         // }
@@ -1255,6 +1421,8 @@
 
 
                 ],
+
+
                 // For responsive popup
                 responsive: {
                     details: {
@@ -1318,6 +1486,7 @@
                 }
             });
         }
+
     });
 
 </script>

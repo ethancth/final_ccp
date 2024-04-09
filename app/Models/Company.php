@@ -64,6 +64,17 @@ class Company extends Model
         $this->teamlead()->detach($user_ids);
     }
 
+
+    public function selectenvform()
+    {
+        return $this->hasMany(Environment::class,'company_id','id')->where('name','!=','Default');
+    }
+
+    public function selecttierform()
+    {
+        return $this->hasMany(Tier::class,'company_id','id')->where('name','!=','Default');;
+    }
+
     public function envform()
     {
         return $this->hasMany(Environment::class,'company_id','id');

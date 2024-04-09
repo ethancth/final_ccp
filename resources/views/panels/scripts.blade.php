@@ -1,4 +1,5 @@
 <!-- BEGIN: Vendor JS-->
+@livewireScripts
 <script src="{{ asset(mix('vendors/js/vendors.min.js')) }}"></script>
 <!-- BEGIN Vendor JS-->
 <!-- BEGIN: Page Vendor JS-->

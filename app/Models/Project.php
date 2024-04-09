@@ -117,7 +117,7 @@ class Project extends Model
 
     public function scopeProjectReview($query)
     {
-        return $query->where('status', '2');
+        return $query->where('status', '2')->orwhere('status', '3')->orwhere('status', '4');
     }
 
     public function scopeProjectApprove($query)

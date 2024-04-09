@@ -71,6 +71,19 @@ class ProjectController extends Controller
         $project = Project::where('id', $id)->delete();
     }
 
+    public function project_check_status(Request $request)
+    {
+        $data=ProjectServer::where('is_delete','=',0)->where('project_id','=',$request->id)->where('display_env','=','Default')->orwhere('display_tier','=','Default')->count();
+        if($data){
+
+            return true;
+        }else{
+            return 0;
+        }
+
+
+    }
+
     public function asset(Request $request,Project $project)
     {
 
@@ -106,6 +119,7 @@ class ProjectController extends Controller
 
         return view('/content/project/asset', ['pageConfigs' => $pageConfigs,'project' => $project]);
     }
+
 
     public function sg(Project $project, Request $request){
 
@@ -647,7 +661,7 @@ class ProjectController extends Controller
         }
         $isprojectdropdown=true;
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
+            ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title]
         ];
         return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
@@ -782,6 +796,36 @@ class ProjectController extends Controller
         return redirect()->route('project.show', $request->project_id)->with('success', 'Success！');
 
 
+    }
+
+
+    public function update_server_infra(Request $request)
+    {
+
+        $array_server = explode(',', $request->selected_server);
+
+        $find_tier=Tier::find($request->tier);
+        $find_env=Environment::find($request->environment);
+
+        foreach ($array_server as $record){
+
+            ProjectServer::updateOrCreate(
+                [
+                    'id' => $record
+                ],
+                [
+
+                    'environment' => $request->environment,
+                    'tier' => $request->tier,
+
+                    'display_env' => $find_env->display_name,
+                    'display_tier' => $find_tier->display_name,
+
+
+//                    'updated_by' => Auth::id(),
+                ]);
+        }
+        return redirect()->route('project.show', $request->selected_project_id)->with('success', 'Success！');
     }
 
     public function edit(Request $request)

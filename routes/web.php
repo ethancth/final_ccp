@@ -47,6 +47,8 @@ Route::group(['middleware' => ['permission:approver_reject_level_1']], function 
 
     Route::post('/approveproject', [ProjectController::class, 'approveproject'])->name('project.approve');
     Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
+    Route::post('/project-server-update-infra', [ProjectController::class, 'update_server_infra'])->name('project.server.update.infra');
+
 });
 
 
@@ -62,6 +64,11 @@ Route::group(['middleware' => ['auth', 'verified']],
     function () {
 // Route Dashboards
 
+
+        //temporary permission lv1
+
+
+        //endtemporary permission lv1
 
 
         Route::get('/', [ProjectController::class, 'index'])->name('dashboard');
@@ -162,7 +169,9 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('getCompanyDomain', [\App\Http\Controllers\SearchController::class, 'getCompanyDomain'])->name('getCompanyDomain');
 //        //Project
 
-        Route::get('/project', [ProjectController::class, 'index'])->name('project');
+        Route::get('/project', [ProjectController::class, 'index'])->name('project.show');
+        Route::post('/project_check_status', [ProjectController::class, 'project_check_status'])->name('project.check.status');
+        Route::get('/projectjson', [ProjectController::class, 'index'])->name('project');
      //   Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
         Route::delete('/project/{id}', [ProjectController::class, 'projectdestroy'])->name('project.destroy');
      //   Route::post('/project', [ProjectController::class, 'storeprojectsg'])->name('project.securitygroup.store');
@@ -172,6 +181,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::post('/projectsg/security-group/store', [ProjectController::class, 'storeprojectsg'])->name('project.securitygroup.store');
         Route::get('/project/{project}/{slug?}', [ProjectController::class, 'show'])->name('project.show');
         Route::post('/projectserver', [ProjectController::class, 'storeserver'])->name('project.storeserver');
+
         Route::post('/editprojectserver', [ProjectController::class, 'edit'])->name('project.editserver');
         Route::post('/deleteprojectserver', [ProjectController::class, 'destroy'])->name('project.delete');
 
