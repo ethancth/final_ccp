@@ -25,7 +25,7 @@ class CompanyFormController extends Controller
         $data= Auth::user()->company->envform;
         $formtxt='Environment';
         if ($request->ajax()) {
-            $data = Auth::user()->company->envform;
+            $data = Auth::user()->company->selectenvform;
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
@@ -94,7 +94,7 @@ class CompanyFormController extends Controller
         $data= Auth::user()->company->tierform;
         $formtxt='Tier';
         if ($request->ajax()) {
-            $data = Auth::user()->company->tierform;
+            $data = Auth::user()->company->selecttierform;
             return Datatables::of($data)
 //                ->addColumn('action', function($row){
 //                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
@@ -358,8 +358,8 @@ class CompanyFormController extends Controller
     {
         $pageConfigs = ['pageHeader' => false,];
         $policyform= Auth::user()->company->policyform;
-        $envform=Auth::user()->company->envform;
-        $tierform=Auth::user()->company->tierform;
+        $envform=Auth::user()->company->selectenvform;
+        $tierform=Auth::user()->company->selecttierform;
         $osform=Auth::user()->company->osform;
         $saform=Auth::user()->company->saform;
 

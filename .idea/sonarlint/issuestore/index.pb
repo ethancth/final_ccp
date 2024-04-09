@@ -636,8 +636,6 @@ x
 Hresources/views/content/_partials/_modals/modal-create-project.blade.php,9/7/976f731ec074576ccf22c20f7b958e15f2218b1e
 n
 >database/migrations/2024_04_07_154648_add_field_on_project.php,9/f/9f1356b68723ca60bb720bfcd0e3fb258822c4cd
-^
-.app/Http/Controllers/CompanyFormController.php,3/b/3bd21cdab2387994b74de14bf936e4e563133f65
 Z
 *resources/data/menu-data/verticalMenu.json,d/4/d48f38ab8df80d77e0df39ed4252c436f360f285
 _
