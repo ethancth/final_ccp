@@ -39,9 +39,9 @@ class CreateProject extends Component
         //Add Data into Post table Data
 
         if($this->is_bau_project){
-            $this->is_bau_project='BAU';
+            $this->is_bau_project='bau';
         }else{
-            $this->is_bau_project='NEW';
+            $this->is_bau_project='new';
         }
 
         $project =Project::create([
