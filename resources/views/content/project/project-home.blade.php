@@ -176,6 +176,12 @@
                     'bau': { title: 'Bau', class: 'bg-primary' },
                     'new': { title: 'New', class: 'bg-primary' },
                 },
+
+                projectstatusObj = {
+                    'bau': { title: 'Bau', class: 'bg-primary' },
+                    'new': { title: 'New', class: 'bg-primary' },
+                },
+
                 projectHome='project/';
 
             if ($('body').attr('data-framework') === 'laravel') {
@@ -252,9 +258,9 @@
                                 var $type = full['project_type'];
                                 // Creates full output for row
                                 var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>  - '+   '<span class="badge rounded-pill ' +
-                                    statusObj[$type].class +
+                                    projectstatusObj[$type].class +
                                     '" text-capitalized>' +
-                                    statusObj[$type].title +
+                                    projectstatusObj[$type].title +
                                     '</span>';
                                 return $rowOutput;
                             }

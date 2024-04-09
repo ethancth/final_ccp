@@ -542,8 +542,6 @@ A
 0resources/views/content/tenant/profile.blade.php,4/1/413ffdaecfac2cd76966777f8af124c72063ff95
 C
 app/Http/Kernel.php,4/0/405f423e61f666bcedb754ae8befdce9e746176e
-C
-app/Models/User.php,a/9/a90f2e50cb06863b54effced365aa5f1fe7d9c88
 [
 +resources/views/content/user/home.blade.php,5/e/5e014ad44d980814dd6f9ff5775865704240c60a
 E
