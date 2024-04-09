@@ -63,13 +63,13 @@ class Project extends Model
             return 'Draft';
         }
         if($this->status==2){
-            return 'Review';
+            return 'Review-lv1';
         }
         if($this->status==3){
-            return 'Approve';
+            return 'Review-lv2';
         }
         if($this->status==4){
-            return 'In-Provisioning';
+            return 'Review-lv3';
         }
         if($this->status==5){
             return 'Complete';
