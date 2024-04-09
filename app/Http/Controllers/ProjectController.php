@@ -73,10 +73,11 @@ class ProjectController extends Controller
 
     public function project_check_status(Request $request)
     {
-        $data=ProjectServer::where('is_delete','=',0)->where('project_id','=',$request->id)->where('display_env','=','Default')->orwhere('display_tier','=','Default')->count();
+        $data=ProjectServer::where('is_delete','=',0)->where('project_id','=',$request->id)->where('display_env','=','Default')->where('display_tier','=','Default')->count();
+
         if($data){
 
-            return true;
+            return 1;
         }else{
             return 0;
         }
@@ -809,7 +810,7 @@ class ProjectController extends Controller
 
         foreach ($array_server as $record){
 
-            ProjectServer::updateOrCreate(
+           $update= ProjectServer::updateOrCreate(
                 [
                     'id' => $record
                 ],
@@ -824,6 +825,7 @@ class ProjectController extends Controller
 
 //                    'updated_by' => Auth::id(),
                 ]);
+            dd($update);
         }
         return redirect()->route('project.show', $request->selected_project_id)->with('success', 'Success！');
     }
