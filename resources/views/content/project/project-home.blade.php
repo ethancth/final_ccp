@@ -257,7 +257,6 @@
                                 var $status_title = full['title'];
                                 var $type = full['project_type'];
                                 // Creates full output for row
-                                console.log($type);
                                 var $rowOutput = '<a class="fw-bold" href="' + projectHome +$status + '"> ' + $status_title + '</a>  - '+   '<span class="badge rounded-pill ' +
                                     projectstatusObj[$type].class +
                                     '" text-capitalized>' +
