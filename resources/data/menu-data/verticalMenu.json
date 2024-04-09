@@ -13,7 +13,6 @@
       {"url":"management-tier","name":"Tiers","icon":"grid","slug":"management_tier"},
       {"url":"management-os","name":"Operating System","icon":"grid","slug":"management_os"},
       {"url":"management-service-application","name":"Application Services","icon":"grid","slug":"management_sa"},
-      {"url":"management-cost","name":"Cost Form","icon":"grid","slug":"management_cost"},
-      {"url":"management-policy-form","name":"Policy Form","icon":"grid","slug":"management_policyform"}
+      {"url":"management-cost","name":"Cost Form","icon":"grid","slug":"management_cost"}
   ]
 }
