@@ -825,7 +825,6 @@ class ProjectController extends Controller
 
 //                    'updated_by' => Auth::id(),
                 ]);
-            dd($update);
         }
         return redirect()->route('project.show', $request->selected_project_id)->with('success', 'Success！');
     }
