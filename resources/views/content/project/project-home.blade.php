@@ -169,9 +169,9 @@
                 dt_project_index,
                 statusObj = {
                     1: { title: 'Draft', class: 'badge-light-secondary' },
-                    2: { title: 'Review', class: 'badge-light-warning' },
-                    3: { title: 'Approve', class: 'badge-light-primary' },
-                    4: { title: 'In-Provisioning', class: 'badge-light-info' },
+                    2: { title: 'Review-lv1', class: 'badge-light-warning' },
+                    3: { title: 'Review-lv2', class: 'badge-light-primary' },
+                    4: { title: 'Review-lv3', class: 'badge-light-info' },
                     5: { title: 'Complete', class: 'badge-light-success' },
                     'bau': { title: 'Bau', class: 'bg-primary' },
                     'new': { title: 'New', class: 'bg-primary' },
