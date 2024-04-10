@@ -39,13 +39,14 @@ class PermissionSeeder extends Seeder
         $role3 = Role::create(['name' => 'Approver_lv_2']);
         $role3->givePermissionTo('approver_level_2');
 
-        $role4 = Role::create(['name' => 'Approver_lv_3']);
-        $role4->givePermissionTo('approver_level_3');
-
-        $role5 = Role::create(['name' => 'Bau_approver']);
-        $role5->givePermissionTo('approver_bau_level_3');
-
         $role4 = Role::create(['name' => 'Admin']);
         $role4->givePermissionTo('management');
+
+        $role5 = Role::create(['name' => 'Approver_lv_3']);
+        $role5->givePermissionTo('approver_level_3');
+
+        $role6 = Role::create(['name' => 'Bau_approver']);
+        $role6->givePermissionTo('approver_bau_level_3');
+
     }
 }
