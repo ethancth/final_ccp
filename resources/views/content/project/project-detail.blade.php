@@ -739,7 +739,7 @@
 
         var isvisible=false;
 
-        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_reject_level_1'))
+        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_level_1'))
             isvisible=true;
         @endif
 
@@ -1122,7 +1122,7 @@
                     @endif
 
 
-                        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_reject_level_1'))
+                        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_level_1'))
 
                     {
                         text: 'Assign Infra',
@@ -1304,7 +1304,7 @@
                     },
                         @endif
 
-                        @if($project->status==3&&Auth::user()->hasPermissionTo('approver_reject_level_2'))
+                        @if($project->status==3&&Auth::user()->hasPermissionTo('approver_level_2'))
 
                     {
                         text: 'Approve Project',
