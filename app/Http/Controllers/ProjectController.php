@@ -43,7 +43,7 @@ class ProjectController extends Controller
 
         if ($request->ajax()) {
 
-            if (Auth::user()->hasPermissionTo('approver_reject_level_1' )||Auth::user()->hasPermissionTo('approver_reject_level_2' ) ) {
+            if (Auth::user()->hasPermissionTo('approver_level_1' )||Auth::user()->hasPermissionTo('approver_level_2' ) ) {
                 $data = $project->withStatus($request->status)
                     ->where('company_id','=',Auth::user()->company_id)
                     ->get();

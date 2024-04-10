@@ -42,7 +42,7 @@ Route::group(['middleware' => ['role:Admin']], function () {
 });
 
 
-Route::group(['middleware' => ['permission:approver_reject_level_1']], function () {
+Route::group(['middleware' => ['permission:approver_level_1']], function () {
     // Routes accessible only to users with the 'admin' role
 
     Route::post('/approveproject', [ProjectController::class, 'approveproject'])->name('project.approve');
@@ -52,7 +52,7 @@ Route::group(['middleware' => ['permission:approver_reject_level_1']], function 
 });
 
 
-Route::group(['middleware' => ['permission:approver_reject_level_2']], function () {
+Route::group(['middleware' => ['permission:approver_level_2']], function () {
     // Routes accessible only to users with the 'admin' role
 
     Route::post('/approveprojectl2', [ProjectController::class, 'approveprojectl2'])->name('project.approve.lv2');
