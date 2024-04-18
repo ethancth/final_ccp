@@ -52,6 +52,7 @@ Route::group(['middleware' => ['permission:approver_level_1']], function () {
 });
 
 
+
 Route::group(['middleware' => ['permission:approver_level_2']], function () {
     // Routes accessible only to users with the 'admin' role
 
@@ -177,9 +178,9 @@ Route::group(['middleware' => ['auth', 'verified']],
      //   Route::post('/project', [ProjectController::class, 'storeprojectsg'])->name('project.securitygroup.store');
         Route::post('/submitproject', [ProjectController::class, 'submitproject'])->name('project.submit');
 
-
-        Route::post('/projectsg/security-group/store', [ProjectController::class, 'storeprojectsg'])->name('project.securitygroup.store');
         Route::get('/project/{project}/{slug?}', [ProjectController::class, 'show'])->name('project.show');
+        Route::get('/project/{project}/{slug?}/document', [ProjectController::class,'project_document'])->name('project.document');
+
         Route::post('/projectserver', [ProjectController::class, 'storeserver'])->name('project.storeserver');
 
         Route::post('/editprojectserver', [ProjectController::class, 'edit'])->name('project.editserver');
@@ -187,7 +188,6 @@ Route::group(['middleware' => ['auth', 'verified']],
 
 
 
-        Route::get('asset/project/{project}/{slug?}', [ProjectController::class, 'assetshow'])->name('project.asset.show');
 
         Route::post('read_content', [DemoController::class, 'demo'])->name('demo');
         Route::get('read_available_service', [DemoController::class, 'getservice'])->name('getservice');

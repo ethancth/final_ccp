@@ -15,12 +15,29 @@
 @section('content')
     <div class="auth-wrapper auth-cover">
         <div class="auth-inner row m-0">
-            <!-- Brand logo-->
-    {{--            <a class="brand-logo" href="#">--}}
-    {{--             --}}
-    {{--                <h2 class="brand-text text-primary ms-1">{{env('APP_NAME')}}</h2>--}}
-    {{--            </a>--}}
-            <!-- /Brand logo-->
+            <a class="brand-logo" href="/">
+                <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1221 1222"  height="28">
+                    <title>cimb-ar21-230322-1-pdf-svg</title>
+                    <defs>
+                        <clipPath clipPathUnits="userSpaceOnUse" id="cp1">
+                            <path d="m-1439.64-4917.85h21984.31v31054.64h-21984.31z"/>
+                        </clipPath>
+                    </defs>
+                    <style>
+                        .s0 { fill: #790008 }
+                        .s1 { fill: #ffffff }
+                        .s2 { fill: #ed1d24 }
+                    </style>
+                    <g id="Clip-Path: Page 1" clip-path="url(#cp1)">
+                        <g id="Page 1">
+                            <path id="Path 293" class="s0" d="m0.1 0.4h1220.2v1220.8h-1220.2z"/>
+                            <path id="Path 294" class="s1" d="m1100.3 610.8h-647.9l-288-379.9h649.8z"/>
+                            <path id="Path 295" class="s2" d="m814.2 990.6h-649.8l288-379.8h647.9z"/>
+                        </g>
+                    </g>
+                </svg>
+                <h2 class="brand-text text-primary ms-1">{{env('APP_NAME')}}</h2>
+            </a>
 
             <!-- Left Text-->
             <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">

@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             $table->string('project_type');
+            $table->boolean('capacity_check')->default(false);
+            $table->string('capacity_note')->nullable();
+            $table->boolean('license_check')->default(false);
+            $table->string('license_note')->nullable();
+            $table->boolean('work_order_check')->default(false);
+            $table->string('work_order_note')->nullable();
             //
         });
     }
@@ -28,7 +34,13 @@ return new class extends Migration
     {
         Schema::table('projects', function (Blueprint $table) {
             //
-            $table->string('project_type');
+            $table->dropColumn('project_type');
+            $table->dropColumn('capacity_check');
+            $table->dropColumn('capacity_note');
+            $table->dropColumn('license_check');
+            $table->dropColumn('license_note');
+            $table->dropColumn('work_order_check');
+            $table->dropColumn('work_order_note');
         });
     }
 };

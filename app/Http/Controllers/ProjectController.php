@@ -28,6 +28,26 @@ class ProjectController extends Controller
 {
     //
 
+    public function project_document(Request $request, Project $project)
+    {
+
+        if(request()->path()=='/'){
+            return redirect('/project', 301);
+        }
+
+        $pageConfigs = ['pageHeader' =>true,'layoutWidth' => 'full'];
+        $breadcrumbs = [
+            ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title,'link'=>'project/'.$project->id],['name' => 'Document']
+        ];
+        //$project= User::find(Auth::id())->project;
+
+
+
+
+        return view('/content/project/project-document', ['pageConfigs' => $pageConfigs,'project' => $project,'breadcrumbs'=>$breadcrumbs]);
+
+    }
+
     public function index(Request $request,Project $project)
     {
 
@@ -54,6 +74,7 @@ class ProjectController extends Controller
                     ->get();
             }
 
+
             return Datatables::of($data)
                 ->addColumn('owner_name', function(Project $project) {
                     return  $project->ownername->name;
@@ -74,12 +95,19 @@ class ProjectController extends Controller
     public function project_check_status(Request $request)
     {
         $data=ProjectServer::where('is_delete','=',0)->where('project_id','=',$request->id)->where('display_env','=','Default')->where('display_tier','=','Default')->count();
-
         if($data){
 
             return 1;
         }else{
-            return 0;
+
+            $check_project=Project::where('work_order_check','=',1)->where('capacity_check','=',1)->where('license_check','=',1)->whereRaw('LENGTH(license_note) > 4')->whereRaw('LENGTH(capacity_note) > 4')->whereRaw('LENGTH(work_order_note) > 4')->count();
+
+            if($check_project==0){
+                return 2;
+            }else{
+                return 0;
+            }
+
         }
 
 

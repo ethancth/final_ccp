@@ -1049,7 +1049,7 @@
 
 
                     {
-                        text: 'Submit Project',
+                        text: 'Submit',
                         //className: 'btn btn-primary btn-add-record ms-2',
                         className: 'btn btn-success waves-effect waves-float waves-light',
                         // action: function (e, dt, button, config) {
@@ -1068,6 +1068,9 @@
                         action: function () {
 
                             if ({{(count($project->server))}} > 0){
+
+                                // var currentUrl = window.location.href;
+                                // document.location.href = 'currentUrl'+'/document';
                                 Swal.fire({
                                     title: 'Are you sure? ',
                                     text: "Submit this project and get review!",
@@ -1152,6 +1155,24 @@
 
                         }
                         //$('#addEditBookForm').trigger("reset");
+                    },{
+                        text: 'Document',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-warning waves-effect waves-float waves-light btn-assign-infra ',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        attr: {
+                            'style':'margin-top:10px',
+                        },
+                        action: function (){
+                            var currentUrl = window.location.href;
+                            document.location.href = 'currentUrl'+'/document';
+
+
+
+                        }
+                        //$('#addEditBookForm').trigger("reset");
                     },
 
                     {
@@ -1186,6 +1207,30 @@
                                        var project_status=res;
 
 
+                                        if(project_status==1) {
+                                            Swal.fire({
+
+                                                icon: 'warning',
+                                                title: 'Review Server Infra',
+                                                text: 'Assign env/tier before approve it',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                        }
+
+
+                                        if(project_status==2) {
+                                            Swal.fire({
+
+                                                icon: 'warning',
+                                                title: 'Review Project Document',
+                                                text: 'review document before approve it',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                        }
 
                             if(project_status==0) {
 
@@ -1193,14 +1238,14 @@
                                     title: 'Are you sure?',
                                     text: "Approve this project!",
                                     icon: 'warning',
-                                    html:
-                                        '<input type="checkbox" id="swal-input-1"  class="swal-input" name="workordercheck" value="1"> <label  class="ml-2" for="swal-input1"> Work Order</label><br/>' +
-                                        '<input type="checkbox" id="swal-input-2" class="swal-input"  name="licensecheck" value="1"> <label  class="ml-2" for="swal-input2"> License</label>',
+                                    // html:
+                                    //     '<input type="checkbox" id="swal-input-1"  class="swal-input" name="workordercheck" value="1"> <label  class="ml-2" for="swal-input1"> Work Order</label><br/>' +
+                                    //     '<input type="checkbox" id="swal-input-2" class="swal-input"  name="licensecheck" value="1"> <label  class="ml-2" for="swal-input2"> License</label>',
 
                                     showCancelButton: true,
                                     confirmButtonText: 'Yes, Approve it!',
                                     customClass: {
-                                        confirmButton: 'btn btn-primary btn-wal-confirm disabled',
+                                        confirmButton: 'btn btn-primary btn-wal-confirm ',
                                         cancelButton: 'btn btn-outline-danger ms-1'
                                     },
                                     buttonsStyling: false,
@@ -1228,16 +1273,6 @@
 
                                     }
                                 });
-                            }else{
-                                Swal.fire({
-
-                                    icon: 'warning',
-                                    title: 'Review Server Infra',
-                                    text: 'Assign env/tier before approve it',
-                                    customClass: {
-                                        confirmButton: 'btn btn-success'
-                                    }
-                                })
                             }
 
 

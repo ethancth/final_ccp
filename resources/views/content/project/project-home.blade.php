@@ -115,7 +115,10 @@
     </div>
     <!--/ Permission Table -->
 
+
+
     @livewire('create-project');
+
 {{--    @include('content/_partials/_modals/modal-create-project')--}}
 @endsection
 
