@@ -107,7 +107,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::post('/management-department-delete', [DepartmentController::class, 'delete_department'])->name('department.delete');
 
         //Tier
-        Route::get('/management-tier', [CompanyFormController::class, 'tierform'])->name('management_tier');
+        Route::get('/management-cluster', [CompanyFormController::class, 'tierform'])->name('management_tier');
         Route::post('/management-tier', [CompanyFormController::class, 'tier_request'])->name('management.tier.store');
         Route::post('/management-tier-edit', [CompanyFormController::class, 'tier_edit'])->name('management.tier.edit');
         Route::post('/management-tier-delete', [CompanyFormController::class, 'tier_delete'])->name('management.tier.delete');

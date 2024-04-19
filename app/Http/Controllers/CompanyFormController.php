@@ -92,7 +92,7 @@ class CompanyFormController extends Controller
 
         $pageConfigs = ['pageHeader' => false,];
         $data= Auth::user()->company->tierform;
-        $formtxt='Tier';
+        $formtxt='Cluster';
         if ($request->ajax()) {
             $data = Auth::user()->company->selecttierform;
             return Datatables::of($data)
@@ -105,7 +105,7 @@ class CompanyFormController extends Controller
         }
 
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "management-tier", 'name' => "Tiers"]
+            ['link' => "/", 'name' => "Home"], ['link' => "management-tier", 'name' => "Cluster"]
         ];
 
         return view('/content/management/tier', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Tiers']);

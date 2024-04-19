@@ -402,8 +402,6 @@ j
 :database/migrations/2024_01_18_055008_add_field_on_env.php,7/d/7d44c2c3fd5ebd0b174f186ff6e8fc5f8e57a4b0
 N
 app/Models/OperatingSystem.php,3/8/3895e68db23f576fb32b4172850271fc52c5ee56
-<
-lang/en.json,e/4/e481363e06e379f1f31d21296d4c1ffd06d962c8
 B
 lang/fr/locale.php,0/8/08c8c59a75a771b14662ca9cbb09c6b2027daed8
 |
@@ -424,8 +422,6 @@ a
 1resources/views/content/management/tier.blade.php,5/1/51b8453d08875332bf72835a515e3fb5674d8f08
 p
 @resources/views/content/management/service_application.blade.php,f/2/f26a6f2667c6356b7a1f646744c159fd5608d936
-B
-lang/en/locale.php,7/c/7c46845a8dbe950db03fcc9491123661f82d7839
 Z
 *resources/js/scripts/pages/project-home.js,4/b/4b1aee153968ffb11849fae50355a92e5e359d36
 a

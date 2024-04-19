@@ -3,6 +3,7 @@
 return [
     "Application Services" => "Application Services",
     "Tiers" => "Tiers",
+    "Cluster" => "Cluster",
     "Environments" => "Environments",
     "Department" => "Departments",
     "Users" => "Users",

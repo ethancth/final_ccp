@@ -23,7 +23,7 @@ class PermissionSeeder extends Seeder
 
         // create permissions
         Permission::create(['name' => 'project']);
-        
+
         Permission::create(['name' => 'approver_level_1']);
         Permission::create(['name' => 'approver_level_2']);
         Permission::create(['name' => 'approver_level_3']);
