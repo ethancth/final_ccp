@@ -82,9 +82,9 @@ class CompanyObserver
             'status' => 1
         ]);
         Tier::create([
-            'name' => "Web",
-            'display_name' => "Web",
-            'display_description' => "Web - System Generate ",
+            'name' => "DMZ",
+            'display_name' => "DMZ",
+            'display_description' => "DMZ - System Generate ",
             'display_icon'=>"layout",
             'display_icon_colour'=>"info",
             'company_id'=>$company->id,
@@ -93,21 +93,32 @@ class CompanyObserver
         ]);
 
         Tier::create([
-            'name' => "App",
-            'display_name' => "App",
-            'display_description' => "App - System Generate ",
+            'name' => "Wintel",
+            'display_name' => "Wintel",
+            'display_description' => "Wintel - System Generate ",
             'display_icon'=>"package",
-            'display_icon_colour'=>"danger",
+            'display_icon_colour'=>"info",
             'company_id'=>$company->id,
             'is_default'=>1,
             'status' => 1
         ]);
         Tier::create([
             'name' => "Db",
-            'display_name' => "Database",
-            'display_description' => "Database - System Generate ",
+            'display_name' => "Db",
+            'display_description' => "Db - System Generate ",
             'display_icon'=>"database",
-            'display_icon_colour'=>"success",
+            'display_icon_colour'=>"info",
+            'company_id'=>$company->id,
+            'is_default'=>1,
+            'status' => 1
+        ]);
+
+        Tier::create([
+            'name' => "Unix",
+            'display_name' => "Unix",
+            'display_description' => "Unix - System Generate ",
+            'display_icon'=>"package",
+            'display_icon_colour'=>"info",
             'company_id'=>$company->id,
             'is_default'=>1,
             'status' => 1

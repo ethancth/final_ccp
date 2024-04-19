@@ -576,8 +576,6 @@ Ndatabase/migrations/2023_04_20_072339_create_project_security_groups_table.php
 Rdatabase/migrations/2023_05_15_081201_add_field_on__project_security_group_env.php,8/0/806f4a644df45b0f8caeb18a96a0d82578f128ac
 x
 Hdatabase/migrations/2023_08_16_083944_add_field_on_departmen_members.php,7/f/7fe401061ab3173e1b288c1d586db0ea3767ed28
-Q
-!app/Observers/CompanyObserver.php,7/b/7b588e884b72cd1b362f136adaa2cfa8a48423d2
 x
 Hresources/views/content/_partials/_modals/modal-create-project.blade.php,9/7/976f731ec074576ccf22c20f7b958e15f2218b1e
 _
