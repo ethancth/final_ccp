@@ -133,7 +133,7 @@ class ProjectController extends Controller
         if ($request->ajax()) {
             // dd($request);
             //$data = User::find(Auth::id())->project;
-            $data = $project->withStatus('complete')
+            $data = $project->withStatus('draft')
                 ->where('owner',Auth::id())
                 ->get();
             return Datatables::of($data)
@@ -697,9 +697,6 @@ class ProjectController extends Controller
 
     public function assetshow(Request $request,Project $project)
     {
-        if ( !empty($project->slug) && $project->slug != $request->slug) {
-            return redirect($project->assetlink(), 301);
-        }
 
         $pageConfigs = ['pageHeader' => true,];
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();

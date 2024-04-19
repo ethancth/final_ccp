@@ -247,6 +247,7 @@ Route::group(['middleware' => ['auth', 'verified']],
 
         //Asset ProjectAssetController
         Route::get('/asset-project', [ProjectController::class, 'asset'])->name('asset.project');
+        Route::get('/asset/project/{project}', [ProjectController::class, 'assetshow'])->name('project.asset.show');
 
         Route::post('/api/asset/project/firewall/new', [ProjectController::class, 'create_project_firewall'])->name('project.firewall.new');
         Route::get('/api/asset/project/firewall/edit', [ProjectController::class, 'get_project_firewall'])->name('project.firewall.edit');
