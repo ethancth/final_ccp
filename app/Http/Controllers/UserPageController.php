@@ -11,6 +11,7 @@ use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -20,13 +21,22 @@ use function PHPUnit\Framework\assertDirectoryDoesNotExist;
 class UserPageController extends Controller
 {
     //
+
+
     //TODO user custom form
     public function demo()
     {
-        return [
+
+        if(Auth::check()){
+            $current_theme=Auth::User()->theme;
+        }else{
+            $current_theme='light';
+        }
+
+            return [
 
             'mainLayoutType' => 'vertical', // Options[String]: vertical(default), horizontal
-            'theme' => 'light', // options[String]: 'light'(default), 'dark', 'bordered', 'semi-dark'
+            'theme' => $current_theme, // options[String]: 'light'(default), 'dark', 'bordered', 'semi-dark'
             'sidebarCollapsed' => false, // options[Boolean]: true, false(default) (warning:this option only applies to the vertical theme.)
             'navbarColor' => '', // options[String]: bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark (default: '' for #fff)
             'horizontalMenuType' => 'floating', // options[String]: floating(default) / static /sticky (Warning:this option only applies to the Horizontal theme.)

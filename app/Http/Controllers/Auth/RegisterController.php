@@ -9,6 +9,7 @@ use App\Models\Tenant;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -81,26 +82,31 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $_position=Roles::find(4);
+        if(env('APP_TENANT_ENABLE')){
+            $_position=Roles::find(4);
+            $input = [
+                'name'                  => $data['tenant'],
+                'domain'                => str::slug($data['tenant'],'-').' '.Str::uuid(),
+                'slug'                  => str::slug($data['tenant'],'-').' '.Str::uuid(),
+                'default_password'      => NULL,
+                'is_new_company'        => '0',
+                'master_id'        =>$newUser->id,
+            ];
+
+            $newCompany=Company::Create($input);
+
+            $new_tenant_input=  Tenant::create([
+                'user_id' =>  $newUser->id,
+                'action' =>  'User '.$newUser->id .' Create this',
+                'company_id' => $newCompany->id
+            ]);
+            $newUser->company_id=$newCompany->id;
+        }else{
+            $_position=Roles::find(1);
+            $newUser->company_id=1;
+        }
+
         $newUser->syncRoles($_position->name);
-        $input = [
-            'name'                  => $data['tenant'],
-            'domain'                => str::slug($data['tenant'],'-').' '.Str::uuid(),
-            'slug'                  => str::slug($data['tenant'],'-').' '.Str::uuid(),
-            'default_password'      => NULL,
-            'is_new_company'        => '0',
-            'master_id'        =>$newUser->id,
-
-        ];
-
-        $newCompany=Company::Create($input);
-
-        $new_tenant_input=  Tenant::create([
-            'user_id' =>  $newUser->id,
-            'action' =>  'User '.$newUser->id .' Create this',
-            'company_id' => $newCompany->id
-        ]);
-        $newUser->company_id=$newCompany->id;
         $newUser->save();
         return $newUser;
     }

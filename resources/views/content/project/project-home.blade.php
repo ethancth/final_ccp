@@ -117,7 +117,7 @@
 
 
 
-    @livewire('create-project');
+    @livewire('create-project')
 
 {{--    @include('content/_partials/_modals/modal-create-project')--}}
 @endsection
@@ -140,7 +140,7 @@
 
         window.addEventListener('swal:modal',event=>{
 
-            console.log(event);
+            // console.log(event);
             Swal.fire({
                 icon: 'success',
                 title: event.detail[0].title,
@@ -323,7 +323,9 @@
                         next: '&nbsp;'
                     },
                     // Buttons with Dropdown
-                    buttons: [
+                        buttons: [
+                    @if(Auth::user()->hasPermissionTo('project'))
+
                         {
                             text: 'Create Project',
                             className: 'add-new btn btn-primary mt-50',
@@ -336,7 +338,9 @@
                             }
                         },
 
-                    ],
+
+                    @endif
+                        ],
                     // For responsive popup
                     responsive: {
                         details: {

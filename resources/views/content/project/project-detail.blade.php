@@ -140,7 +140,7 @@
 </section>
 
 {{--@include('content/_partials/_modals/modal-create-app')--}}
-    @livewire('create-server-modal', ['project' => $project]);
+    @livewire('create-server-modal', ['project' => $project])
 {{--    @livewire('assign-infra', ['project' => $project]);--}}
 @include('content/_partials/_modals/modal-project-activity')
 @include('content/_partials/_modals/modal-project-assign-infra')
@@ -205,7 +205,6 @@
             var checkbox_2 = document.getElementById("swal-input-2");
 
             if (checkbox_1.checked && checkbox_2.checked) {
-                console.log('1z');
 
 
                 for(var elements = document.getElementsByClassName('swal2-confirm btn btn-primary btn-wal-confirm disabled'), i = 0, l = elements.length; l > i; i++) {
@@ -753,7 +752,7 @@
                     processing: true,
                     select: true,
                 //ajax: assetPath + 'data/invoice-list.json', // JSON file to add data
-                ajax:'{{ route('project.show',$project->id) }}',
+                ajax:'{{ route('project.show.json',$project->id) }}',
                 autoWidth: false,
                 columns: [
                     // columns according to JSON
@@ -1167,7 +1166,7 @@
                         },
                         action: function (){
                             var currentUrl = window.location.href;
-                            document.location.href = 'currentUrl'+'/document';
+                            document.location.href = currentUrl+'/document';
 
 
 

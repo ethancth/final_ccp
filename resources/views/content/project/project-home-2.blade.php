@@ -187,6 +187,7 @@
                             next: '&nbsp;'
                         },
                     // Buttons with Dropdown
+
                     buttons: [
                         {
                             text: 'Create New Project',

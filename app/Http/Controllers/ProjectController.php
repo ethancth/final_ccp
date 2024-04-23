@@ -664,9 +664,7 @@ class ProjectController extends Controller
 
     public function show(Request $request,Project $project)
     {
-        if ( !empty($project->slug) && $project->slug != $request->slug) {
-            return redirect($project->link(), 301);
-        }
+
 
        $pageConfigs = ['pageHeader' => true,];
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
@@ -695,20 +693,42 @@ class ProjectController extends Controller
         return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
 
-    public function assetshow(Request $request,Project $project)
+    public function project_policy(Project $project){
+
+        if ($project->owner == Auth::id()) {
+
+        } else {
+            return redirect()->to('/')->with('warning', 'Not Permission！')->send();
+
+        }
+    }
+
+    public function showjson(Request $request,Project $project)
     {
 
-        $pageConfigs = ['pageHeader' => true,];
+        if ( !empty($project->slug) && $project->slug != $request->slug) {
+            return redirect($project->link(), 301);
+        }
+
+        if (Auth::user()->hasPermissionTo('approver_level_1' )||Auth::user()->hasPermissionTo('approver_level_2' ) ) {
+
+        } elseif(Auth::user()->hasPermissionTo('approver_level_3' )){
+
+        }elseif(Auth::user()->hasPermissionTo('approver_bau_level_3' )){
+
+        }else{
+
+            $this->project_policy($project);
+        }
+       $pageConfigs = ['pageHeader' => true,];
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
-        // dd(Auth::user()->company->id);
-        $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
-        //$firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
-        //dd(Auth::user()->company->costprofile);
-        $costprofile=Auth::user()->company->costprofile;
-        $projectfirewall=$project->firewall;
-        $vcvm=ProjectServer::where('is_delete','=','0')->where('is_vm_provision','=','1')->get();
-        $projectsg=$project->sg->env;
-        $firewallservice=Auth::user()->company->firewallform;
+       // dd(Auth::user()->company->id);
+       $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
+      //  $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
+       //dd(Auth::user()->company->costprofile);
+       $costprofile=Auth::user()->company->costprofile;
+        $data =$project->server;
+       // dump($data);
         if ($request->ajax()) {
             $data =$project->server;
             //dd($data);
@@ -722,10 +742,11 @@ class ProjectController extends Controller
         }
         $isprojectdropdown=true;
         $breadcrumbs = [
-            ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title],['name' => $project->getProjectStatusAttribute()]
+            ['link' => "/", 'name' => "Home1"], ['link' => "project", 'name' => "Project"], ['name' => $project->title]
         ];
-        return view('content/project/asset-project-detail-backup', ['firewallservices'=>$firewallservice,'projectsgs'=>$projectsg,'vcvms'=>$vcvm,'pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'projectfirewall' => $projectfirewall,'firewallservice' => $firewallservice, 'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
+        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
+
 
     public function destroy(Request $request)
     {

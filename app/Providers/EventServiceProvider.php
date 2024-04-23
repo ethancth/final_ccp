@@ -45,6 +45,6 @@ class EventServiceProvider extends ServiceProvider
         Project::observe(ProjectObserver::class);
         ProjectServer::observe(ProjectServerObserver::class);
         Company::observe(CompanyObserver::class);
-        ServerFirewallRules::observe(ServerFirewallRulesObserver::class);
+//        ServerFirewallRules::observe(ServerFirewallRulesObserver::class);
     }
 }
