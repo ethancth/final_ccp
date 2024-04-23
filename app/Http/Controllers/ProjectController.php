@@ -664,7 +664,14 @@ class ProjectController extends Controller
 
     public function show(Request $request,Project $project)
     {
+        if ( !empty($project->slug) && $project->slug != $request->slug) {
+            return redirect($project->link(), 301);
+        }
 
+        if (Auth::user()->hasPermissionTo('project' ) )
+        {
+            $this->project_policy($project);
+        }
 
        $pageConfigs = ['pageHeader' => true,];
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
@@ -710,14 +717,8 @@ class ProjectController extends Controller
             return redirect($project->link(), 301);
         }
 
-        if (Auth::user()->hasPermissionTo('approver_level_1' )||Auth::user()->hasPermissionTo('approver_level_2' ) ) {
-
-        } elseif(Auth::user()->hasPermissionTo('approver_level_3' )){
-
-        }elseif(Auth::user()->hasPermissionTo('approver_bau_level_3' )){
-
-        }else{
-
+        if (Auth::user()->hasPermissionTo('project' ) )
+            {
             $this->project_policy($project);
         }
        $pageConfigs = ['pageHeader' => true,];

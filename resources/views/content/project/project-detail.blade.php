@@ -752,7 +752,7 @@
                     processing: true,
                     select: true,
                 //ajax: assetPath + 'data/invoice-list.json', // JSON file to add data
-                ajax:'{{ route('project.show.json',$project->id) }}',
+                ajax:'{{ route('project.show',$project->id) }}',
                 autoWidth: false,
                 columns: [
                     // columns according to JSON

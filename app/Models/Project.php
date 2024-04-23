@@ -51,7 +51,7 @@ class Project extends Model
     }
     public function link($params = [])
     {
-        return route('project.show.json', array_merge([$this->id,$this->slug], $params));
+        return route('project.show', array_merge([$this->id,$this->slug], $params));
     }
 
     public function assetlink($params = [])

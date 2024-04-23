@@ -146,7 +146,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::get('getCompanyDomain', [\App\Http\Controllers\SearchController::class, 'getCompanyDomain'])->name('getCompanyDomain');
 //        //Project
 
-        Route::get('/project', [ProjectController::class, 'index'])->name('project.show');
+        Route::get('/project', [ProjectController::class, 'index'])->name('project');
         Route::post('/project_check_status', [ProjectController::class, 'project_check_status'])->name('project.check.status');
         Route::get('/projectjson', [ProjectController::class, 'index'])->name('project');
      //   Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
@@ -155,7 +155,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::post('/submitproject', [ProjectController::class, 'submitproject'])->name('project.submit');
 
         Route::get('/project/{project}/{slug?}', [ProjectController::class, 'show'])->name('project.show');
-        Route::get('/project/{project}/{slug?}', [ProjectController::class, 'showjson'])->name('project.show.json');
+//        Route::get('/project/{project}/{slug?}', [ProjectController::class, 'showjson'])->name('project.show.json');
 
         Route::post('/projectserver', [ProjectController::class, 'storeserver'])->name('project.storeserver');
 
