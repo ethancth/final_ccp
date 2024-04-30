@@ -82,6 +82,8 @@ Route::group(['middleware' => ['role:Admin']], function () {
 
     //Cost Form
     Route::get('/management-cost', [CompanyFormController::class, 'costform'])->name('management_cost');
+    Route::get('/management-infra', [CompanyFormController::class, 'infraform'])->name('management_vra_setting');
+    Route::post('/management-infra', [CompanyFormController::class, 'infra_store'])->name('management.infra.store');
     Route::post('/management-costform', [CompanyFormController::class, 'costform_store'])->name('management.costform.store');
     Route::post('/management-company', [CompanyFormController::class, 'companyform_store'])->name('management.company.store');
 
@@ -89,6 +91,8 @@ Route::group(['middleware' => ['role:Admin']], function () {
     Route::get('/management-policy-form', [CompanyFormController::class, 'policyform'])->name('management_policyform');
     Route::post('/management-policy-form', [CompanyFormController::class, 'policyform_store'])->name('management_policyform.store');
     Route::delete('/management-policy-form', [CompanyFormController::class, 'policyform_destroy'])->name('management_policyform.destroy');
+
+    Route::get('/aria/api/token',[\App\Http\Controllers\AriaController::class,'trigger_workflow'])->name('aria.token');
 
 
 
@@ -116,6 +120,23 @@ Route::group(['middleware' => ['permission:approver_level_2']], function () {
     Route::post('/approveprojectl2', [ProjectController::class, 'approveprojectl2'])->name('project.approve.lv2');
     Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
 });
+
+
+Route::group(['middleware' => ['permission:approver_level_3']], function () {
+    // Routes accessible only to users with the 'admin' role
+
+    Route::post('/approveprojectl3', [ProjectController::class, 'approveprojectl3'])->name('project.approve.lv3');
+    Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
+});
+
+Route::group(['middleware' => ['permission:approver_bau_level_3']], function () {
+    // Routes accessible only to users with the 'admin' role
+
+    Route::post('/approveprojectl3', [ProjectController::class, 'approveprojectl3'])->name('project.approve.lv3');
+    Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
+});
+
+
 
 Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth', 'verified']],
@@ -167,6 +188,10 @@ Route::group(['middleware' => ['auth', 'verified']],
 
         Route::post('read_content', [DemoController::class, 'demo'])->name('demo');
         Route::get('read_available_service', [DemoController::class, 'getservice'])->name('getservice');
+        Route::get('filter_network', [DemoController::class, 'getnetworkbycluster'])->name('getnetworkbycluster');
+        Route::post('save_network', [ProjectController::class, 'store_network'])->name('store_network');
+        Route::get('management-network', [\App\Http\Controllers\NetworkController::class, 'show_network'])->name('show_network');
+        Route::post('sync_network', [\App\Http\Controllers\NetworkController::class, 'sync_network'])->name('sync_network');
 
 
         Route::post('get_security_group_member', [ProjectSecurityGroupController::class, 'getservice'])->name('get.psg.member');

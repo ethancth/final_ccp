@@ -1,0 +1,374 @@
+inputs:
+  VM_CPU:
+    type: integer
+    title: CPU
+    default: 4
+    minimum: 1
+    maximum: 64
+    encrypted: false
+  VM_MEM:
+    type: integer
+    title: MEMORY
+    default: 4096
+    minimum: 1024
+    maximum: 131072
+    encrypted: false
+  MachineName:
+    type: string
+    title: VM NAME
+  vmid:
+    type: string
+    title: VMID
+  projectid:
+    type: string
+    title: projectid
+  REQUESTOR:
+    type: string
+    title: 'REQUESTOR '
+    default: idmadmin
+  ENV:
+    type: string
+    title: ENV
+    default: PRODUCTION
+    enum:
+      - PRODUCTION
+      - DEVELOPMENT
+      - STAGING
+      - UAT
+      - POC
+  TIER:
+    type: string
+    title: TIER
+    default: APP
+    enum:
+      - WEB
+      - APP
+      - DB
+      - INF
+  DATACTR:
+    type: string
+    title: DATACTR
+    default: SGB
+    enum:
+      - SGB
+      - KPG
+      - DEV
+  NETWORK:
+    type: string
+    title: NETWORK
+    default: MEN
+    enum:
+      - MEN
+      - IOC
+  DATABASE:
+    type: string
+    title: DATABASE
+    default: NA
+    enum:
+      - MSSQL_2016
+      - ORACLE
+      - POSTGRESS
+      - NA
+  NETBACKUP:
+    type: string
+    default: 'YES'
+    enum:
+      - 'YES'
+      - 'NO'
+  LOADBALANCER:
+    type: string
+    title: LOADBALANCER
+    default: 'YES'
+    enum:
+      - 'YES'
+      - 'NO'
+  BMC:
+    type: string
+    title: BMC
+    default: 'NO'
+    enum:
+      - 'YES'
+      - 'NO'
+  MASTERSAM:
+    type: string
+    title: MASTERSAM
+    default: 'NO'
+    enum:
+      - 'YES'
+      - 'NO'
+  OS:
+    type: string
+    title: OS
+    default: WIN2019
+    enum:
+      - WIN2019
+      - WIN2016
+      - WIN2022
+  storagepath:
+    type: string
+    title: storagepath
+    default: 'no'
+  networkprofilename1:
+    type: string
+    title: networkprofilename1
+    default: SGB_INFRA_DEV_303
+    enum:
+      - SGB_INFRA_DEV_303
+      - SGB_DB_DEV_314
+      - SGB_DB_PROD_311
+      - SGB_INFRA_PROD_300
+      - SGB_MEN_ABS
+      - SGB_APP_DEV_NONLB_346
+      - SGB_APP_PROD_LB_336
+      - SGB_APP_PROD_NONLB_339
+      - SGB_IOC_BE_NONLB
+      - SGB_IOC_FE_NONLB
+      - SGB_IOC_BE_LB
+      - SGB_IOC_FE_LB
+      - SGB_IOC_DEV
+      - KPG_INFRA_DEV_303
+      - KPG_DB_DEV_314
+      - KPG_DB_PROD_311
+      - KPG_INFRA_PROD_300
+      - KPG_MEN_ABS
+      - KPG_APP_DEV_NONLB_346
+      - KPG_APP_PROD_LB_336
+      - KPG_APP_PROD_NONLB_339
+      - KPG_IOC_BE_NONLB
+      - KPG_IOC_FE_NONLB
+      - KPG_IOC_BE_LB
+      - KPG_IOC_FE_LB
+      - KPG_IOC_DEV
+      - SGB_IOC_ABS
+  networkprofilename2:
+    type: string
+    title: networkprofilename2
+    default: SGB_INFRA_DEV_303
+    enum:
+      - SGB_INFRA_DEV_303
+      - SGB_DB_DEV_314
+      - SGB_DB_PROD_311
+      - SGB_INFRA_PROD_300
+      - SGB_MEN_ABS
+      - SGB_APP_DEV_NONLB_346
+      - SGB_APP_PROD_LB_336
+      - SGB_APP_PROD_NONLB_339
+      - SGB_IOC_BE_NONLB
+      - SGB_IOC_FE_NONLB
+      - SGB_IOC_BE_LB
+      - SGB_IOC_FE_LB
+      - KPG_INFRA_DEV_303
+      - KPG_DB_DEV_314
+      - KPG_DB_PROD_311
+      - KPG_INFRA_PROD_300
+      - KPG_MEN_ABS
+      - KPG_APP_DEV_NONLB_346
+      - KPG_APP_PROD_LB_336
+      - KPG_APP_PROD_NONLB_339
+      - KPG_IOC_BE_NONLB
+      - KPG_IOC_FE_NONLB
+      - KPG_IOC_BE_LB
+      - KPG_IOC_FE_LB
+      - SGB_IOC_ABS
+  IMAGE:
+    type: string
+    enum:
+      - VRA_WIN_2016_MEN
+      - VRA_WIN_2016_MEN_KPG
+      - VRA_WIN_2019_MEN
+      - VRA_WIN_2019_MEN_KPG
+      - VRA_WIN_2016_DEV
+      - VRA_WIN_2019_DEV
+      - VRA_WIN_2022_MEN
+      - VRA_WIN_2022_DEV
+      - VRA_WIN_2022_MEN_KPG
+  additionaldisk:
+    type: number
+    title: additionaldisk
+    default: 1
+  sqlversion:
+    type: string
+    default: 'no'
+    title: sqlversion
+    enum:
+      - 'no'
+      - SQL2019SE
+      - SQL2019EE
+      - SQL2016SE
+      - SQL2016EE
+      - SQL2014SE
+      - SQL2014EE
+      - SQL2017SE
+      - SQL2017EE
+      - SQL2019DEV
+      - SQL2017DEV
+      - SQL2022DEV
+      - SQL20122SE
+      - SQL2022EE
+      - NA
+  location:
+    type: string
+    title: location
+    enum:
+      - location:SGB_MEN_DEV
+      - location:SGB_MEN_WIN
+      - location:SGB_IOC_WIN
+      - location:SGB_MEN_WIN_CLU
+      - location:SGB_MEN_MSSQL_DB_EE
+      - location:SGB_MEN_MSSQL_DB_SE
+      - location:KPG_MEN_MSSQL_DB_EE
+      - location:KPG_MEN_MSSQL_DB_SE
+      - location:KPG_MEN_DEV
+      - location:KPG_MEN_WIN
+      - location:KPG_IOC_WIN
+      - location:KPG_MEN_WIN_CLU
+  vmfolder:
+    type: string
+    title: Folder
+    default: Windows
+    enum:
+      - Linux
+      - Windows
+      - VRM
+  clonespec:
+    type: string
+    default: LOCAL
+    enum:
+      - LOCAL
+      - ISDDC
+  cp_total_disk:
+    type: string
+    default: '0'
+  cp_disk_size_1:
+    type: string
+    default: '0'
+  cp_disk_size_2:
+    type: string
+    default: '0'
+  cp_disk_size_3:
+    type: string
+    default: '0'
+  cp_disk_size_4:
+    type: string
+    default: '0'
+  cp_disk_size_5:
+    type: string
+    default: '0'
+  cp_disk_size_6:
+    type: string
+    default: '0'
+  cp_disk_size_7:
+    type: string
+    default: '0'
+  cp_disk_size_8:
+    type: string
+    default: '0'
+  cp_disk_size_9:
+    type: string
+    default: '0'
+  note:
+    type: string
+    default: temp_note
+  os_tag:
+    type: string
+    default: urn:vmomi:InventoryServiceTag:8ba4f2f0-3f4e-46f1-bc1d-c5f9c4eca31c:GLOBAL
+  site_tag:
+    type: string
+    default: urn:vmomi:InventoryServiceTag:8fb187be-98b9-4bab-bf3c-32524f45b2d6:GLOBAL
+  cluster_tag:
+    type: string
+    default: urn:vmomi:InventoryServiceTag:7fb05c8c-5ecb-4bc5-8efa-717512aa8854:GLOBAL
+  env_tag:
+    type: string
+    default: urn:vmomi:InventoryServiceTag:0fe145e9-ec7c-4a20-bb51-b4359e5dba0b:GLOBAL
+  db_tag:
+    type: string
+    default: 'null'
+  configurationfile:
+    type: string
+    title: configurationfile
+  network_ip_1:
+    type: string
+    title: Network IP 1
+  Network_1_gateway:
+    type: string
+    title: Network_1_gateway
+  Network_1_portgroup:
+    type: string
+    title: Network_1_portgroup
+resources:
+  vSphere__vCenter__Machine_1:
+    type: Cloud.vSphere.Machine
+    properties:
+      projectid: ${input.projectid}
+      totalMemoryMB: ${input.VM_MEM}
+      customizationSpec: ${input.clonespec}
+      Vmware_VirtualCenter_Folder: ${input.vmfolder}
+      attachedDisks: []
+      networks:
+        - tags: []
+          network: ${resource.Cloud_vSphere_Network_1.id}
+          assignment: static
+          assignIPv6Address: false
+          assignPublicIpAddress: false
+        - network: ${resource.Cloud_vSphere_Network_2.id}
+          assignIPv6Address: false
+          assignment: static
+          assignPublicIpAddress: false
+      hostname: ${input.MachineName}
+      linuxinput: Linux_inputs
+      imageRef: ${input.IMAGE}
+      cpuCount: ${input.VM_CPU}
+      CloneSpec: ${input.clonespec}
+      CP_REQ: ${input.REQUESTOR}
+      CP_HOSTNAME: ${input.MachineName}
+      CP_ENV: ${input.ENV}
+      CP_TIER: ${input.TIER}
+      CP_DATACTR: ${input.DATACTR}
+      CP_NETWORK: ${input.NETWORK}
+      CP_OS: ${input.OS}
+      CP_DATABASE: ${input.DATABASE}
+      CP_NETBACKUP: ${input.NETBACKUP}
+      CP_LB: ${input.LOADBALANCER}
+      CP_BMC: ${input.BMC}
+      CP_MASTERSAM: ${input.MASTERSAM}
+      CP_HDDFIELD: ${input.storagepath}
+      sqlversion: ${input.sqlversion}
+      vcenter_note: ${input.note}
+      configurationfile: ${input.configurationfile}
+      vm_os_tag: ${input.os_tag}
+      vm_site_tag: ${input.site_tag}
+      vm_cluster_tag: ${input.cluster_tag}
+      vm_env_tag: ${input.env_tag}
+      vm_db_tag: ${input.db_tag}
+      cp_disk_size_1: ${input.cp_disk_size_1}
+      cp_disk_size_2: ${input.cp_disk_size_2}
+      cp_disk_size_3: ${input.cp_disk_size_3}
+      cp_disk_size_4: ${input.cp_disk_size_4}
+      cp_disk_size_5: ${input.cp_disk_size_5}
+      cp_disk_size_6: ${input.cp_disk_size_6}
+      cp_disk_size_7: ${input.cp_disk_size_7}
+      cp_disk_size_8: ${input.cp_disk_size_8}
+      cp_disk_size_9: ${input.cp_disk_size_9}
+      cp_total_disk: ${input.cp_total_disk}
+      vmid: ${input.vmid}
+      constraints:
+        - tag: ${input.location}
+      name: ${input.MachineName}
+      cloudConfig:
+        runcmd:
+          - time >> /var/log/tet.txt
+  Cloud_vSphere_Network_1:
+    type: Cloud.vSphere.Network
+    properties:
+      networkType: existing
+      constraints:
+        - tag: ${input.networkprofilename1}
+        - tag: ${input.location}
+  Cloud_vSphere_Network_2:
+    type: Cloud.vSphere.Network
+    properties:
+      networkType: existing
+      constraints:
+        - tag: ${input.networkprofilename2}
+        - tag: ${input.location}

@@ -94,6 +94,19 @@
                         <div class="valid-feedback">Looks good!</div>
                         <div class="invalid-feedback">Please select colour label</div>
                     </div>
+                    <div class="mb-1">
+                        <label class="form-label" for="basic-default-password1">Workflow id</label>
+                        <input
+                            type="text"
+                            id="workflow_id"
+                            name="workflow_id"
+                            class="form-control"
+                            placeholder="vRA Workflow ID"
+                            minlength="16"
+                        />
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter your sentence.</div>
+                    </div>
 
 
                     <button type="submit" class="btn btn-primary">Submit</button>

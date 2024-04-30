@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\CostProfile;
 use App\Models\Environment;
 use App\Models\FormPolicy;
+use App\Models\InfraSetting;
 use App\Models\OperatingSystem;
 use App\Models\ServiceApplication;
 use App\Models\Tier;
@@ -209,6 +210,7 @@ class CompanyFormController extends Controller
                 'display_icon_colour' => $_icon_color,
                 'company_id' => Auth::user()->company_id,
                 'status' => $request->select_status,
+                'workflow_id'=>$request->workflow_id,
             ]);
         return redirect()->route('management_os')->with('success', 'Success！');
     }
@@ -309,6 +311,37 @@ class CompanyFormController extends Controller
         ];
         return view('/content/management/form', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'pagetitle' =>'Cost Profile','data' => $data]);
     }
+
+    public function infraform()
+    {
+        $pageConfigs = ['pageHeader' => false,];
+        $data= Auth::user()->company->infraform->first();
+        $breadcrumbs = [
+            ['link' => "/", 'name' => "Home"], ['link' => "management-cost", 'name' => "Infra"]
+        ];
+        return view('/content/management/infraform', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'pagetitle' =>'Infra Setting','data' => $data]);
+    }
+
+    public function infra_store(Request $request)
+    {
+
+        InfraSetting::updateOrCreate(
+            [
+                'id' => $request->form_id,
+                'company_id' => Auth()->user()->company_id,
+            ],
+            [
+                'vra_server' => $request->name,
+                'vra_domain' => $request->domain,
+                'vra_user_id' =>$request->vra_user_id,
+                'vra_credential' =>$request->vra_credential,
+                'network_workflow' =>$request->network_workflow,
+
+            ]);
+        return redirect()->route('management_vra_setting')->with('success', 'Success！');
+
+    }
+
 
     public function companyform_store(Request $request)
     {

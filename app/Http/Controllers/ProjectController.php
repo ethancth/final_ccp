@@ -13,8 +13,10 @@ use App\Models\ProjectSecurityGroupEnv;
 use App\Models\ProjectSecurityGroupEnvFirewall;
 use App\Models\ProjectSecurityGroupFirewall;
 use App\Models\ProjectServer;
+use App\Models\ProjectServerNetwork;
 use App\Models\Tier;
 use App\Models\User;
+use App\Models\VcNetwork;
 use App\Models\VcVirtualMachine;
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -48,6 +50,29 @@ class ProjectController extends Controller
 
     }
 
+
+    public function store_network(Request $request){
+
+        ProjectServerNetwork::where('server_id', '=', $request->form_server_id)->delete();
+        foreach($request->network_port_group as $value) {
+            $value['type'];
+            $value['ipaddress'];
+
+            ProjectServerNetwork::create(
+                [
+                    'server_id' => $request->form_server_id,
+                    'network_name' => $value['type'],
+                    'network_ip' => $value['ipaddress'],
+                    'created_by' => Auth::id(),
+
+                ]);
+
+        }
+
+
+
+        return back()->with('success', 'Success！');
+    }
     public function index(Request $request,Project $project)
     {
 
@@ -95,17 +120,18 @@ class ProjectController extends Controller
     public function project_check_status(Request $request)
     {
         $data=ProjectServer::where('is_delete','=',0)->where('project_id','=',$request->id)->where('display_env','=','Default')->where('display_tier','=','Default')->count();
+
         if($data){
 
             return 1;
         }else{
 
-            $check_project=Project::where('work_order_check','=',1)->where('capacity_check','=',1)->where('license_check','=',1)->whereRaw('LENGTH(license_note) > 4')->whereRaw('LENGTH(capacity_note) > 4')->whereRaw('LENGTH(work_order_note) > 4')->count();
+            $check_project=Project::where('work_order_check','=',1)->where('capacity_check','=',1)->where('license_check','=',1)->whereRaw('LENGTH(license_note) < 4')->whereRaw('LENGTH(capacity_note) < 4')->whereRaw('LENGTH(work_order_note) < 4')->count();
 
             if($check_project==0){
-                return 2;
-            }else{
                 return 0;
+            }else{
+                return 2;
             }
 
         }
@@ -629,7 +655,7 @@ class ProjectController extends Controller
     public function rejectproject(Request $request)
     {
         $project=Project::find($request->id);
-        if($project->status=='2'||$project->status=='3'){
+        if($project->status=='2'||$project->status=='3'||$project->status=='4'){
             $project->status = 1;
             $project->save();
         }
@@ -662,6 +688,18 @@ class ProjectController extends Controller
 
     }
 
+    public function approveprojectl3(Request $request)
+    {
+
+        $project = Project::find($request->id);
+        if ($project->status == '4') {
+            $project->status = 5;
+            $project->save();
+        }
+        return redirect()->to($project->link())->with('success', 'Project Approved！');
+
+    }
+
     public function show(Request $request,Project $project)
     {
         if ( !empty($project->slug) && $project->slug != $request->slug) {
@@ -674,6 +712,8 @@ class ProjectController extends Controller
         }
 
        $pageConfigs = ['pageHeader' => true,];
+        $available_network=VcNetwork::select('name')->distinct()->get();
+
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
        // dd(Auth::user()->company->id);
        $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
@@ -697,7 +737,7 @@ class ProjectController extends Controller
         $breadcrumbs = [
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title]
         ];
-        return view('content/project/project-detail', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
+        return view('content/project/project-detail', ['available_network'=>$available_network,'pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'isprojectdropdown' =>$isprojectdropdown,'forms'=>$form,'costprofile'=>$costprofile], compact('projectservers','project','costprofile'));
     }
 
     public function project_policy(Project $project){

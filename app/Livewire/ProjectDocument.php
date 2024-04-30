@@ -78,6 +78,13 @@ class ProjectDocument extends Component
 
             ]
         );
+
+        $this->dispatch('swal:modal',[
+            'type'=>'success',
+            'title'=>'Successfully Update Document',
+            'text'=>'',
+            'url'=>'/project/'.$this->project->id.'/'.$this->project->title,
+        ]);
             $_store_status='Updated';
 
     }

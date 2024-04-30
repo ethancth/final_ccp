@@ -24,12 +24,10 @@
                 <tr>
                     <th></th>
                     <th></th>
-                    <th>Value</th>
-                    <th>Display Name</th>
-                    <th>Cost</th>
+                    <th>Cluster</th>
+                    <th>Name</th>
+                    <th>Dv Switch</th>
                     <th>Publish</th>
-                    <th>Created Date</th>
-                    <th>Actions</th>
                 </tr>
                 </thead>
             </table>
@@ -37,7 +35,7 @@
     </div>
     <!--/ Permission Table -->
 
-    @include('content/_partials/_modals/modal-os-add-edit-form')
+{{--    @include('content/_partials/_modals/modal-os-add-edit-form')--}}
 @endsection
 
 @section('vendor-script')
@@ -98,39 +96,43 @@
                 });
             }
 
-            $('body').on('click', '.edit', function () {
-                var id = $(this).data('id');
+            $('body').on('click', '.sync-network', function () {
+
+                console.log('click');
                 $.ajax({
                     type:"POST",
-                    url: "{{ route('management.os.edit') }}",
-                    data: { id: id },
+                    url: "{{ route('sync_network') }}",
                     dataType: 'json',
                     success: function(res){
-                        var color=res.display_icon_colour;
-                        $('#modalsslideinform').modal('show');
-                        $('#form-label').text("Edit Record");
-                        $('#basic-addon-name').val(res.name);
-                        $('#form_id').val(res.id);
-                        $('#workflow_id').val(res.workflow_id);
-                        $('#basic-default-display-name').val(res.display_name);
-                        $('#basic-default-desc').val(res.display_description);
-                        //$('#basic-default-icon').val(res.display_icon);
-                        $('#select-os-platform').val(res.display_icon);
-                        $('#basic-default-cost').val(res.cost);
-                        $("#select-colour").val(color).change();
-                        $("#select-status").val(res.status).change();
+                        console.log(res);
+                        // var color=res.display_icon_colour;
+                        // $('#modalsslideinform').modal('show');
+                        // $('#form-label').text("Edit Record");
+                        // $('#basic-addon-name').val(res.name);
+                        // $('#form_id').val(res.id);
+                        // $('#basic-default-display-name').val(res.display_name);
+                        // $('#basic-default-desc').val(res.display_description);
+                        // //$('#basic-default-icon').val(res.display_icon);
+                        // $('#select-os-platform').val(res.display_icon);
+                        // $('#basic-default-cost').val(res.cost);
+                        // $("#select-colour").val(color).change();
+                        // $("#select-status").val(res.status).change();
                         // $('#code').val(res.code);
                         // $('#author').val(res.author);
                     }
                 });
-
             });
+            {{--$('body').on('click', '.edit', function () {--}}
+            {{--    var id = $(this).data('id');--}}
+
+
+            {{--});--}}
 
             // Users List datatable
             if (dataTableProjectIndex.length) {
                 dt_project_index = dataTableProjectIndex.DataTable({
 
-                    ajax: "{{ route('management_os') }}", // JSON file to add data
+                    ajax: "{{ route('show_network') }}", // JSON file to add data
                     columns: [
                         // columns according to JSON
                         { data: '' },
@@ -139,8 +141,6 @@
                         { data: 'display_name' },
                         { data: 'cost' },
                         { data: 'status' },
-                        { data: 'created_at' },
-                        { data: '' }
                     ],
                     columnDefs: [
                         {
@@ -165,7 +165,7 @@
                             width: '46px',
                             render: function (data, type, full, meta) {
                                 var $id = full['id'];
-                                var $status_title = full['name'];
+                                var $status_title = full['cluster'];
                                 // Creates full output for row
                                 var $rowOutput = '<a class="fw-bold edit" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-id="'+$id+'"> ' + $status_title + '</a>';
                                 return $rowOutput;
@@ -179,10 +179,14 @@
                             responsivePriority: 4,
                             render: function (data, type, full, meta) {
                                 var $name = full['display_name'],
-                                    $desc = full['display_description'],
+                                    $desc = full['vlanid'],
                                     $image = '',
                                     $images = full['display_icon']+".png",
                                     $colour = full['display_icon_colour'];
+
+                                if($desc.length>5){
+                                    $desc='';
+                                }
                                 var $id = full['id'];
                                 // if ($image) {
                                 //     // For Avatar image
@@ -204,17 +208,12 @@
                                 var $row_output =
                                     '<div class="d-flex justify-content-left align-items-center">' +
                                     '<div class="avatar-wrapper">' +
-                                    '<div class="avatar ' +
-                                    colorClass +
-                                    ' me-1">' +
-                                     $output +
-                                    '</div>' +
                                     '</div>' +
                                     '<div class="d-flex flex-column">' +
-                                    '<a href="#" class="user_name text-truncate text-body edit"  data-bs-toggle="tooltip" data-bs-placement="top" data-id="'+$id+'"><span class="fw-bolder">' +
+                                    '<a href="#" class="user_name text-truncate text-body"  data-bs-toggle="tooltip" data-bs-placement="top" data-id="'+$id+'"><span class="fw-bolder">' +
                                     $name +
                                     '</span></a>' +
-                                    '<small class="emp_post text-muted">' +
+                                    '<small class="emp_post text-muted"> V-Lan ' +
                                     $desc +
                                     '</small>' +
                                     '</div>' +
@@ -228,7 +227,7 @@
                             orderable: false,
                             render: function (data, type, full, meta) {
 
-                                var $status = full['cost'];
+                                var $status = full['dv_switch'];
 
                                 return (
                                     [$status]
@@ -252,35 +251,7 @@
                                 );
                             }
                         },
-                        {
-                            // Actions
-                            targets: -1,
-                            title: 'Actions',
-                            orderable: false,
-                            render: function (data, type, full, meta) {
 
-                                var $id = full['id'];
-                                if(full['is_default']){
-                                    return (
-
-                                        '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
-                                        feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                        '</a>'
-                                    );
-                                }else{
-                                    return (
-
-                                        '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
-                                        feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                        '</a>' +
-
-                                        '<button class="btn btn-sm btn-icon delete-record" data-id="'+$id+'">' +
-                                        feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
-                                        '</button>'
-                                    );
-                                }
-                            }
-                        }
                     ],
                     order: [[1, 'desc']],
                     dom:
@@ -305,17 +276,16 @@
                     // Buttons with Dropdown
                     buttons: [
                         {
-                            text: 'Create New {{$formtxt}}',
-                            className: 'add-new btn btn-primary mt-50',
+                            text: 'Sync {{$formtxt}}',
+                            className: 'sync-network btn btn-primary mt-50',
                             attr: {
-                                'data-bs-toggle': 'modal',
-                                'data-bs-target': '#modalsslideinform'
+
                             },
                             init: function (api, node, config) {
                                 $(node).removeClass('btn-secondary');
                             },
                             action: function (){
-                                $('#envform').trigger("reset");
+                                // $('#envform').trigger("reset");
                             },
                         },
 

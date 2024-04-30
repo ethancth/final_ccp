@@ -29,6 +29,7 @@ class Company extends Model
         return $this->hasManyThrough(User::class,Tenant::class,'company_id','id','id','user_id')->where('status','=',1);
     }
 
+
     public function teamleader()
     {
         return '';
@@ -93,6 +94,10 @@ class Company extends Model
     {
         return $this->hasMany(CostProfile::class,'company_id','id');
     }
+    public function infraform(){
+        return $this->hasMany(InfraSetting::class,'company_id','id');
+    }
+
 
     public function saform()
     {

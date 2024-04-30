@@ -25,7 +25,7 @@
                 <div>
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text">Tier -
+                            <h6 class="text">Cluster -
                                 @foreach($project->server()->distinct()->get(['display_tier'])  as $_value)
                                     <span
                                         class="badge badge-light-success profile-badge">{{$_value->display_tier}}</span>
@@ -67,8 +67,9 @@
 
     <div class="card">
         <div class="card-body">
+            @if($project->status==2&&Auth::user()->hasPermissionTo('approver_level_1') || $project->status==4&&Auth::user()->hasPermissionTo('approver_level_3'))
             <button class="btn btn-primary" wire:click='store' type="submit">Save</button>
-
+    @endif
 
             <form wire:submit.prevent="store">
                 <input class="hidden" name="_token" value="{{ csrf_token() }}">

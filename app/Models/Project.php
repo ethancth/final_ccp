@@ -66,13 +66,13 @@ class Project extends Model
         if($this->status==2){
             return 'Review';
         }
-        if($this->status==3){
+        if($this->status==3||$this->status==4){
             return 'Approve';
         }
-        if($this->status==4){
+        if($this->status==5){
             return 'In-Provisioning';
         }
-        if($this->status==5){
+        if($this->status==6){
             return 'Complete';
         }
 
@@ -128,12 +128,12 @@ class Project extends Model
 
     public function scopeProjectInProvision($query)
     {
-        return $query->where('status', '4');
+        return $query->where('status', '5');
     }
 
     public function scopeProjectComplete($query)
     {
-        return $query->where('status', '5');
+        return $query->where('status', '6');
     }
 
     public function scopeProjectAll($query)

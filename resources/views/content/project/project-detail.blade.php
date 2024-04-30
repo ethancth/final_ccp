@@ -60,6 +60,9 @@
                                     -  Pending for BAU Team Approve
                                 @endif
                          @endif
+                            @if($project->status==5)
+                                - Provisioning
+                            @endif
                     @endif
                 </h1>
                 <h6>created by  {{$project->ownername->name}}</h6>
@@ -72,7 +75,7 @@
                         </div>
 
                         <div>
-                            <h6 class="text">Daily Cost -  <span class="badge badge-light-success profile-badge">$ {{$project->total_cost()}}</span> </h6>
+                            <h6 class="text">Monthly Cost -  <span class="badge badge-light-success profile-badge">$ {{$project->total_cost()}}</span> </h6>
 
                         </div>
                     </div>
@@ -82,7 +85,7 @@
                 <div>
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text">Tier -
+                            <h6 class="text">Cluster -
                                 @foreach($project->server()->distinct()->get(['display_tier'])  as $_value)
                                 <span class="badge badge-light-success profile-badge">{{$_value->display_tier}}</span>
                                 </span>
@@ -139,11 +142,12 @@
   </div>
 </section>
 
-{{--@include('content/_partials/_modals/modal-create-app')--}}
-    @livewire('create-server-modal', ['project' => $project])
+@include('content/_partials/_modals/modal-create-app')
+{{--    @livewire('create-server-modal', ['project' => $project])--}}
 {{--    @livewire('assign-infra', ['project' => $project]);--}}
 @include('content/_partials/_modals/modal-project-activity')
 @include('content/_partials/_modals/modal-project-assign-infra')
+@include('content/_partials/_modals/modal-project-assign-network')
 @endsection
 
 @section('vendor-script')
@@ -229,6 +233,8 @@
             selectSaO = $('.select2-data-array-optional');
 
 
+
+
         select.each(function () {
             var $this = $(this);
             $this.wrap('<div class="position-relative"></div>');
@@ -240,6 +246,35 @@
                 dropdownParent: $this.parent()
             });
         });
+
+
+
+        // $(' .select2-network').select2({
+        //     placeholder: "Select the Network",
+        //     ajax: {
+        //         url: `/filter_network`,
+        //         dataType: 'json',
+        //         type: "GET",
+        //         quietMillis: 50,
+        //         data: function () {
+        //             return {
+        //                 term: $('#form_server_id').val(),
+        //             };
+        //         },
+        //
+        //         processResults: function (data) {
+        //             return {
+        //                 results: $.map(data, function (item) {
+        //
+        //                     return {
+        //                         text: item.text,
+        //                         id: item.id
+        //                     }
+        //                 })
+        //             };
+        //         }
+        //     }
+        // });
 
         selectSaO.wrap('<div class="position-relative"></div>').select2({
             dropdownAutoWidth: true,
@@ -613,6 +648,84 @@
         });
 
 
+        $('.port-form').repeater({
+            initEmpty: true,
+
+            show: function () {
+
+                var repeaterItems = $("div[data-repeater-item]");
+                if(repeaterItems.length <= 3){
+                    $(this).find('.repeater-item-number span').text(repeaterItems.length);
+                    $(this).slideDown();
+                    $('.select2-network').select2({
+                        placeholder: "Select Network",
+                        allowClear: true
+                    });
+                    $('.select2-container').css('width','100%');
+
+                }else {
+                    alert('Maximum limit exceed')
+                }
+
+
+
+
+
+
+
+
+            },
+
+            hide: function (deleteElement) {
+                if (confirm('Are you sure you want to delete this network?')) {
+                    $(this).slideUp(deleteElement);
+                }
+            }
+        });
+
+        $('body').on('click', '.edit_network', function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type:"POST",
+                url: "{{ route('project.editserver') }}",
+                data: { id: id },
+                dataType: 'json',
+                success: function(res){
+                    // $('#ajaxBookModel').html("Edit Book");
+                    $('#addNetwork').modal('show');
+                    // $('#servername').val(res.hostname);
+                     $('#form_server_id').val(res.id);
+                    // $('#operatingsystem').val(res.operating_system);
+                    // $('#o_server_os').val(res.operating_system);
+                    // $('#o_server_env').val(res.environment);
+                    // document.getElementById("o_server_env").checked = true;
+                    // $('#o_server_tier').val(res.tier);
+                    // $('#operatingsystem').val(res.operating_system);
+                    // $('#operatingsystem').select2();
+                    // // $('#select_sa_optional').val(res.optional_sa_field);
+                    // // $('#select_sa_optional').select2();
+                    //
+                    // if(res.optional_sa_field.length>0){
+                    //     $('#select_sa_optional').val(res.optional_sa_field.split(',')).trigger("change");
+                    //     $('#select_sa_optional').trigger('change');
+                    // }
+                    //
+                    // $("#createApp"+uppercaseWords(res.environment)).prop("checked", true);
+                    // $("#createTier"+uppercaseWords(res.tier)).prop("checked", true);
+                    // //$("#createApp"+uppercaseWords(res.operating_system_option)).prop("checked", true);
+                    // pipsRangevCPU.noUiSlider.set(res.v_cpu);
+                    // pipsRangevMemory.noUiSlider.set(res.v_memory);
+                    // pipsRangevstorage.noUiSlider.set(res.total_storage);
+
+                    // $('#title').val(res.title);
+                    // $('#code').val(res.code);
+                    // $('#author').val(res.author);
+                }
+            });
+
+        });
+
+
         $('body').on('click', '.edit', function () {
             var id = $(this).data('id');
             var pipsRangevCPU = document.getElementById('pips-range-vcpu');
@@ -963,13 +1076,18 @@
                         orderable: false,
                         render: function (data, type, full, meta) {
                             var $id = full['id'];
+                        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_level_1') || $project->status==1&&Auth::user()->hasPermissionTo('project')|| $project->status==4&&Auth::user()->hasPermissionTo('approver_level_3') && $project->status==2&&Auth::user()->hasPermissionTo('approver_bau_level_3'))
                             return (
                                 '<div class="d-flex align-items-center col-actions">' +
                                 '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
                                 feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
                                 '</a>' +
-                                '<a class="me-25 delete" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Delete">' +
+                                '<a class="me-1 delete" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Delete">' +
                                 feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                '</a>' +
+
+                                '<a class="me-1 edit_network" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Assign Network">' +
+                                feather.icons['settings'].toSvg({ class: 'font-medium-2 text-body' }) +
                                 '</a>' +
                                 // '<div class="dropdown">' +
                                 // '<a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
@@ -992,6 +1110,9 @@
                                 // '</div>' +
                                 '</div>'
                             );
+                            @else
+                            return ('<div class="d-flex align-items-center col-actions"></div>');
+                            @endif
                         }
                     }
                 ],
@@ -1340,7 +1461,25 @@
 
                         @if($project->status==3&&Auth::user()->hasPermissionTo('approver_level_2'))
 
-                    {
+                        {
+                            text: 'Document',
+                            //className: 'btn btn-primary btn-add-record ms-2',
+                            className: 'btn btn-warning waves-effect waves-float waves-light btn-assign-infra ',
+                            // action: function (e, dt, button, config) {
+                            //     window.location = invoiceAdd;
+                            // }
+                            attr: {
+                                'style':'margin-top:10px',
+                            },
+                            action: function (){
+                                var currentUrl = window.location.href;
+                                document.location.href = currentUrl+'/document';
+
+
+
+                            }
+                            //$('#addEditBookForm').trigger("reset");
+                        },{
                         text: 'Approve Project',
                         //className: 'btn btn-primary btn-add-record ms-2',
                         className: 'btn btn-success waves-effect waves-float waves-light',
@@ -1375,6 +1514,140 @@
                                     $.ajax({
                                         type:"POST",
                                         url: "{{ route('project.approve.lv2') }}",
+                                        data: { id: $projectid },
+                                        dataType: 'json',
+                                        success: function(res){
+                                            Swal.fire({
+
+                                                icon: 'success',
+                                                title: 'Approved!',
+                                                text: 'This Project has been Approved!.',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },{
+                        text: 'Reject Project',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-warning waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        style: {
+
+                        },
+
+                        attr: {
+                            'id':'confirm-text',
+                            // 'data-bs-toggle': 'modal',
+                            // 'data-bs-target': '#project-submit-modal',
+                            'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "Reject this project!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Reject it!',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary',
+                                    cancelButton: 'btn btn-outline-danger ms-1'
+                                },
+                                buttonsStyling: false
+                            }).then(function (result) {
+                                if (result.value) {
+                                    var $projectid={{$project->id}};
+                                    $.ajax({
+                                        type:"POST",
+                                        url: "{{ route('project.reject') }}",
+                                        data: { id: $projectid },
+                                        dataType: 'json',
+                                        success: function(res){
+                                            Swal.fire({
+
+                                                icon: 'success',
+                                                title: 'Reject!',
+                                                text: 'This Project has been Reject!.',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },
+                    @endif
+
+
+                        @if($project->status==4&&$project->project_type=='new'&&Auth::user()->hasPermissionTo('approver_level_3')||$project->status==4&&$project->project_type=='bau'&&Auth::user()->hasPermissionTo('approver_bau_level_3'))
+
+                    {
+                        text: 'Document',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-warning waves-effect waves-float waves-light btn-assign-infra ',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        attr: {
+                            'style':'margin-top:10px',
+                        },
+                        action: function (){
+                            var currentUrl = window.location.href;
+                            document.location.href = currentUrl+'/document';
+
+
+
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },{
+                        text: 'Approve Project',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-success waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        style: {
+
+                        },
+
+                        attr: {
+                            'id':'confirm-text',
+                            // 'data-bs-toggle': 'modal',
+                            // 'data-bs-target': '#project-submit-modal',
+                            'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "Approve this project!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Approve it!',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary',
+                                    cancelButton: 'btn btn-outline-danger ms-1'
+                                },
+                                buttonsStyling: false
+                            }).then(function (result) {
+                                if (result.value) {
+                                    var $projectid={{$project->id}};
+                                    $.ajax({
+                                        type:"POST",
+                                        url: "{{ route('project.approve.lv3') }}",
                                         data: { id: $projectid },
                                         dataType: 'json',
                                         success: function(res){

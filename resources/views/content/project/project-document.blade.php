@@ -47,7 +47,7 @@
             Swal.fire({
                 icon: 'success',
                 title: event.detail[0].title,
-                text: 'Project Created Successfully.',
+                text: event.detail[0].text,
                 customClass: {
                     confirmButton: 'btn btn-success'
                 }
