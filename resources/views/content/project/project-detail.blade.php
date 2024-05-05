@@ -654,10 +654,12 @@
             show: function () {
 
                 var repeaterItems = $("div[data-repeater-item]");
+
                 if(repeaterItems.length <= 3){
                     $(this).find('.repeater-item-number span').text(repeaterItems.length);
                     $(this).slideDown();
                     $('.select2-network').select2({
+                        dropdownParent: $('#addNetwork .modal-content'),
                         placeholder: "Select Network",
                         allowClear: true
                     });
@@ -666,9 +668,6 @@
                 }else {
                     alert('Maximum limit exceed')
                 }
-
-
-
 
 
 
@@ -696,30 +695,16 @@
                     // $('#servername').val(res.hostname);
                      $('#form_server_id').val(res.id);
                     // $('#operatingsystem').val(res.operating_system);
-                    // $('#o_server_os').val(res.operating_system);
-                    // $('#o_server_env').val(res.environment);
-                    // document.getElementById("o_server_env").checked = true;
-                    // $('#o_server_tier').val(res.tier);
-                    // $('#operatingsystem').val(res.operating_system);
-                    // $('#operatingsystem').select2();
-                    // // $('#select_sa_optional').val(res.optional_sa_field);
-                    // // $('#select_sa_optional').select2();
-                    //
-                    // if(res.optional_sa_field.length>0){
-                    //     $('#select_sa_optional').val(res.optional_sa_field.split(',')).trigger("change");
-                    //     $('#select_sa_optional').trigger('change');
-                    // }
-                    //
-                    // $("#createApp"+uppercaseWords(res.environment)).prop("checked", true);
-                    // $("#createTier"+uppercaseWords(res.tier)).prop("checked", true);
-                    // //$("#createApp"+uppercaseWords(res.operating_system_option)).prop("checked", true);
-                    // pipsRangevCPU.noUiSlider.set(res.v_cpu);
-                    // pipsRangevMemory.noUiSlider.set(res.v_memory);
-                    // pipsRangevstorage.noUiSlider.set(res.total_storage);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('project.getservernetwork') }}",
+                        data: {id: res.id},
+                        dataType: 'json',
+                        success: function (res) {
+                            console.log(res);
+                        }
+                    });
 
-                    // $('#title').val(res.title);
-                    // $('#code').val(res.code);
-                    // $('#author').val(res.author);
                 }
             });
 
@@ -932,6 +917,8 @@
                             var $invoiceStatus = full['environment'],
                              $field_environment = full['display_env'],
                                 $field_tier = full['display_tier'],
+                                $field_bu = full['display_business_unit'],
+                                $field_st = full['display_system_type'],
                                 created_at = full['created_at'],
                                 $balance = full['price'],
                                 roleObj = {
@@ -949,8 +936,14 @@
                                 };
                             return (
                                 "<span data-bs-toggle='tooltip' data-bs-html='true' title='<span>Detail: " +
+                                        '<br> <span class="fw-bold">Deploy to:</span> ' +$field_tier+
+
+                                    '<br> <span class="fw-bold">Business Unit:</span> ' +$field_bu+
                                 '<br> <span class="fw-bold">Environment:</span> ' +$field_environment+
-                                '<br> <span class="fw-bold">Tier:</span> ' +$field_tier+
+                                    '<br> <span class="fw-bold">System Type:</span> ' +$field_st+
+
+
+
 
                                 "</span>'>" +
                                 '<div class="avatar avatar-status ' +
@@ -1076,8 +1069,41 @@
                         orderable: false,
                         render: function (data, type, full, meta) {
                             var $id = full['id'];
-                        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_level_1') || $project->status==1&&Auth::user()->hasPermissionTo('project')|| $project->status==4&&Auth::user()->hasPermissionTo('approver_level_3') && $project->status==2&&Auth::user()->hasPermissionTo('approver_bau_level_3'))
+                            var $_status = full['provision_status'];
+
+                        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_level_1') || $project->status==1&&Auth::user()->hasPermissionTo('project'))
                             return (
+                                '<div class="d-flex align-items-center col-actions">' +
+                                '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
+                                feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                '</a>' +
+                                '<a class="me-1 delete" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Delete">' +
+                                feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                '</a>' +
+
+                                // '<div class="dropdown">' +
+                                // '<a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
+                                // feather.icons['more-vertical'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                // '</a>' +
+                                // '<div class="dropdown-menu dropdown-menu-end">' +
+                                // '<a href="#" class="dropdown-item">' +
+                                // feather.icons['download'].toSvg({ class: 'font-small-4 me-50' }) +
+                                // 'Download</a>' +
+                                // '<a href="#" class="dropdown-item edit" data-id="'+$id+'">' +
+                                // feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
+                                // 'Edit</a>' +
+                                // '<a href="#" class="dropdown-item">' +
+                                // feather.icons['trash'].toSvg({ class: 'font-small-4 me-50' }) +
+                                // 'Delete</a>' +
+                                // '<a href="#" class="dropdown-item">' +
+                                // feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) +
+                                // 'Duplicate</a>' +
+                                // '</div>' +
+                                // '</div>' +
+                                '</div>'
+                            );
+                            @elseif( $project->status==4&&Auth::user()->hasPermissionTo('approver_level_3') || $project->status==2&&Auth::user()->hasPermissionTo('approver_bau_level_3'))
+                                return (
                                 '<div class="d-flex align-items-center col-actions">' +
                                 '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
                                 feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
@@ -1110,6 +1136,24 @@
                                 // '</div>' +
                                 '</div>'
                             );
+                            @elseif($project->status==5)
+
+                            if($_status=='In Progress'){
+                                return ('<div class="d-flex align-items-center col-actions">' +
+                                    ' <button class="btn btn-outline-warning waves-effect" type="button" disabled="">'+
+                                    '    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>'+
+                                    '    <span class="ms-25 align-middle">'+$_status+'...</span>'+
+                                    '</button>'+
+                                    '</div>');
+                            }else{
+                                return ('<div class="d-flex align-items-center col-actions">' +
+                                    ' <button class="btn btn-outline-success waves-effect" type="button" disabled="">'+
+                                    '  '+
+                                    '    <span class="ms-25 align-middle">Complete</span>'+
+                                    '</button>'+
+                                    '</div>');
+                            }
+
                             @else
                             return ('<div class="d-flex align-items-center col-actions"></div>');
                             @endif

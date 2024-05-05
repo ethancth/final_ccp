@@ -2,12 +2,14 @@
 
 namespace App\Observers;
 
+use App\Models\BusinessUnit;
 use App\Models\Company;
 use App\Models\CostProfile;
 use App\Models\Department;
 use App\Models\Environment;
 use App\Models\OperatingSystem;
 use App\Models\ServiceApplication;
+use App\Models\SystemType;
 use App\Models\Tier;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +30,7 @@ class CompanyObserver
         $u->introduction='Admin';
         $u->save();
 
-        Environment::create([
+        Tier::create([
             'name' => "Default",
             'display_name' => "Default",
             'display_description' => "Default ",
@@ -39,30 +41,30 @@ class CompanyObserver
             'status' => 1
         ]);
 
-        Environment::create([
-            'name' => "Production",
-            'display_name' => "Production",
-            'display_description' => "Bangi ",
+        Tier::create([
+            'name' => "W",
+            'display_name' => "Wintel",
+            'display_description' => "Wintel ",
             'display_icon'=>"briefcase",
             'display_icon_colour'=>"info",
             'company_id'=>$company->id,
             'is_default'=>1,
             'status' => 1
         ]);
-        Environment::create([
-            'name' => "Dsu",
-            'display_name' => "Dsu",
-            'display_description' => "Dsu - Starteq ",
+        Tier::create([
+            'name' => "D",
+            'display_name' => "Database",
+            'display_description' => "Database",
             'display_icon'=>"layers",
             'display_icon_colour'=>"success",
             'company_id'=>$company->id,
             'is_default'=>1,
             'status' => 1
         ]);
-        Environment::create([
-            'name' => "Dr",
-            'display_name' => "Dr",
-            'display_description' => "Dr - Starteq ",
+        Tier::create([
+            'name' => "Z",
+            'display_name' => "DMZ",
+            'display_description' => "DMZ",
             'display_icon'=>"chevrons-up",
             'display_icon_colour'=>"danger",
             'company_id'=>$company->id,
@@ -71,7 +73,7 @@ class CompanyObserver
         ]);
 
 
-        Tier::create([
+        Environment::create([
             'name' => "Default",
             'display_name' => "Default",
             'display_description' => "Default ",
@@ -81,10 +83,10 @@ class CompanyObserver
             'is_default'=>1,
             'status' => 1
         ]);
-        Tier::create([
-            'name' => "DMZ",
-            'display_name' => "DMZ",
-            'display_description' => "DMZ - System Generate ",
+        Environment::create([
+            'name' => "D",
+            'display_name' => "Development",
+            'display_description' => "Development - System Generate ",
             'display_icon'=>"layout",
             'display_icon_colour'=>"info",
             'company_id'=>$company->id,
@@ -92,37 +94,134 @@ class CompanyObserver
             'status' => 1
         ]);
 
-        Tier::create([
-            'name' => "Wintel",
-            'display_name' => "Wintel",
-            'display_description' => "Wintel - System Generate ",
+        Environment::create([
+            'name' => "U",
+            'display_name' => "User Acceptance Test",
+            'display_description' => "User Acceptance Test - System Generate ",
             'display_icon'=>"package",
             'display_icon_colour'=>"info",
             'company_id'=>$company->id,
             'is_default'=>1,
             'status' => 1
         ]);
-        Tier::create([
-            'name' => "Db",
-            'display_name' => "Db",
-            'display_description' => "Db - System Generate ",
-            'display_icon'=>"database",
+        Environment::create([
+            'name' => "S",
+            'display_name' => "System Integration Test",
+            'display_description' => "System Integration Test - System Generate ",
+            'display_icon'=>"package",
             'display_icon_colour'=>"info",
             'company_id'=>$company->id,
             'is_default'=>1,
             'status' => 1
         ]);
 
-        Tier::create([
-            'name' => "Unix",
-            'display_name' => "Unix",
-            'display_description' => "Unix - System Generate ",
+        SystemType::create([
+            'name' => "Default",
+            'display_name' => "Default",
+            'display_description' => "Default ",
+            'display_icon'=>"alert-triangle",
+            'display_icon_colour'=>"danger",
+            'company_id'=>$company->id,
+            'is_default'=>1,
+            'status' => 1
+        ]);
+
+       SystemType::create([
+           'name' => "WEB",
+           'display_name' => "Web Server",
+           'display_description' => "Web Server - System Generate ",
+           'display_icon'=>"package",
+           'display_icon_colour'=>"info",
+           'company_id'=>$company->id,
+           'is_default'=>1,
+           'status' => 1
+       ]);
+        SystemType::create([
+            'name' => "APP",
+            'display_name' => "Application",
+            'display_description' => "Application - System Generate ",
             'display_icon'=>"package",
             'display_icon_colour'=>"info",
             'company_id'=>$company->id,
             'is_default'=>1,
             'status' => 1
         ]);
+        SystemType::create([
+            'name' => "DBS",
+            'display_name' => "Database",
+            'display_description' => "Database - System Generate ",
+            'display_icon'=>"database",
+            'display_icon_colour'=>"info",
+            'company_id'=>$company->id,
+            'is_default'=>1,
+            'status' => 1
+        ]);
+        SystemType::create([
+            'name' => "DMZ",
+            'display_name' => "DMZ",
+            'display_description' => "DMZ - System Generate ",
+            'display_icon'=>"package",
+            'display_icon_colour'=>"info",
+            'company_id'=>$company->id,
+            'is_default'=>1,
+            'status' => 1
+        ]);
+
+        BusinessUnit::create([
+            'name' => "Default",
+            'display_name' => "Default",
+            'display_description' => "Default ",
+            'display_icon'=>"alert-triangle",
+            'display_icon_colour'=>"danger",
+            'company_id'=>$company->id,
+            'is_default'=>1,
+            'status' => 1
+        ]);
+
+        BusinessUnit::create([
+                'name' => "CB",
+                'display_name' => "Consumer Bank",
+                'display_description' => "Consumer Bank - System Generate ",
+                'display_icon'=>"package",
+                'display_icon_colour'=>"info",
+                'company_id'=>$company->id,
+                'is_default'=>1,
+                'status' => 1
+            ]
+        );
+        BusinessUnit::create([
+                'name' => "WB",
+                'display_name' => "Wholesales Bank",
+                'display_description' => "Consumer Bank - System Generate ",
+                'display_icon'=>"package",
+                'display_icon_colour'=>"info",
+                'company_id'=>$company->id,
+                'is_default'=>1,
+                'status' => 1
+            ]
+        );
+        BusinessUnit::create([
+                'name' => "GS",
+                'display_name' => "Global Securities",
+                'display_description' => "Global Securities - System Generate ",
+                'display_icon'=>"package",
+                'display_icon_colour'=>"info",
+                'company_id'=>$company->id,
+                'is_default'=>1,
+                'status' => 1
+            ]
+        );
+        BusinessUnit::create([
+                'name' => "GM",
+                'display_name' => "Group Asset Management",
+                'display_description' => "Group Asset Management - System Generate ",
+                'display_icon'=>"package",
+                'display_icon_colour'=>"info",
+                'company_id'=>$company->id,
+                'is_default'=>1,
+                'status' => 1
+            ]
+        );
 
         CostProfile::create([
             'name' => "Default Cost Profile",
@@ -143,14 +242,26 @@ class CompanyObserver
 
         ]);
         OperatingSystem::create([
-            'name' => "window",
-            'display_name' => "Window Server",
+            'name' => "WIN2016",
+            'display_name' => "Window Server 2016",
             'display_description' => "System Generate",
             'company_id'=>$company->id,
             'os_type'=>'windows',
             'display_icon'=>'windows',
             'cost'=>'206.82',
             'is_default'=>1,
+            'status' => 1
+        ]);
+        OperatingSystem::create([
+            'name' => "WIN2019",
+            'display_name' => "Window Server 2019",
+            'display_description' => "System Generate",
+            'company_id'=>$company->id,
+            'os_type'=>'windows',
+            'display_icon'=>'windows',
+            'cost'=>'206.82',
+            'is_default'=>1,
+            'workflow_id'=>'408a543f-576d-4f10-9386-d2dd87312300',
             'status' => 1
         ]);
         OperatingSystem::create([

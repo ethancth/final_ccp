@@ -25,6 +25,7 @@
     "predis/predis": "~1.1",
     "spatie/laravel-permission": "^5.11",
     "staudenmeir/eloquent-has-many-deep": "^1.7",
+    "studio/laravel-totem": "^11.0",
     "viacreative/sudo-su": "^1.1",
     "yajra/laravel-datatables-oracle": "^10.0"
   },

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InfraSetting;
+use App\Models\ProjectServer;
 use http\Exception;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
@@ -14,7 +15,7 @@ class AriaController extends Controller
     //
     public $credentialobject,$infrasetting ;
 
-    public $workflow_trigger_network='ce2f6a77-390b-4ccd-8d6d-9c56cd1eb5d7';
+    public $workflow_trigger_network, $server;
 
     public function getInitial(){
         $data=InfraSetting::where('company_id','=',Auth::User()->company_id)->first();
@@ -28,6 +29,7 @@ class AriaController extends Controller
         $this->updated_at=$data->updated_at;
         $this->refresh_token=$data->refresh_token;
         $this->expired_date=$data->expired_date;
+        $this->workflow_trigger_network=$data->network_workflow;
     }
 
 
@@ -69,13 +71,133 @@ class AriaController extends Controller
             $this->updateRefreshToken();
         }
 
-        if($this->getDayToken(2,'token')){
+        if($this->getDayToken(1,'token')){
             $this->updateToken();
         }
 
 
     }
 
+    public function trigger_provision($vmid){
+
+
+        $this->trigger_provision_workflow($vmid);
+
+
+
+    }
+
+    public function trigger_provision_workflow($vmid){
+
+        $this->server=ProjectServer::where('id','=',$vmid)->first();
+
+
+
+
+
+
+        //$this->getInitial();
+        //$this->getToken();
+        $this->getInitial();
+        $client = new Client(['verify' => false]);
+        $url="https://".$this->_url."/blueprint/api/blueprint-requests";
+
+
+        dd(json_encode([
+            'deploymentId' => '',
+            'deploymentName' => $this->server->project->title.'--'.$this->server->hostname.'-'.$this->server->id.'-'.date("dmY-hisa"),
+            'description' => '',
+            'plan' => 'false',
+            'blueprintId' => $this->server->os->workflow_id,
+            'content'=>'',
+            'simulate'=>'false',
+            'inputs'=>[
+                'vmid' => $vmid,
+                'project_code' =>  $this->server->project->id,
+                'cpu' => $this->server->v_cpu,
+                'memory' => ($this->server->v_memory),
+                "appname" => $this->server->hostname,
+                'projectid' => $vmid,
+                'itsr' => $this->server->project->title,
+                'projcode' => $this->server->project->title,
+                'image' => $this->server->os->name,
+                'entity' => $this->server->businessunitname->name,
+                'rccode' => $this->server->project->title,
+                'systype' => $this->server->systemtypename->name,
+                'platform' => $this->server->tiername->name,
+                'environment' => $this->server->envname->name,
+                'network_pg' => $this->server->network[0]->network_name,
+                'network_ip' => $this->server->network[0]->network_ip,
+
+            ]
+
+
+        ]));
+
+        try {
+            $response = $client->request('POST', $url, [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer '.$this->infrasetting->token,
+                ],
+                'json' => [
+                    'deploymentId' => '',
+                    'deploymentName' => $this->server->project->title.'--'.$this->server->hostname.'-'.$this->server->id.'-'.date("dmY-hisa"),
+                    'description' => '',
+                    'plan' => 'false',
+                    'blueprintId' => $this->server->os->workflow_id,
+                    'content'=>'',
+                    'simulate'=>'false',
+                    'inputs'=>[
+                        'vmid' => $vmid,
+                        'project_code' =>  $this->server->project->id,
+                        'cpu' => $this->server->v_cpu,
+                        'memory' => ($this->server->v_memory),
+                        "appname" => $this->server->hostname,
+                        'projectid' => $vmid,
+                        'itsr' => 1,
+                        'projcode' => $this->server->project->title,
+                        'image' => $this->server->os->name,
+                        'entity' => $this->server->businessunitname->name,
+                        'rccode' => $this->server->project->title,
+                        'systype' => $this->server->systemtypename->name,
+                        'platform' => $this->server->tiername->name,
+                        'environment' => $this->server->envname->name,
+                        'network_pg' => $this->server->network->network_name,
+                        'network_ip' => $this->server->network->network_ip,
+
+                    ]
+
+
+                ]
+            ]);
+
+
+
+            $body = json_decode($response->getBody()->getContents());
+
+
+            $this->server->provision_status='In Progress';
+            $this->server->provision_datetime=now();
+            $this->server->save();
+
+//            $_new_refresh_token=InfraSetting::where('company_id','=',Auth::User()->company_id)->first();
+//            $_new_refresh_token->token=$body->token;
+//            $_new_refresh_token->save();
+
+        }catch (RequestException $e) {
+            dd(json_decode($e->getResponse()->getBody()->getContents(), true));
+            //dd($e->getResponse()->getBody()->getContents(),true);
+            // dd( json_decode($e->getResponse()->getBody()->getContents(), true));
+            // you can catch here 400 response errors and 500 response errors
+            // see this https://stackoverflow.com/questions/25040436/guzzle-handle-400-bad-request/25040600
+        } catch(Exception $e){
+            echo" Something Wrong : Other";
+            //other errors
+
+        }
+    }
 
     public function trigger_workflow(){
 
@@ -112,7 +234,7 @@ class AriaController extends Controller
 //            $_new_refresh_token->save();
 
         }catch (RequestException $e) {
-            echo" Something Wrong : 400";
+            dd( json_decode($e->getResponse()->getBody()->getContents(), true));
             //dd($e->getResponse()->getBody()->getContents(),true);
            // dd( json_decode($e->getResponse()->getBody()->getContents(), true));
             // you can catch here 400 response errors and 500 response errors
@@ -125,6 +247,8 @@ class AriaController extends Controller
 
 
     }
+
+
 
     public function updateToken(){
         $client = new Client(['verify' => false]);
@@ -177,7 +301,6 @@ class AriaController extends Controller
                 ]
             ]);
             $body = json_decode($response->getBody()->getContents());
-
             $_new_refresh_token=InfraSetting::where('company_id','=',Auth::User()->company_id)->first();
             $_new_refresh_token->refresh_token=$body->refresh_token;
             $_new_refresh_token->expired_date=now();

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec01723489c5a80230e0e2a93d693b12",
+    "content-hash": "ac5e00557381f194a588ebdfaa4b6b1e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4442,6 +4442,85 @@
                 "source": "https://github.com/staudenmeir/eloquent-has-many-deep-contracts/tree/v1.0"
             },
             "time": "2022-09-12T18:34:56+00:00"
+        },
+        {
+            "name": "studio/laravel-totem",
+            "version": "v11.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codestudiohq/laravel-totem.git",
+                "reference": "d13a37189f2130e1b8a8cfa698fbad5d17bd806f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codestudiohq/laravel-totem/zipball/d13a37189f2130e1b8a8cfa698fbad5d17bd806f",
+                "reference": "d13a37189f2130e1b8a8cfa698fbad5d17bd806f",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^3.1",
+                "ext-json": "*",
+                "illuminate/bus": "^9.0|^10.0|^11.0",
+                "illuminate/console": "^9.0|^10.0|^11.0",
+                "illuminate/contracts": "^9.0|^10.0|^11.0",
+                "illuminate/database": "^9.0|^10.0|^11.0",
+                "illuminate/events": "^9.0|^10.0|^11.0",
+                "illuminate/notifications": "^9.0|^10.0|^11.0",
+                "php": "^8.1.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^8.0|^9.0",
+                "phpunit/phpunit": "^9.0|^10.0|^11.0"
+            },
+            "suggest": {
+                "nexmo/client": "Required for sms notifications."
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "branch-alias": {
+                    "dev-8.0": "8.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Studio\\Totem\\Providers\\TotemServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Studio\\Totem\\": "src/",
+                    "Database\\Factories\\": "database/factories/",
+                    "Studio\\Totem\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roshan Gautam",
+                    "email": "roshan.gautam@hotmail.com"
+                }
+            ],
+            "description": "A Laravel package to manage your cron jobs through a beautiful dashboard",
+            "keywords": [
+                "Code Studio",
+                "laravel",
+                "manager",
+                "schedule",
+                "totem"
+            ],
+            "support": {
+                "issues": "https://github.com/codestudiohq/laravel-totem/issues",
+                "source": "https://github.com/codestudiohq/laravel-totem/tree/v11.0.0"
+            },
+            "time": "2024-03-27T14:17:50+00:00"
         },
         {
             "name": "symfony/console",

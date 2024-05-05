@@ -15,8 +15,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>@yield('title')</title>
-  <link rel="apple-touch-icon" href="{{ asset('images/ico/favicon-32x32.png') }}">
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo/favicon.ico') }}" />
+  <link rel="apple-touch-icon" href="{{ asset('images/ico/cimb-logo.png') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo/cimb-logo.png') }}" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
     rel="stylesheet">
 

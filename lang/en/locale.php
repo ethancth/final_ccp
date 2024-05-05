@@ -3,6 +3,8 @@
 return [
     "Application Services" => "Application Services",
     "Tiers" => "Tiers",
+    "Network" => "Network",
+    "vRa Setting" => "vRA Setting",
     "Cluster" => "Cluster",
     "Environments" => "Environments",
     "Department" => "Departments",

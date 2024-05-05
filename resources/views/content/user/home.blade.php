@@ -401,7 +401,9 @@
                                var roleBadgeObj = {
                                    Requester: feather.icons['user'].toSvg({ class: 'font-medium-3 text-primary me-50' }),
                                    Approver_lv_1: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
-                                   Approver_lv_2: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
+                                   Approver_lv_2: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-info me-50' }),
+                                   Approver_lv_3: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-success me-50' }),
+                                   Bau_approver: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-success me-50' }),
                                    Admin: feather.icons['slack'].toSvg({ class: 'font-medium-3 text-danger me-50' })
                                };
                                return "<span class='text-truncate align-middle'>" + roleBadgeObj[$role] + $role + '</span>';

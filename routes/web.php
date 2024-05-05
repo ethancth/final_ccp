@@ -35,6 +35,7 @@ use App\Http\Controllers\ProjectController;
 Route::group(['middleware' => ['role:Admin']], function () {
     // Routes accessible only to users with the 'admin' role
 
+
     Route::get('/management-environment', [CompanyFormController::class, 'envform'])->name('management_env');
     Route::post('/management-environment', [CompanyFormController::class, 'env_request'])->name('management.env.store');
     Route::post('/management-environment-edit', [CompanyFormController::class, 'env_edit'])->name('management.env.edit');
@@ -93,6 +94,7 @@ Route::group(['middleware' => ['role:Admin']], function () {
     Route::delete('/management-policy-form', [CompanyFormController::class, 'policyform_destroy'])->name('management_policyform.destroy');
 
     Route::get('/aria/api/token',[\App\Http\Controllers\AriaController::class,'trigger_workflow'])->name('aria.token');
+    Route::get('/aria/api/vminfo',[\App\Http\Controllers\AriaController::class,'trigger_provision'])->name('aria.vminfo');
 
 
 
@@ -102,13 +104,12 @@ Route::group(['middleware' => ['role:Admin']], function () {
 Route::group(['middleware' => ['permission:approver_level_1']], function () {
     // Routes accessible only to users with the 'admin' role
 
-    Route::get('/project/{project}/{slug?}/document', [ProjectController::class,'project_document'])->name('project.document');
+//    Route::get('/project/{project}/{slug?}/document', [ProjectController::class,'project_document'])->name('project.document');
     Route::post('/approveproject', [ProjectController::class, 'approveproject'])->name('project.approve');
-    Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
+
     Route::post('/project-server-update-infra', [ProjectController::class, 'update_server_infra'])->name('project.server.update.infra');
 
-    Route::get('/project/{project}/{slug?}', [ProjectController::class, 'show'])->name('project.show');
-    Route::get('/project/{project}/{slug?}', [ProjectController::class, 'showjson'])->name('project.show.json');
+
 
 });
 
@@ -116,24 +117,22 @@ Route::group(['middleware' => ['permission:approver_level_1']], function () {
 
 Route::group(['middleware' => ['permission:approver_level_2']], function () {
     // Routes accessible only to users with the 'admin' role
-
+//    Route::get('/project/{project}/{slug?}/document', [ProjectController::class,'project_document'])->name('project.document');
     Route::post('/approveprojectl2', [ProjectController::class, 'approveprojectl2'])->name('project.approve.lv2');
-    Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
 });
 
 
 Route::group(['middleware' => ['permission:approver_level_3']], function () {
     // Routes accessible only to users with the 'admin' role
-
+//    Route::get('/project/{project}/{slug?}/document', [ProjectController::class,'project_document'])->name('project.document');
     Route::post('/approveprojectl3', [ProjectController::class, 'approveprojectl3'])->name('project.approve.lv3');
-    Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
 });
 
 Route::group(['middleware' => ['permission:approver_bau_level_3']], function () {
     // Routes accessible only to users with the 'admin' role
+//    Route::get('/project/{project}/{slug?}/document', [ProjectController::class,'project_document'])->name('project.document');
+    Route::post('/approveproject_bau', [ProjectController::class, 'approveprojectbau'])->name('project.approve.bau');
 
-    Route::post('/approveprojectl3', [ProjectController::class, 'approveprojectl3'])->name('project.approve.lv3');
-    Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
 });
 
 
@@ -143,8 +142,8 @@ Route::group(['middleware' => ['auth', 'verified']],
     function () {
 // Route Dashboards
 
-
-
+        Route::post('/rejectproject', [ProjectController::class, 'rejectproject'])->name('project.reject');
+        Route::get('/project/{project}/{slug?}/document', [ProjectController::class,'project_document'])->name('project.document');
         Route::get('/', [ProjectController::class, 'index'])->name('dashboard');
 
 
@@ -181,6 +180,7 @@ Route::group(['middleware' => ['auth', 'verified']],
         Route::post('/projectserver', [ProjectController::class, 'storeserver'])->name('project.storeserver');
 
         Route::post('/editprojectserver', [ProjectController::class, 'edit'])->name('project.editserver');
+        Route::post('/getservernetwork', [ProjectController::class, 'getservernetwork'])->name('project.getservernetwork');
         Route::post('/deleteprojectserver', [ProjectController::class, 'destroy'])->name('project.delete');
 
 

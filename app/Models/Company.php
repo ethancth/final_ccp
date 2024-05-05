@@ -76,6 +76,16 @@ class Company extends Model
         return $this->hasMany(Tier::class,'company_id','id')->where('name','!=','Default');;
     }
 
+    public function selectbuform()
+    {
+        return $this->hasMany(BusinessUnit::class,'company_id','id')->where('name','!=','Default');
+    }
+
+    public function selectstform()
+    {
+        return $this->hasMany(SystemType::class,'company_id','id')->where('name','!=','Default');;
+    }
+
     public function envform()
     {
         return $this->hasMany(Environment::class,'company_id','id');
@@ -89,6 +99,17 @@ class Company extends Model
     {
         return $this->hasMany(OperatingSystem::class,'company_id','id');
     }
+
+    public function buform()
+    {
+        return $this->hasMany(BusinessUnit::class,'company_id','id');
+    }
+
+    public function stform()
+    {
+        return $this->hasMany(SystemType::class,'company_id','id');
+    }
+
 
     public function costprofile()
     {

@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 
+use App\Models\Project;
 use App\Models\ProjectServer;
 
 class ProjectServerObserver
@@ -38,6 +39,13 @@ class ProjectServerObserver
         $project->total_storage=$project->server->count('total_storage');
         $project->save();
 
+    }
+
+    public function update(ProjectServer $projectServer)
+    {
+        $project=Project::where('id','=',$projectServer->project_id)->first();
+        $project->id=$projectServer->project_id;
+        $project->save();
     }
 
 }

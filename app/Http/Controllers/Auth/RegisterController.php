@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use App\Models\InfraSetting;
 use App\Models\Roles;
 use App\Models\Tenant;
 use App\Providers\RouteServiceProvider;
@@ -83,6 +84,9 @@ class RegisterController extends Controller
         ]);
 
         if(env('APP_TENANT_ENABLE')){
+            if(User::count()==1){
+
+
             $_position=Roles::find(4);
             $input = [
                 'name'                  => $data['tenant'],
@@ -93,7 +97,19 @@ class RegisterController extends Controller
                 'master_id'        =>$newUser->id,
             ];
 
+
+
             $newCompany=Company::Create($input);
+
+                $infra_setting=[
+                    'company_id'=>$newCompany->id,
+                    'network_workflow'=>'ce2f6a77-390b-4ccd-8d6d-9c56cd1eb5d7',
+                    'expired_date' =>'2023-01-01 13:27:52',
+                    'updated_at' =>'2023-01-01 13:27:52',
+                    'vra_domain' =>'System Domain',
+
+                ];
+            $infraInfo=InfraSetting::Create($infra_setting);
 
             $new_tenant_input=  Tenant::create([
                 'user_id' =>  $newUser->id,
@@ -101,6 +117,20 @@ class RegisterController extends Controller
                 'company_id' => $newCompany->id
             ]);
             $newUser->company_id=$newCompany->id;
+            }else{
+                $newCompany=Company::find(1);
+                $new_tenant_input=  Tenant::create([
+                    'user_id' =>  $newUser->id,
+                    'action' =>  'User '.$newUser->id .' Create this',
+                    'company_id' => $newCompany->id
+                ]);
+
+
+                $_position=Roles::find(1);
+                $newUser->company_id=1;
+            }
+
+
         }else{
             $_position=Roles::find(1);
             $newUser->company_id=1;

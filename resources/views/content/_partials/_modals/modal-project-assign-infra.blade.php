@@ -18,37 +18,69 @@
                     <input class="hidden" name="_token" value="{{ csrf_token() }}">
                     <input name="selected_server" id="text_select_server" readonly type="text" class="hidden">
                         <input class="hidden" name="selected_project_id" value="{{ $project->id }}">
+                        <div class="col-12">
+                            <label class="form-label" for="Tier ">Deploy To </label>
+                            <div >
+                                <select  id="Tier "  name='tier' class="select2-env select2 form-select ">
+                                    @foreach($forms as $form)
+                                    @endforeach
+                                        @foreach($form->selecttierform as $tierforms)
+                                            @if($tierforms->status===1)
+                                                <option value="{{$tierforms->id}}">{{$tierforms->display_name}}</option>
+                                            @endif
+                                        @endforeach
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label" for="business_unit ">Business Unit </label>
+                            <div >
+                                <select  id="business_unit"  name='business_unit' class="select2-bu select2 form-select ">
+
+
+
+                                        @foreach($form->selectbuform as $buforms)
+                                            @if($buforms->status===1)
+                                                <option value="{{$buforms->id}}">{{$buforms->display_name}}</option>
+                                            @endif
+                                        @endforeach
+                                </select>
+                            </div>
+                        </div>
                     <div class="col-12">
                         <label class="form-label" for="environment">Environment </label>
                         <div>
                             <select  id="environment"  name='environment' class="select2-env select2 form-select ">
-                                @foreach($forms as $form)
+
 
                                     @foreach($form->selectenvform as $envforms)
                                         @if($envforms->status===1)
                                             <option value="{{$envforms->id}}">{{$envforms->display_name}}</option>
                                         @endif
                                     @endforeach
-                                @endforeach
                             </select>
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <label class="form-label" for="Tier ">Tier </label>
-                        <div >
-                            <select  id="Tier "  name='tier' class="select2-env select2 form-select ">
-                                @foreach($forms as $form)
+                        <div class="col-12">
+                            <label class="form-label" for="system_type">System Type </label>
+                            <div>
+                                <select  id="system_type"  name='system_type' class="select2-st select2 form-select ">
 
-                                    @foreach($form->selecttierform as $tierforms)
-                                        @if($tierforms->status===1)
-                                            <option value="{{$tierforms->id}}">{{$tierforms->display_name}}</option>
-                                        @endif
-                                    @endforeach
-                                @endforeach
-                            </select>
+
+                                        @foreach($form->selectstform as $form)
+                                            @if($form->status===1)
+                                                <option value="{{$form->id}}">{{$form->display_name}}</option>
+                                            @endif
+                                        @endforeach
+
+                                </select>
+                            </div>
                         </div>
-                    </div>
+
+
 
 
                     <div class="col-12 text-center">

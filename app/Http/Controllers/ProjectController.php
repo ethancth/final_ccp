@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BusinessUnit;
 use App\Models\Company;
 use App\Models\Environment;
 use App\Models\FirewallService;
@@ -14,6 +15,7 @@ use App\Models\ProjectSecurityGroupEnvFirewall;
 use App\Models\ProjectSecurityGroupFirewall;
 use App\Models\ProjectServer;
 use App\Models\ProjectServerNetwork;
+use App\Models\SystemType;
 use App\Models\Tier;
 use App\Models\User;
 use App\Models\VcNetwork;
@@ -42,8 +44,6 @@ class ProjectController extends Controller
             ['link' => "/", 'name' => "Home"], ['link' => "project", 'name' => "Project"], ['name' => $project->title,'link'=>'project/'.$project->id],['name' => 'Document']
         ];
         //$project= User::find(Auth::id())->project;
-
-
 
 
         return view('/content/project/project-document', ['pageConfigs' => $pageConfigs,'project' => $project,'breadcrumbs'=>$breadcrumbs]);
@@ -88,7 +88,7 @@ class ProjectController extends Controller
 
         if ($request->ajax()) {
 
-            if (Auth::user()->hasPermissionTo('approver_level_1' )||Auth::user()->hasPermissionTo('approver_level_2' ) ) {
+            if (!Auth::user()->hasPermissionTo('project' ) ) {
                 $data = $project->withStatus($request->status)
                     ->where('company_id','=',Auth::user()->company_id)
                     ->get();
@@ -126,9 +126,10 @@ class ProjectController extends Controller
             return 1;
         }else{
 
-            $check_project=Project::where('work_order_check','=',1)->where('capacity_check','=',1)->where('license_check','=',1)->whereRaw('LENGTH(license_note) < 4')->whereRaw('LENGTH(capacity_note) < 4')->whereRaw('LENGTH(work_order_note) < 4')->count();
+            $check_project=Project::where('work_order_check','=',1)->where('capacity_check','=',1)->where('license_check','=',1)->count();
+           //echo $check_project=Project::where('work_order_check','=',1)->where('capacity_check','=',1)->where('license_check','=',1)->whereRaw('LENGTH(license_note) < 4')->whereRaw('LENGTH(capacity_note) < 4')->whereRaw('LENGTH(work_order_note) < 4')->count();
 
-            if($check_project==0){
+            if($check_project==1){
                 return 0;
             }else{
                 return 2;
@@ -692,10 +693,34 @@ class ProjectController extends Controller
     {
 
         $project = Project::find($request->id);
+        $this->provision_server($request);
+
+        return redirect()->to($project->link())->with('success', 'Project Approved！');
+
+    }
+
+    public function provision_server($request)
+    {
+
+        $project = Project::find($request->id);
+        foreach($project->server as $_server)
+        {
+            app('App\Http\Controllers\AriaController')->trigger_provision($_server->id);
+
+
+        }
         if ($project->status == '4') {
             $project->status = 5;
             $project->save();
         }
+
+    }
+
+    public function approveprojectbau(Request $request)
+    {
+
+        $project = Project::find($request->id);
+        $this->provision_server($request);
         return redirect()->to($project->link())->with('success', 'Project Approved！');
 
     }
@@ -712,11 +737,11 @@ class ProjectController extends Controller
         }
 
        $pageConfigs = ['pageHeader' => true,];
-        $available_network=VcNetwork::select('name')->distinct()->get();
+        $available_network=VcNetwork::select('name')->where('vlanid','=',0)->distinct()->get();
 
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
        // dd(Auth::user()->company->id);
-       $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
+       $form= Company::with('selectenvform','selecttierform','osform','saform','selectstform','selectbuform')->where('id','=',Auth::user()->company->id)->get();
       //  $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
        //dd(Auth::user()->company->costprofile);
        $costprofile=Auth::user()->company->costprofile;
@@ -764,7 +789,7 @@ class ProjectController extends Controller
        $pageConfigs = ['pageHeader' => true,];
         $projectservers=ProjectServer::where("project_id",$project->id)->orderByDesc("id")->get();
        // dd(Auth::user()->company->id);
-       $form= Company::with('envform','tierform','osform','saform')->where('id','=',Auth::user()->company->id)->get();
+       $form= Company::with('envform','tierform','osform','saform','stform','buform')->where('id','=',Auth::user()->company->id)->get();
       //  $firewallservice = FirewallService::where('status','1')->where('action','=','inbound')->get();
        //dd(Auth::user()->company->costprofile);
        $costprofile=Auth::user()->company->costprofile;
@@ -894,6 +919,9 @@ class ProjectController extends Controller
 
         $find_tier=Tier::find($request->tier);
         $find_env=Environment::find($request->environment);
+        $find_bu=BusinessUnit::find($request->business_unit);
+        $find_st=SystemType::find($request->system_type);
+
 
         foreach ($array_server as $record){
 
@@ -905,9 +933,16 @@ class ProjectController extends Controller
 
                     'environment' => $request->environment,
                     'tier' => $request->tier,
+                    'business_unit'=>$request->business_unit,
+                    'system_type'=>$request->system_type,
+
+                    'display_business_unit' => $find_bu->display_name,
+                    'display_system_type' => $find_st->display_name,
 
                     'display_env' => $find_env->display_name,
                     'display_tier' => $find_tier->display_name,
+
+
 
 
 //                    'updated_by' => Auth::id(),
@@ -922,6 +957,14 @@ class ProjectController extends Controller
         $server  = ProjectServer::where($where)->first();
 
         return response()->json($server);
+    }
+
+    public function getservernetwork(Request $request)
+    {
+
+        $where = array('id' => $request->id);
+        $server  = ProjectServer::where($where)->first();
+        return response()->json($server->network);
     }
 
 
