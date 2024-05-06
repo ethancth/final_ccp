@@ -92,47 +92,13 @@ class AriaController extends Controller
         $this->server=ProjectServer::where('id','=',$vmid)->first();
 
 
-
-
-
-
-        //$this->getInitial();
-        //$this->getToken();
+        $this->getToken();
         $this->getInitial();
         $client = new Client(['verify' => false]);
         $url="https://".$this->_url."/blueprint/api/blueprint-requests";
 
 
-        dd(json_encode([
-            'deploymentId' => '',
-            'deploymentName' => $this->server->project->title.'--'.$this->server->hostname.'-'.$this->server->id.'-'.date("dmY-hisa"),
-            'description' => '',
-            'plan' => 'false',
-            'blueprintId' => $this->server->os->workflow_id,
-            'content'=>'',
-            'simulate'=>'false',
-            'inputs'=>[
-                'vmid' => $vmid,
-                'project_code' =>  $this->server->project->id,
-                'cpu' => $this->server->v_cpu,
-                'memory' => ($this->server->v_memory),
-                "appname" => $this->server->hostname,
-                'projectid' => $vmid,
-                'itsr' => $this->server->project->title,
-                'projcode' => $this->server->project->title,
-                'image' => $this->server->os->name,
-                'entity' => $this->server->businessunitname->name,
-                'rccode' => $this->server->project->title,
-                'systype' => $this->server->systemtypename->name,
-                'platform' => $this->server->tiername->name,
-                'environment' => $this->server->envname->name,
-                'network_pg' => $this->server->network[0]->network_name,
-                'network_ip' => $this->server->network[0]->network_ip,
 
-            ]
-
-
-        ]));
 
         try {
             $response = $client->request('POST', $url, [
@@ -188,12 +154,10 @@ class AriaController extends Controller
 
         }catch (RequestException $e) {
             dd(json_decode($e->getResponse()->getBody()->getContents(), true));
-            //dd($e->getResponse()->getBody()->getContents(),true);
-            // dd( json_decode($e->getResponse()->getBody()->getContents(), true));
-            // you can catch here 400 response errors and 500 response errors
-            // see this https://stackoverflow.com/questions/25040436/guzzle-handle-400-bad-request/25040600
+
         } catch(Exception $e){
             echo" Something Wrong : Other";
+            dd(e);
             //other errors
 
         }

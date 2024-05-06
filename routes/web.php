@@ -41,6 +41,11 @@ Route::group(['middleware' => ['role:Admin']], function () {
     Route::post('/management-environment-edit', [CompanyFormController::class, 'env_edit'])->name('management.env.edit');
     Route::post('/management-environment-delete', [CompanyFormController::class, 'env_delete'])->name('management.env.delete');
 
+    Route::get('/management-system-type', [CompanyFormController::class, 'stform'])->name('management_st');
+    Route::post('/management-system-type', [CompanyFormController::class, 'st_request'])->name('management.st.store');
+    Route::post('/management-system-type-edit', [CompanyFormController::class, 'st_edit'])->name('management.st.edit');
+    Route::post('/management-system-type-delete', [CompanyFormController::class, 'st_delete'])->name('management.st.delete');
+
 
     //Infrastructure
     Route::get('management-infrastructure-connector', [InfraController::class, 'connector'])->name('infra.connector');

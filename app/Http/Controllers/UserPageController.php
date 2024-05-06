@@ -170,7 +170,7 @@ class UserPageController extends Controller
 
         if (!$_checKisExist) {
 
-            $_new_user->sendEmailVerificationNotification();
+         //   $_new_user->sendEmailVerificationNotification();
 
         }
         $_check_user_tenant_amount = $_new_user->tenant->count();
@@ -179,21 +179,22 @@ class UserPageController extends Controller
 
 
 
-        if ($_check_is_user_is_in_tenant_result == true) {
-            $this->join_department($request, $_new_user);
-
-        }
+//        if ($_check_is_user_is_in_tenant_result == true) {
+//            $this->join_department($request, $_new_user);
+//
+//        }
 
             $_check_user_tenant_amount = $_new_user->tenant->count();
 
             $_check_is_user_is_in_tenant_result = $_new_user->tenant->contains('id', Auth::user()->company_id);
 
 
-            if ($_check_is_user_is_in_tenant_result == true) {
-                $this->join_department($request, $_new_user);
-                return redirect()->route('user')->with('success', 'Success！');
-            }else if ($_check_user_tenant_amount < 3 && $_check_is_user_is_in_tenant_result == false) {
-                //
+//            if ($_check_is_user_is_in_tenant_result == true) {
+//
+//                $this->join_department($request, $_new_user);
+//                return redirect()->route('user')->with('success', 'Success！');
+//            }else if ($_check_user_tenant_amount < 3 && $_check_is_user_is_in_tenant_result == false) {
+//                //
                 $updatetenant = Tenant::create([
                     'user_id' => $_new_user->id,
                     'action' => 'User id[' . Auth()->id() . '] - ' . Auth()->user()->name . ' Create this user',
@@ -204,9 +205,9 @@ class UserPageController extends Controller
 
 
                 return redirect()->route('user')->with('success', 'Success！');
-            } else {
-                return redirect()->route('user')->with('warning', 'This User has more than 3 tenant');
-            }
+//            } else {
+//                return redirect()->route('user')->with('warning', 'This User has more than 3 tenant');
+//            }
 
 
 

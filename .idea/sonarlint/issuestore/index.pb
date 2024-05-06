@@ -270,8 +270,6 @@ N
 .app/Models/ProjectSecurityGroupEnvFirewall.php,f/1/f1746d2824a2f502dbd674031b759146fb0b31b2
 [
 +app/Models/ProjectSecurityGroupFirewall.php,d/0/d02bc022f1a1d5429fd5027ab98c67b703a0a608
-C
-config/debugbar.php,7/c/7c41d982a1dc4ee9193740c3f789660923865c74
 U
 %database/factories/CompanyFactory.php,a/f/af5f8fd7ad4987a0147da04bfcc7322f34bcb147
 X
@@ -522,16 +520,12 @@ x
 Hresources/views/content/_partials/_modals/modal-create-project.blade.php,9/7/976f731ec074576ccf22c20f7b958e15f2218b1e
 _
 /resources/data/menu-data/verticalMenu_user.json,5/8/58c59a778396baaf04b8439c6a4529750987427d
-`
-0resources/views/content/management/env.blade.php,5/f/5fb1518bb9b595cb6cbc7ef2f3ed8ff53b47acf6
 >
 config/app.php,7/3/734f7be25e8008acc7129e73cd116d5de913e6fd
 A
 package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47
 <
 package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
-=
-composer.json,3/9/3957b91a0d8450cea0115cfd5af69eac90d75897
 R
 "app/Livewire/CreateServerModal.php,c/5/c55b6e0f77c936d05f025ca3e1583114615424c1
 t
@@ -608,8 +602,6 @@ U
 %database/seeders/PermissionSeeder.php,d/8/d8468f24596c33b394f5beceadd234805dfff802
 n
 >database/migrations/2024_04_07_154648_add_field_on_project.php,9/f/9f1356b68723ca60bb720bfcd0e3fb258822c4cd
-W
-'resources/views/panels/navbar.blade.php,b/6/b69f062d1d9a9b6cdcd8844af2776ec97ed6d2cb
 G
 app/Helpers/Helpers.php,0/2/024693ae683d7be35f29d493127faaab72ab2618
 J
@@ -666,8 +658,6 @@ y
 Iresources/views/content/_partials/_modals/modal-server-firewall.blade.php,3/c/3c55c30220d8b6311138d8d4693fe617e6ebe988
 u
 Eresources/views/content/project/asset-project-detail-backup.blade.php,8/5/85f53f0fe44fd5b7ba94f74ecfaf47d0e1691f45
-a
-1resources/views/content/management/tier.blade.php,5/1/51b8453d08875332bf72835a515e3fb5674d8f08
 H
 app/Models/VcNetwork.php,2/d/2d37f672e0ea559eaf5db500578a1dc133de01aa
 a

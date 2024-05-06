@@ -36,7 +36,7 @@
     </div>
     <!--/ Permission Table -->
 
-    @include('content/_partials/_modals/modal-env-add-edit-form')
+    @include('content/_partials/_modals/modal-st-add-edit-form')
 @endsection
 
 @section('vendor-script')
@@ -90,7 +90,7 @@
 
                         event.preventDefault();
                         if (form.checkValidity() === true) {
-                            document.forms["envform"].submit();
+                            document.forms["stform"].submit();
                         }
 
                     });
@@ -102,7 +102,7 @@
                 var id = $(this).data('id');
                 $.ajax({
                     type:"POST",
-                    url: "{{ route('management.env.edit') }}",
+                    url: "{{ route('management.st.edit') }}",
                     data: { id: id },
                     dataType: 'json',
                     success: function(res){
@@ -127,7 +127,7 @@
             if (dataTableProjectIndex.length) {
                 dt_project_index = dataTableProjectIndex.DataTable({
 
-                    ajax: "{{ route('management_env') }}", // JSON file to add data
+                    ajax: "{{ route('management_st') }}", // JSON file to add data
                     columns: [
                         // columns according to JSON
                         { data: '' },
@@ -304,7 +304,7 @@
                                 'data-bs-target': '#modalsslideinform'
                             },
                             action: function (){
-                                $('#envform').trigger("reset");
+                                $('#stform').trigger("reset");
                             },
                             init: function (api, node, config) {
                                 $(node).removeClass('btn-secondary');
@@ -389,7 +389,7 @@
                         $.ajax({
 
                             type:"POST",
-                            url: "{{ route('management.env.delete') }}",
+                            url: "{{ route('management.st.delete') }}",
                             data: { id: id },
                             dataType: 'json',
                             success: function () {

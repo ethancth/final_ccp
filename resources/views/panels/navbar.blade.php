@@ -56,8 +56,8 @@
         </a>
       </div>
     </li>
-      <li class="nav-item d-none d-lg-block"><a class="nav-link"><span class="user-name fw-bolder">You are in tenant  -
-                  {{Auth::User()->tenant[0]['name'] }}
+      <li class="nav-item d-none d-lg-block"><a class="nav-link"><span class="user-name fw-bolder">Welcome to NGPaaS
+{{--                  {{Auth::User()->tenant[0]['name'] }}--}}
               </span></a></li>
 
       @livewire('home-theme')

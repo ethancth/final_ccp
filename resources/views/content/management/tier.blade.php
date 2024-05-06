@@ -188,7 +188,7 @@
                                 var stateNum = Math.floor(Math.random() * 6) + 1;
                                 var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
                                 var $state = states[stateNum],
-                                    $name = full['name'],
+                                    $name = full['display_name'],
                                     $initials = $name.match(/\b\w/g) || [];
                                 $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
                                 var $output = '<span class="avatar-content" ><i data-feather="'+$images+'"></i></span>';

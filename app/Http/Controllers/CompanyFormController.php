@@ -9,6 +9,7 @@ use App\Models\FormPolicy;
 use App\Models\InfraSetting;
 use App\Models\OperatingSystem;
 use App\Models\ServiceApplication;
+use App\Models\SystemType;
 use App\Models\Tier;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -76,6 +77,65 @@ class CompanyFormController extends Controller
         return true;
     }
 
+
+    public function stform(Request $request)
+    {
+        $pageConfigs = ['pageHeader' => false,];
+        $data= Auth::user()->company->stform;
+        $formtxt='Environment';
+        if ($request->ajax()) {
+            $data = Auth::user()->company->selectstform;
+            return Datatables::of($data)
+//                ->addColumn('action', function($row){
+//                    $btn = '<a href="javascript:void(0)" class="btn btn-primary btn-sm">View</a>';
+//                    return $btn;
+//                })
+//                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $breadcrumbs = [
+            ['link' => "/", 'name' => "Home"], ['link' => "management-systen-type", 'name' => "System Type"]
+        ];
+
+        return view('/content/management/systemtype', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'System Type']);
+    }
+
+    public function st_request(Request $request)
+    {
+        //dd($request);
+        SystemType::updateOrCreate(
+            [
+                'id' => $request->form_id,
+            ],
+            [
+                'name' => $request->basic_addon_name,
+                'display_name' => $request->basic_default_display_name,
+                'display_description' => $request->basic_default_desc,
+                'display_icon' => $request->basic_default_icon,
+                'display_icon_colour' => $request->select_colour,
+                'company_id' => Auth::user()->company_id,
+                'status' => $request->select_status,
+            ]);
+        return redirect()->route('management_st')->with('success', 'Success！');
+    }
+
+    public function st_edit(Request $request)
+    {
+        $where = array('id' => $request->id);
+        $env  = SystemType::where($where)->first();
+
+        return response()->json($env);
+    }
+    public function st_delete(Request $request)
+    {
+        $this->company_policy();
+        $result=SystemType::where('id','=',$request->id)->where('company_id','=',Auth::user()->company_id)->delete();
+
+        return true;
+    }
+
+
+
     public function company_policy(){
         $_company=company::find(User::find(Auth::user()->company_id))->first();
 
@@ -109,7 +169,7 @@ class CompanyFormController extends Controller
             ['link' => "/", 'name' => "Home"], ['link' => "management-tier", 'name' => "Cluster"]
         ];
 
-        return view('/content/management/tier', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Tiers']);
+        return view('/content/management/tier', ['pageConfigs' => $pageConfigs,'breadcrumbs' => $breadcrumbs,'data' => $data, 'formtxt' => $formtxt ,'pagetitle' =>'Cluster']);
     }
 
     public function tier_request(Request $request)
