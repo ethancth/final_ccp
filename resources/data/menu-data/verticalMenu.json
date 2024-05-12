@@ -11,7 +11,6 @@
       {"url":"user-management","name":"User","icon":"grid","slug":"user"},
       {"url":"management-environment","name":"Environments","icon":"grid","slug":"management_env"},
       {"url":"management-cluster","name":"Cluster","icon":"grid","slug":"management_tier"},
-      {"url":"management-system-type","name":"System Type","icon":"grid","slug":"management_st"},
       {"url":"management-os","name":"Operating System","icon":"grid","slug":"management_os"},
       {"url":"management-service-application","name":"Application Services","icon":"grid","slug":"management_sa"},
       {"url":"management-cost","name":"Cost Form","icon":"grid","slug":"management_cost"},

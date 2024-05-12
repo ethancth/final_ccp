@@ -87,6 +87,78 @@ class AriaController extends Controller
 
     }
 
+    public function get_system_type_by_network($param)
+    {
+
+        $param=strtolower($param);
+        switch (true){
+            case stripos($param,'web') !== false:
+              $_return='WEB';
+                break;
+            case stripos($param,'app') !== false:
+                $_return='APP';
+                break;
+            case stripos($param,'db') !== false:
+                $_return='DBS';
+                break;
+            case stripos($param,'dmz') !== false:
+                $_return='DMZ';
+                break;
+            default:
+                $_return='APP';
+        }
+
+        return $_return;
+
+    }
+
+    public function show_json($vmid){
+
+        $this->server=ProjectServer::where('id','=',$vmid)->first();
+
+        $obj=[
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.$this->infrasetting->token,
+            ],
+            'json' => [
+                'deploymentId' => '',
+                'deploymentName' => $this->server->project->title.'--'.$this->server->hostname.'-'.$this->server->id.'-'.date("dmY-hisa"),
+                'description' => '',
+                'plan' => 'false',
+                'blueprintId' => $this->server->os->workflow_id,
+                'content'=>'',
+                'simulate'=>'false',
+                'inputs'=>[
+                    'vmid' => $vmid,
+                    'project_code' =>  $this->server->project->id,
+                    'cpu' => $this->server->v_cpu,
+                    'memory' => ($this->server->v_memory),
+                    "appname" => $this->server->project->title,
+                    "display_hostname" => $this->server->hostname,
+                    'projectid' => $vmid,
+                    'itsr' => 1,
+                    'projcode' => $this->server->project->title,
+                    'image' => $this->server->os->name,
+                    'entity' => $this->server->businessunitname->name,
+                    'rccode' => $this->server->project->title,
+                    'systype' => $this->get_system_type_by_network($this->server->network[0]->network_name),
+                    'platform' => $this->server->tiername->name,
+                    'environment' => $this->server->envname->name,
+                    'network_pg' => $this->server->network[0]->network_name,
+                    'network_ip' => $this->server->network[0]->network_ip,
+
+                ]
+
+
+            ]
+        ];
+
+        dump($obj);
+
+    }
+
     public function trigger_provision_workflow($vmid){
 
         $this->server=ProjectServer::where('id','=',$vmid)->first();
@@ -96,7 +168,6 @@ class AriaController extends Controller
         $this->getInitial();
         $client = new Client(['verify' => false]);
         $url="https://".$this->_url."/blueprint/api/blueprint-requests";
-
 
 
 
@@ -120,18 +191,19 @@ class AriaController extends Controller
                         'project_code' =>  $this->server->project->id,
                         'cpu' => $this->server->v_cpu,
                         'memory' => ($this->server->v_memory),
-                        "appname" => $this->server->hostname,
+                        "appname" => $this->server->project->title,
+                        "display_hostname" => $this->server->hostname,
                         'projectid' => $vmid,
                         'itsr' => 1,
                         'projcode' => $this->server->project->title,
                         'image' => $this->server->os->name,
                         'entity' => $this->server->businessunitname->name,
                         'rccode' => $this->server->project->title,
-                        'systype' => $this->server->systemtypename->name,
+                        'systype' => $this->get_system_type_by_network($this->server->network[0]->network_name),
                         'platform' => $this->server->tiername->name,
                         'environment' => $this->server->envname->name,
-                        'network_pg' => $this->server->network->network_name,
-                        'network_ip' => $this->server->network->network_ip,
+                        'network_pg' => $this->server->network[0]->network_name,
+                        'network_ip' => $this->server->network[0]->network_ip,
 
                     ]
 
@@ -157,7 +229,7 @@ class AriaController extends Controller
 
         } catch(Exception $e){
             echo" Something Wrong : Other";
-            dd(e);
+            dd($e);
             //other errors
 
         }

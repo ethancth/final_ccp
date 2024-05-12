@@ -920,7 +920,7 @@ class ProjectController extends Controller
         $find_tier=Tier::find($request->tier);
         $find_env=Environment::find($request->environment);
         $find_bu=BusinessUnit::find($request->business_unit);
-        $find_st=SystemType::find($request->system_type);
+//        $find_st=SystemType::find($request->system_type);
 
 
         foreach ($array_server as $record){
@@ -934,10 +934,10 @@ class ProjectController extends Controller
                     'environment' => $request->environment,
                     'tier' => $request->tier,
                     'business_unit'=>$request->business_unit,
-                    'system_type'=>$request->system_type,
+//                    'system_type'=>$request->system_type,
 
                     'display_business_unit' => $find_bu->display_name,
-                    'display_system_type' => $find_st->display_name,
+//                    'display_system_type' => $find_st->display_name,
 
                     'display_env' => $find_env->display_name,
                     'display_tier' => $find_tier->display_name,

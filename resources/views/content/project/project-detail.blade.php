@@ -918,7 +918,7 @@
                              $field_environment = full['display_env'],
                                 $field_tier = full['display_tier'],
                                 $field_bu = full['display_business_unit'],
-                                $field_st = full['display_system_type'],
+                                // $field_st = full['display_system_type'],
                                 created_at = full['created_at'],
                                 $balance = full['price'],
                                 roleObj = {
@@ -940,7 +940,7 @@
 
                                     '<br> <span class="fw-bold">Business Unit:</span> ' +$field_bu+
                                 '<br> <span class="fw-bold">Environment:</span> ' +$field_environment+
-                                    '<br> <span class="fw-bold">System Type:</span> ' +$field_st+
+                                    // '<br> <span class="fw-bold">System Type:</span> ' +$field_st+
 
 
 
@@ -1322,7 +1322,7 @@
                     },{
                         text: 'Document',
                         //className: 'btn btn-primary btn-add-record ms-2',
-                        className: 'btn btn-warning waves-effect waves-float waves-light btn-assign-infra ',
+                        className: 'btn btn-warning waves-effect waves-float waves-light',
                         // action: function (e, dt, button, config) {
                         //     window.location = invoiceAdd;
                         // }

@@ -64,21 +64,21 @@
                         </div>
                     </div>
 
-                        <div class="col-12">
-                            <label class="form-label" for="system_type">System Type </label>
-                            <div>
-                                <select  id="system_type"  name='system_type' class="select2-st select2 form-select ">
+{{--                        <div class="col-12">--}}
+{{--                            <label class="form-label" for="system_type">System Type </label>--}}
+{{--                            <div>--}}
+{{--                                <select  id="system_type"  name='system_type' class="select2-st select2 form-select ">--}}
 
 
-                                        @foreach($form->selectstform as $form)
-                                            @if($form->status===1)
-                                                <option value="{{$form->id}}">{{$form->display_name}}</option>
-                                            @endif
-                                        @endforeach
+{{--                                        @foreach($form->selectstform as $form)--}}
+{{--                                            @if($form->status===1)--}}
+{{--                                                <option value="{{$form->id}}">{{$form->display_name}}</option>--}}
+{{--                                            @endif--}}
+{{--                                        @endforeach--}}
 
-                                </select>
-                            </div>
-                        </div>
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
 
 
