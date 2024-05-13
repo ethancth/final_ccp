@@ -24,6 +24,7 @@ class ProjectServer extends Model
         'display_business_unit',
         'system_type',
         'display_system_type',
+        'provision_hostname'
     ];
 
     public function project()
