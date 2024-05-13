@@ -36,6 +36,7 @@
                                         <div class="mb-1">
                                             <label class="form-label" for="ipaddress">IP Address</label>
                                             <input
+                                                disabled
                                                 type="text"
                                                 class="form-control"
                                                 id="ipaddress"

@@ -56,12 +56,15 @@
                                     -  Pending for SE Team Approve
                                 @endif
 
-                                @if($project->project_type =='bau' && $project->status==3 )
+                                @if($project->project_type =='bau' && $project->status==4 )
                                     -  Pending for BAU Team Approve
                                 @endif
                          @endif
                             @if($project->status==5)
                                 - Provisioning
+                            @endif
+                            @if($project->status==6)
+                                - Complete
                             @endif
                     @endif
                 </h1>
@@ -1102,7 +1105,7 @@
                                 // '</div>' +
                                 '</div>'
                             );
-                            @elseif( $project->status==4&&Auth::user()->hasPermissionTo('approver_level_3') || $project->status==2&&Auth::user()->hasPermissionTo('approver_bau_level_3'))
+                            @elseif( $project->status==4&&Auth::user()->hasPermissionTo('approver_level_3')&& $project->project_type=='new'|| $project->status==4&&Auth::user()->hasPermissionTo('approver_bau_level_3')&& $project->project_type=='bau')
                                 return (
                                 '<div class="d-flex align-items-center col-actions">' +
                                 '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
@@ -1136,7 +1139,7 @@
                                 // '</div>' +
                                 '</div>'
                             );
-                            @elseif($project->status==5)
+                            @elseif($project->status==5 || $project->status==6)
 
                             if($_status=='In Progress'){
                                 return ('<div class="d-flex align-items-center col-actions">' +

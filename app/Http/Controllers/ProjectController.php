@@ -89,10 +89,32 @@ class ProjectController extends Controller
         if ($request->ajax()) {
 
             if (!Auth::user()->hasPermissionTo('project' ) ) {
-                $data = $project->withStatus($request->status)
-                    ->where('company_id','=',Auth::user()->company_id)
-                    ->get();
+
+                if(Auth::user()->hasPermissionTo('approver_level_1'))
+                {
+                    $data = $project->withStatus($request->status)
+
+                        ->where('company_id','=',Auth::user()->company_id)
+                        ->get();
+                }
+                if(Auth::user()->hasPermissionTo('approver_bau_level_3'))
+                {
+                    $data = $project->withStatus($request->status)
+                        ->where('project_type','=','bau')
+                        ->where('company_id','=',Auth::user()->company_id)
+                        ->get();
+                }
+
+                if(Auth::user()->hasPermissionTo('approver_level_2') || Auth::user()->hasPermissionTo('approver_level_3'))
+                {
+                    $data = $project->withStatus($request->status)
+                        ->where('project_type','=','new')
+                        ->where('company_id','=',Auth::user()->company_id)
+                        ->get();
+                }
+
             }else{
+                //Requester
                 $data = $project->withStatus($request->status)
                     ->where('owner','=',Auth()->id())
                     ->where('company_id','=',Auth::user()->company_id)
@@ -126,9 +148,8 @@ class ProjectController extends Controller
             return 1;
         }else{
 
-            $check_project=Project::where('work_order_check','=',1)->where('capacity_check','=',1)->where('license_check','=',1)->count();
+            $check_project=Project::where('id','=',$request->id)->where('work_order_check','=',1)->where('capacity_check','=',1)->where('license_check','=',1)->count();
            //echo $check_project=Project::where('work_order_check','=',1)->where('capacity_check','=',1)->where('license_check','=',1)->whereRaw('LENGTH(license_note) < 4')->whereRaw('LENGTH(capacity_note) < 4')->whereRaw('LENGTH(work_order_note) < 4')->count();
-
             if($check_project==1){
                 return 0;
             }else{
@@ -668,10 +689,18 @@ class ProjectController extends Controller
     public function approveproject(Request $request)
     {
         $project=Project::find($request->id);
-        if($project->status=='2'){
-            $project->status = 3;
-            $project->save();
+        if($project->project_type=='new'){
+            if($project->status=='2'){
+                $project->status = 3;
+                $project->save();
+            }
+        }else{
+            if($project->status=='2'){
+                $project->status = 4;
+                $project->save();
+            }
         }
+
         return redirect()->to($project->link())->with('success', 'Project Approved！');
 
 
