@@ -16,8 +16,8 @@
                     </defs>
                     <style>
                         .s0 { fill: #790008 }
-                        .s1 { fill: #ffffff }
-                        .s2 { fill: #ffffff }
+                        .s1 { fill: #790008 }
+                        .s2 fill: #790008 }
                     </style>
                     <g id="Clip-Path: Page 1" clip-path="url(#cp1)">
                         <g id="Page 1">
