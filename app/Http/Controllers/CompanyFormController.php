@@ -8,6 +8,7 @@ use App\Models\Environment;
 use App\Models\FormPolicy;
 use App\Models\InfraSetting;
 use App\Models\OperatingSystem;
+use App\Models\ProjectServer;
 use App\Models\ServiceApplication;
 use App\Models\SystemType;
 use App\Models\Tier;
@@ -673,7 +674,79 @@ class CompanyFormController extends Controller
     }
     //project server cost
 
+    public function getServerCost(Request $request){
+
+        $company_id=Auth::user()->company->id;
+        $company_cost_profile=Auth::user()->company->costprofile->first();
+        $server=ProjectServer::find($request)->first();
+
+
+
+        $_cost_vcpu=($server->v_cpu/$company_cost_profile->vcpu)*$company_cost_profile->vcpu_price;
+        $_cost_memory=($server->v_memory/$company_cost_profile->vmen)*$company_cost_profile->vmen_price;
+        $_cost_storage=($server->total_storage  /$company_cost_profile->vstorage)*$company_cost_profile->vstorage_price;
+        $_cost_os=OperatingSystem::find($server->operating_system)->cost;
+        $_formula_backup_cost=$this->getBackupCost($server->total_storage);
+
+        $_total_cost_server=$_cost_vcpu+$_cost_memory+$_cost_storage+$_cost_os;
+        $_total_cost_server=$_total_cost_server+$this->getBackupCost($server->total_storage);
+
+        $_services_test='<span> - Backup </span><br/>';
+
+
+        $sam=$server->optional_sa_field;
+        $resuleB= DB::table('service_applications')
+            ->whereIn('id',explode(',', $sam))
+            ->get();
+
+        $_total_cost_sam=0;
+        $_display_cost='';
+        $_display_services='';
+        $_formula_sa='Formula '."<br/>";
+        foreach($resuleB as $services) {
+
+            if ($services->is_one_time_payment) {
+                $_total_cost_sam = $_total_cost_sam + $services->cost;
+            } elseif ($services->is_cost_per_core) {
+
+                if ($server->v_cpu % $services->cpu_amount == 0) {
+                    $_cost_sam = ($server->v_cpu / $services->cpu_amount) * $services->cost;
+                    $_formula_sa .= '(' . $server->v_cpu . '/' . $services->cpu_amount . ')*' . $services->cost;
+                } else {
+                    $_cost_sam = floor($server->v_cpu / $services->cpu_amount + 1) * $services->cost;
+                    $_formula_sa .= '(' . $server->v_cpu . '/' . ($services->cpu_amount + 1) . ')*' . $services->cost;
+                }
+                $_total_cost_sam = $_total_cost_sam + $_cost_sam;
+                $_display_cost.='<span>  '.env("APP_COST", "RM ").$_cost_sam.' </span><br/>';
+                $_display_services.='<span> - '.$services->display_name.' </span><br/>';
+            }
+        }
+//            echo $request->cpu;
+//            echo $services->name;
+
+
+
+//        dd(env("APP_COST", "RM ").$this->getBackupCost($server->total_storage).'<br/>'.$_display_cost);
+        $_total_cost_server=$_total_cost_server+$_total_cost_sam;
+            return $a=array(
+            'cost'=>env("APP_COST", "RM ").number_format((float)$_total_cost_server, 2, '.', ','),
+            'CPU'=>env("APP_COST", "RM ").$_cost_vcpu,
+            'memory'=>env("APP_COST", "RM ").$_cost_memory,
+            'storage'=>env("APP_COST", "RM ").$_cost_storage,
+            'os'=>env("APP_COST", "RM ").$_cost_os,
+            'display_services'=>$_services_test.$_display_services,
+            'display_services_cost'=>'<br/> '.env("APP_COST", "RM ").$this->getBackupCost($server->total_storage).'<br/>'.$_display_cost,
+      //      'display_services_cost'=>'',
+            'backup'=>env("APP_COST", "RM ").$this->getBackupCost($server->total_storage),
+            'backup_year'=>env("APP_COST", "RM ").($this->getBackupCost($server->total_storage))*12,
+        );
+
+
+
+    }
+
     public function getCost(Request $request){
+
 
         $company_id=Auth::user()->company->id;
         $company_cost_profile=Auth::user()->company->costprofile->first();
@@ -707,7 +780,9 @@ class CompanyFormController extends Controller
             $sam=$resule[0]->mandatory_field;
 
         }
+
          $sam=$sam.','.$request->sao;
+
         ///////////////////////////////////////////////////////
         $resuleB= DB::table('service_applications')
             ->whereIn('id',explode(',', $sam))
@@ -748,18 +823,42 @@ class CompanyFormController extends Controller
 
          $_total_cost_sam= number_format((float)$_total_cost_sam, 5, '.', '');
 
-         $_formula_os=
+         $_formula_os=$this->getBackupCost($request->storage);
         $_total_cost_server=$_cost_vcpu+$_cost_memory+$_cost_storage+$_total_cost_sam+$_cost_os->cost;
+        $_total_cost_server=$_total_cost_server+$this->getBackupCost($request->storage);
+
       //  dump($_cost_vcpu,$_cost_memory,$_cost_storage,$_total_cost_server);
         //return number_format((float)$_total_cost_server, 2, '.', '');
         return $a=array(
-            'cost'=>number_format((float)$_total_cost_server, 2, '.', ''),
-            'CPU'=>$_formula_cpu,
-            'memory'=>$_formula_memory,
-            'storage'=>$_formula_storage,
-            'fomula_sa'=>$_formula_sa,
+            'cost'=>number_format((float)$_total_cost_server, 2, '.', ','),
+//            'CPU'=>$_formula_cpu,
+//            'memory'=>$_formula_memory,
+//            'storage'=>$_formula_storage,
+//            'fomula_sa'=>$_formula_sa,
         );
 
+
+    }
+
+    public function getBackupCost($storage){
+        $storage=$storage/1000;
+
+        $d4_frequency=1;
+        $g4_redention=1;
+        $j4_reduction=2;
+        $i4_sub_total=($storage*$d4_frequency*$g4_redention)/$j4_reduction;
+
+        $l5_daily_sync=$storage*0.025;
+        $l5_sub_total=($l5_daily_sync*6*2)/20;
+        $l8_active_tier=$i4_sub_total+$l5_sub_total;
+        $l8_active_tier=number_format($l8_active_tier,2);
+
+
+        $b26_dd_active=0.14;
+        $production_active_tier=$b26_dd_active*1024*$l8_active_tier*60;
+        $y1_payment=($production_active_tier/5)*1.08;
+
+        return number_format($y1_payment/12,2);
 
     }
 

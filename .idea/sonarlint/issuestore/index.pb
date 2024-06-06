@@ -390,8 +390,6 @@ z
 Jresources/views/content/_partials/_modals/modal-sa-add-edit-form.blade.php,1/1/1135ed5a0820926d7e079293394331b65c8a4060
 z
 Jresources/views/content/_partials/_modals/modal-project-activity.blade.php,a/4/a412959183e16f0234e242ff3a0e4ab5f1672a00
-‡
-Wresources/views/content/_partials/_modals/modal-add-edit-server-firewall-form.blade.php,7/5/752168cbc58ed5f827399e0d8b7311f630191be4
 †
 Vresources/views/content/_partials/_modals/modal-assest-security-group-member.blade.php,e/0/e03b8076a264b6943d1cabcf948ae90103afb2ff
 x
@@ -474,8 +472,6 @@ O
 app/Listeners/EmailVerified.php,7/6/760dc25bce545074b1267c88b3088faa13056592
 k
 ;resources/scss/base/core/menu/menu-types/vertical-menu.scss,c/5/c5a4d57fa8e474554738e81a444e51237d58a8b3
-\
-,resources/data/menu-data/verticalMenu-1.json,5/7/571ad206b988bfd370646acb126dceec2ac37b8b
 X
 (resources/views/panels/submenu.blade.php,9/4/94b9ec4f2353de2295bb506738407618abb57730
 W
@@ -528,8 +524,6 @@ A
 package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
 R
 "app/Livewire/CreateServerModal.php,c/5/c55b6e0f77c936d05f025ca3e1583114615424c1
-t
-Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6
 =
 composer.lock,c/3/c3262e2a0879195bd6a727e90f768bc85ad79ffd
 f
@@ -604,12 +598,8 @@ n
 >database/migrations/2024_04_07_154648_add_field_on_project.php,9/f/9f1356b68723ca60bb720bfcd0e3fb258822c4cd
 G
 app/Helpers/Helpers.php,0/2/024693ae683d7be35f29d493127faaab72ab2618
-J
-app/Livewire/HomeTheme.php,f/b/fbc35f5c60c9c491e5c396c135a24b79643a5481
 ]
 -resources/views/livewire/home-theme.blade.php,e/e/ee51cf50ca3a10f19ecf08e81cf7873e715a36d2
-_
-/resources/views/content/project/asset.blade.php,3/1/311f5cf5c4307790acff31bab1bc6985e073580c
 Y
 )app/Http/Controllers/TenantController.php,4/3/43e866a2919d86dd6d9486bd7b5d81e52f49c8d0
 E
@@ -634,12 +624,6 @@ j
 :resources/views/content/project/project-document.blade.php,a/7/a7509bbbc7dccc6d10c1e1ee1f6e20523ad6b8c2
 a
 1resources/views/livewire/create-project.blade.php,d/d/dd125af800ef282d01028ef074b5d4741de2872c
-N
-app/Livewire/CreateProject.php,4/e/4e992fbb84a6fbb5bca642e9e6f4c29f5ba98f17
-L
-app/Livewire/AssignInfra.php,1/4/14cf5edca644fda3f6665a5f135879dd1424ad94
-P
- app/Livewire/ProjectDocument.php,a/f/af8a206f7ecaaa9f48ce65dd68cea62554ebc5ce
 c
 3resources/views/livewire/project-document.blade.php,f/8/f81f099ad1d4ce1e509781e70195537b9bf1b4e6
 |
@@ -650,8 +634,6 @@ u
 Eresources/views/content/project/project-detail-backup-april.blade.php,e/a/ea78b45e49b7eba51298d9b8016074444d5d69ef
 N
 app/Models/FirewallService.php,c/9/c996bb2949a283a9bd981736382d251a5591a1c3
-f
-6resources/views/content/project/project-home.blade.php,f/7/f703b193954b357df0171bfb3e2e6f40300e3394
 S
 #app/Models/ProjectServerNetwork.php,3/2/3239d537c4fc6293d97118bdd3e02799c1664b5d
 y
@@ -722,8 +704,6 @@ u
 Edatabase/migrations/2024_05_06_002742_create_business_units_table.php,f/f/ff7e5e2407164f86353dd25f5a8c90b635cf9532
 s
 Cdatabase/migrations/2024_05_06_002812_create_system_types_table.php,4/a/4a9d67f262c18d94be09d441140dbef7d8339865
-Q
-!app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
 W
 'app/Observers/ProjectServerObserver.php,7/4/74a477b8865521fa13d2c3a07caa39615ea37fc4
 F
@@ -748,3 +728,43 @@ Y
 lang/en.json,e/4/e481363e06e379f1f31d21296d4c1ffd06d962c8
 [
 +resources/views/content/user/home.blade.php,5/e/5e014ad44d980814dd6f9ff5775865704240c60a
+[
++app/Http/Controllers/UserPageController.php,7/9/79088bd314422c716c2e1da1bc2e3da0057c1898
+C
+app/Models/User.php,a/9/a90f2e50cb06863b54effced365aa5f1fe7d9c88
+W
+'resources/views/panels/navbar.blade.php,b/6/b69f062d1d9a9b6cdcd8844af2776ec97ed6d2cb
+a
+1resources/views/content/management/tier.blade.php,5/1/51b8453d08875332bf72835a515e3fb5674d8f08
+B
+lang/en/locale.php,7/c/7c46845a8dbe950db03fcc9491123661f82d7839
+C
+config/debugbar.php,7/c/7c41d982a1dc4ee9193740c3f789660923865c74
+~
+Nresources/views/content/_partials/_modals/modal-project-assign-infra.blade.php,a/2/a2339f1e2de9d6e08e383535f7e79f559f8f9342
+x
+Hdatabase/migrations/2024_05_13_135353_add_field_on_project_provision.php,7/5/753ef05b1eb791b514eb3ae411e80a5fa2c329e8
+L
+app/Models/ProjectServer.php,b/f/bf24152f8c8ae47e4f91c245099b44b022a27d0f
+x
+Hdatabase/migrations/2024_05_05_145817_add_field_on_project_provision.php,f/9/f9770bfaf6ec265c04810e07505a2ab76f073299
+Q
+!app/Observers/ProjectObserver.php,0/a/0ad41b819673af85696fb62959c0cdd43d27c028
+W
+'app/Http/Controllers/AriaController.php,0/4/044edf1116145d1fa8d522e83e064db0082ef9b9
+\
+,resources/data/menu-data/verticalMenu-1.json,5/7/571ad206b988bfd370646acb126dceec2ac37b8b
+€
+Presources/views/content/_partials/_modals/modal-project-assign-network.blade.php,c/c/cc6c1c19258f556df2b36ba4416e28ab944c2583
+_
+/resources/views/content/project/asset.blade.php,3/1/311f5cf5c4307790acff31bab1bc6985e073580c
+‡
+Wresources/views/content/_partials/_modals/modal-add-edit-server-firewall-form.blade.php,7/5/752168cbc58ed5f827399e0d8b7311f630191be4
+t
+Dresources/views/content/_partials/_modals/modal-create-app.blade.php,b/0/b0b89f4d5e6c231aa446e3fb3dd58baaa203a3c6
+J
+app/Livewire/HomeTheme.php,f/b/fbc35f5c60c9c491e5c396c135a24b79643a5481
+L
+app/Livewire/AssignInfra.php,1/4/14cf5edca644fda3f6665a5f135879dd1424ad94
+N
+app/Livewire/CreateProject.php,4/e/4e992fbb84a6fbb5bca642e9e6f4c29f5ba98f17

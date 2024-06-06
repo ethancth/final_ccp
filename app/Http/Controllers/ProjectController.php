@@ -113,6 +113,13 @@ class ProjectController extends Controller
                         ->get();
                 }
 
+                if(Auth::user()->hasPermissionTo('management'))
+                {
+                    $data = $project->withStatus($request->status)
+                        ->where('company_id','=',Auth::user()->company_id)
+                        ->get();
+                }
+
             }else{
                 //Requester
                 $data = $project->withStatus($request->status)
@@ -764,6 +771,15 @@ class ProjectController extends Controller
         {
             $this->project_policy($project);
         }
+        if($project->status=='5')
+        {
+            if( $project->server->count() ==  $project->server->where('provision_status','=','Complete')->count())
+            {
+                $project->status=6;
+                $project->save();
+            }
+
+        }
 
        $pageConfigs = ['pageHeader' => true,];
         $available_network=VcNetwork::select('name')->where('vlanid','=',0)->distinct()->get();
@@ -903,14 +919,15 @@ class ProjectController extends Controller
 
         $Array_optional = explode(',', $request->sa_o);
 
+
         $sas = DB::table('service_applications')->whereIn('id', $Array_optional)->get();
         $_new_name='';
         foreach($sas as $sa){
             $_new_name.=$sa->display_name.", ";
         }
         $display_optional=substr($_new_name, 0, -2);
-
-        ProjectServer::updateOrCreate(
+        $request->cost=str_replace(',', '', $request->cost);
+       $status= ProjectServer::updateOrCreate(
             [
                 'id' => $request->server_id
             ],
@@ -935,6 +952,7 @@ class ProjectController extends Controller
                 'display_optional_sa' => $display_optional,
                 'owner' => Auth::id(),
             ]);
+
         return redirect()->route('project.show', $request->project_id)->with('success', 'Success！');
 
 

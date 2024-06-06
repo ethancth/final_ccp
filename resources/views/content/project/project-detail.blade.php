@@ -78,7 +78,7 @@
                         </div>
 
                         <div>
-                            <h6 class="text">Monthly Cost -  <span class="badge badge-light-success profile-badge">$ {{$project->total_cost()}}</span> </h6>
+                            <h6 class="text">Monthly Cost -  <span class="badge badge-light-success profile-badge">{{env("APP_COST", "RM ")}} {{$project->total_cost()}}</span> </h6>
 
                         </div>
                     </div>
@@ -146,6 +146,7 @@
 </section>
 
 @include('content/_partials/_modals/modal-create-app')
+@include('content/_partials/_modals/modal-app-cost')
 {{--    @livewire('create-server-modal', ['project' => $project])--}}
 {{--    @livewire('assign-infra', ['project' => $project]);--}}
 @include('content/_partials/_modals/modal-project-activity')
@@ -519,7 +520,7 @@
                     dataType: 'json',
                     success: function(res){
                         //console.log(res);
-                        input_cost.innerText ="$ "+ res.cost;
+                        input_cost.innerText ="{{env("APP_COST", "RM ")}} "+ res.cost;
                         $('#cost').val(res.cost);
 
 
@@ -712,6 +713,32 @@
             });
 
         });
+
+        $('body').on('click', '.cost-detail', function () {
+            var id = $(this).data('id');
+            $.ajax({
+                type:"POST",
+                url: "{{ route('project.cost_detail') }}",
+                data: { id: id },
+                dataType: 'json',
+                success: function(res){
+
+                    // $('#ajaxBookModel').html("Edit Book");
+                    $('#modal_cost').modal('show');
+                    document.getElementById("to_be_replaced").innerHTML = res.display_services;
+                     $('#vcost_vcpu').text(res.CPU);
+                     $('#vcost_memory').text(res.memory);
+                     $('#vcost_vstorage').text(res.storage);
+                     $('#vcost_vos').text(res.os);
+                    // $('#vcost_backup_m').text(res.backup);
+                    document.getElementById("to_be_replaced_cost").innerHTML = res.display_services_cost;
+                     $('#vcost_backup_y').text(res.backup_year);
+                     $('#vcost_total').text(res.cost);
+                }
+            });
+
+        });
+
 
 
         $('body').on('click', '.edit', function () {
@@ -986,6 +1013,10 @@
                             // Creates full output for row
                             var colorClass = $image === '' ? ' bg-light-' + $state + ' ' : ' ';
 
+                        @if($project->status==6)
+                            $name = full['provision_hostname'] + " -  "+ full['provision_note'] +"";
+                            $email = full['hostname']+ " ["+ full['display_os'] +"]";
+                        @endif
                             var $rowOutput =
                                 '<div class="d-flex justify-content-left align-items-center">' +
                                 '<div class="avatar-wrapper">' +
@@ -1045,7 +1076,7 @@
                         width: '73px',
                         render: function (data, type, full, meta) {
                             var $total = full['price'];
-                            return '<span class="d-none">' + $total + '</span>$' + $total;
+                            return '<span class="d-none">' + $total + '</span>{{env("APP_COST", "RM ")}}' + $total;
                         }
                     },
                     // {
@@ -1074,7 +1105,7 @@
                             var $id = full['id'];
                             var $_status = full['provision_status'];
 
-                        @if($project->status==2&&Auth::user()->hasPermissionTo('approver_level_1') || $project->status==1&&Auth::user()->hasPermissionTo('project'))
+                        @if( $project->status==1&&Auth::user()->hasPermissionTo('approver_level_1') || $project->status==1&&Auth::user()->hasPermissionTo('project'))
                             return (
                                 '<div class="d-flex align-items-center col-actions">' +
                                 '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
@@ -1082,6 +1113,9 @@
                                 '</a>' +
                                 '<a class="me-1 delete" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Delete">' +
                                 feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                '</a>' +
+                                '<a class="me-1 cost-detail" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Cost Detail">' +
+                                feather.icons['file-text'].toSvg({ class: 'font-medium-2 text-body' }) +
                                 '</a>' +
 
                                 // '<div class="dropdown">' +
@@ -1105,6 +1139,40 @@
                                 // '</div>' +
                                 '</div>'
                             );
+                        @elseif($project->status==2&&Auth::user()->hasPermissionTo('approver_level_1'))
+                            return (
+                            '<div class="d-flex align-items-center col-actions">' +
+                            '<a class="me-1 edit" href="#" data-bs-toggle="tooltip" data-id="'+$id+'" data-bs-placement="top" title="Edit Server">' +
+                            feather.icons['edit'].toSvg({ class: 'font-medium-2 text-body' }) +
+                            '</a>' +
+                            '<a class="me-1 delete" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Delete">' +
+                            feather.icons['trash'].toSvg({ class: 'font-medium-2 text-body' }) +
+                            '</a>' +
+                            '<a class="me-1 cost-detail" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Cost Detail">' +
+                            feather.icons['file-text'].toSvg({ class: 'font-medium-2 text-body' }) +
+                            '</a>' +
+
+                            // '<div class="dropdown">' +
+                            // '<a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
+                            // feather.icons['more-vertical'].toSvg({ class: 'font-medium-2 text-body' }) +
+                            // '</a>' +
+                            // '<div class="dropdown-menu dropdown-menu-end">' +
+                            // '<a href="#" class="dropdown-item">' +
+                            // feather.icons['download'].toSvg({ class: 'font-small-4 me-50' }) +
+                            // 'Download</a>' +
+                            // '<a href="#" class="dropdown-item edit" data-id="'+$id+'">' +
+                            // feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
+                            // 'Edit</a>' +
+                            // '<a href="#" class="dropdown-item">' +
+                            // feather.icons['trash'].toSvg({ class: 'font-small-4 me-50' }) +
+                            // 'Delete</a>' +
+                            // '<a href="#" class="dropdown-item">' +
+                            // feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) +
+                            // 'Duplicate</a>' +
+                            // '</div>' +
+                            // '</div>' +
+                            '</div>'
+                        );
                             @elseif( $project->status==4&&Auth::user()->hasPermissionTo('approver_level_3')&& $project->project_type=='new'|| $project->status==4&&Auth::user()->hasPermissionTo('approver_bau_level_3')&& $project->project_type=='bau')
                                 return (
                                 '<div class="d-flex align-items-center col-actions">' +
@@ -1117,6 +1185,9 @@
 
                                 '<a class="me-1 edit_network" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Assign Network">' +
                                 feather.icons['settings'].toSvg({ class: 'font-medium-2 text-body' }) +
+                                '</a>' +
+                                '<a class="me-1 cost-detail" href="#" data-bs-toggle="tooltip"  data-id="'+$id+'" data-bs-placement="top" title="Cost Detail">' +
+                                feather.icons['file-text'].toSvg({ class: 'font-medium-2 text-body' }) +
                                 '</a>' +
                                 // '<div class="dropdown">' +
                                 // '<a class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
@@ -1639,8 +1710,140 @@
                     },
                     @endif
 
+                        @if($project->status==4&&$project->project_type=='bau'&&Auth::user()->hasPermissionTo('approver_bau_level_3'))
 
-                        @if($project->status==4&&$project->project_type=='new'&&Auth::user()->hasPermissionTo('approver_level_3')||$project->status==4&&$project->project_type=='bau'&&Auth::user()->hasPermissionTo('approver_bau_level_3'))
+                    {
+                        text: 'Document',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-warning waves-effect waves-float waves-light btn-assign-infra ',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        attr: {
+                            'style':'margin-top:10px',
+                        },
+                        action: function (){
+                            var currentUrl = window.location.href;
+                            document.location.href = currentUrl+'/document';
+
+
+
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },{
+                        text: 'Approve Project',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-success waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        style: {
+
+                        },
+
+                        attr: {
+                            'id':'confirm-text',
+                            // 'data-bs-toggle': 'modal',
+                            // 'data-bs-target': '#project-submit-modal',
+                            'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "Approve this project!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Approve it!',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary',
+                                    cancelButton: 'btn btn-outline-danger ms-1'
+                                },
+                                buttonsStyling: false
+                            }).then(function (result) {
+                                if (result.value) {
+                                    var $projectid={{$project->id}};
+                                    $.ajax({
+                                        type:"POST",
+                                        url: "{{ route('project.approve.bau') }}",
+                                        data: { id: $projectid },
+                                        dataType: 'json',
+                                        success: function(res){
+                                            Swal.fire({
+
+                                                icon: 'success',
+                                                title: 'Approved!',
+                                                text: 'This Project has been Approved!.',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },{
+                        text: 'Reject Project',
+                        //className: 'btn btn-primary btn-add-record ms-2',
+                        className: 'btn btn-warning waves-effect waves-float waves-light',
+                        // action: function (e, dt, button, config) {
+                        //     window.location = invoiceAdd;
+                        // }
+                        style: {
+
+                        },
+
+                        attr: {
+                            'id':'confirm-text',
+                            // 'data-bs-toggle': 'modal',
+                            // 'data-bs-target': '#project-submit-modal',
+                            'style':'margin-top:10px'
+                        },
+                        action: function (){
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "Reject this project!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes, Reject it!',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary',
+                                    cancelButton: 'btn btn-outline-danger ms-1'
+                                },
+                                buttonsStyling: false
+                            }).then(function (result) {
+                                if (result.value) {
+                                    var $projectid={{$project->id}};
+                                    $.ajax({
+                                        type:"POST",
+                                        url: "{{ route('project.reject') }}",
+                                        data: { id: $projectid },
+                                        dataType: 'json',
+                                        success: function(res){
+                                            Swal.fire({
+
+                                                icon: 'success',
+                                                title: 'Reject!',
+                                                text: 'This Project has been Reject!.',
+                                                customClass: {
+                                                    confirmButton: 'btn btn-success'
+                                                }
+                                            })
+                                            window.location.reload();
+                                        }
+                                    })
+
+                                }
+                            });
+                        }
+                        //$('#addEditBookForm').trigger("reset");
+                    },
+                        @endif
+
+                        @if($project->status==4&&$project->project_type=='new'&&Auth::user()->hasPermissionTo('approver_level_3'))
 
                     {
                         text: 'Document',

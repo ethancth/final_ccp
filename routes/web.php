@@ -160,6 +160,8 @@ Route::group(['middleware' => ['auth', 'verified']],
 
         //server Cost
         Route::get('/get-cost', [CompanyFormController::class, 'getCost'])->name('server_cost');
+        Route::post('/get-cost-detail', [CompanyFormController::class, 'getServerCost'])->name('project.cost_detail');
+        Route::get('/get-backup_cost', [CompanyFormController::class, 'getBackupCost'])->name('backup_cost');
         Route::get('/get-os_disk', [CompanyFormController::class, 'get_os_disk'])->name('server_os_disk');
 
 

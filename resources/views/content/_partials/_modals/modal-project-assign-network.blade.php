@@ -18,7 +18,7 @@
                             <label class="form-label" for="modalPort">Network Port Group </label>
                             <div data-repeater-item>
                                 <div class="row d-flex align-items-end">
-                                    <div class="col-md-5 col-12">
+                                    <div class="col-md-12 col-12">
                                         <div class="mb-1">
                                             <label class="form-label" for="itemname">Nic</label>
                                             <select required class="form-select  select2-network" name="type" id="select2-custom-nic" >
@@ -32,17 +32,17 @@
                                     </div>
 
 
-                                    <div class="col-md-5 col-12">
+                                    <div class="col-md-12 col-12">
                                         <div class="mb-1">
                                             <label class="form-label" for="ipaddress">IP Address</label>
                                             <input
-                                                disabled
+                                                readonly
                                                 type="text"
                                                 class="form-control"
                                                 id="ipaddress"
                                                 name="ipaddress"
                                                 aria-describedby="ipaddress"
-                                                placeholder="xxx.xxx.xxx.xxx"
+                                                placeholder="NSX Auto Assign"
                                             />
                                         </div>
                                     </div>

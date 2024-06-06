@@ -284,6 +284,17 @@
                         },
 
                         {
+                            // Project Owner
+                            targets: 5,
+                            render: function (data, type, full, meta) {
+                                var $status_title = full['price'];
+                                // Creates full output for row
+                                var $rowOutput =  '<div class="d-flex flex-column">{{env("APP_COST", "RM ")}}'  + $status_title + '</a></div>';
+                                return $rowOutput;
+                            }
+
+                        },
+                        {
                             // Actions
                             targets: -1,
                             title: 'Actions',
