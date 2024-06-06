@@ -17,7 +17,7 @@
             <!-- Brand logo-->
             <a class="brand-logo" href="#">
                 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1221 1222"  height="28">
-                    <title>cimb-ar21-230322-1-pdf-svg</title>
+                    <title>ci-svg</title>
                     <defs>
                         <clipPath clipPathUnits="userSpaceOnUse" id="cp1">
                             <path d="m-1439.64-4917.85h21984.31v31054.64h-21984.31z"/>
@@ -26,7 +26,7 @@
                     <style>
                         .s0 { fill: #790008 }
                         .s1 { fill: #ffffff }
-                        .s2 { fill: #ed1d24 }
+                        .s2 { fill: #ffffff }
                     </style>
                     <g id="Clip-Path: Page 1" clip-path="url(#cp1)">
                         <g id="Page 1">

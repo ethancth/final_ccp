@@ -568,14 +568,10 @@ _
 /resources/views/panels/horizontalMenu.blade.php,a/c/ac70db115e3f74d932b2d7f837f70780b31c72fe
 U
 %resources/views/auth/verify.blade.php,3/c/3c1e8253bfb790727f336438ffc80c2848f35a84
-T
-$resources/views/auth/login.blade.php,f/b/fb3cbd7f4b7fd6fa26794a37d7b2f8f783688ff9
 W
 'resources/views/auth/register.blade.php,8/6/8600e63b1d771a3b86abef40d1ef23e1ffb21feb
 ^
 .resources/views/auth/passwords/reset.blade.php,3/9/393ec4c42846877e96602d009593e575b6e75202
-^
-.resources/views/auth/passwords/email.blade.php,f/a/fa11836edffee21a82bdf8f3e8c0265b661a6626
 R
 "resources/scss/base/bootstrap.scss,9/e/9eb44b415e72fde773af03bc34e73eca23a16059
 _
